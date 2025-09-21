@@ -1,31 +1,36 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInputActions playerInputActions;
     private Rigidbody2D rb;
     private PlayerModel playerModel;
     private MeleeWeaponController meleeController;
+    private Vector2 moveDirection;
     void Awake()
     {
-        playerInputActions = new();
-        playerInputActions.Enable();
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModel>();
         meleeController = GetComponentInChildren<MeleeWeaponController>();
     }
 
-    private Vector2 GetMovementVector() => playerInputActions.Player.Move.ReadValue<Vector2>();
-    
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveDirection = context.ReadValue<Vector2>();
+    }
+
     private void FixedUpdate()
     {
-        Vector2 inputVector = GetMovementVector().normalized;
-        rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
-        if (playerInputActions.Player.MeleeAttack.IsPressed())
-        {
-            MeleeAttack();
-        }
+        MovePlayer(moveDirection);
+        //if (playerInputActions.Player.MeleeAttack.IsPressed())
+        //{
+        //    MeleeAttack();
+        //}
+    }
 
+    private void MovePlayer(Vector2 inputVector)
+    {
+        rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
     }
 
     private void MeleeAttack()

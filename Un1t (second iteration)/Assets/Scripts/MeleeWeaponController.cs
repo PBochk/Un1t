@@ -1,4 +1,4 @@
-//TODO: прописать атаку ближним оружием
+//TODO: make melee weapon work
 using UnityEngine;
 
 public class MeleeWeaponController : MonoBehaviour
