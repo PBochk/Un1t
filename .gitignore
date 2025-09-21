@@ -14,7 +14,7 @@
 com.merry-yellow.code-assist
 TextMesh Pro/
 .idea
-
+copilot-instructions
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
 *.blend1.meta
