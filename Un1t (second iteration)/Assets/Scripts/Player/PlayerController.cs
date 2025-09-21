@@ -14,27 +14,25 @@ public class PlayerController : MonoBehaviour
         meleeController = GetComponentInChildren<MeleeWeaponController>();
     }
 
+    private void FixedUpdate()
+    {
+        MovePlayer(moveDirection);
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
     }
 
-    private void FixedUpdate()
-    {
-        MovePlayer(moveDirection);
-        //if (playerInputActions.Player.MeleeAttack.IsPressed())
-        //{
-        //    MeleeAttack();
-        //}
-    }
 
     private void MovePlayer(Vector2 inputVector)
     {
         rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
     }
 
-    private void MeleeAttack()
-    {
-        meleeController.Attack();
-    }
+    public void StartMeleeAttack(InputAction.CallbackContext context) => meleeController.Attack();
+    
+    public void OnMeleeAttack() => meleeController.OnAttack();
+
+    
 }
