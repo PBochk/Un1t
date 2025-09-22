@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MeeeleeChaseState : EnemyState
+public class MeleeChaseState : EnemyState
 {
     public override void MakeDecision(IEnemyTarget target, EnemyView view, EnemyModel model, Rigidbody2D enemyRb)
     {
