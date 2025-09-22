@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyController enemyPrefab;
     [SerializeField] private EnemyDummyTarget dummyTargetPrefab;
     private EnemyDummyTarget dummyTarget;
+    private IEnemyTarget target;
     
     //TODO: Methods for enemy creation, and in initialization this should be on creation step
     private void Awake()
@@ -16,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SetTarget(IEnemyTarget target)
     {
-        
+        this.target = target;
     }
+    
+    
 }
