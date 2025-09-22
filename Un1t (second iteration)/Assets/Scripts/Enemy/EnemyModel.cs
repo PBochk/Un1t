@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Used to determine enemy's current state,
+/// intended to be immutable
+/// </summary>
 public struct EnemyModel
 {
     public float Health { get; }
