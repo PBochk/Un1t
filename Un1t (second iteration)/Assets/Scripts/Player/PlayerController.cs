@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -7,6 +8,9 @@ public class PlayerController : MonoBehaviour
     private PlayerModel playerModel;
     private MeleeWeaponController meleeController;
     private Vector2 moveDirection;
+
+    public UnityEvent onAttack;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,15 +28,18 @@ public class PlayerController : MonoBehaviour
         moveDirection = context.ReadValue<Vector2>();
     }
 
-
     private void MovePlayer(Vector2 inputVector)
     {
         rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
     }
 
     public void StartMeleeAttack(InputAction.CallbackContext context) => meleeController.Attack();
-    
-    public void OnMeleeAttack() => meleeController.OnAttack();
+
+    public void OnMeleeAttack()
+    {
+        meleeController.OnAttack();
+        onAttack?.Invoke();
+    }
 
     
 }
