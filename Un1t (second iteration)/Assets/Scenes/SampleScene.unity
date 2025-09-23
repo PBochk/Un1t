@@ -982,10 +982,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5131074169179311722, guid: 3be48e4c9361f5a409a06dc0ede02bba, type: 3}
-      propertyPath: CurrentCooldown
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
