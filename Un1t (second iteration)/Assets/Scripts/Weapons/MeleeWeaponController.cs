@@ -4,19 +4,20 @@ using System.Collections.Generic;
 
 public class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] LayerMask enemyMask;
+    [SerializeField] private LayerMask enemyMask;
 
     private Animator anim;
     private MeleeWeaponModel model;
     private CircleCollider2D weaponCollider;
-    private ContactFilter2D contactFilter = new();
+    private ContactFilter2D contactFilter;
     private List<Collider2D> damagedEnemy;
     private void Awake()
     {
         anim = GetComponentInParent<Animator>();
         model = GetComponent<MeleeWeaponModel>();
         weaponCollider = GetComponent<CircleCollider2D>();
-        contactFilter.layerMask = enemyMask;
+        contactFilter = new();
+        contactFilter.SetLayerMask(enemyMask);
     }
 
     //TODO: implement a coroutine or some other way to update cooldown
@@ -46,12 +47,11 @@ public class MeleeWeaponController : MonoBehaviour
     {
         var enemies = new List<Collider2D>();
         Physics2D.OverlapCollider(weaponCollider, contactFilter, enemies);
-        Debug.Log(enemies.Count);
         foreach (var enemy in enemies)
         {
             if (!damagedEnemy.Contains(enemy))
             {
-                Debug.Log("Damage taken: " + model.Damage);
+                Debug.Log("Damage taken: " + model.Damage + " by enemy: " + enemy.name);
                 damagedEnemy.Add(enemy);
             }
         }
