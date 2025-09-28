@@ -6,7 +6,7 @@ public class PlayerView : MonoBehaviour
     public void Awake()
     {
         PlayerController controller = GetComponent<PlayerController>();
-        controller.onAttack.AddListener(OnAttack);
+        controller.onMeleeAttack.AddListener(OnAttack);
     }
 
     private void OnAttack()

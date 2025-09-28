@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MeleeWeaponModel : MonoBehaviour
+public abstract class MeleeWeaponModel : MonoBehaviour 
 {
     public float Damage;
     public float AttackCooldown;

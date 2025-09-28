@@ -6,16 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerModel playerModel;
-    private MeleeWeaponController meleeController;
     private Vector2 moveDirection;
 
-    public UnityEvent onAttack;
+    public UnityEvent onMeleeAttackStart;
+    public UnityEvent onMeleeAttack;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModel>();
-        meleeController = GetComponentInChildren<MeleeWeaponController>();
     }
 
     private void FixedUpdate()
@@ -33,13 +32,13 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
     }
 
-    public void StartMeleeAttack(InputAction.CallbackContext context) => meleeController.Attack();
+    public void StartMeleeAttack(InputAction.CallbackContext context)
+    {
+        onMeleeAttackStart?.Invoke();
+    }
 
     public void OnMeleeAttack()
     {
-        meleeController.OnAttack();
-        onAttack?.Invoke();
+        onMeleeAttack?.Invoke();
     }
-
-    
 }
