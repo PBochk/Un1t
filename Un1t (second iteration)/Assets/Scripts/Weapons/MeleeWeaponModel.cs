@@ -2,7 +2,6 @@ using UnityEngine;
 
 public abstract class MeleeWeaponModel : MonoBehaviour 
 {
-    public float Damage;
-    public float AttackCooldown;
-    [HideInInspector] public float CurrentCooldown;
+    public float Damage { get; set; }
+    public bool IsAttackReady { get; set; } = true;
 }

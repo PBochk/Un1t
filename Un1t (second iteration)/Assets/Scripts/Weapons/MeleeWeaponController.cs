@@ -1,57 +1,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public abstract class MeleeWeaponController : MonoBehaviour
 {
     [SerializeField] private LayerMask enemyMask;
 
     protected MeleeWeaponModel model;
-    private Animator anim;
-    private CircleCollider2D weaponCollider;
+    private Collider2D[] weaponColliders;
     private ContactFilter2D contactFilter = new();
     private List<Collider2D> damagedEnemy;
 
     protected virtual void Awake()
     {
         model = GetComponent<MeleeWeaponModel>();
-        anim = GetComponentInParent<Animator>();
-        weaponCollider = GetComponent<CircleCollider2D>();
+        weaponColliders = GetComponents<Collider2D>();
         contactFilter.SetLayerMask(enemyMask);
     }
 
-    ////TODO: implement a coroutine or some other way to update cooldown
-    private void FixedUpdate()
+    public virtual void StartMeleeAttack()
     {
-        if (model.CurrentCooldown > 0)
+        if (model.IsAttackReady)
         {
-            model.CurrentCooldown -= Time.fixedDeltaTime;
-        }
-    }
-
-    public void StartMeleeAttack()
-    {
-        if (model.CurrentCooldown <= 0)
-        {
-            //Debug.Log("MeleeAttack");
-            model.CurrentCooldown = model.AttackCooldown;
             damagedEnemy = new();
-            anim.SetTrigger("MeleeAttack");
         }
     }
 
     //// damagedEnemy list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
     ////TODO: find a better way to deal damage to enemy only once per attack
-    public void OnMeleeAttack()
+    public virtual void OnMeleeAttack()
     {
         var enemies = new List<Collider2D>();
-        Physics2D.OverlapCollider(weaponCollider, contactFilter, enemies);
-        foreach (var enemy in enemies)
+        foreach (var weaponCollider in weaponColliders)
         {
-            if (!damagedEnemy.Contains(enemy))
+            Physics2D.OverlapCollider(weaponCollider, contactFilter, enemies);
+            foreach (var enemy in enemies)
             {
-                Debug.Log("Damage taken: " + model.Damage + " by enemy " + enemy.name);
-                damagedEnemy.Add(enemy);
+                if (!damagedEnemy.Contains(enemy))
+                {
+                    Debug.Log("Damage taken: " + model.Damage + " by enemy " + enemy.name);
+                    damagedEnemy.Add(enemy);
+                }
             }
         }
     }

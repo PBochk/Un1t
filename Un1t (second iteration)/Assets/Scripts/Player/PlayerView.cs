@@ -1,17 +1,28 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private AudioSource attackSound;
+    private PlayerController controller;
+    private PlayerMeleeWeaponController weaponController;
+    private Animator animator;
     public void Awake()
     {
-        PlayerController controller = GetComponent<PlayerController>();
-        controller.onMeleeAttack.AddListener(OnAttack);
+        animator = GetComponent<Animator>();
+        controller = GetComponent<PlayerController>();
+        controller.onMeleeAttack.AddListener(OnMelee);
+        weaponController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        weaponController.onMeleeAttackStart.AddListener(MeleeAttackAnimationStart);
     }
 
-    private void OnAttack()
+    private void MeleeAttackAnimationStart()
+    {
+        animator.SetTrigger("MeleeAttack");
+    }
+
+    private void OnMelee()
     {
         attackSound.Play();
     }
-
 }
