@@ -1,59 +1,66 @@
-//TODO: make melee weapon work
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class MeleeWeaponController : MonoBehaviour
+/// <summary>
+/// An abstract class made for summarizing general behaviour of melee weapon attacks.
+/// </summary>
+/// <remarks>
+/// Its derivatives should subscribe its methods on parent's (player or enemy) controller events
+/// and invoke changes in model.IsAttackReady
+/// </remarks>
+public abstract class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private LayerMask targetMask;
 
-    private Animator anim;
-    private MeleeWeaponModel model;
-    private CircleCollider2D weaponCollider;
-    private ContactFilter2D contactFilter;
-    private List<Collider2D> damagedEnemy;
-    private void Awake()
+    protected MeleeWeaponModel model;
+    private Collider2D[] weaponColliders;
+    private ContactFilter2D contactFilter = new();
+    private List<Collider2D> damagedTargets;
+
+    /// <summary>
+    /// Could be overriden with base call
+    /// </summary>
+    protected virtual void Awake()
     {
-        anim = GetComponentInParent<Animator>();
         model = GetComponent<MeleeWeaponModel>();
-        weaponCollider = GetComponent<CircleCollider2D>();
-        contactFilter = new();
-        contactFilter.SetLayerMask(enemyMask);
+        weaponColliders = GetComponents<Collider2D>();
+        contactFilter.SetLayerMask(targetMask);
     }
 
-    //TODO: implement a coroutine or some other way to update cooldown
-    private void FixedUpdate()
+    /// <summary>
+    /// Could be overriden with base call BEFORE model.IsAttackReady update
+    /// </summary>
+    protected virtual void StartMeleeAttack()
     {
-        if (model.CurrentCooldown > 0)
+        if (model.IsAttackReady)
         {
-            model.CurrentCooldown -= Time.fixedDeltaTime;
-        }
-        
-    }
-
-    public void Attack()
-    {
-        if (model.CurrentCooldown <= 0)
-        {
-            Debug.Log("MeleeAttack");
-            model.CurrentCooldown = model.AttackCooldown;
-            damagedEnemy = new();
-            anim.SetTrigger("MeleeAttack");
+            damagedTargets = new();
         }
     }
 
-    // damagedEnemy list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
-    //TODO: find a way to deal damage to enemy only once per attack
-    public void OnAttack()
+    /// <summary>
+    /// Responsible for deciding which targets will be hit by attack
+    /// </summary>
+    /// <remarks>
+    /// damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
+    /// </remarks>
+    // TODO: find a better way to deal damage to target only once per attack
+    protected virtual void OnMeleeAttack()
     {
-        var enemies = new List<Collider2D>();
-        Physics2D.OverlapCollider(weaponCollider, contactFilter, enemies);
-        foreach (var enemy in enemies)
+        var targets = new List<Collider2D>();
+        foreach (var weaponCollider in weaponColliders)
         {
-            if (!damagedEnemy.Contains(enemy))
+            Physics2D.OverlapCollider(weaponCollider, contactFilter, targets);
+            foreach (var target in targets)
             {
-                Debug.Log("Damage taken: " + model.Damage + " by enemy: " + enemy.name);
-                damagedEnemy.Add(enemy);
+                if (!damagedTargets.Contains(target))
+                {
+                    //TODO: implement damage system
+                    Debug.Log("Damage taken: " + model.Damage + " by enemy " + target.name);
+                    damagedTargets.Add(target);
+                }
             }
         }
     }
 }
+
