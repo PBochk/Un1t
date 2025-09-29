@@ -14,7 +14,7 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
         base.Awake();
     }
 
-    public override void StartMeleeAttack()
+    protected override void StartMeleeAttack()
     {
         base.StartMeleeAttack();
         if (model.IsAttackReady)

@@ -10,9 +10,8 @@ public class PlayerController : MonoBehaviour
 
     public UnityEvent onMeleeAttackStart;
     public UnityEvent onMeleeAttack;
-    public UnityEvent onMeleeAttackEnd;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModel>();
@@ -42,10 +41,5 @@ public class PlayerController : MonoBehaviour
     public void OnMeleeAttack()
     {
         onMeleeAttack?.Invoke();
-    }
-
-    public void EndMeleeAttack()
-    {
-        onMeleeAttackEnd?.Invoke();
     }
 }

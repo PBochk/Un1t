@@ -3,42 +3,43 @@ using UnityEngine;
 
 public abstract class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private LayerMask targetMask;
 
     protected MeleeWeaponModel model;
     private Collider2D[] weaponColliders;
     private ContactFilter2D contactFilter = new();
-    private List<Collider2D> damagedEnemy;
+    private List<Collider2D> damagedTargets;
 
     protected virtual void Awake()
     {
         model = GetComponent<MeleeWeaponModel>();
         weaponColliders = GetComponents<Collider2D>();
-        contactFilter.SetLayerMask(enemyMask);
+        contactFilter.SetLayerMask(targetMask);
     }
 
-    public virtual void StartMeleeAttack()
+    protected virtual void StartMeleeAttack()
     {
         if (model.IsAttackReady)
         {
-            damagedEnemy = new();
+            damagedTargets = new();
         }
     }
 
     //// damagedEnemy list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
     ////TODO: find a better way to deal damage to enemy only once per attack
-    public virtual void OnMeleeAttack()
+    protected virtual void OnMeleeAttack()
     {
-        var enemies = new List<Collider2D>();
+        var targets = new List<Collider2D>();
         foreach (var weaponCollider in weaponColliders)
         {
-            Physics2D.OverlapCollider(weaponCollider, contactFilter, enemies);
-            foreach (var enemy in enemies)
+            Physics2D.OverlapCollider(weaponCollider, contactFilter, targets);
+            foreach (var target in targets)
             {
-                if (!damagedEnemy.Contains(enemy))
+                if (!damagedTargets.Contains(target))
                 {
-                    Debug.Log("Damage taken: " + model.Damage + " by enemy " + enemy.name);
-                    damagedEnemy.Add(enemy);
+                    //TODO: implement damage system
+                    Debug.Log("Damage taken: " + model.Damage + " by enemy " + target.name);
+                    damagedTargets.Add(target);
                 }
             }
         }
