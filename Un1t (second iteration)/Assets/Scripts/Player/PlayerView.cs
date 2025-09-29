@@ -1,6 +1,10 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Sets animation triggers, plays sounds
+/// There will be player related UI too
+/// </summary>
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private AudioSource attackSound;

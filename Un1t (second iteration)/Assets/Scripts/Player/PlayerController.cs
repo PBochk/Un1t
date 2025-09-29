@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Subscribed on player's input events and events invoked in attack animations
+/// Processes player's movement and invoke events for attacks
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
