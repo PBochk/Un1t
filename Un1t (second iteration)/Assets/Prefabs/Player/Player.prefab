@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bc47da59d420049844340f734747f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSound: {fileID: 8564208846730262985}
+  attackSound: {fileID: 2330310816021951740}
 --- !u!95 &956851122708948023
 Animator:
   serializedVersion: 7
