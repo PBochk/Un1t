@@ -1,20 +1,20 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// An implementation of weapon model for player to use
+/// </summary>
 public class PlayerMeleeWeaponModel : MeleeWeaponModel
 {
-    [SerializeField] private float damage;
-    [SerializeField] public float AttackCooldown;
+    [SerializeField] private float attackCooldown;
 
-    private void Awake()
-    {
-        Damage = damage;
-    }
-
+    /// <summary>
+    /// Is used when attack ends. Waits for attack cooldown than allows to make the next one  
+    /// </summary>
     public IEnumerator WaitForAttackCooldown()
     {
         IsAttackReady = false;
-        yield return new WaitForSeconds(AttackCooldown);
+        yield return new WaitForSeconds(attackCooldown);
         IsAttackReady = true;
     }
 }

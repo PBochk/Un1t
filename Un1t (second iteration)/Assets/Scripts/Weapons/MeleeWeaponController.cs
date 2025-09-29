@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An abstract class made for summarizing general behaviour of melee weapon attacks.
+/// </summary>
+/// <remarks>
+/// Its derivatives should subscribe its methods on parent's (player or enemy) controller events
+/// and invoke changes in model.IsAttackReady
+/// </remarks>
 public abstract class MeleeWeaponController : MonoBehaviour
 {
     [SerializeField] private LayerMask targetMask;
@@ -10,6 +17,9 @@ public abstract class MeleeWeaponController : MonoBehaviour
     private ContactFilter2D contactFilter = new();
     private List<Collider2D> damagedTargets;
 
+    /// <summary>
+    /// Could be overriden with base call
+    /// </summary>
     protected virtual void Awake()
     {
         model = GetComponent<MeleeWeaponModel>();
@@ -17,6 +27,9 @@ public abstract class MeleeWeaponController : MonoBehaviour
         contactFilter.SetLayerMask(targetMask);
     }
 
+    /// <summary>
+    /// Could be overriden with base call BEFORE model.IsAttackReady update
+    /// </summary>
     protected virtual void StartMeleeAttack()
     {
         if (model.IsAttackReady)
@@ -25,8 +38,13 @@ public abstract class MeleeWeaponController : MonoBehaviour
         }
     }
 
-    //// damagedEnemy list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
-    ////TODO: find a better way to deal damage to enemy only once per attack
+    /// <summary>
+    /// Responsible for deciding which targets will be hit by attack
+    /// </summary>
+    /// <remarks>
+    /// damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
+    /// </remarks>
+    // TODO: find a better way to deal damage to target only once per attack
     protected virtual void OnMeleeAttack()
     {
         var targets = new List<Collider2D>();
