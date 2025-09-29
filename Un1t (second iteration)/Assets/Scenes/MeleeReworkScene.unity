@@ -1782,6 +1782,10 @@ PrefabInstance:
       propertyPath: cooldownText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8401654638691733578, guid: 3be48e4c9361f5a409a06dc0ede02bba, type: 3}
+      propertyPath: targetMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8564208846730262985, guid: 3be48e4c9361f5a409a06dc0ede02bba, type: 3}
       propertyPath: m_Volume
       value: 0

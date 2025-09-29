@@ -166,9 +166,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695902b03f8751942a467a4d362c5529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy:
+  targetMask:
     serializedVersion: 2
     m_Bits: 64
+  onMeleeAttackStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1270717038233213044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,5 +184,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b2c3661c7b2584bb03f1752c780ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
-  AttackCooldown: 1
+  damage: 1
+  attackCooldown: 0.25
