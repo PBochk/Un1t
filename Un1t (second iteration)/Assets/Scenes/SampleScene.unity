@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a2eae1a56b86b4d914366845956f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room: {fileID: 1047099008050089770, guid: 831298fc716484b4986d810ff53f2051, type: 3}
+  room: {fileID: 1047099008050089770, guid: a5e90b6b6b6345149822883e75bf71d0, type: 3}
   door: {fileID: 8431578257527936141, guid: f962ce0063f40d541a186b9999c6db95, type: 3}
 --- !u!4 &1049921239
 Transform:
