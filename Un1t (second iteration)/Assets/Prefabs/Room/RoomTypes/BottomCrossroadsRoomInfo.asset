@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: BottomCrossroadsRoomInfo
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 1047099008050089770, guid: 40dd3988ae152c0429cdf8d4e864019a, type: 3}
-  leftTop: 0
-  middleTop: 1
-  rightTop: 0
-  leftBottom: 0
-  middleBottom: 0
-  rightBottom: 0
-  topLeft: 0
-  middleLeft: 0
-  bottomLeft: 1
-  topRight: 0
-  middleRight: 0
-  bottomRight: 1
+  leftTopIsEmpty: 0
+  middleTopIsEmpty: 1
+  rightTopIsEmpty: 0
+  leftBottomIsEmpty: 0
+  middleBottomIsEmpty: 0
+  rightBottomIsEmpty: 0
+  topLeftIsEmpty: 0
+  middleLeftIsEmpty: 0
+  bottomLeftIsEmpty: 1
+  topRightIsEmpty: 0
+  middleRightIsEmpty: 0
+  bottomRightIsEmpty: 1

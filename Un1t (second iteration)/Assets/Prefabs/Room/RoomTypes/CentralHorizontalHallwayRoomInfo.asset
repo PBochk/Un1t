@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: CentralHorizontalHallwayRoomInfo
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 1047099008050089770, guid: 831298fc716484b4986d810ff53f2051, type: 3}
-  leftTop: 0
-  middleTop: 0
-  rightTop: 0
-  leftBottom: 0
-  middleBottom: 0
-  rightBottom: 0
-  topLeft: 0
-  middleLeft: 1
-  bottomLeft: 0
-  topRight: 0
-  middleRight: 1
-  bottomRight: 0
+  leftTopIsEmpty: 0
+  middleTopIsEmpty: 1
+  rightTopIsEmpty: 0
+  leftBottomIsEmpty: 0
+  middleBottomIsEmpty: 1
+  rightBottomIsEmpty: 0
+  topLeftIsEmpty: 0
+  middleLeftIsEmpty: 1
+  bottomLeftIsEmpty: 0
+  topRightIsEmpty: 0
+  middleRightIsEmpty: 1
+  bottomRightIsEmpty: 0

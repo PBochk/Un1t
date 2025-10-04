@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_Name
-      value: CentralVerticalBottomDeadlockRoom
+      value: CentralVerticalTopDeadlockRoom
       objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalPosition.x
@@ -97,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1521219959618822850, guid: 595a4c102e692e84f9588f50b23f4985, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1521219959618822850, guid: 595a4c102e692e84f9588f50b23f4985, type: 3}
       propertyPath: m_LocalPosition.z
