@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Represents one object in a room
+/// Contains the object and its position in the room
+/// </summary>
 public class RoomEntity
 {
     public GameObject GameObject { get; }
