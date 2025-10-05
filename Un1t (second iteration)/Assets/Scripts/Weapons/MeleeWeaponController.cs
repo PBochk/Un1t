@@ -15,7 +15,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected MeleeWeaponModel model;
     private Collider2D[] weaponColliders;
     private ContactFilter2D contactFilter = new();
-    private List<Collider2D> damagedTargets;
+    private HashSet<Collider2D> damagedTargets = new();
 
     /// <summary>
     /// Could be overriden with base call
@@ -34,7 +34,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     {
         if (model.IsAttackReady)
         {
-            damagedTargets = new();
+            damagedTargets.Clear();
         }
     }
 
