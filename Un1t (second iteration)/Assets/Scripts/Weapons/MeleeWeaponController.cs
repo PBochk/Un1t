@@ -55,8 +55,8 @@ public abstract class MeleeWeaponController : MonoBehaviour
             {
                 if (!damagedTargets.Contains(target))
                 {
-                    //TODO: implement damage system
-                    Debug.Log("Damage taken: " + model.Damage + " by enemy " + target.name);
+                    target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
+                    Debug.Log("Damage taken: " + model.Damage + " by entity " + target.name);
                     damagedTargets.Add(target);
                 }
             }
