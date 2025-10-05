@@ -3,7 +3,8 @@ using System.Collections;
 using System.Dynamic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D),
+    typeof(SlimeAnimator))]
 public class SlimeFollowState : EnemyState
 {
     public event Action JumpStart;
@@ -20,12 +21,13 @@ public class SlimeFollowState : EnemyState
     private Vector2 direction;
     
     private Rigidbody2D enemyRb;
-    private BlueSlimeView view;
+    //TODO: Logic state should not be dependant on animator class, make an event that is view subscribed on
+    private SlimeAnimator animator;
 
     private void Awake()
     {
         enemyRb =  GetComponent<Rigidbody2D>();
-        view = GetComponent<BlueSlimeView>();
+        animator = GetComponent<SlimeAnimator>();
     }
     
     public override void MakeDecision(IEnemyTarget target, EnemyModel model)
@@ -40,7 +42,7 @@ public class SlimeFollowState : EnemyState
     private IEnumerator Jump()
     {
         moving = true;
-        view.PlayJumpAnimation();
+        animator.PlayJumpAnimation();
         JumpStart?.Invoke();
         while (moveTimer <= BASE_MOVE_TIME)
         {
@@ -55,7 +57,7 @@ public class SlimeFollowState : EnemyState
 
     private IEnumerator AfterJumpDelay()
     {
-        view.PlayIdleAnimation();
+        animator.PlayIdleAnimation();
         onDelay = true;
         yield return jumpDelay;
         onDelay = false;
