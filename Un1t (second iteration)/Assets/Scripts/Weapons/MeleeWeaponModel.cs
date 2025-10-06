@@ -11,4 +11,5 @@ public abstract class MeleeWeaponModel : MonoBehaviour
         set => damage = value; 
     }
     public bool IsAttackReady { get; protected set; } = true;
+    public bool IsAttackActive { get; set; } = false;
 }
