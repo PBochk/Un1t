@@ -12,6 +12,8 @@ public class HealthComponent : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public float Health => currentHealth;
+
     public void TakeHeal(float heal)
     {
         currentHealth = (currentHealth + heal <= maxHealth) ? currentHealth + heal : maxHealth;
@@ -21,6 +23,7 @@ public class HealthComponent : MonoBehaviour
     {
         currentHealth -= damage;
         CheckHealth();
+        Debug.Log("Damage taken: " + damage + " by entity: " + name + " current hp: " + currentHealth);
     }
 
     private void CheckHealth()
@@ -28,6 +31,7 @@ public class HealthComponent : MonoBehaviour
         if (currentHealth <= 0)
         {
             Death?.Invoke();
+            Destroy(gameObject);
         }
     }
 }
