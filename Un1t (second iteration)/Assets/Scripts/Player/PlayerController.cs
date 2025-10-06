@@ -12,14 +12,14 @@ public class PlayerController : MonoBehaviour
     private PlayerModel playerModel;
     private Vector2 moveDirection;
 
-    public UnityEvent onMeleeAttackStart;
-    public UnityEvent onMeleeAttack;
+    public UnityEvent StartMelee;
+    public UnityEvent StartMeleeActive;
+    public UnityEvent EndMeleeActive;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModel>();
-        onMeleeAttack?.Invoke();
     }
 
     private void FixedUpdate()
@@ -27,9 +27,9 @@ public class PlayerController : MonoBehaviour
         MovePlayer(moveDirection);
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue value)
     {
-        moveDirection = context.ReadValue<Vector2>();
+        moveDirection = value.Get<Vector2>();
     }
 
     private void MovePlayer(Vector2 inputVector)
@@ -37,13 +37,17 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
     }
 
-    public void StartMeleeAttack(InputAction.CallbackContext context)
-    {
-        onMeleeAttackStart?.Invoke();
-    }
-
     public void OnMeleeAttack()
     {
-        onMeleeAttack?.Invoke();
+        StartMelee?.Invoke();
+    }
+
+    public void OnMeleeActiveStart()
+    {
+        StartMeleeActive?.Invoke();
+    }
+    public void OnMeleeActiveEnd()
+    {
+        EndMeleeActive?.Invoke();
     }
 }

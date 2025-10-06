@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
     private PlayerController playerController;
-    public UnityEvent onMeleeAttackStart;
 
     /// <summary>
     /// Overrides abstract model on player's implementation
@@ -16,20 +15,20 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     {
         model = GetComponent<PlayerMeleeWeaponModel>();
         playerController = GetComponentInParent<PlayerController>();
-        playerController.onMeleeAttackStart.AddListener(StartMeleeAttack);
-        playerController.onMeleeAttack.AddListener(OnMeleeAttack);
+        playerController.StartMelee.AddListener(StartMelee);
+        playerController.StartMeleeActive.AddListener(StartMeleeActive);
+        playerController.EndMeleeActive.AddListener(EndMeleeActive);
         base.Awake();
     }
 
     /// <summary>
     /// When attack is ready starts cooldown in model
     /// </summary>
-    protected override void StartMeleeAttack()
+    protected override void StartMelee()
     {
-        base.StartMeleeAttack();
+        base.StartMelee();
         if (model.IsAttackReady)
         {
-            onMeleeAttackStart?.Invoke();
             StartCoroutine(((PlayerMeleeWeaponModel)model).WaitForAttackCooldown());
         }
     }

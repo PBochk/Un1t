@@ -15,9 +15,9 @@ public class PlayerView : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<PlayerController>();
-        controller.onMeleeAttack.AddListener(OnMelee);
+        controller.StartMelee.AddListener(OnMelee);
         weaponController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        weaponController.onMeleeAttackStart.AddListener(MeleeAttackAnimationStart);
+        controller.StartMelee.AddListener(MeleeAttackAnimationStart);
     }
 
     private void MeleeAttackAnimationStart()

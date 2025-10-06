@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +11,10 @@ using UnityEngine;
 /// </remarks>
 public abstract class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] private LayerMask targetMask;
+    [SerializeField] private LayerMask targetMask; // I'm not sure if this should be here or in model
+    [SerializeField] private Collider2D[] weaponColliders;
 
     protected MeleeWeaponModel model;
-    private Collider2D[] weaponColliders;
     private ContactFilter2D contactFilter = new();
     private HashSet<Collider2D> damagedTargets = new();
 
@@ -23,14 +24,13 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected virtual void Awake()
     {
         model = GetComponent<MeleeWeaponModel>();
-        weaponColliders = GetComponents<Collider2D>();
         contactFilter.SetLayerMask(targetMask);
     }
 
     /// <summary>
     /// Could be overriden with base call BEFORE model.IsAttackReady update
     /// </summary>
-    protected virtual void StartMeleeAttack()
+    protected virtual void StartMelee()
     {
         if (model.IsAttackReady)
         {
@@ -45,8 +45,16 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
     /// </remarks>
     // TODO: find a better way to deal damage to target only once per attack
-    protected virtual void OnMeleeAttack()
+
+    protected virtual void StartMeleeActive()
     {
+        model.IsAttackActive = true;
+        StartCoroutine(OnMeleeActive());
+    }
+
+    protected IEnumerator OnMeleeActive()
+    {
+        yield return new WaitForFixedUpdate();
         foreach (var weaponCollider in weaponColliders)
         {
             var targets = new List<Collider2D>();
@@ -60,6 +68,16 @@ public abstract class MeleeWeaponController : MonoBehaviour
                 }
             }
         }
+        if (model.IsAttackActive)
+        {
+            StartCoroutine(OnMeleeActive());
+        }
     }
+
+    protected virtual void EndMeleeActive()
+    {
+        model.IsAttackActive = false;
+    }
+
 }
 
