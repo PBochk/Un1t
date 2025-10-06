@@ -8,19 +8,29 @@ using UnityEngine;
    typeof(SlimeMeleeAttackState))]
 public class BlueSlimeController : EnemyController
 {
-   private DeadState deadState;
-   private IdleState idleState;
    private SlimeFollowState followState;
    private SlimeMeleeAttackState meleeState;
    protected override void Awake()
    {
       base.Awake();
-      deadState = GetComponent<DeadState>();
-      idleState = GetComponent<IdleState>();
+      
+      //TODO: Make methods in base class for initialization steps
+      //this includes: State binding, entry state
+      
       followState = GetComponent<SlimeFollowState>();
       meleeState = GetComponent<SlimeMeleeAttackState>();
       view = GetComponent<BlueSlimeView>();
       
-      currentState = followState;
+      idleState.OnStateExit.AddListener((b) => ChangeState(followState));
+      followState.OnStateExit.AddListener(FollowExit);
+   }
+
+   private void FollowExit(bool inRange)
+   {
+      if (!inRange)
+      {
+         followState.EnterState(target,  model);
+      }
+      ChangeState(meleeState);
    }
 }

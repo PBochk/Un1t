@@ -2,20 +2,21 @@ using System;
 using System.Collections;
 using System.Dynamic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D),
     typeof(SlimeAnimator))]
 public class SlimeFollowState : EnemyState
 {
-    public event Action JumpStart;
+    public UnityEvent jumpStart;
     
     private const float BASE_SPEED = 3f;
     private const float BASE_MOVE_TIME = 1f;
+    private const float BASE_RANGE = 0.75f;
+    private const float BASE_AGGRO_RANGE = 1f;
     
     private WaitForSeconds jumpDelay = new WaitForSeconds(1f);
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
-    private bool onDelay = false;
-    private bool moving = false;
     private float moveTimer = 0;
     private Vector2 startPosition;
     private Vector2 direction;
@@ -30,36 +31,47 @@ public class SlimeFollowState : EnemyState
         animator = GetComponent<SlimeAnimator>();
     }
     
-    public override void MakeDecision(IEnemyTarget target, EnemyModel model)
+    public override void EnterState(IEnemyTarget target, EnemyModel model)
     {
-        if (onDelay || moving) return;
-        var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position), BASE_SPEED);
+        base.EnterState(target, model);
+        var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - BASE_RANGE, BASE_SPEED);
         startPosition = enemyRb.position;
         direction = (target.Position - enemyRb.position).normalized * distance;
         StartCoroutine(Jump());
     }
 
+    //TODO: Maybe make a windup animation
     private IEnumerator Jump()
     {
-        moving = true;
         animator.PlayJumpAnimation();
-        JumpStart?.Invoke();
+        Debug.Log("Jump start");
+        //jumpStart.Invoke();
         while (moveTimer <= BASE_MOVE_TIME)
         {
             enemyRb.MovePosition(startPosition + direction * moveTimer /  BASE_MOVE_TIME);
             moveTimer += Time.fixedDeltaTime;
             yield return physicsUpdate;
         }
-        moving = false;
         moveTimer = 0f;
         StartCoroutine(AfterJumpDelay());
     }
 
     private IEnumerator AfterJumpDelay()
     {
+        Debug.Log("Delay after jump");
         animator.PlayIdleAnimation();
-        onDelay = true;
         yield return jumpDelay;
-        onDelay = false;
+        CheckInRange();
+    }
+
+    private void CheckInRange()
+    {
+        Debug.Log("RangeCheck");
+        if (Vector2.Distance(target.Position, enemyRb.position) <= BASE_AGGRO_RANGE)
+        {
+            ExitState(true);
+            return;
+        }
+        ExitState(false);
     }
 }

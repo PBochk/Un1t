@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 //TODO: Consider reanming (EnemyStrategy, perhaps?)
 /// <summary>
@@ -9,9 +10,22 @@ using UnityEngine;
 /// </remarks>
 public abstract class EnemyState : MonoBehaviour
 {
-    /// <summary>
-    /// Takes enemy current state, determined by data stored in model and target, and making a decision
-    /// by calling view and/or rigid body methods
-    /// </summary>
-    public abstract void MakeDecision(IEnemyTarget target, EnemyModel model);
+    public UnityEvent OnStateEnter;
+    public UnityEvent<bool> OnStateExit;
+
+    protected IEnemyTarget target;
+    protected EnemyModel model;
+
+    public virtual void EnterState(IEnemyTarget target, EnemyModel model)
+    {
+        Debug.Log($"Entered state: {this}");
+        this.target = target;
+        this.model = model;
+    }
+    //TODO: Ensure that a state can only be exited once
+    protected void ExitState(bool condition)
+    {
+        Debug.Log($"Exited state: {this}");
+        OnStateExit.Invoke(condition);
+    }
 }

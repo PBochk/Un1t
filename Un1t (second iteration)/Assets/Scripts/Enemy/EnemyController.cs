@@ -15,6 +15,7 @@ using UnityEngine.Events;
 /// -> (???) next is the possible create configuration for stats, but i'll figure this out later
 /// -> make a prefab variant of base enemy and attach controller and view to it
 /// </remarks>
+[RequireComponent(typeof(IdleState))]
 public abstract class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyConfig config;
@@ -24,6 +25,7 @@ public abstract class EnemyController : MonoBehaviour
     protected EnemyState currentState;
     protected Rigidbody2D rb;
     protected EnemyModel model;
+    protected IdleState idleState;
 
     public UnityEvent onDeath;
     public UnityEvent onHit;
@@ -33,9 +35,10 @@ public abstract class EnemyController : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        view = GetComponent<EnemyView>();
         rb = GetComponent<Rigidbody2D>();
+        idleState = GetComponent<IdleState>();
         model = new EnemyModel(config.MaxHealth,  config.MaxHealth, config.SpeedScale, config.Damage);
+        ChangeState(idleState);
     }
 
     /// <summary>
@@ -51,7 +54,7 @@ public abstract class EnemyController : MonoBehaviour
     /// </summary>
     protected virtual void MakeDecision()
     {
-        currentState.MakeDecision(target, model);
+        //currentState.MakeDecision(target, model);
     }
 
     /// <summary>
@@ -67,9 +70,10 @@ public abstract class EnemyController : MonoBehaviour
 
     protected void ChangeState(EnemyState newState)
     {
-        currentState.enabled = false;
+        //TODO: Make it impossible to change state when current is not exited or interrupted yet
+        Debug.Log($"Changed state: {currentState} -> {newState}");
         currentState = newState;
-        currentState.enabled = true;
+        currentState.EnterState(target, model);
     }
 
     //To be reconsidered, what to pass here
