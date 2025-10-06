@@ -6,7 +6,7 @@ public class MeleeEnemyController : EnemyController
     protected override void Awake()
     {
         currentState = new MeleeChaseState();
-        model = new EnemyModel(0, 0, 1.5f);
+        model = new EnemyModel(0, 0, 1.5f, 1);
         base.Awake();
     }
 }

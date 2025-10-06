@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
     private PlayerModel playerModel;
     private MeleeWeaponController meleeController;
     private Vector2 moveDirection;
+    public Vector2 Position => rb.position;
 
     public UnityEvent onAttack;
 
@@ -41,5 +42,5 @@ public class PlayerController : MonoBehaviour
         onAttack?.Invoke();
     }
 
-    
+
 }
