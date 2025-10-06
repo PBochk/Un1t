@@ -38,20 +38,22 @@ public abstract class MeleeWeaponController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Responsible for deciding which targets will be hit by attack
-    /// </summary>
-    /// <remarks>
-    /// damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
-    /// </remarks>
-    // TODO: find a better way to deal damage to target only once per attack
 
+    /// <summary>
+    /// Should be called in the first active frame of attack animation
+    /// </summary>
     protected virtual void StartMeleeActive()
     {
         model.IsAttackActive = true;
         StartCoroutine(OnMeleeActive());
     }
 
+    /// <summary>
+    /// Repeating every fixed update while attack is in active frames.
+    /// Responsible for deciding which targets will be hit by attack.
+    /// </summary>
+    // damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
+    // TODO: find a better way to deal damage to target only once per attack
     protected IEnumerator OnMeleeActive()
     {
         yield return new WaitForFixedUpdate();
@@ -74,6 +76,9 @@ public abstract class MeleeWeaponController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Should be called in the last active frame of attack animation
+    /// </summary>
     protected virtual void EndMeleeActive()
     {
         model.IsAttackActive = false;
