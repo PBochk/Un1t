@@ -47,16 +47,15 @@ public abstract class MeleeWeaponController : MonoBehaviour
     // TODO: find a better way to deal damage to target only once per attack
     protected virtual void OnMeleeAttack()
     {
-        var targets = new List<Collider2D>();
         foreach (var weaponCollider in weaponColliders)
         {
+            var targets = new List<Collider2D>();
             Physics2D.OverlapCollider(weaponCollider, contactFilter, targets);
             foreach (var target in targets)
             {
                 if (!damagedTargets.Contains(target))
                 {
-                    //TODO: implement damage system
-                    Debug.Log("Damage taken: " + model.Damage + " by enemy " + target.name);
+                    target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
                     damagedTargets.Add(target);
                 }
             }
