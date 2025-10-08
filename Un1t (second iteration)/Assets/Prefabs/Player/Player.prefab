@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bc47da59d420049844340f734747f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 560221877772887277}
   attackSound: {fileID: 0}
 --- !u!95 &956851122708948023
 Animator:
