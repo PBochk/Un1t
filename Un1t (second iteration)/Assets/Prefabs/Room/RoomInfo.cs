@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +8,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RoomInfo", menuName = "Scriptable Objects/RoomInfo")]
 public class RoomInfo : ScriptableObject
 {
+    public static Vector2Int SIZE = new(16, 9);
+
     [Header("Room's outer walls description. Mark if it's part is empty")]
     [SerializeField] private GameObject roomPrefab;
 
@@ -36,11 +39,15 @@ public class RoomInfo : ScriptableObject
 
     public GameObject RoomPrefab => roomPrefab;
 
+    private RoomOuterWalls? outerWalls;
+    private RoomExits? roomExits;
+
     /// <summary>
     /// Gets the complete description of all outer walls of the room
     /// Creates a RoomOuterWalls object with information about each wall part
     /// </summary>
-    public RoomOuterWalls OuterWalls => new(
+    public RoomOuterWalls OuterWalls => outerWalls
+        ?? (outerWalls = new(
         new RoomOuterWalls.Wall(
             new RoomOuterWalls.Wall.WallPart(leftTopIsEmpty),
             new RoomOuterWalls.Wall.WallPart(middleTopIsEmpty),
@@ -61,5 +68,19 @@ public class RoomInfo : ScriptableObject
             new RoomOuterWalls.Wall.WallPart(middleRightIsEmpty),
             new RoomOuterWalls.Wall.WallPart(bottomRightIsEmpty)
         )
-    );
+    )).Value;
+
+    public RoomExits Exits => roomExits
+        ?? (roomExits = CalculateRoomExits(OuterWalls)).Value;
+
+    private static RoomExits CalculateRoomExits(RoomOuterWalls roomOuterWalls)
+    {
+        static bool checkWallExit(RoomOuterWalls.Wall wall) => 
+            wall.First.IsEmpty && wall.Middle.IsEmpty && wall.Last.IsEmpty;
+
+        return new(checkWallExit(roomOuterWalls.Top), checkWallExit(roomOuterWalls.Bottom), 
+            checkWallExit(roomOuterWalls.Left), checkWallExit(roomOuterWalls.Right));
+    }
+
+
 }

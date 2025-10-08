@@ -533,7 +533,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableRooms:
   - {fileID: 11400000, guid: 1f0a0f6a289316e42be52101fee16a61, type: 2}
-  - {fileID: 11400000, guid: a7bd92691592f5244b19453ca20df56c, type: 2}
   - {fileID: 11400000, guid: 1f3382460839ff141a3d1f283076f6c6, type: 2}
   - {fileID: 11400000, guid: 9f5e5872abe768b468c974a786a0e43d, type: 2}
   - {fileID: 11400000, guid: cbcb35e778764714a98e1d0c8d1f8d51, type: 2}
@@ -541,9 +540,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d659495d2d719df459472130c4880461, type: 2}
   - {fileID: 11400000, guid: 8419cb6ccd27c2741bf69154d3d86a61, type: 2}
   - {fileID: 11400000, guid: 05b457f4cc1e8db4ba52f28981307691, type: 2}
-  door: {fileID: 8431578257527936141, guid: f962ce0063f40d541a186b9999c6db95, type: 3}
-  roomWidth: 16
-  roomHeight: 9
+  - {fileID: 11400000, guid: a7bd92691592f5244b19453ca20df56c, type: 2}
 --- !u!4 &1049921239
 Transform:
   m_ObjectHideFlags: 0

@@ -5,16 +5,15 @@ using UnityEngine;
 /// </summary>
 public class FloorManager : MonoBehaviour
 {
-    [SerializeField] private GameObject room;
-    [SerializeField] private GameObject door;
+    [SerializeField] private RoomInfo[] availableRooms;
 
-    private int roomCount;
+    private const sbyte FLOOR_SIZE = 16;
+
+    private readonly RoomInfo[,] rooms = new RoomInfo[FLOOR_SIZE, FLOOR_SIZE];
 
 
     void Awake()
     {
-        roomCount = 5;
-
         GenerateFloor();
     }
 
@@ -25,15 +24,23 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     private void GenerateFloor()
     {
-        for (var i = 0; i < roomCount; i++)
-        {
-            Vector3 roomPosition = new(i * 16f, 0, 0);
-            GameObject roomObject = Instantiate(room, roomPosition, Quaternion.identity, transform);
-            RoomManager roomManager = roomObject.GetComponent<RoomManager>();
-            RoomContentCreationInfo roomContent = new();
+        CreateRoom(ChooseRoom(default), new(FLOOR_SIZE/2, FLOOR_SIZE/2));
+    }
 
-            roomManager.CreateContent(roomContent.GetContent());
+    private void CreateRoom(RoomInfo room, Vector2Int floorGridPosition)
+    {
+        Instantiate(room.RoomPrefab, (Vector2)(floorGridPosition*RoomInfo.SIZE), Quaternion.identity, transform);
+    }
+
+    //TODO: optimize room choosing
+    private RoomInfo ChooseRoom(RoomExits roomExits) 
+    { 
+        foreach (RoomInfo room in availableRooms)
+        {
+            if (room.Exits.Equals(roomExits))
+                return room;
         }
+        throw new System.Exception("Target room wasn't found");
     }
 
 }

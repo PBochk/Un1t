@@ -53,10 +53,10 @@ public readonly struct RoomOuterWalls
         public readonly struct WallPart
         {
 
-            public bool IsNotEmpty { get; }
+            public bool IsEmpty { get; }
 
             public WallPart(bool isEmpty)
-            { IsNotEmpty = isEmpty; }
+            { IsEmpty = isEmpty; }
 
         }
 
