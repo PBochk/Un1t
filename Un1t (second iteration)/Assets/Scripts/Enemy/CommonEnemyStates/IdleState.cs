@@ -18,6 +18,6 @@ public class IdleState : EnemyState
     private IEnumerator WaitForNextFrame()
     {
         yield return new WaitForEndOfFrame();
-        ExitState(true);
+        ExitState();
     }
 }

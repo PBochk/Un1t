@@ -10,11 +10,14 @@ public class SlimeFollowState : EnemyState
 {
     public UnityEvent jumpStart;
     
+    //TODO: Make this configurable
     private const float BASE_SPEED = 3f;
     private const float BASE_MOVE_TIME = 1f;
+    //TODO: Delete
     private const float BASE_RANGE = 0.75f;
     private const float BASE_AGGRO_RANGE = 1f;
     
+    //TODO: Make this configurable
     private WaitForSeconds jumpDelay = new WaitForSeconds(1f);
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
@@ -61,17 +64,17 @@ public class SlimeFollowState : EnemyState
         Debug.Log("Delay after jump");
         animator.PlayIdleAnimation();
         yield return jumpDelay;
-        CheckInRange();
+        ExitState();
     }
 
-    private void CheckInRange()
-    {
-        Debug.Log("RangeCheck");
-        if (Vector2.Distance(target.Position, enemyRb.position) <= BASE_AGGRO_RANGE)
-        {
-            ExitState(true);
-            return;
-        }
-        ExitState(false);
-    }
+    // private void CheckInRange()
+    // {
+    //     Debug.Log("RangeCheck");
+    //     if (Vector2.Distance(target.Position, enemyRb.position) <= BASE_AGGRO_RANGE)
+    //     {
+    //         ExitState(true);
+    //         return;
+    //     }
+    //     ExitState(false);
+    // }
 }

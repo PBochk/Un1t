@@ -11,21 +11,32 @@ using UnityEngine.Events;
 public abstract class EnemyState : MonoBehaviour
 {
     public UnityEvent OnStateEnter;
-    public UnityEvent<bool> OnStateExit;
+    public UnityEvent OnStateExit;
 
     protected IEnemyTarget target;
     protected EnemyModel model;
+    //TODO: ensure that this is not null
+    private EnemyStateTransition transition;
 
+    public void MakeTransition(EnemyStateTransition transition)
+    {
+        this.transition = transition;
+    }
+        
     public virtual void EnterState(IEnemyTarget target, EnemyModel model)
     {
         Debug.Log($"Entered state: {this}");
         this.target = target;
         this.model = model;
     }
+    
     //TODO: Ensure that a state can only be exited once
-    protected void ExitState(bool condition)
+    //TODO: delete condition bool since transition is another class now
+    protected void ExitState()
     {
         Debug.Log($"Exited state: {this}");
-        OnStateExit.Invoke(condition);
+        Debug.Log($"Transition: {transition}");
+        transition.PerformTransition();
+        OnStateExit.Invoke();
     }
 }
