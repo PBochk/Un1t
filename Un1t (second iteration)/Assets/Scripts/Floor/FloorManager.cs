@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -11,12 +14,15 @@ public class FloorManager : MonoBehaviour
 
     private readonly RoomInfo[,] rooms = new RoomInfo[FLOOR_SIZE, FLOOR_SIZE];
 
+    private Dictionary<RoomExits, ImmutableList<RoomInfo>> groupedRooms;
 
     void Awake()
     {
+        groupedRooms = availableRooms
+            .GroupBy(room => room.Exits)
+            .ToDictionary(g => g.Key, g => g.ToImmutableList());
         GenerateFloor();
     }
-
 
     /// <summary>
     /// Creates all rooms for this level
@@ -24,23 +30,26 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     private void GenerateFloor()
     {
-        CreateRoom(ChooseRoom(default), new(FLOOR_SIZE/2, FLOOR_SIZE/2));
+        CreateRoom(ChooseRoom(new RoomExits(true, true, true, true)), new Vector2Int(FLOOR_SIZE / 2, FLOOR_SIZE / 2));
     }
 
     private void CreateRoom(RoomInfo room, Vector2Int floorGridPosition)
     {
-        Instantiate(room.RoomPrefab, (Vector2)(floorGridPosition*RoomInfo.SIZE), Quaternion.identity, transform);
+        rooms[floorGridPosition.x, floorGridPosition.y] = room;
+        Instantiate(room.RoomPrefab, (Vector2)(floorGridPosition * RoomInfo.SIZE), Quaternion.identity, transform);
     }
 
-    //TODO: optimize room choosing
-    private RoomInfo ChooseRoom(RoomExits roomExits) 
-    { 
-        foreach (RoomInfo room in availableRooms)
+    private RoomInfo ChooseRoom(RoomExits roomExits)
+    {
+        if (groupedRooms.TryGetValue(roomExits, out var possibleRooms) && possibleRooms.Count > 0)
         {
-            if (room.Exits.Equals(roomExits))
-                return room;
+            return possibleRooms[Random.Range(0, possibleRooms.Count)];
         }
-        throw new System.Exception("Target room wasn't found");
-    }
 
+        throw new System.Exception($"No rooms found for exits: " +
+            $"Top wall has an exit - {roomExits.HasTopWallExit} " +
+            $"Bottom wall has an exit - {roomExits.HasBottomWallExit} " +
+            $"Left wall has an exit - {roomExits.HasLeftWallExit} " +
+            $"Right wall has an exit - {roomExits.HasRightWallExit} ");
+    }
 }

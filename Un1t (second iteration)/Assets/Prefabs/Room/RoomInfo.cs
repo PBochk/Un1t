@@ -75,8 +75,8 @@ public class RoomInfo : ScriptableObject
 
     private static RoomExits CalculateRoomExits(RoomOuterWalls roomOuterWalls)
     {
-        static bool checkWallExit(RoomOuterWalls.Wall wall) => 
-            wall.First.IsEmpty && wall.Middle.IsEmpty && wall.Last.IsEmpty;
+        static bool checkWallExit(RoomOuterWalls.Wall wall) =>
+            wall.First.IsEmpty || wall.Middle.IsEmpty || wall.Last.IsEmpty;
 
         return new(checkWallExit(roomOuterWalls.Top), checkWallExit(roomOuterWalls.Bottom), 
             checkWallExit(roomOuterWalls.Left), checkWallExit(roomOuterWalls.Right));
