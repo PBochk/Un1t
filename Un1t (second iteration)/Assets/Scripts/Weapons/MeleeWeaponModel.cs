@@ -10,6 +10,11 @@ public abstract class MeleeWeaponModel : MonoBehaviour
         get => damage; 
         set => damage = value; 
     }
-    public bool IsAttackReady { get; protected set; } = true;
+    private bool isAttackReady = true;
+    public bool IsAttackReady 
+    { 
+        get => isAttackReady; 
+        protected set => isAttackReady = value;
+    }
     public bool IsAttackActive { get; set; } = false;
 }
