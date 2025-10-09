@@ -19,4 +19,26 @@ public readonly struct RoomExits
         HasRightWallExit = hasRightWallExit;
     }
 
+    public RoomExits(FloorGridPosition roomPosition, params FloorGridPosition[] emptyPositions)
+    {
+        HasTopWallExit = false;
+        HasBottomWallExit = false;
+        HasLeftWallExit = false;
+        HasRightWallExit = false;
+
+        foreach (FloorGridPosition emptyPosition in emptyPositions)
+        {
+            if (emptyPosition.X - roomPosition.X == 1)
+                HasRightWallExit = true;
+            else if (emptyPosition.X - roomPosition.X == -1)
+                HasLeftWallExit = true;
+            else if (emptyPosition.Y - roomPosition.Y == 1)
+                HasBottomWallExit = true;
+            else if (emptyPosition.Y - roomPosition.Y == 1)
+                HasTopWallExit = true;
+        }
+    }
+
+
+
 }

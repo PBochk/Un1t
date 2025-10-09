@@ -21,9 +21,7 @@ public class RoomContentCreationInfo
             .GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
         foreach (PropertyInfo property in properties)
-        {
-            allGameEntities.AddRange(property.GetValue(this) as IEnumerable<RoomEntity>);
-        }
+            allGameEntities.AddRange((IEnumerable<RoomEntity>)property.GetValue(this));
 
         return allGameEntities.ToArray();
     }

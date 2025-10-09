@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RoomInfo", menuName = "Scriptable Objects/RoomInfo")]
 public class RoomInfo : ScriptableObject
 {
-    public static Vector2Int SIZE = new(16, 9);
+    public readonly static Vector2Int SIZE = new(16, 9);
 
     [Header("Room's outer walls description. Mark if it's part is empty")]
     [SerializeField] private GameObject roomPrefab;
