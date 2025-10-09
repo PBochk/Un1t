@@ -24,7 +24,6 @@ public class PlayerView : MonoBehaviour
         controller.StartMelee.AddListener(OnMelee);
     }
 
-
     public void OnMove(InputValue value)
     {
         var moveDirection = value.Get<Vector2>();
