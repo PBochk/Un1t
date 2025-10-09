@@ -30,12 +30,13 @@ public class PlayerView : MonoBehaviour
             || moveDirection.x > 0 && !isFacingRight)
         {
             isFacingRight = !isFacingRight;
-            playerTransform.localScale = new Vector3(playerTransform.localScale.x * (-1), 
-                                                     playerTransform.localScale.y, 
-                                                     playerTransform.localScale.z);
+            //playerTransform.localScale = new Vector3(playerTransform.localScale.x * (-1), 
+            //                                         playerTransform.localScale.y, 
+            //                                         playerTransform.localScale.z);
 
             // Line above changes player's facing direction more correctly, but breaks camera
-            // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
+            // It somehow fixed now?..
+            playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
         animator.SetBool("IsRunningForward", moveDirection.x != 0);
     }
