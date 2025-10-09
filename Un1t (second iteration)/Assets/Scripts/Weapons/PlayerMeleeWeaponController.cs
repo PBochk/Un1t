@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
     private PlayerController playerController;
-
+    public UnityEvent StartMeleeAnimation;
     /// <summary>
     /// Overrides abstract model on player's implementation
     /// and subscribes base class methods on player's events
@@ -29,6 +29,7 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
         base.StartMelee();
         if (model.IsAttackReady)
         {
+            StartMeleeAnimation?.Invoke();
             StartCoroutine(((PlayerMeleeWeaponModel)model).WaitForAttackCooldown());
         }
     }
