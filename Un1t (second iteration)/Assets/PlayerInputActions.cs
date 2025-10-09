@@ -118,6 +118,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""c4929c92-25bf-4b85-8129-9c8361155f10"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -190,11 +199,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c1356fcb-b9d8-4a3b-91fa-b7cd2217bea5"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RangeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c23b475d-b592-49b5-b0d2-073280f10744"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -208,6 +228,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MeleeAttack = m_Player.FindAction("MeleeAttack", throwIfNotFound: true);
         m_Player_RangeAttack = m_Player.FindAction("RangeAttack", throwIfNotFound: true);
+        m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -291,6 +312,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_MeleeAttack;
     private readonly InputAction m_Player_RangeAttack;
+    private readonly InputAction m_Player_MouseMove;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -314,6 +336,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/RangeAttack".
         /// </summary>
         public InputAction @RangeAttack => m_Wrapper.m_Player_RangeAttack;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MouseMove".
+        /// </summary>
+        public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -349,6 +375,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RangeAttack.started += instance.OnRangeAttack;
             @RangeAttack.performed += instance.OnRangeAttack;
             @RangeAttack.canceled += instance.OnRangeAttack;
+            @MouseMove.started += instance.OnMouseMove;
+            @MouseMove.performed += instance.OnMouseMove;
+            @MouseMove.canceled += instance.OnMouseMove;
         }
 
         /// <summary>
@@ -369,6 +398,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RangeAttack.started -= instance.OnRangeAttack;
             @RangeAttack.performed -= instance.OnRangeAttack;
             @RangeAttack.canceled -= instance.OnRangeAttack;
+            @MouseMove.started -= instance.OnMouseMove;
+            @MouseMove.performed -= instance.OnMouseMove;
+            @MouseMove.canceled -= instance.OnMouseMove;
         }
 
         /// <summary>
@@ -430,5 +462,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRangeAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MouseMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMouseMove(InputAction.CallbackContext context);
     }
 }
