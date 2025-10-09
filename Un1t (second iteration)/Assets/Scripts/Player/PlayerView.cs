@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Sets animation triggers, plays sounds
@@ -7,10 +8,13 @@ using UnityEngine;
 /// </summary>
 public class PlayerView : MonoBehaviour
 {
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource attackSound;
     private PlayerController controller;
     private PlayerMeleeWeaponController weaponController;
     private Animator animator;
+    private bool isFacingRight = true;
+    
     public void Awake()
     {
         animator = GetComponent<Animator>();
@@ -20,8 +24,7 @@ public class PlayerView : MonoBehaviour
         controller.StartMelee.AddListener(OnMelee);
     }
 
-<<<<<<< Updated upstream
-=======
+
     public void OnMove(InputValue value)
     {
         var moveDirection = value.Get<Vector2>();
@@ -39,7 +42,6 @@ public class PlayerView : MonoBehaviour
         animator.SetBool("IsRunningForward", moveDirection.x != 0);
     }
 
->>>>>>> Stashed changes
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
