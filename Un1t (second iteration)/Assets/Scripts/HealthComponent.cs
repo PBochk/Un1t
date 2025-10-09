@@ -12,8 +12,6 @@ public class HealthComponent : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public float Health => currentHealth;
-
     public void TakeHeal(float heal)
     {
         currentHealth = (currentHealth + heal <= maxHealth) ? currentHealth + heal : maxHealth;
