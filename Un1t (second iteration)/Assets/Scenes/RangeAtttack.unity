@@ -152,11 +152,6 @@ Transform:
   - {fileID: 810105794}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &121522821 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 560221877772887277, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-  m_PrefabInstance: {fileID: 1791303685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &142922975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,17 +1339,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerWithGun
       objectReference: {fileID: 0}
-    - target: {fileID: 2782420880032685116, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: lifetime
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 3966181562768119467, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: playerTransform
-      value: 
-      objectReference: {fileID: 121522821}
     - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: initialForce
       value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: solid.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: attackCooldown
