@@ -12,9 +12,13 @@ public class PlayerController : MonoBehaviour
     private PlayerModel playerModel;
     private Vector2 moveDirection;
 
+    public Vector2 MousePosition { get; private set; }
+
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
+    public UnityEvent StartRange;
+    //public UnityEvent<Vector2> MouseMove;
 
     private void Awake()
     {
@@ -49,5 +53,16 @@ public class PlayerController : MonoBehaviour
     public void OnMeleeActiveEnd()
     {
         EndMeleeActive?.Invoke();
+    }
+
+    public void OnRangeAttack()
+    {
+        StartRange?.Invoke();
+    }
+
+    public void OnMouseMove(InputValue value)
+    {
+        var screenPosition = value.Get<Vector2>();
+        MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
 }
