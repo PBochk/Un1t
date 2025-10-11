@@ -53,7 +53,7 @@ public class FloorManager : MonoBehaviour
     {
         firstRoomPosition = new FloorGridPosition(RoomGrid.FLOOR_SIZE / 2, RoomGrid.FLOOR_SIZE / 2);
 
-        GenerateRoom(availableStartRooms[0], firstRoomPosition); //TODO: add other first rooms
+        GenerateRoom(availableStartRooms[UnityEngine.Random.Range(0, availableStartRooms.Count() - 1)], firstRoomPosition); //TODO: add other first rooms
 
         firstRoomPosition += new FloorGridPosition(-1, 0); 
     }
