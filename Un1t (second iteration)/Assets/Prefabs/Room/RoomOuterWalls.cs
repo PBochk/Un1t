@@ -42,11 +42,19 @@ public readonly struct RoomOuterWalls
         public WallPart Middle { get; }
         public WallPart Last { get; }
 
+        public WallPart[] Parts { get; }
+
+
+        public static Wall Empty => new (new(false), new(false), new(false));
+        public static Wall CentreExit => new(new(false), new(true), new(false));
+
         public Wall(WallPart firstPart, WallPart middlePart, WallPart lastPart)
         {
             First = firstPart;
             Middle = middlePart;
             Last = lastPart;
+
+            Parts = new WallPart[] { First, Middle, Last };
         }
 
 

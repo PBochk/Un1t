@@ -3,19 +3,18 @@
 /// </summary>
 public readonly struct FloorGridPosition
 {
-    public static FloorGridPosition[] Directions { get; }
-        
     public int X { get; }
     public int Y { get; }
+
+    public static FloorGridPosition Top { get; } = new(0, -1);
+    public static FloorGridPosition Bottom { get; } = new(0, 1);
+    public static FloorGridPosition Left { get; } = new(-1, 0);
+    public static FloorGridPosition Right { get; } = new(1, 0);
+
     public FloorGridPosition(int x, int y)
     {
         X = x; 
         Y = y;
-    }
-
-    static FloorGridPosition()
-    {
-        Directions = new FloorGridPosition[] { new(0, -1), new(0, 1), new(-1, 0), new(1, 0) };
     }
 
     public static FloorGridPosition operator + (FloorGridPosition first, FloorGridPosition second)
