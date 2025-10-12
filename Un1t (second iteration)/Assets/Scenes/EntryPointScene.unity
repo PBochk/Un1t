@@ -153,8 +153,6 @@ MonoBehaviour:
   enemySpawner: {fileID: 3413214056609131267, guid: f0aed43159c57dc8d906c8f11ba2f585, type: 3}
   player: {fileID: 4697431313275488480, guid: 3be48e4c9361f5a409a06dc0ede02bba, type: 3}
   mainCamera: {fileID: 653979994397089207, guid: 528b708fe8407edc5bb92e82555a2885, type: 3}
-  musicSource: {fileID: 1469847072}
-  music: {fileID: 8300000, guid: 217a533f79a7bb447bb610a63622a160, type: 3}
 --- !u!4 &1469847071
 Transform:
   m_ObjectHideFlags: 0

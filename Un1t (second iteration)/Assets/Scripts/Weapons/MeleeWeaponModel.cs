@@ -1,8 +1,13 @@
 using UnityEngine;
-
-public class MeleeWeaponModel : MonoBehaviour
+/// <summary>
+/// An abstract class made for containg state of weapon
+/// </summary>
+public abstract class MeleeWeaponModel : MonoBehaviour 
 {
-    public float Damage;
-    public float AttackCooldown;
-    [HideInInspector] public float CurrentCooldown;
+    [SerializeField] protected float damage;
+    protected bool isAttackReady = true;
+    protected bool isAttackActive = false;
+    public float Damage => damage;
+    public bool IsAttackReady => isAttackReady;
+    public bool IsAttackActive => isAttackActive;
 }

@@ -41,6 +41,7 @@ public class GameInitiator : MonoBehaviour
     /// </summary>
     private void Initialize()
     {
+        enemySpawner.SetTarget(player);
     }
 
     /// <summary>
@@ -49,6 +50,7 @@ public class GameInitiator : MonoBehaviour
     /// </summary>
     private void Create()
     {
+        enemySpawner.CreateEnemy();
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -6,19 +7,23 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyDummyTarget dummyTargetPrefab;
     private EnemyDummyTarget dummyTarget;
     private IEnemyTarget target;
+
+    public UnityEvent<EnemyController> EnemySpawned;
     
     //TODO: Methods for enemy creation, and in initialization this should be on creation step
     private void Awake()
     {
         dummyTarget = Instantiate(dummyTargetPrefab);
-        var enemy = Instantiate(enemyPrefab);
-        enemy.SetTarget(dummyTarget);
     }
 
-    private void SetTarget(IEnemyTarget target)
+    public void SetTarget(IEnemyTarget target)
     {
         this.target = target;
     }
-    
-    
+
+    public void CreateEnemy()
+    {
+        var enemy = Instantiate(enemyPrefab);
+        enemy.SetTarget(target);
+    }
 }

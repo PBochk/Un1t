@@ -1,59 +1,88 @@
-//TODO: make melee weapon work
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class MeleeWeaponController : MonoBehaviour
+/// <summary>
+/// An abstract class made for summarizing general behaviour of melee weapon attacks.
+/// </summary>
+/// <remarks>
+/// Its derivatives should subscribe its methods on parent's (player or enemy) controller events
+/// and invoke changes in model.IsAttackReady
+/// </remarks>
+
+[RequireComponent(typeof(MeleeWeaponModel))]
+public abstract class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] LayerMask enemyMask;
+    [SerializeField] protected LayerMask targetMask;
+    [SerializeField] protected Collider2D[] weaponColliders;
 
-    private Animator anim;
-    private MeleeWeaponModel model;
-    private CircleCollider2D weaponCollider;
-    private ContactFilter2D contactFilter = new();
-    private List<Collider2D> damagedEnemy;
-    private void Awake()
+    protected MeleeWeaponModel model;
+    protected ContactFilter2D contactFilter = new();
+    protected HashSet<Collider2D> damagedTargets = new();
+
+    /// <summary>
+    /// Could be overriden with base call
+    /// </summary>
+    protected virtual void Awake()
     {
-        anim = GetComponentInParent<Animator>();
         model = GetComponent<MeleeWeaponModel>();
-        weaponCollider = GetComponent<CircleCollider2D>();
-        contactFilter.layerMask = enemyMask;
+        contactFilter.SetLayerMask(targetMask);
     }
 
-    //TODO: implement a coroutine or some other way to update cooldown
-    private void FixedUpdate()
+    /// <summary>
+    /// Could be overriden with base call BEFORE model.IsAttackReady update
+    /// </summary>
+    protected virtual void StartMelee()
     {
-        if (model.CurrentCooldown > 0)
+        if (model.IsAttackReady)
         {
-            model.CurrentCooldown -= Time.fixedDeltaTime;
-        }
-        
-    }
-
-    public void Attack()
-    {
-        if (model.CurrentCooldown <= 0)
-        {
-            Debug.Log("MeleeAttack");
-            model.CurrentCooldown = model.AttackCooldown;
-            damagedEnemy = new();
-            anim.SetTrigger("MeleeAttack");
+            damagedTargets.Clear();
         }
     }
 
-    // damagedEnemy list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
-    //TODO: find a way to deal damage to enemy only once per attack
-    public void OnAttack()
+    /// <summary>
+    /// Should be called in the first active frame of attack animation
+    /// </summary>
+    protected virtual void StartMeleeActive()
     {
-        var enemies = new List<Collider2D>();
-        Physics2D.OverlapCollider(weaponCollider, contactFilter, enemies);
-        Debug.Log(enemies.Count);
-        foreach (var enemy in enemies)
+        StartCoroutine(OnMeleeActive());
+    }
+
+    /// <summary>
+    /// Repeating every fixed update while attack is in active frames.
+    /// Responsible for deciding which targets will be hit by attack.
+    /// </summary>
+    // damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
+    // TODO: find a better way to deal damage to target only once per attack
+    protected IEnumerator OnMeleeActive()
+    {
+        yield return new WaitForFixedUpdate();
+        foreach (var weaponCollider in weaponColliders)
         {
-            if (!damagedEnemy.Contains(enemy))
+            var targets = new List<Collider2D>();
+            Physics2D.OverlapCollider(weaponCollider, contactFilter, targets);
+            foreach (var target in targets)
             {
-                Debug.Log("Damage taken: " + model.Damage);
-                damagedEnemy.Add(enemy);
+                if (!damagedTargets.Contains(target))
+                {
+                    target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
+                    damagedTargets.Add(target);
+                }
             }
         }
+        if (model.IsAttackActive)
+        {
+            StartCoroutine(OnMeleeActive());
+        }
     }
+
+    /// <summary>
+    /// Should be called in the last active frame of attack animation
+    /// </summary>
+    protected virtual void EndMeleeActive()
+    {
+
+    }
+
 }
+

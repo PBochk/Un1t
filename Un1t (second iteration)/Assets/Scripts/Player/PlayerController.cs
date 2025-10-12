@@ -2,20 +2,33 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+/// <summary>
+/// Subscribed on player's input events and events invoked in attack animations
+/// Processes player's movement and invoke events for attacks
+/// </summary>
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerModel))]
+
+public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
     private PlayerModel playerModel;
-    private MeleeWeaponController meleeController;
     private Vector2 moveDirection;
+    public Vector2 Position => rb.position;
 
-    public UnityEvent onAttack;
+    public Vector2 MousePosition { get; private set; }
 
-    void Awake()
+    public UnityEvent StartMelee;
+    public UnityEvent StartMeleeActive;
+    public UnityEvent EndMeleeActive;
+    public UnityEvent StartRange;
+    //public UnityEvent<Vector2> MouseMove;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModel>();
-        meleeController = GetComponentInChildren<MeleeWeaponController>();
     }
 
     private void FixedUpdate()
@@ -23,9 +36,9 @@ public class PlayerController : MonoBehaviour
         MovePlayer(moveDirection);
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue value)
     {
-        moveDirection = context.ReadValue<Vector2>();
+        moveDirection = value.Get<Vector2>();
     }
 
     private void MovePlayer(Vector2 inputVector)
@@ -33,13 +46,29 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
     }
 
-    public void StartMeleeAttack(InputAction.CallbackContext context) => meleeController.Attack();
-
     public void OnMeleeAttack()
     {
-        meleeController.OnAttack();
-        onAttack?.Invoke();
+        StartMelee?.Invoke();
     }
 
-    
+    public void OnMeleeActiveStart()
+    {
+        StartMeleeActive?.Invoke();
+    }
+    public void OnMeleeActiveEnd()
+    {
+        EndMeleeActive?.Invoke();
+    }
+
+    public void OnRangeAttack()
+    {
+        StartRange?.Invoke();
+    }
+
+    public void OnMouseMove(InputValue value)
+    {
+        var screenPosition = value.Get<Vector2>();
+        MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
+    }
+
 }

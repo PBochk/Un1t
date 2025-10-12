@@ -23,6 +23,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RangeAttack",
+                    "type": "Button",
+                    "id": "a616d120-f10f-41f8-9cc4-399059650752",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseMove",
+                    "type": "Value",
+                    "id": "c4929c92-25bf-4b85-8129-9c8361155f10",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -89,6 +107,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "MeleeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1356fcb-b9d8-4a3b-91fa-b7cd2217bea5",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c23b475d-b592-49b5-b0d2-073280f10744",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
