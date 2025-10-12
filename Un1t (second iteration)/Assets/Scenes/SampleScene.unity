@@ -928,6 +928,18 @@ PrefabInstance:
       value: FloorManager
       objectReference: {fileID: 0}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: errorRoom
+      value: 
+      objectReference: {fileID: 11400000, guid: 523d82e27c6b45845a9a4c6778128bc5, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: baseWallPart
+      value: 
+      objectReference: {fileID: 2578212217478524578, guid: fbc973cd98e62d648a9195da7aaf96ed, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: sideWallPart
+      value: 
+      objectReference: {fileID: 2578212217478524578, guid: 72274999c3d5df74face37e2056ff518, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: availableCommonRooms.Array.size
       value: 10
       objectReference: {fileID: 0}

@@ -45,22 +45,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableCommonRooms:
+  - {fileID: 11400000, guid: 1f0a0f6a289316e42be52101fee16a61, type: 2}
+  - {fileID: 11400000, guid: a7bd92691592f5244b19453ca20df56c, type: 2}
+  - {fileID: 11400000, guid: 1f3382460839ff141a3d1f283076f6c6, type: 2}
+  - {fileID: 11400000, guid: 9f5e5872abe768b468c974a786a0e43d, type: 2}
+  - {fileID: 11400000, guid: cbcb35e778764714a98e1d0c8d1f8d51, type: 2}
+  - {fileID: 11400000, guid: 2cab93999599a6a438eb1e7d67b529d7, type: 2}
+  - {fileID: 11400000, guid: d659495d2d719df459472130c4880461, type: 2}
   - {fileID: 11400000, guid: abec2181e947a42469c0ae15f3b630f4, type: 2}
   - {fileID: 11400000, guid: 1a1ff50219be2ae49a96e5f523675acd, type: 2}
   - {fileID: 11400000, guid: 45cb214f7a2d0ea42bc84cf2274f585d, type: 2}
   - {fileID: 11400000, guid: 74bc239905271614b997299540f5f296, type: 2}
   - {fileID: 11400000, guid: 8419cb6ccd27c2741bf69154d3d86a61, type: 2}
   - {fileID: 11400000, guid: 05b457f4cc1e8db4ba52f28981307691, type: 2}
-  - {fileID: 11400000, guid: d659495d2d719df459472130c4880461, type: 2}
-  - {fileID: 11400000, guid: 2cab93999599a6a438eb1e7d67b529d7, type: 2}
-  - {fileID: 11400000, guid: cbcb35e778764714a98e1d0c8d1f8d51, type: 2}
-  - {fileID: 11400000, guid: 9f5e5872abe768b468c974a786a0e43d, type: 2}
-  - {fileID: 11400000, guid: 1f3382460839ff141a3d1f283076f6c6, type: 2}
-  - {fileID: 11400000, guid: a7bd92691592f5244b19453ca20df56c, type: 2}
-  - {fileID: 11400000, guid: 1f0a0f6a289316e42be52101fee16a61, type: 2}
   availableStartRooms:
   - {fileID: 11400000, guid: abec2181e947a42469c0ae15f3b630f4, type: 2}
   - {fileID: 11400000, guid: 1a1ff50219be2ae49a96e5f523675acd, type: 2}
   - {fileID: 11400000, guid: 45cb214f7a2d0ea42bc84cf2274f585d, type: 2}
   - {fileID: 11400000, guid: 74bc239905271614b997299540f5f296, type: 2}
-  errorRoom: {fileID: 11400000, guid: 523d82e27c6b45845a9a4c6778128bc5, type: 2}
+  roomTemplate: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
+  sideWallPart: {fileID: 1047099008050089770, guid: c97179c009877834cb2c1d96c9fb188e, type: 3}
+  baseWallPart: {fileID: 1047099008050089770, guid: 28f4d4dda1363994f9f1055aa9010ae5, type: 3}

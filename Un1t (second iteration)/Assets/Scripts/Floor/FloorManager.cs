@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -10,26 +11,28 @@ using UnityEngine;
 //TODO: class should be divided according to SRP
 public class FloorManager : MonoBehaviour
 {
-    [SerializeField] private RoomInfo[] availableCommonRooms;
-    [SerializeField] private RoomInfo[] availableStartRooms;
-    [SerializeField] private RoomInfo errorRoom; //For debug purpose only
+    [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
+    [SerializeField] private TemplateRoomInfo[] availableStartRooms;
+    [SerializeField] private TemplateRoomInfo errorRoom; //For debug purpose only
 
+    //TODO: next serilize fields should be moved to a separate class
+    [SerializeField] private GameObject roomTemplate;
+    [SerializeField] private GameObject sideWallPart;
+    [SerializeField] private GameObject baseWallPart;
+    [SerializeField] private GameObject angleWallPart;
 
     private readonly static Range roomsCountRange = new(5, 7);
-
     private readonly RoomGrid rooms = new();
-
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
-
 
     void Awake()
     {
         groupedRoomsByWalls = availableCommonRooms
-            .GroupBy(room => room.OuterWalls)
+            .GroupBy(room => room.Info.OuterWalls)
             .ToDictionary(
                 group => group.Key,
-                group => group.ToImmutableList()
-            );
+                group => group.Select(template => template.Info).ToImmutableList()
+        );
 
         GenerateFloor(UnityEngine.Random.Range(roomsCountRange.Start.Value,
             roomsCountRange.End.Value));
@@ -41,8 +44,11 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     private void GenerateFloor(int roomsCount)
     {
-        CreateFirstRoom(out FloorGridPosition firstRoomPosition);
-        CreateAnotherOneRoom(--roomsCount, firstRoomPosition);
+        GenerateRoom(RoomInfo.ConstructRoom(new RoomOuterWalls(new(), new(), new(), new()), roomTemplate, sideWallPart, baseWallPart), new(0, 15));
+        //CreateFirstRoom(out FloorGridPosition firstRoomPosition);
+
+        //CreateAnotherOneRoom(--roomsCount, firstRoomPosition);
+
     }
 
     /// <summary>
@@ -52,10 +58,8 @@ public class FloorManager : MonoBehaviour
     private void CreateFirstRoom(out FloorGridPosition firstRoomPosition)
     {
         firstRoomPosition = new FloorGridPosition(RoomGrid.FLOOR_SIZE / 2, RoomGrid.FLOOR_SIZE / 2);
-
-        GenerateRoom(availableStartRooms[UnityEngine.Random.Range(0, availableStartRooms.Count() - 1)], firstRoomPosition); //TODO: add other first rooms
-
-        firstRoomPosition += new FloorGridPosition(-1, 0); 
+        GenerateRoom(availableStartRooms[1].Info, firstRoomPosition);
+        firstRoomPosition += new FloorGridPosition(-1, 0);
     }
 
     /// <summary>
@@ -79,8 +83,7 @@ public class FloorManager : MonoBehaviour
         ProcessDirection(roomPosition, FloorGridPosition.Right, walls => walls.Left, availableRoomsToGenerate,
             out RoomOuterWalls.Wall? rightWall);
 
-
-        int exitsCount = UnityEngine.Random.Range(1, availableRoomsToGenerate.Count + 1); //TODO: chances should be unequal
+        int exitsCount = UnityEngine.Random.Range(1, availableRoomsToGenerate.Count + 1);
         roomsCount -= exitsCount;
 
         for (var i = 0; i < exitsCount; i++)
@@ -91,15 +94,13 @@ public class FloorManager : MonoBehaviour
             usedPositionsToGenerate.Add(availableRoomsToGenerate[randomIndex].roomPosition);
             availableRoomsToGenerate.RemoveAt(randomIndex);
 
-            emptyRoom.wall = RoomOuterWalls.Wall.CentreExit; //TODO: walls' parts configs
-
+            emptyRoom.wall = RoomOuterWalls.Wall.CentreExit;
         }
 
         topWall ??= RoomOuterWalls.Wall.Empty;
         bottomWall ??= RoomOuterWalls.Wall.Empty;
         leftWall ??= RoomOuterWalls.Wall.Empty;
         rightWall ??= RoomOuterWalls.Wall.Empty;
-
 
         RoomOuterWalls outerWalls = new(topWall.Value, bottomWall.Value, leftWall.Value, rightWall.Value);
 
@@ -119,7 +120,6 @@ public class FloorManager : MonoBehaviour
             CreateAnotherOneRoom(roomsForThisBranch, position);
             index++;
         }
-
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class FloorManager : MonoBehaviour
     /// <param name="floorGridPosition">Position to place the room</param>
     private void GenerateRoom(RoomInfo room, in FloorGridPosition floorGridPosition)
     {
-        rooms[floorGridPosition.X, floorGridPosition.Y] = room;
+        rooms[floorGridPosition] = room;
         Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)floorGridPosition * RoomInfo.SIZE),
             Quaternion.identity, transform);
     }
@@ -146,9 +146,7 @@ public class FloorManager : MonoBehaviour
         {
             return possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Count)];
         }
-        return errorRoom;
-
-        throw new Exception("");
+        return RoomInfo.ConstructRoom(roomWalls, roomTemplate, sideWallPart, baseWallPart);
     }
 
     /// <summary>
@@ -165,7 +163,7 @@ public class FloorManager : MonoBehaviour
     out FloorGridPosition availableRoomPosition)
     {
         availableRoomPosition = position + direction;
-        if (rooms[availableRoomPosition.X, availableRoomPosition.Y] is RoomInfo room)
+        if (rooms[availableRoomPosition] is RoomInfo room)
         {
             RoomOuterWalls.Wall neighborWall = getWallFromRoom(room.OuterWalls);
             return new RoomOuterWalls.Wall(
@@ -190,13 +188,15 @@ public class FloorManager : MonoBehaviour
     List<(FloorGridPosition position, RoomOuterWalls.Wall? wall)> availableRoomsToGenerate,
     out RoomOuterWalls.Wall? wall)
     {
-        wall =
-            GetNeighborWall(roomPosition, direction, getWallFromRoom, out FloorGridPosition availableRoomPosition);
+        wall = GetNeighborWall(roomPosition, direction, getWallFromRoom, out FloorGridPosition availableRoomPosition);
         if (!wall.HasValue)
             availableRoomsToGenerate.Add(new(availableRoomPosition, wall));
     }
 
-
+    /// <summary>
+    /// Draws the current floor map in the console
+    /// </summary>
+    /// <param name="stepDescription">Description of the current generation step</param>
     /// <summary>
     /// Manages the grid of rooms in the floor
     /// </summary>
@@ -214,20 +214,19 @@ public class FloorManager : MonoBehaviour
         /// <summary>
         /// Gets or sets a room at the specified coordinates
         /// </summary>
-        /// <param name="y">Y coordinate</param>
         /// <param name="x">X coordinate</param>
-        public RoomInfo this[int y, int x]
+        /// <param name="y">Y coordinate</param>
+        public RoomInfo this[int x, int y]
         {
-            get => rooms[y, x];
-
+            get => rooms[x, y];
             set
             {
-                if (y >= FLOOR_SIZE || x >= FLOOR_SIZE)
+                if (x >= FLOOR_SIZE || y >= FLOOR_SIZE)
                 {
                     Debug.LogError($"Point ({x}, {y}) is out of RoomGrid");
                     return;
                 }
-                rooms[y, x] = value;
+                rooms[x, y] = value;
             }
         }
 
@@ -237,10 +236,8 @@ public class FloorManager : MonoBehaviour
         /// <param name="position">Grid position</param>
         public RoomInfo this[in FloorGridPosition position]
         {
-            get => rooms[position.Y, position.X];
-
-            set => rooms[position.Y, position.X] = value;
+            get => rooms[position.X, position.Y];
+            set => rooms[position.X, position.Y] = value;
         }
     }
-
 }

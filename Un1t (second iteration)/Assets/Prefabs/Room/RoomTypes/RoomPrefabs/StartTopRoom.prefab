@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_Name
-      value: BoxRoom
+      value: StartTopRoom
       objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30,15 +30,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

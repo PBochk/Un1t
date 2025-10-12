@@ -1,52 +1,27 @@
 using UnityEngine;
 
 /// <summary>
-///Room's outer walls description
+/// Represents information about a room including its prefab, outer walls configuration and exits
 /// </summary>
-/// <see cref="RoomOuterWalls\">
-[CreateAssetMenu(fileName = "RoomInfo", menuName = "Scriptable Objects/RoomInfo")]
-public class RoomInfo : ScriptableObject
+public class RoomInfo
 {
-    public readonly static Vector2Int SIZE = new(16, 9);
 
-    [Header("Room's outer walls description. Mark if it's part is empty")]
-    [SerializeField] private GameObject roomPrefab;
+    public readonly static Vector2Int SIZE = new Vector2Int(16, 9) + new Vector2Int(2, 2);
 
-    [Space]
-    [Header("Top Wall")]
-    [SerializeField] private bool leftTopIsEmpty;
-    [SerializeField] private bool middleTopIsEmpty;
-    [SerializeField] private bool rightTopIsEmpty;
+    public GameObject RoomPrefab { get; }
+    public RoomOuterWalls OuterWalls { get; }
+    public RoomExits RoomExits { get; }
 
-    [Space]
-    [Header("Bottom Wall")]
-    [SerializeField] private bool leftBottomIsEmpty;
-    [SerializeField] private bool middleBottomIsEmpty;
-    [SerializeField] private bool rightBottomIsEmpty;
 
-    [Space]
-    [Header("Left Wall")]
-    [SerializeField] private bool topLeftIsEmpty;
-    [SerializeField] private bool middleLeftIsEmpty;
-    [SerializeField] private bool bottomLeftIsEmpty;
+    public RoomInfo(GameObject roomPrefab,
+        bool leftTopIsEmpty, bool middleTopIsEmpty, bool rightTopIsEmpty,
+        bool leftBottomIsEmpty, bool middleBottomIsEmpty, bool rightBottomIsEmpty,
+        bool topLeftIsEmpty, bool middleLeftIsEmpty, bool bottomLeftIsEmpty,
+        bool topRightIsEmpty, bool middleRightIsEmpty, bool bottomRightIsEmpty)
+    {
+        RoomPrefab = roomPrefab;
 
-    [Space]
-    [Header("Right Wall")]
-    [SerializeField] private bool topRightIsEmpty;
-    [SerializeField] private bool middleRightIsEmpty;
-    [SerializeField] private bool bottomRightIsEmpty;
-
-    public GameObject RoomPrefab => roomPrefab;
-
-    private RoomOuterWalls? outerWalls;
-    private RoomExits? roomExits;
-
-    /// <summary>
-    /// Gets the complete description of all outer walls of the room
-    /// Creates a RoomOuterWalls object with information about each wall part
-    /// </summary>
-    public RoomOuterWalls OuterWalls => outerWalls
-        ?? (outerWalls = new(
+        OuterWalls = new(
         new RoomOuterWalls.Wall(
             new RoomOuterWalls.Wall.WallPart(leftTopIsEmpty),
             new RoomOuterWalls.Wall.WallPart(middleTopIsEmpty),
@@ -66,19 +41,83 @@ public class RoomInfo : ScriptableObject
             new RoomOuterWalls.Wall.WallPart(topRightIsEmpty),
             new RoomOuterWalls.Wall.WallPart(middleRightIsEmpty),
             new RoomOuterWalls.Wall.WallPart(bottomRightIsEmpty)
-        )
-    )).Value;
+        ));
 
-    public RoomExits Exits => roomExits
-        ?? (roomExits = CalculateRoomExits(OuterWalls)).Value;
+        RoomExits = CalculateRoomExits(OuterWalls);
+    }
 
+    public RoomInfo(GameObject roomPrefab, RoomOuterWalls outerWalls)
+    {
+        RoomPrefab = roomPrefab;
+        OuterWalls = outerWalls;
+
+        RoomExits = CalculateRoomExits(OuterWalls);
+    }
+
+
+
+    /// <summary>
+    /// Calculates room exits based on the outer walls configuration
+    /// </summary>
+    /// <param name="roomOuterWalls">Outer walls configuration to analyze</param>
+    /// <returns>Calculated room exits</returns>
     private static RoomExits CalculateRoomExits(RoomOuterWalls roomOuterWalls)
     {
         static bool checkWallExit(RoomOuterWalls.Wall wall) =>
             wall.First.IsEmpty || wall.Middle.IsEmpty || wall.Last.IsEmpty;
 
-        return new(checkWallExit(roomOuterWalls.Top), checkWallExit(roomOuterWalls.Bottom), 
+        return new(checkWallExit(roomOuterWalls.Top), checkWallExit(roomOuterWalls.Bottom),
             checkWallExit(roomOuterWalls.Left), checkWallExit(roomOuterWalls.Right));
+    }
+
+
+
+
+    //TODO: next methods should be refactored and moved to a separate class
+
+    public static RoomInfo ConstructRoom(in RoomOuterWalls roomOuterWalls,
+        GameObject roomTemplate, GameObject sideWallPart, GameObject baseWallPart)
+    {
+        GameObject roomInstance = GameObject.Instantiate(roomTemplate);
+
+        CreateWall(roomInstance.transform, roomOuterWalls.Top, baseWallPart, new Vector2(0-6, 10 - 5), WallDirection.Horizontal);
+        CreateWall(roomInstance.transform, roomOuterWalls.Bottom, baseWallPart, new Vector2(0 - 6, 0 - 5), WallDirection.Horizontal);
+        CreateWall(roomInstance.transform, roomOuterWalls.Left, sideWallPart, new Vector2(-3f+0.333f - 6, 2 - 5), WallDirection.Vertical);
+        CreateWall(roomInstance.transform, roomOuterWalls.Right, sideWallPart, new Vector2(16-0.666f - 6, 2 - 5), WallDirection.Vertical);
+
+        return new RoomInfo(roomInstance, roomOuterWalls);
+    }
+
+    private static void CreateWall(Transform parent, in RoomOuterWalls.Wall wall,
+        GameObject wallPart, Vector2 startPosition, WallDirection direction)
+    {
+        Vector2 currentPos = startPosition;
+        Vector2 step = direction == WallDirection.Horizontal ? new Vector2(6.333f, 0f) : new Vector2(0, 3);
+
+        if (!wall.First.IsEmpty)
+        {
+            GameObject partInstance = GameObject.Instantiate(wallPart, parent);
+            partInstance.transform.position = currentPos;
+        }
+        currentPos += step;
+
+        if (!wall.Middle.IsEmpty)
+        {
+            GameObject partInstance = GameObject.Instantiate(wallPart, parent);
+            partInstance.transform.position = currentPos;
+        }
+        currentPos += step;
+
+        if (!wall.Last.IsEmpty)
+        {
+            GameObject partInstance = GameObject.Instantiate(wallPart, parent);
+            partInstance.transform.position = currentPos;
+        }
+    }
+
+    private enum WallDirection
+    {
+        Horizontal, Vertical
     }
 
 
