@@ -46,9 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  lifetime: 2
+  solid:
+    serializedVersion: 2
+    m_Bits: 64
+  initialForce: 700
   attackCooldown: 1
   ammo: 10
-  initialForce: 5
 --- !u!114 &3966181562768119467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,8 +79,9 @@ GameObject:
   - component: {fileID: 7691705762184161645}
   - component: {fileID: 5965787015759184982}
   - component: {fileID: 6790437023084733525}
-  - component: {fileID: 4697431313275488480}
   - component: {fileID: 6555124608399606011}
+  - component: {fileID: 4697431313275488480}
+  - component: {fileID: 1623287067973440054}
   - component: {fileID: 956851122708948023}
   - component: {fileID: 3230494579449482461}
   - component: {fileID: 8564208846730262985}
@@ -198,7 +203,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21e097d0e278c3418b4f9edcf377e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovingSpeed: 10
+  movingSpeed: 10
+  healthComponent: {fileID: 1623287067973440054}
+--- !u!114 &6555124608399606011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26bc47da59d420049844340f734747f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 560221877772887277}
+  attackSound: {fileID: 0}
 --- !u!114 &4697431313275488480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +243,7 @@ MonoBehaviour:
   StartRange:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6555124608399606011
+--- !u!114 &1623287067973440054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,11 +252,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1217057890759837180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26bc47da59d420049844340f734747f2, type: 3}
+  m_Script: {fileID: 11500000, guid: f1bef11165c831542b2349de7b31a3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 560221877772887277}
-  attackSound: {fileID: 0}
+  maxHealth: 100
+  Death:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &956851122708948023
 Animator:
   serializedVersion: 7

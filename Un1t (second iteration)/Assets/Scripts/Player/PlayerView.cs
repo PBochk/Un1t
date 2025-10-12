@@ -18,7 +18,7 @@ public class PlayerView : MonoBehaviour
     private Animator animator;
     private bool isFacingRight = true;
     
-    public void Awake()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<PlayerController>();

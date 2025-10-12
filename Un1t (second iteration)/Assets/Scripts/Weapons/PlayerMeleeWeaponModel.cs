@@ -13,8 +13,8 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
     /// </summary>
     public IEnumerator WaitForAttackCooldown()
     {
-        IsAttackReady = false;
+        isAttackReady = false;
         yield return new WaitForSeconds(attackCooldown);
-        IsAttackReady = true;
+        isAttackReady = true;
     }
 }

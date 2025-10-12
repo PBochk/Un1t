@@ -20,6 +20,7 @@ public class PlayerRangeWeaponController : MonoBehaviour
         if (model.IsAttackReady)
         {
             var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
+            // TODO: serialize Projectile component instead of GameObject
             var projectile = Instantiate(projectilePrefab, transform.position, GetShotAngle(shotDirection));
             projectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * model.InitialForce);
             projectile.GetComponent<Projectile>().Initialize(model.Damage, model.Lifetime, model.Solid);

@@ -3,23 +3,25 @@ using UnityEngine;
 
 public class PlayerRangeWeaponModel : MonoBehaviour
 {
+    // TODO: implement ammo system
     [SerializeField] private float damage;
     [SerializeField] private float lifetime;
     [SerializeField] private LayerMask solid;
+    [SerializeField] private float initialForce;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float ammo;
-    [SerializeField] private float initialForce;
-    public bool IsAttackReady { get; private set; } = true;
+    public float Damage => damage;
+    public float Lifetime => lifetime;
+    public LayerMask Solid => solid;
     public float InitialForce => initialForce;
 
-    public float Damage { get => damage; set => damage = value; }
-    public float Lifetime { get => lifetime; set => lifetime = value; }
-    public LayerMask Solid { get => solid; }
+    private bool isAttackReady = true;
+    public bool IsAttackReady => isAttackReady;
 
     public IEnumerator WaitForAttackCooldown()
     {
-        IsAttackReady = false;
+        isAttackReady = false;
         yield return new WaitForSeconds(attackCooldown);
-        IsAttackReady = true;
+        isAttackReady = true;
     }
 }
