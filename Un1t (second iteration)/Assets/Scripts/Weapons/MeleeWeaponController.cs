@@ -9,6 +9,8 @@ using UnityEngine;
 /// Its derivatives should subscribe its methods on parent's (player or enemy) controller events
 /// and invoke changes in model.IsAttackReady
 /// </remarks>
+
+[RequireComponent(typeof(MeleeWeaponModel))]
 public abstract class MeleeWeaponController : MonoBehaviour
 {
     [SerializeField] private LayerMask targetMask; // I'm not sure if this should be here or in model
@@ -37,7 +39,6 @@ public abstract class MeleeWeaponController : MonoBehaviour
             damagedTargets.Clear();
         }
     }
-
 
     /// <summary>
     /// Should be called in the first active frame of attack animation

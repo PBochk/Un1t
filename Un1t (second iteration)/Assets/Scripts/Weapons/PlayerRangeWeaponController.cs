@@ -1,13 +1,13 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
+[RequireComponent(typeof(PlayerRangeWeaponModel))]
 public class PlayerRangeWeaponController : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform playerTransform;
     private PlayerRangeWeaponModel model;
     private PlayerController playerController;
+
     private void Awake()
     {
         model = GetComponent<PlayerRangeWeaponModel>();

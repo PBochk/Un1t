@@ -1,8 +1,11 @@
+using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
 /// An implementation of melee weapon controller for player to use.
 /// </summary>
+
+[RequireComponent(typeof(PlayerMeleeWeaponModel))]
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
     private PlayerController playerController;
