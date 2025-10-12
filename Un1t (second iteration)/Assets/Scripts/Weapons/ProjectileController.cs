@@ -32,7 +32,6 @@ public class Projectile : MonoBehaviour
         if (targets.Count == 0) return;
         foreach (var target in targets)
         {
-            Debug.Log(target.name);
             if (target.TryGetComponent<HealthComponent>(out var targetHealth))
             {
                 targetHealth.TakeDamage(model.Damage);
