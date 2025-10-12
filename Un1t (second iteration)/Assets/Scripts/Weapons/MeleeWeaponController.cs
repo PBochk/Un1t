@@ -9,14 +9,16 @@ using UnityEngine;
 /// Its derivatives should subscribe its methods on parent's (player or enemy) controller events
 /// and invoke changes in model.IsAttackReady
 /// </remarks>
+
+[RequireComponent(typeof(MeleeWeaponModel))]
 public abstract class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] private LayerMask targetMask; // I'm not sure if this should be here or in model
-    [SerializeField] private Collider2D[] weaponColliders;
+    [SerializeField] protected LayerMask targetMask;
+    [SerializeField] protected Collider2D[] weaponColliders;
 
     protected MeleeWeaponModel model;
-    private ContactFilter2D contactFilter = new();
-    private HashSet<Collider2D> damagedTargets = new();
+    protected ContactFilter2D contactFilter = new();
+    protected HashSet<Collider2D> damagedTargets = new();
 
     /// <summary>
     /// Could be overriden with base call
@@ -38,13 +40,11 @@ public abstract class MeleeWeaponController : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Should be called in the first active frame of attack animation
     /// </summary>
     protected virtual void StartMeleeActive()
     {
-        model.IsAttackActive = true;
         StartCoroutine(OnMeleeActive());
     }
 
@@ -81,7 +81,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     protected virtual void EndMeleeActive()
     {
-        model.IsAttackActive = false;
+
     }
 
 }

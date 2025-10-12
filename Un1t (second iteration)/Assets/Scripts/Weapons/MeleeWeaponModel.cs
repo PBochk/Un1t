@@ -4,17 +4,10 @@ using UnityEngine;
 /// </summary>
 public abstract class MeleeWeaponModel : MonoBehaviour 
 {
-    [SerializeField] private float damage;
-    public float Damage 
-    { 
-        get => damage; 
-        set => damage = value; 
-    }
-    private bool isAttackReady = true;
-    public bool IsAttackReady 
-    { 
-        get => isAttackReady; 
-        protected set => isAttackReady = value;
-    }
-    public bool IsAttackActive { get; set; } = false;
+    [SerializeField] protected float damage;
+    protected bool isAttackReady = true;
+    protected bool isAttackActive = false;
+    public float Damage => damage;
+    public bool IsAttackReady => isAttackReady;
+    public bool IsAttackActive => isAttackActive;
 }

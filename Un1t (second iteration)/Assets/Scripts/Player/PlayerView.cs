@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 /// Sets animation triggers, plays sounds
 /// There will be player related UI too
 /// </summary>
+
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerController))]
+// TODO: figure out how to require component in children
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
@@ -14,7 +18,7 @@ public class PlayerView : MonoBehaviour
     private Animator animator;
     private bool isFacingRight = true;
     
-    public void Awake()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<PlayerController>();

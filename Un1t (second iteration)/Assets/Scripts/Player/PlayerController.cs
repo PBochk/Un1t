@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 /// Subscribed on player's input events and events invoked in attack animations
 /// Processes player's movement and invoke events for attacks
 /// </summary>
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerModel))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;

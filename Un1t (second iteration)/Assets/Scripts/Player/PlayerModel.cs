@@ -5,5 +5,9 @@ using UnityEngine;
 /// </summary>
 public class PlayerModel: MonoBehaviour
 {
-    public float MovingSpeed;
+    [SerializeField] private float movingSpeed;
+    [SerializeField] private HealthComponent healthComponent;
+    
+    public float MovingSpeed => movingSpeed;
+    public HealthComponent HealthComponent => healthComponent;
 }
