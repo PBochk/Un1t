@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-//TODO: Consider reanming (EnemyStrategy, perhaps?)
 /// <summary>
 /// An abstract class for defining enemy behaviour, an atomic thing that determines, what enemy should do right now
 /// </summary>
@@ -15,6 +14,7 @@ public abstract class EnemyState : MonoBehaviour
 
     protected IEnemyTarget target;
     protected EnemyModel model;
+    
     //TODO: ensure that this is not null
     private EnemyStateTransition transition;
 
@@ -31,7 +31,6 @@ public abstract class EnemyState : MonoBehaviour
     }
     
     //TODO: Ensure that a state can only be exited once
-    //TODO: delete condition bool since transition is another class now
     protected void ExitState()
     {
         Debug.Log($"Exited state: {this}");

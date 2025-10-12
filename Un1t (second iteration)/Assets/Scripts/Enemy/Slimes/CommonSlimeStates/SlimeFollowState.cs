@@ -13,9 +13,7 @@ public class SlimeFollowState : EnemyState
     //TODO: Make this configurable
     private const float BASE_SPEED = 3f;
     private const float BASE_MOVE_TIME = 1f;
-    //TODO: Delete
     private const float BASE_RANGE = 0.75f;
-    private const float BASE_AGGRO_RANGE = 1f;
     
     //TODO: Make this configurable
     private WaitForSeconds jumpDelay = new WaitForSeconds(1f);
@@ -25,6 +23,7 @@ public class SlimeFollowState : EnemyState
     private Vector2 direction;
     
     private Rigidbody2D enemyRb;
+    
     //TODO: Logic state should not be dependant on animator class, make an event that is view subscribed on
     private SlimeAnimator animator;
 
@@ -66,15 +65,4 @@ public class SlimeFollowState : EnemyState
         yield return jumpDelay;
         ExitState();
     }
-
-    // private void CheckInRange()
-    // {
-    //     Debug.Log("RangeCheck");
-    //     if (Vector2.Distance(target.Position, enemyRb.position) <= BASE_AGGRO_RANGE)
-    //     {
-    //         ExitState(true);
-    //         return;
-    //     }
-    //     ExitState(false);
-    // }
 }
