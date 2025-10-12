@@ -28,8 +28,17 @@ public class HealthComponent : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            Death?.Invoke();
-            Destroy(gameObject);
+            OnDeath();
         }
+    }
+
+    private void OnDeath()
+    {
+        if (TryGetComponent<ExperienceComponent>(out var experienceComponent))
+        {
+            PlayerExperience.Instance.AddXP(experienceComponent.XP);
+        }
+        Death?.Invoke();
+        Destroy(gameObject);
     }
 }
