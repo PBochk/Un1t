@@ -15,24 +15,35 @@ using UnityEngine.Events;
 /// -> (???) next is the possible create configuration for stats, but i'll figure this out later
 /// -> make a prefab variant of base enemy and attach controller and view to it
 /// </remarks>
+[RequireComponent(typeof(IdleState))]
 public abstract class EnemyController : MonoBehaviour
 {
-    protected IEnemyTarget target;
-    protected EnemyView view;
-    protected EnemyState currentState;
-    protected Rigidbody2D rb;
-    protected EnemyModel model;
+    [SerializeField] private EnemyConfig config;
+    
+    //Those are used by state transitions
+    public IEnemyTarget Target { get; private set; }
+    public EnemyModel Model { get; private set; }
+   
+    protected EnemyView View;
+    protected Rigidbody2D Rb;
+    protected IdleState IdleState;
 
+    protected EnemyState CurrentState;
+    
     public UnityEvent onDeath;
     public UnityEvent onHit;
 
+    //TODO: Make this awake unoverridable, make several abstract methods that describe initialization process
+    //TODO: Every controller awake should end with changing to idle state
     /// <summary>
     /// Feel free to override it, but don't forget to call base 
     /// </summary>
     protected virtual void Awake()
     {
-        view = GetComponent<EnemyView>();
-        rb = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
+        IdleState = GetComponent<IdleState>();
+        Model = new EnemyModel(config.MaxHealth,  config.MaxHealth, config.SpeedScale, config.Damage);
+        ChangeState(IdleState);
     }
 
     /// <summary>
@@ -48,7 +59,7 @@ public abstract class EnemyController : MonoBehaviour
     /// </summary>
     protected virtual void MakeDecision()
     {
-        currentState.MakeDecision(target, view, model, rb);
+        //currentState.MakeDecision(target, model);
     }
 
     /// <summary>
@@ -59,6 +70,31 @@ public abstract class EnemyController : MonoBehaviour
     {
         if (target is null)
             return;
-        this.target = target;
+        this.Target = target;
     }
+
+    //It needed to be called from EnemyStateTransition
+    //That's should not be a problem since usually only the 
+    public void ChangeState(EnemyState newState)
+    {
+        //TODO: Make it impossible to change state when current is not exited or interrupted yet
+        Debug.Log($"Changed state: {CurrentState} -> {newState}");
+        CurrentState = newState;
+        CurrentState.EnterState(Target, Model);
+    }
+
+    //To be reconsidered, what to pass here
+    // public virtual void GetHit(int damage)
+    // {
+    //     Model = model.WithHealth(Mathf.Clamp(model.Health - damage, 0, config.MaxHealth));
+    //     if (model.Health <= 0)
+    //     {
+    //         onDeath.Invoke();
+    //     }
+    // }
+    //
+    // public virtual void ApplyEffect()
+    // {
+    // }
+    
 }

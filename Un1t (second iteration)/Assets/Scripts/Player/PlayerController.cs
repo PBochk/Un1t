@@ -9,11 +9,13 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerModel))]
-public class PlayerController : MonoBehaviour
+
+public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
     private PlayerModel playerModel;
     private Vector2 moveDirection;
+    public Vector2 Position => rb.position;
 
     public Vector2 MousePosition { get; private set; }
 
@@ -68,4 +70,5 @@ public class PlayerController : MonoBehaviour
         var screenPosition = value.Get<Vector2>();
         MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
+
 }
