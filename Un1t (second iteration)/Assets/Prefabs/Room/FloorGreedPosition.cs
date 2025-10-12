@@ -22,6 +22,16 @@ public readonly struct FloorGridPosition
         return new FloorGridPosition(first.X + second.X, first.Y + second.Y);
     }
 
+    public static bool operator ==(FloorGridPosition first, FloorGridPosition second)
+    {
+        return first.X == second.X & first.Y == second.Y;
+    }
+
+    public static bool operator !=(FloorGridPosition first, FloorGridPosition second)
+    {
+        return first.X != second.X & first.Y != second.Y;
+    }
+
     public static implicit operator UnityEngine.Vector2Int(FloorGridPosition vector2Int)
     {
         return new UnityEngine.Vector2Int(vector2Int.X, vector2Int.Y);
