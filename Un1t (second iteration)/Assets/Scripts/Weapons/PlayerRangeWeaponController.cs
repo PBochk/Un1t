@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerRangeWeaponModel))]
 public class PlayerRangeWeaponController : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Projectile projectile;
     [SerializeField] private Transform playerTransform;
     private PlayerRangeWeaponModel model;
     private PlayerController playerController;
@@ -21,9 +21,9 @@ public class PlayerRangeWeaponController : MonoBehaviour
         {
             var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
             // TODO: serialize Projectile component instead of GameObject
-            var projectile = Instantiate(projectilePrefab, transform.position, GetShotAngle(shotDirection));
-            projectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * model.InitialForce);
-            projectile.GetComponent<Projectile>().Initialize(model.Damage, model.Lifetime, model.Solid);
+            var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, GetShotAngle(shotDirection));
+            spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * model.InitialForce);
+            //projectile.Initialize(model.Damage, model.Lifetime, model.Solid); // I'm not sure if this should be in separate projectile model
         }
     }
 

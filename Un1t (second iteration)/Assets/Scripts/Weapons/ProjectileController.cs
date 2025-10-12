@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(ProjectileModel))]
 public class Projectile : MonoBehaviour
 {
-    private float damage;
-    private float lifetime;
+    [SerializeField] private LayerMask solid;
+    private ProjectileModel model;
     private Collider2D projectileCollider;
     private ContactFilter2D contactFilter;
 
     private void Awake()
     {
         projectileCollider = GetComponent<Collider2D>();
-    }
-
-    public void Initialize(float damage, float lifetime, LayerMask solid)
-    {
-        this.damage = damage;
-        this.lifetime = lifetime;
+        model = GetComponent<ProjectileModel>();
         contactFilter.SetLayerMask(solid);
         StartCoroutine(DestroyProjectile());
     }
 
     private IEnumerator DestroyProjectile()
     {
-        yield return new WaitForSeconds(lifetime);
+        yield return new WaitForSeconds(model.Lifetime);
         Destroy(gameObject);
     }
 
@@ -36,12 +32,12 @@ public class Projectile : MonoBehaviour
         if (targets.Count == 0) return;
         foreach (var target in targets)
         {
-            var targetHealth = target.GetComponent<HealthComponent>();
-            if (targetHealth != null)
+            Debug.Log(target.name);
+            if (target.TryGetComponent<HealthComponent>(out var targetHealth))
             {
-                targetHealth.TakeDamage(damage);
+                targetHealth.TakeDamage(model.Damage);
             }
         }
-        Destroy(gameObject);
+       Destroy(gameObject);
     }
 }

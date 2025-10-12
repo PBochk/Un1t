@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88336663cc730c643b64f9bf9b6d3064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 531064053415207811, guid: 0c12d5e8acefeba429e03ec9e156f01a, type: 3}
+  projectile: {fileID: 1941794300054987042, guid: 0c12d5e8acefeba429e03ec9e156f01a, type: 3}
   playerTransform: {fileID: 560221877772887277}
 --- !u!1 &1217057890759837180
 GameObject:
