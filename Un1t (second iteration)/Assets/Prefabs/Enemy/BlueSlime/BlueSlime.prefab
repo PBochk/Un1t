@@ -224,6 +224,7 @@ MonoBehaviour:
   meleeState: {fileID: 1930542715049907732}
   afterJumpCooldown: {fileID: -7560599203900625032}
   afterAttackCooldown: {fileID: -2811225169903788571}
+  decisionState: {fileID: 7747756052266841450}
 --- !u!95 &6864101236855561174
 Animator:
   serializedVersion: 7

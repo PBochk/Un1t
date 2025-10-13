@@ -56,6 +56,7 @@ public class SlimeFollowState : EnemyState
         }
         moveTimer = 0f;
         //StartCoroutine(AfterJumpDelay());
+        animator.PlayIdleAnimation();
         ExitState();
     }
 

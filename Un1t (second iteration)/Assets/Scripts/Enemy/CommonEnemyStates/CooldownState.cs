@@ -10,6 +10,7 @@ public class CooldownState : EnemyState
     {
         base.EnterState(target, model);
         cooldownTimer = new WaitForSeconds(cooldown);
+        StartCoroutine(CooldownTimer());
     }
 
     private IEnumerator CooldownTimer()
