@@ -8,8 +8,11 @@ using UnityEngine;
     typeof(SlimeMeleeAttackState))]
 public class BlueSlimeController : EnemyController
 {
+    //TODO: Make this configurable
     private const float BASE_RANGE = 0.75f;
     private const float BASE_AGGRO_RANGE = 1f;
+
+    private BlueSlimeView view;
    
     private SlimeFollowState followState;
     private SlimeMeleeAttackState meleeState;
@@ -18,21 +21,23 @@ public class BlueSlimeController : EnemyController
     private EnemyStateTransition followExit;
     private EnemyStateTransition meleeExit;
    
-    protected override void Awake()
+    protected override void BindModel()
     {
-        base.Awake();
-      
-        //TODO: Make methods in base class for initialization steps
-        //this includes: State binding, entry state
-      
-        followState = GetComponent<SlimeFollowState>();
-        meleeState = GetComponent<SlimeMeleeAttackState>();
-        View = GetComponent<BlueSlimeView>();
-
-        MakeTransitions();
+        //throw new NotImplementedException();
     }
 
-    private void MakeTransitions()
+    protected override void BindStates()
+    {
+        followState = GetComponent<SlimeFollowState>();
+        meleeState = GetComponent<SlimeMeleeAttackState>();
+    }
+
+    protected override void BindView()
+    {
+        view = GetComponent<BlueSlimeView>();
+    }
+
+    protected override void MakeTransitions()
     {
         entryExit = new UnconditionalTransition(this, followState);
         followExit = new ConditionalTransition(this, FollowExitCondition, meleeState, followState);

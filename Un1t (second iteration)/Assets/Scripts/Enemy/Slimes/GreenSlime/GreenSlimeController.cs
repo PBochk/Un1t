@@ -1,4 +1,4 @@
-public class GreenSlimeController : EnemyController
+public class GreenSlimeController
 {
     
 }

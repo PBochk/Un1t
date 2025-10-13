@@ -58,6 +58,7 @@ public class SlimeFollowState : EnemyState
         StartCoroutine(AfterJumpDelay());
     }
 
+    //TODO: Change to movement delay state instead
     private IEnumerator AfterJumpDelay()
     {
         Debug.Log("Delay after jump");
