@@ -52,6 +52,7 @@ public abstract class EnemyController : MonoBehaviour
 
     protected abstract void BindModel();
     
+    //TODO: Consider removing
     protected abstract void BindStates();
 
     protected abstract void BindView();

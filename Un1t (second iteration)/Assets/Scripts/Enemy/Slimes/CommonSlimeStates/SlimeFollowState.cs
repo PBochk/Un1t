@@ -16,7 +16,7 @@ public class SlimeFollowState : EnemyState
     private const float BASE_RANGE = 0.75f;
     
     //TODO: Make this configurable
-    private WaitForSeconds jumpDelay = new WaitForSeconds(1f);
+    //private WaitForSeconds jumpDelay = new WaitForSeconds(1f);
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
     private Vector2 startPosition;
@@ -55,15 +55,15 @@ public class SlimeFollowState : EnemyState
             yield return physicsUpdate;
         }
         moveTimer = 0f;
-        StartCoroutine(AfterJumpDelay());
+        //StartCoroutine(AfterJumpDelay());
+        ExitState();
     }
 
     //TODO: Change to movement delay state instead
-    private IEnumerator AfterJumpDelay()
-    {
-        Debug.Log("Delay after jump");
-        animator.PlayIdleAnimation();
-        yield return jumpDelay;
-        ExitState();
-    }
+    // private IEnumerator AfterJumpDelay()
+    // {
+    //     Debug.Log("Delay after jump");
+    //     animator.PlayIdleAnimation();
+    //     ExitState();
+    // }
 }

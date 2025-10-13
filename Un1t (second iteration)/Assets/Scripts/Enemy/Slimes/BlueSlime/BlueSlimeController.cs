@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+//RequireComponent is still relevant because it satisfyingly adds all the components when adding controller
 [RequireComponent(typeof(SlimeFollowState),
     typeof(DeadState),
     typeof(IdleState))]
@@ -14,22 +15,26 @@ public class BlueSlimeController : EnemyController
 
     private BlueSlimeView view;
    
-    private SlimeFollowState followState;
-    private SlimeMeleeAttackState meleeState;
+    [SerializeField] private SlimeFollowState followState;
+    [SerializeField] private SlimeMeleeAttackState meleeState;
+    [SerializeField] private CooldownState afterJumpCooldown;
+    [SerializeField] private CooldownState afterAttackCooldown;
+    [SerializeField] private DecisionState decisionState;
 
+    //TODO: Consider to remove
     private EnemyStateTransition entryExit;
     private EnemyStateTransition followExit;
     private EnemyStateTransition meleeExit;
+    private EnemyStateTransition decisionExit;
+    private EnemyStateTransition afterJumpCooldownExit;
+    private EnemyStateTransition afterAttackCooldownExit;
    
     protected override void BindModel()
     {
-        //throw new NotImplementedException();
     }
 
     protected override void BindStates()
     {
-        followState = GetComponent<SlimeFollowState>();
-        meleeState = GetComponent<SlimeMeleeAttackState>();
     }
 
     protected override void BindView()
@@ -40,15 +45,23 @@ public class BlueSlimeController : EnemyController
     protected override void MakeTransitions()
     {
         entryExit = new UnconditionalTransition(this, followState);
-        followExit = new ConditionalTransition(this, FollowExitCondition, meleeState, followState);
-        meleeExit = new UnconditionalTransition(this, meleeState);
+        followExit = new UnconditionalTransition(this, afterJumpCooldown);
+        afterJumpCooldownExit = new UnconditionalTransition(this, decisionState);
+        decisionExit = new ConditionalTransition(this, CheckInRange, meleeState, followState);
+        meleeExit = new UnconditionalTransition(this, afterAttackCooldown);
+        afterAttackCooldownExit = new UnconditionalTransition(this, decisionState);
+        
         
         IdleState.MakeTransition(entryExit);
         followState.MakeTransition(followExit);
         meleeState.MakeTransition(meleeExit);
+        decisionState.MakeTransition(decisionExit);
+        meleeState.MakeTransition(meleeExit);
+        afterAttackCooldown.MakeTransition(afterAttackCooldownExit);
+        afterJumpCooldown.MakeTransition(afterJumpCooldownExit);
     }
 
-    private bool FollowExitCondition(IEnemyTarget target, EnemyModel model)
+    private bool CheckInRange(IEnemyTarget target, EnemyModel model)
     {
         return Vector2.Distance(target.Position, Rb.position) <= BASE_AGGRO_RANGE;
     }
