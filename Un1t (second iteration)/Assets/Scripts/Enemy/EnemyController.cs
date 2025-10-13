@@ -33,8 +33,6 @@ public abstract class EnemyController : MonoBehaviour
     public UnityEvent onDeath;
     public UnityEvent onHit;
 
-    //TODO: Make this awake unoverridable, make several abstract methods that describe initialization process
-    //TODO: Every controller awake should end with changing to idle state
     /// <summary>
     /// Feel free to override it, but don't forget to call base 
     /// </summary>

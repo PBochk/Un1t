@@ -22,12 +22,12 @@ public class BlueSlimeController : EnemyController
     [SerializeField] private DecisionState decisionState;
 
     //TODO: Consider to remove
-    private EnemyStateTransition entryExit;
-    private EnemyStateTransition followExit;
-    private EnemyStateTransition meleeExit;
-    private EnemyStateTransition decisionExit;
-    private EnemyStateTransition afterJumpCooldownExit;
-    private EnemyStateTransition afterAttackCooldownExit;
+    private EnemyStateTransition idleTransition;
+    private EnemyStateTransition followTransition;
+    private EnemyStateTransition meleeTransition;
+    private EnemyStateTransition decisionTransition;
+    private EnemyStateTransition afterJumpCooldownTransition;
+    private EnemyStateTransition afterAttackCooldownTransition;
    
     protected override void BindModel()
     {
@@ -44,21 +44,21 @@ public class BlueSlimeController : EnemyController
 
     protected override void MakeTransitions()
     {
-        entryExit = new UnconditionalTransition(this, followState);
-        followExit = new UnconditionalTransition(this, afterJumpCooldown);
-        afterJumpCooldownExit = new UnconditionalTransition(this, decisionState);
-        decisionExit = new ConditionalTransition(this, CheckInRange, meleeState, followState);
-        meleeExit = new UnconditionalTransition(this, afterAttackCooldown);
-        afterAttackCooldownExit = new UnconditionalTransition(this, decisionState);
+        idleTransition = new UnconditionalTransition(this, followState);
+        followTransition = new UnconditionalTransition(this, afterJumpCooldown);
+        afterJumpCooldownTransition = new UnconditionalTransition(this, decisionState);
+        decisionTransition = new ConditionalTransition(this, CheckInRange, meleeState, followState);
+        meleeTransition = new UnconditionalTransition(this, afterAttackCooldown);
+        afterAttackCooldownTransition = new UnconditionalTransition(this, decisionState);
         
         
-        IdleState.MakeTransition(entryExit);
-        followState.MakeTransition(followExit);
-        meleeState.MakeTransition(meleeExit);
-        decisionState.MakeTransition(decisionExit);
-        meleeState.MakeTransition(meleeExit);
-        afterAttackCooldown.MakeTransition(afterAttackCooldownExit);
-        afterJumpCooldown.MakeTransition(afterJumpCooldownExit);
+        IdleState.MakeTransition(idleTransition);
+        followState.MakeTransition(followTransition);
+        meleeState.MakeTransition(meleeTransition);
+        decisionState.MakeTransition(decisionTransition);
+        meleeState.MakeTransition(meleeTransition);
+        afterAttackCooldown.MakeTransition(afterAttackCooldownTransition);
+        afterJumpCooldown.MakeTransition(afterJumpCooldownTransition);
     }
 
     private bool CheckInRange(IEnemyTarget target, EnemyModel model)
