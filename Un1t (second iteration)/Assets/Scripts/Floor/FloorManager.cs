@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -21,7 +20,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject baseWallPart;
     [SerializeField] private GameObject angleWallPart;
 
-    private readonly static Range roomsCountRange = new(5, 7);
+    private readonly static Range roomsCountRange = new(3, 5);
     private readonly RoomGrid rooms = new();
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
@@ -34,8 +33,8 @@ public class FloorManager : MonoBehaviour
                 group => group.Select(template => template.Info).ToImmutableList()
         );
 
-        GenerateFloor(UnityEngine.Random.Range(roomsCountRange.Start.Value,
-            roomsCountRange.End.Value));
+        int roomCount = UnityEngine.Random.Range(roomsCountRange.Start.Value, roomsCountRange.End.Value);
+        GenerateFloor(roomCount);
     }
 
     /// <summary>
@@ -46,8 +45,7 @@ public class FloorManager : MonoBehaviour
     {
         CreateFirstRoom(out FloorGridPosition firstRoomPosition);
 
-        CreateAnotherOneRoom(--roomsCount, firstRoomPosition);
-
+        CreateAnotherOneRoom(roomsCount, firstRoomPosition);
     }
 
     /// <summary>
@@ -57,7 +55,9 @@ public class FloorManager : MonoBehaviour
     private void CreateFirstRoom(out FloorGridPosition firstRoomPosition)
     {
         firstRoomPosition = new FloorGridPosition(RoomGrid.FLOOR_SIZE / 2, RoomGrid.FLOOR_SIZE / 2);
-        GenerateRoom(availableStartRooms[1].Info, firstRoomPosition); //availableStartRooms[UnityEngine.Random.Range(0, availableStartRooms.Length)].Info
+
+        GenerateRoom(availableStartRooms[1].Info, firstRoomPosition);
+
         firstRoomPosition += new FloorGridPosition(-1, 0);
     }
 
@@ -68,64 +68,61 @@ public class FloorManager : MonoBehaviour
     /// <param name="roomPosition">Position where to create the room</param>
     private void CreateAnotherOneRoom(int roomsCount, in FloorGridPosition roomPosition)
     {
-        if (roomsCount <= 0) return;
-
-        List<(FloorGridPosition roomPosition, RoomOuterWalls.Wall? wall)> availableRoomsToGenerate = new();
+        List<NeighborRoomDescription> availableRoomsToGenerate = new();
         List<FloorGridPosition> usedPositionsToGenerate = new();
 
-        ProcessDirection(roomPosition, FloorGridPosition.Top, walls => walls.Bottom, availableRoomsToGenerate,
-            out RoomOuterWalls.Wall? topWall);
-        ProcessDirection(roomPosition, FloorGridPosition.Bottom, walls => walls.Top, availableRoomsToGenerate,
-            out RoomOuterWalls.Wall? bottomWall);
-        ProcessDirection(roomPosition, FloorGridPosition.Left, walls => walls.Right, availableRoomsToGenerate,
-            out RoomOuterWalls.Wall? leftWall);
-        ProcessDirection(roomPosition, FloorGridPosition.Right, walls => walls.Left, availableRoomsToGenerate,
-            out RoomOuterWalls.Wall? rightWall);
+        FloorGridPosition topPosition = FloorGridPosition.Top + roomPosition;
+        NeighborRoomDescription top = new(topPosition, GetNeighborWallConfig(topPosition, walls => walls.Bottom));
 
-        int exitsCount = UnityEngine.Random.Range(1, availableRoomsToGenerate.Count + 1);
+        FloorGridPosition bottomPosition = FloorGridPosition.Bottom + roomPosition;
+        NeighborRoomDescription bottom = new(bottomPosition, GetNeighborWallConfig(bottomPosition, walls => walls.Top));
+
+        FloorGridPosition leftPosition = FloorGridPosition.Left + roomPosition;
+        NeighborRoomDescription left = new(leftPosition, GetNeighborWallConfig(leftPosition, walls => walls.Right));
+
+        FloorGridPosition rightPosition = FloorGridPosition.Right + roomPosition;
+        NeighborRoomDescription right = new(rightPosition, GetNeighborWallConfig(rightPosition, walls => walls.Left));
+
+        foreach (NeighborRoomDescription room in new NeighborRoomDescription[] { top, bottom, left, right })
+            if (!room.Wall.HasValue)
+                availableRoomsToGenerate.Add(room);
+
+        int exitsCount = roomsCount >= 0 
+            ? UnityEngine.Random.Range(1, Unity.Mathematics.math.min(availableRoomsToGenerate.Count, roomsCount))
+            : 0;
+
         roomsCount -= exitsCount;
 
         for (var i = 0; i < exitsCount; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, availableRoomsToGenerate.Count);
 
-            (FloorGridPosition roomPosition, RoomOuterWalls.Wall? wall) emptyRoom = availableRoomsToGenerate[randomIndex];
-            usedPositionsToGenerate.Add(availableRoomsToGenerate[randomIndex].roomPosition);
+            usedPositionsToGenerate.Add(availableRoomsToGenerate[randomIndex].Position);
+            availableRoomsToGenerate[randomIndex].Wall = RoomOuterWalls.Wall.CentreExit;
             availableRoomsToGenerate.RemoveAt(randomIndex);
-
-            //TODO: refactor it
-            if (emptyRoom.roomPosition == roomPosition + FloorGridPosition.Top)
-                topWall = RoomOuterWalls.Wall.CentreExit;
-            else if (emptyRoom.roomPosition == roomPosition + FloorGridPosition.Bottom)
-                bottomWall = RoomOuterWalls.Wall.CentreExit;
-            else if (emptyRoom.roomPosition == roomPosition + FloorGridPosition.Left)
-                leftWall = RoomOuterWalls.Wall.CentreExit;
-            else if (emptyRoom.roomPosition == roomPosition + FloorGridPosition.Right)
-                rightWall = RoomOuterWalls.Wall.CentreExit;
         }
-        Debug.Log($"{topWall.HasValue} {bottomWall.HasValue} {leftWall.HasValue} {rightWall.HasValue}");
-        topWall ??= RoomOuterWalls.Wall.Solid;
-        bottomWall ??= RoomOuterWalls.Wall.Solid;
-        leftWall ??= RoomOuterWalls.Wall.Solid;
-        rightWall ??= RoomOuterWalls.Wall.Solid;
 
-        RoomOuterWalls outerWalls = new(topWall.Value, bottomWall.Value, leftWall.Value, rightWall.Value);
+        
+        top.Wall ??= RoomOuterWalls.Wall.Solid;
+        bottom.Wall ??= RoomOuterWalls.Wall.Solid;
+        left.Wall ??= RoomOuterWalls.Wall.Solid;
+        right.Wall ??= RoomOuterWalls.Wall.Solid;
+
+        RoomOuterWalls outerWalls = new(top.Wall.Value, bottom.Wall.Value, left.Wall.Value, right.Wall.Value);
+
 
         if (TryChooseTemplateRoom(outerWalls, out RoomInfo roomInfo))
             GenerateRoom(roomInfo, roomPosition);
         else
             ConstructRoom(outerWalls, roomPosition);
 
-        Debug.Log($"Room walls configuration at position ({roomPosition.X}, {roomPosition.Y}): " +
-          $"Top: First={outerWalls.Top.First.IsEmpty}, Middle={outerWalls.Top.Middle.IsEmpty}, Last={outerWalls.Top.Last.IsEmpty}; " +
-          $"Bottom: First={outerWalls.Bottom.First.IsEmpty}, Middle={outerWalls.Bottom.Middle.IsEmpty}, Last={outerWalls.Bottom.Last.IsEmpty}; " +
-          $"Left: First={outerWalls.Left.First.IsEmpty}, Middle={outerWalls.Left.Middle.IsEmpty}, Last={outerWalls.Left.Last.IsEmpty}; " +
-          $"Right: First={outerWalls.Right.First.IsEmpty}, Middle={outerWalls.Right.Middle.IsEmpty}, Last={outerWalls.Right.Last.IsEmpty}");
+        if (usedPositionsToGenerate.Count == 0)
+        {
+            return;
+        }
 
-        if (availableRoomsToGenerate.Count == 0) return;
-
-        int roomsPerBranch = roomsCount / availableRoomsToGenerate.Count;
-        int extraRooms = roomsCount % availableRoomsToGenerate.Count;
+        int roomsPerBranch = roomsCount / usedPositionsToGenerate.Count;
+        int extraRooms = roomsCount % usedPositionsToGenerate.Count;
 
         int index = 0;
         foreach (FloorGridPosition position in usedPositionsToGenerate)
@@ -168,57 +165,39 @@ public class FloorManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the wall from a neighboring room in the specified direction
+    /// Processes a direction to check for neighboring room and collect available positions
     /// </summary>
     /// <param name="position">Current room position</param>
-    /// <param name="direction">Direction to check</param>
     /// <param name="getWallFromRoom">Function to extract wall from room's outer walls</param>
     /// <param name="availableRoomPosition">Output position if no room exists</param>
     /// <returns>Wall from neighboring room or null if no room exists</returns>
-    private RoomOuterWalls.Wall? GetNeighborWall(in FloorGridPosition position,
-        in FloorGridPosition direction,
-    Func<RoomOuterWalls, RoomOuterWalls.Wall> getWallFromRoom,
-    out FloorGridPosition availableRoomPosition)
+    /// <summary>
+    /// Processes a direction to check for neighboring room and collect available positions
+    /// </summary>
+    /// <param name="position">Current room position</param>
+    /// <param name="getWallFromRoom">Function to extract wall from room's outer walls</param>
+    /// <param name="availableRoomPosition">Output position if no room exists</param>
+    /// <returns>Wall from neighboring room or null if no room exists</returns>
+    private RoomOuterWalls.Wall? GetNeighborWallConfig(in FloorGridPosition position,
+        Func<RoomOuterWalls, RoomOuterWalls.Wall> getWallFromRoom)
     {
-        availableRoomPosition = position + direction;
-        if (rooms[availableRoomPosition] is RoomInfo room)
+        if (rooms[position] is RoomInfo room)
         {
             RoomOuterWalls.Wall neighborWall = getWallFromRoom(room.OuterWalls);
-            return new RoomOuterWalls.Wall(
+            RoomOuterWalls.Wall result = new(
                 new RoomOuterWalls.Wall.WallPart(neighborWall.First.IsEmpty),
                 new RoomOuterWalls.Wall.WallPart(neighborWall.Middle.IsEmpty),
                 new RoomOuterWalls.Wall.WallPart(neighborWall.Last.IsEmpty)
             );
+            return result;
         }
         return null;
     }
 
-    /// <summary>
-    /// Processes a direction to check for neighboring room and collect available positions
-    /// </summary>
-    /// <param name="roomPosition">Current room position</param>
-    /// <param name="direction">Direction to process</param>
-    /// <param name="getWallFromRoom">Function to extract wall from room's outer walls</param>
-    /// <param name="availableRoomsToGenerate">List to add available positions to</param>
-    /// <param name="wall">Output wall from neighboring room</param>
-    private void ProcessDirection(in FloorGridPosition roomPosition, in FloorGridPosition direction,
-    Func<RoomOuterWalls, RoomOuterWalls.Wall> getWallFromRoom,
-    List<(FloorGridPosition position, RoomOuterWalls.Wall? wall)> availableRoomsToGenerate,
-    out RoomOuterWalls.Wall? wall)
-    {
-        wall = GetNeighborWall(roomPosition, direction, getWallFromRoom, out FloorGridPosition availableRoomPosition);
-        if (!wall.HasValue)
-            availableRoomsToGenerate.Add(new(availableRoomPosition, wall));
-    }
-
-    /// <summary>
-    /// Draws the current floor map in the console
-    /// </summary>
-    /// <param name="stepDescription">Description of the current generation step</param>
+    #region RoomGrid
     /// <summary>
     /// Manages the grid of rooms in the floor
     /// </summary>
-    #region RoomGrid
     private class RoomGrid
     {
         public const int FLOOR_SIZE = 16;
@@ -242,7 +221,6 @@ public class FloorManager : MonoBehaviour
             {
                 if (x >= FLOOR_SIZE || y >= FLOOR_SIZE)
                 {
-                    Debug.LogError($"Point ({x}, {y}) is out of RoomGrid");
                     return;
                 }
                 rooms[x, y] = value;
@@ -255,8 +233,25 @@ public class FloorManager : MonoBehaviour
         /// <param name="position">Grid position</param>
         public RoomInfo this[in FloorGridPosition position]
         {
-            get => rooms[position.X, position.Y];
-            set => rooms[position.X, position.Y] = value;
+            get => this[position.X, position.Y];
+            set => this[position.X, position.Y] = value;
+        }
+    }
+    #endregion
+
+    #region RoomDescription
+    /// <summary>
+    /// Used only in CreateAnotherOneRoom() method to chain outer wall and it's neighbor FloorGridPosition
+    /// </summary>
+    public class NeighborRoomDescription
+    {
+        public FloorGridPosition Position { get; set; }
+        public RoomOuterWalls.Wall? Wall { get; set; }
+
+        public NeighborRoomDescription(FloorGridPosition position, RoomOuterWalls.Wall? wall)
+        {
+            Position = position;
+            Wall = wall;
         }
     }
     #endregion
@@ -267,10 +262,14 @@ public class FloorManager : MonoBehaviour
     {
         GameObject roomInstance = Instantiate(roomTemplate, (Vector2)((Vector2Int)position * RoomInfo.SIZE), Quaternion.identity, transform);
 
-        CreateWall(roomInstance.transform, roomOuterWalls.Top, baseWallPart, new Vector2(0 - 6, 10 - 5), WallDirection.Horizontal);
-        CreateWall(roomInstance.transform, roomOuterWalls.Bottom, baseWallPart, new Vector2(0 - 6, 0 - 5), WallDirection.Horizontal);
-        CreateWall(roomInstance.transform, roomOuterWalls.Left, sideWallPart, new Vector2(-3f + 0.333f - 6, 2 - 5), WallDirection.Vertical);
-        CreateWall(roomInstance.transform, roomOuterWalls.Right, sideWallPart, new Vector2(16 - 0.666f - 6, 2 - 5), WallDirection.Vertical);
+        CreateWall(roomInstance.transform, roomOuterWalls.Top, baseWallPart,
+            new Vector2(0 - 6, 10 - 5), WallDirection.Horizontal);
+        CreateWall(roomInstance.transform, roomOuterWalls.Bottom, baseWallPart,
+            new Vector2(0 - 6, 0 - 5), WallDirection.Horizontal);
+        CreateWall(roomInstance.transform, roomOuterWalls.Left, sideWallPart,
+            new Vector2(-3f + 0.333f - 6, 2 - 5), WallDirection.Vertical);
+        CreateWall(roomInstance.transform, roomOuterWalls.Right, sideWallPart,
+            new Vector2(16 - 0.666f - 6, 2 - 5), WallDirection.Vertical);
 
         rooms[position] = new RoomInfo(roomInstance, roomOuterWalls);
     }
@@ -286,7 +285,7 @@ public class FloorManager : MonoBehaviour
         {
             if (!wallPart.IsEmpty)
                 Instantiate(wallPartObject, currentPosition + parent.position, Quaternion.identity, parent);
-            
+
             currentPosition += step;
         }
     }
