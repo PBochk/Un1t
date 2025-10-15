@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 1047099008050089770, guid: 831298fc716484b4986d810ff53f2051, type: 3}
   leftTopIsEmpty: 0
-  middleTopIsEmpty: 1
+  middleTopIsEmpty: 0
   rightTopIsEmpty: 0
   leftBottomIsEmpty: 0
-  middleBottomIsEmpty: 1
+  middleBottomIsEmpty: 0
   rightBottomIsEmpty: 0
   topLeftIsEmpty: 0
   middleLeftIsEmpty: 1
