@@ -164,6 +164,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8959150270099344544}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6864101236855561174}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
@@ -182,13 +185,46 @@ PrefabInstance:
       addedObject: {fileID: 1930542715049907732}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8959150270099344544}
+      addedObject: {fileID: 4083998879452652406}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7560599203900625032}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2811225169903788571}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7747756052266841450}
   m_SourcePrefab: {fileID: 100100000, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
 --- !u!1 &5648669179270980949 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
   m_PrefabInstance: {fileID: 2114663118684872698}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8959150270099344544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648669179270980949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f341856b737b417b95a6547886a13efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: b4b3477da91ddc767b30d8232a5fd614, type: 2}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+  followState: {fileID: 2200001100688687508}
+  meleeState: {fileID: 1930542715049907732}
+  afterJumpCooldown: {fileID: -7560599203900625032}
+  afterAttackCooldown: {fileID: -2811225169903788571}
+  decisionState: {fileID: 7747756052266841450}
 --- !u!95 &6864101236855561174
 Animator:
   serializedVersion: 7
@@ -223,6 +259,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ffe6c7f400400d9c331aa001810210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  jumpStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8408372610529251379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3193b37700384a8f9506be99c8ba4180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6653008404940331482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +298,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7f30734c7d441db7bf575c756e8fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6393638895824420447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +328,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b3df3d50f647f58431abd412f24e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8959150270099344544
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4083998879452652406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,14 +343,63 @@ MonoBehaviour:
   m_GameObject: {fileID: 5648669179270980949}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f341856b737b417b95a6547886a13efc, type: 3}
+  m_Script: {fileID: 11500000, guid: c27685fdca894eb29ee3c077b359a478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: b4b3477da91ddc767b30d8232a5fd614, type: 2}
-  onDeath:
+--- !u!114 &-7560599203900625032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648669179270980949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfbe1da53744f75830337fa582a24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
     m_PersistentCalls:
       m_Calls: []
-  onHit:
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  cooldown: 1
+--- !u!114 &-2811225169903788571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648669179270980949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfbe1da53744f75830337fa582a24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  cooldown: 1
+--- !u!114 &7747756052266841450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648669179270980949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4e7bf13c924a98a5061c7d45984a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &8504628807982838399 stripped

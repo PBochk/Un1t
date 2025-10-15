@@ -24,7 +24,7 @@ public abstract class EnemyController : MonoBehaviour
     public IEnemyTarget Target { get; private set; }
     public EnemyModel Model { get; private set; }
    
-    protected EnemyView View;
+    //protected EnemyView View;
     protected Rigidbody2D Rb;
     protected IdleState IdleState;
 
@@ -33,18 +33,30 @@ public abstract class EnemyController : MonoBehaviour
     public UnityEvent onDeath;
     public UnityEvent onHit;
 
-    //TODO: Make this awake unoverridable, make several abstract methods that describe initialization process
-    //TODO: Every controller awake should end with changing to idle state
     /// <summary>
     /// Feel free to override it, but don't forget to call base 
     /// </summary>
-    protected virtual void Awake()
+    protected void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
         IdleState = GetComponent<IdleState>();
+        BindModel();
+        BindView();
+        BindStates();
+        MakeTransitions();
         Model = new EnemyModel(config.MaxHealth,  config.MaxHealth, config.SpeedScale, config.Damage);
         ChangeState(IdleState);
     }
+
+    protected abstract void BindModel();
+    
+    //TODO: Consider removing
+    protected abstract void BindStates();
+
+    protected abstract void BindView();
+
+    protected abstract void MakeTransitions();
+    
 
     /// <summary>
     /// Feel free to override it, but don't forget to call base 
@@ -82,19 +94,4 @@ public abstract class EnemyController : MonoBehaviour
         CurrentState = newState;
         CurrentState.EnterState(Target, Model);
     }
-
-    //To be reconsidered, what to pass here
-    // public virtual void GetHit(int damage)
-    // {
-    //     Model = model.WithHealth(Mathf.Clamp(model.Health - damage, 0, config.MaxHealth));
-    //     if (model.Health <= 0)
-    //     {
-    //         onDeath.Invoke();
-    //     }
-    // }
-    //
-    // public virtual void ApplyEffect()
-    // {
-    // }
-    
 }
