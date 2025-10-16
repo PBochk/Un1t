@@ -259,6 +259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd354fc880c043c8ac0676fcfe6b4485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followState: {fileID: 2200001100688687508}
+  meleeState: {fileID: 1930542715049907732}
+  afterJumpCooldown: {fileID: -7560599203900625032}
+  afterAttackCooldown: {fileID: -2811225169903788571}
+  decisionState: {fileID: 7747756052266841450}
+  animator: {fileID: 4083998879452652406}
 --- !u!114 &2200001100688687508
 MonoBehaviour:
   m_ObjectHideFlags: 0

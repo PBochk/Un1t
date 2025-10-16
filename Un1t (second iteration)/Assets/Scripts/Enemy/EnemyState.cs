@@ -28,6 +28,7 @@ public abstract class EnemyState : MonoBehaviour
         Debug.Log($"Entered state: {this}");
         this.target = target;
         this.model = model;
+        OnStateEnter.Invoke();
     }
     
     //TODO: Ensure that a state can only be exited once
