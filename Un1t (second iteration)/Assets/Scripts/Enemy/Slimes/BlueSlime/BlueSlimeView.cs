@@ -9,23 +9,23 @@ public class BlueSlimeView : EnemyView
     [SerializeField] private DecisionState decisionState;
     [SerializeField] private SlimeAnimator animator;
 
+    //TODO: Decide how to get model from view and if we should even use it
     protected override void BindModel()
     {
-        throw new System.NotImplementedException();
     }
 
+    //TODO: Consider removing since every state is serialized
     protected override void BindStates()
     {
-        throw new System.NotImplementedException();
     }
 
     protected override void BindAnimator()
     {
-        throw new System.NotImplementedException();
+        followState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
+        followState.OnStateExit.AddListener(animator.PlayIdleAnimation);
     }
 
     protected override void BindSoundPlayer()
     {
-        throw new System.NotImplementedException();
     }
 }

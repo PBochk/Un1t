@@ -20,4 +20,9 @@ public class SlimeAnimator : MonoBehaviour
     {
         animator.SetTrigger("SlimeIdleAnimation");
     }
+
+    public void PlayAttackAnimation()
+    {
+        //TODO: Add attack animation
+    }
 }
