@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerModel))]
+[RequireComponent(typeof(PlayerModelMB))]
 
 public class PlayerController : MonoBehaviour, IEnemyTarget
 {
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerModel = GetComponent<PlayerModel>();
+        playerModel = GetComponent<PlayerModelMB>().playerModel;
     }
 
     private void FixedUpdate()

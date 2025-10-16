@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerModel))]
-[RequireComponent(typeof(PlayerExperienceModel))]
+[RequireComponent(typeof(PlayerModelMB))]
+[RequireComponent(typeof(PlayerExperienceModelMB))]
 public class PlayerExperience : MonoBehaviour
 {
-    private PlayerModel playerModel;
     private PlayerExperienceModel model;
     public static PlayerExperience Instance;
 
@@ -16,10 +14,10 @@ public class PlayerExperience : MonoBehaviour
         {
             Instance = this;
         }
-        model = GetComponent<PlayerExperienceModel>();
+        model = GetComponent<PlayerExperienceModelMB>().experienceModel;
     }
 
-    public void AddXP(float increment)
+    public void AddXP(int increment)
     {
         model.AddXP(increment);
     }

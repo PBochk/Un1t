@@ -81,11 +81,12 @@ GameObject:
   - component: {fileID: 956851122708948023}
   - component: {fileID: 8564208846730262985}
   - component: {fileID: 3230494579449482461}
-  - component: {fileID: 6790437023084733525}
   - component: {fileID: 6555124608399606011}
   - component: {fileID: 4697431313275488480}
-  - component: {fileID: 1623287067973440054}
   - component: {fileID: 4831991179820454322}
+  - component: {fileID: 2683753899706659779}
+  - component: {fileID: 6997724423585996430}
+  - component: {fileID: 7790997573628290336}
   m_Layer: 0
   m_Name: PlayerWithGun
   m_TagString: Untagged
@@ -377,20 +378,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6790437023084733525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217057890759837180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21e097d0e278c3418b4f9edcf377e0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingSpeed: 10
-  healthComponent: {fileID: 1623287067973440054}
 --- !u!114 &6555124608399606011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +416,33 @@ MonoBehaviour:
   StartRange:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1623287067973440054
+--- !u!114 &4831991179820454322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e29ccec388fde4394f8b3cbc6dcf15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2683753899706659779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f0f3dfdbeb87d4795652092e212c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 10
+  xpCoefficient: 25
+--- !u!114 &6997724423585996430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -445,7 +458,7 @@ MonoBehaviour:
   Death:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4831991179820454322
+--- !u!114 &7790997573628290336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -454,10 +467,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1217057890759837180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e29ccec388fde4394f8b3cbc6dcf15, type: 3}
+  m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 0}
+  movingSpeed: 15
+  healthComponent: {fileID: 6997724423585996430}
 --- !u!1001 &7719972767225688515
 PrefabInstance:
   m_ObjectHideFlags: 0

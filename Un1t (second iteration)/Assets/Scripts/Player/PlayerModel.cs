@@ -1,20 +1,16 @@
-using System;
-using UnityEngine;
-using UnityEngine.Events;
-
-/// <summary>
-/// Class made for containg state of player
-/// </summary>
-public class PlayerModel: MonoBehaviour
+public class PlayerModel
 {
-    [SerializeField] private float movingSpeed;
-    //[SerializeField] private float maxHealthIncrease;
-    //[SerializeField] private float damageIncrease;
-    //[SerializeField] private float attackSpeedIncrease;
-    [SerializeField] private HealthComponent healthComponent;
-    [SerializeField] private PlayerExperienceModel experienceModel;
+    private float movingSpeed;
+    private HealthComponent healthComponent;
+    private PlayerExperienceModel experienceModel;
     public float MovingSpeed => movingSpeed;
     public HealthComponent HealthComponent => healthComponent;
     public PlayerExperienceModel ExperienceModel => experienceModel;
 
+    public PlayerModel(float movingSpeed, HealthComponent healthComponent, PlayerExperienceModel experienceModel)
+    {
+        this.movingSpeed = movingSpeed;
+        this.healthComponent = healthComponent;
+        this.experienceModel = experienceModel;
+    }
 }
