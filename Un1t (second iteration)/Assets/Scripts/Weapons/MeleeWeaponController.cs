@@ -19,7 +19,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected MeleeWeaponModel model;
     protected ContactFilter2D contactFilter = new();
     protected HashSet<Collider2D> damagedTargets = new();
-
+    protected WaitForFixedUpdate waitForFixedUpdate = new();
     /// <summary>
     /// Could be overriden with base call
     /// </summary>
@@ -45,6 +45,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     protected virtual void StartMeleeActive()
     {
+        model.StartActive(); // Maybe it's better to subscribe model on some event, idk
         StartCoroutine(OnMeleeActive());
     }
 
@@ -54,26 +55,27 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     // damagedTargets list prevents enemy taking damage more than once per hit, but it's not a perfect solution performance wise
     // TODO: find a better way to deal damage to target only once per attack
+
     protected IEnumerator OnMeleeActive()
     {
-        yield return new WaitForFixedUpdate();
-        foreach (var weaponCollider in weaponColliders)
+        do
         {
-            var targets = new List<Collider2D>();
-            Physics2D.OverlapCollider(weaponCollider, contactFilter, targets);
-            foreach (var target in targets)
+            foreach (var weaponCollider in weaponColliders)
             {
-                if (!damagedTargets.Contains(target))
+                var targets = new List<Collider2D>();
+                Physics2D.OverlapCollider(weaponCollider, contactFilter, targets);
+                foreach (var target in targets)
                 {
-                    target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
-                    damagedTargets.Add(target);
+                    if (!damagedTargets.Contains(target))
+                    {
+                        target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
+                        damagedTargets.Add(target);
+                    }
                 }
             }
+            yield return waitForFixedUpdate;
         }
-        if (model.IsAttackActive)
-        {
-            StartCoroutine(OnMeleeActive());
-        }
+        while (model.IsAttackActive);
     }
 
     /// <summary>
@@ -81,7 +83,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     protected virtual void EndMeleeActive()
     {
-
+        model.EndActive();
     }
 
 }

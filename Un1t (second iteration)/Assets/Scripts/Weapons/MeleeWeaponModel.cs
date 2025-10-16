@@ -10,4 +10,15 @@ public abstract class MeleeWeaponModel : MonoBehaviour
     public float Damage => damage;
     public bool IsAttackReady => isAttackReady;
     public bool IsAttackActive => isAttackActive;
+
+    public void StartActive()
+    {
+        isAttackActive = true;
+    }
+    public void EndActive()
+    {
+        isAttackActive = false;
+    }
+
+
 }
