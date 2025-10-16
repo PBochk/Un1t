@@ -164,10 +164,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8959150270099344544}
+      addedObject: {fileID: 6864101236855561174}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6864101236855561174}
+      addedObject: {fileID: 2490088667379077972}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6393638895824420447}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2200001100688687508}
@@ -177,9 +180,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6653008404940331482}
-    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6393638895824420447}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1930542715049907732}
@@ -201,7 +201,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
   m_PrefabInstance: {fileID: 2114663118684872698}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8959150270099344544
+--- !u!95 &6864101236855561174
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648669179270980949}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 72016cd258cdd5414b3a9ed4f73e68a9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2490088667379077972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,28 +247,18 @@ MonoBehaviour:
   afterJumpCooldown: {fileID: -7560599203900625032}
   afterAttackCooldown: {fileID: -2811225169903788571}
   decisionState: {fileID: 7747756052266841450}
---- !u!95 &6864101236855561174
-Animator:
-  serializedVersion: 7
+--- !u!114 &6393638895824420447
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5648669179270980949}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 72016cd258cdd5414b3a9ed4f73e68a9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd354fc880c043c8ac0676fcfe6b4485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2200001100688687508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,18 +316,6 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6393638895824420447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5648669179270980949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd354fc880c043c8ac0676fcfe6b4485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1930542715049907732
 MonoBehaviour:
   m_ObjectHideFlags: 0
