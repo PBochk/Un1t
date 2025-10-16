@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 560221877772887277}
   - component: {fileID: 7691705762184161645}
   - component: {fileID: 5965787015759184982}
-  - component: {fileID: 6790437023084733525}
   - component: {fileID: 6555124608399606011}
   - component: {fileID: 4697431313275488480}
-  - component: {fileID: 33847524220537836}
   - component: {fileID: 956851122708948023}
   - component: {fileID: 3230494579449482461}
   - component: {fileID: 8564208846730262985}
+  - component: {fileID: 7790997573628290336}
+  - component: {fileID: 2081672116636153625}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -123,20 +123,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6790437023084733525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217057890759837180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21e097d0e278c3418b4f9edcf377e0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingSpeed: 10
-  healthComponent: {fileID: 33847524220537836}
 --- !u!114 &6555124608399606011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,22 +159,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   StartRange:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &33847524220537836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217057890759837180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bef11165c831542b2349de7b31a3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  Death:
     m_PersistentCalls:
       m_Calls: []
 --- !u!95 &956851122708948023
@@ -376,6 +346,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7790997573628290336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingSpeed: 10
+  healthComponent: {fileID: 2081672116636153625}
+--- !u!114 &2081672116636153625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bef11165c831542b2349de7b31a3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  Death:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2650178276422944277
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -621,7 +621,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.4073286, y: 0.05274892, z: -10}
+  m_LocalPosition: {x: 4.631917, y: 0.05315876, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -911,6 +911,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 35.990807, y: 10.080135}
   m_EdgeRadius: 0
+--- !u!114 &810229344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6997724423585996430, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+  m_PrefabInstance: {fileID: 1791303685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bef11165c831542b2349de7b31a3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1105347663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,6 +1370,14 @@ PrefabInstance:
       propertyPath: attackSound
       value: 
       objectReference: {fileID: 393965744}
+    - target: {fileID: 7790997573628290336, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: movingSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790997573628290336, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: healthComponent
+      value: 
+      objectReference: {fileID: 810229344}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
