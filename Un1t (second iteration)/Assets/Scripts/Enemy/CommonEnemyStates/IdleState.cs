@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-//TODO: Make EntryState or something like that instead, that does exactly this
 public class IdleState : EnemyState
 {
     //Couldn't think of better solution lol

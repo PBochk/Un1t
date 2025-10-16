@@ -40,7 +40,6 @@ public class SlimeFollowState : EnemyState
     private IEnumerator Jump()
     {
         Debug.Log("Jump start");
-        //jumpStart.Invoke();
         while (moveTimer <= BASE_MOVE_TIME)
         {
             enemyRb.MovePosition(startPosition + direction * moveTimer /  BASE_MOVE_TIME);
@@ -50,12 +49,4 @@ public class SlimeFollowState : EnemyState
         moveTimer = 0f;
         ExitState();
     }
-
-    //TODO: Change to movement delay state instead
-    // private IEnumerator AfterJumpDelay()
-    // {
-    //     Debug.Log("Delay after jump");
-    //     animator.PlayIdleAnimation();
-    //     ExitState();
-    // }
 }

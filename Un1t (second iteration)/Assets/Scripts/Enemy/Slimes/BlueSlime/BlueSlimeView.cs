@@ -14,7 +14,6 @@ public class BlueSlimeView : EnemyView
     {
     }
 
-    //TODO: Consider removing since every state is serialized
     protected override void BindStates()
     {
     }

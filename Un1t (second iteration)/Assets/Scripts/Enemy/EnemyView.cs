@@ -1,8 +1,5 @@
 using UnityEngine;
 
-//TODO: Stats display / animations logic
-//TODO: figure out what is needed for EnemyView class
-//TODO: View should receive Events from the state component, states should not have reference to animator
 /// <summary>
 /// One of the two MonoBehaviour scripts for enemies, intended to have UI display,
 /// animations and sounds logic and data
