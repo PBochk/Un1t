@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(ProjectileModel))]
+[RequireComponent(typeof(ProjectileModelMB))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private LayerMask solid;
@@ -14,8 +14,12 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         projectileCollider = GetComponent<Collider2D>();
-        model = GetComponent<ProjectileModel>();
         contactFilter.SetLayerMask(solid);
+    }
+
+    private void Start()
+    {
+        model = GetComponent<ProjectileModelMB>().projectileModel;
         StartCoroutine(DestroyProjectile());
     }
 

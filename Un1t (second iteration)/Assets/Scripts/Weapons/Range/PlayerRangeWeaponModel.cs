@@ -1,27 +1,22 @@
-using System.Collections;
-using UnityEngine;
-
-public class PlayerRangeWeaponModel : MonoBehaviour
+public class PlayerRangeWeaponModel
 {
-    // TODO: implement ammo system
-    [SerializeField] private float damage;
-    [SerializeField] private float lifetime;
-    [SerializeField] private LayerMask solid;
-    [SerializeField] private float initialForce;
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private float ammo;
+    private float damage;
+    private float lifetime; //idk if this should be in native model
+    private float initialForce;
+    private float attackCooldown;
+    private int ammo;
+
     public float Damage => damage;
     public float Lifetime => lifetime;
-    public LayerMask Solid => solid;
     public float InitialForce => initialForce;
+    public float AttackCooldown => attackCooldown;
+    public int Ammo => ammo;
 
-    private bool isAttackReady = true;
-    public bool IsAttackReady => isAttackReady;
-
-    public IEnumerator WaitForAttackCooldown()
+    public PlayerRangeWeaponModel(float damage, float lifetime, float attackCooldown, int ammo)
     {
-        isAttackReady = false;
-        yield return new WaitForSeconds(attackCooldown);
-        isAttackReady = true;
+        this.damage = damage;
+        this.lifetime = lifetime;
+        this.attackCooldown = attackCooldown;
+        this.ammo = ammo;
     }
 }

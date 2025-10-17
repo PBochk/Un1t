@@ -1,14 +1,19 @@
-using UnityEngine;
-
-public class ProjectileModel : MonoBehaviour
+public class ProjectileModel
 {
-    [SerializeField] private float damage;
-    [SerializeField] private float lifetime;
+    private float damage;
+    private float lifetime;
     private AttackData attackData;
     public float Lifetime => lifetime;
     public AttackData AttackData => attackData;
 
-    private void Awake()
+    public ProjectileModel(float damage, float lifetime)
+    {
+        this.damage = damage;
+        this.lifetime = lifetime;
+        UpdateAttackData();
+    }
+
+    private void UpdateAttackData()
     {
         attackData = new AttackData(damage, DamageType.Physical);
     }
