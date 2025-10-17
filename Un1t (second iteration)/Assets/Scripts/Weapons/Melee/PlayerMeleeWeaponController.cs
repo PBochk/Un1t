@@ -5,18 +5,19 @@ using UnityEngine.Events;
 /// An implementation of melee weapon controller for player to use.
 /// </summary>
 
-[RequireComponent(typeof(PlayerMeleeWeaponModel))]
+[RequireComponent(typeof(PlayerMeleeWeaponModelMB))]
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
     private PlayerController playerController;
     public UnityEvent StartMeleeAnimation;
+
     /// <summary>
     /// Overrides abstract model on player's implementation
     /// and subscribes base class methods on player's events
     /// </summary>
     protected override void Awake()
     {
-        model = GetComponent<PlayerMeleeWeaponModel>();
+        modelMB = GetComponent<PlayerMeleeWeaponModelMB>();
         playerController = GetComponentInParent<PlayerController>();
         playerController.StartMelee.AddListener(StartMelee);
         playerController.StartMeleeActive.AddListener(StartMeleeActive);
@@ -30,10 +31,10 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     protected override void StartMelee()
     {
         base.StartMelee();
-        if (model.IsAttackReady)
+        if (modelMB.IsAttackReady)
         {
             StartMeleeAnimation?.Invoke();
-            StartCoroutine(((PlayerMeleeWeaponModel)model).WaitForAttackCooldown());
+            StartCoroutine(((PlayerMeleeWeaponModelMB)modelMB).WaitForAttackCooldown());
         }
     }
 }

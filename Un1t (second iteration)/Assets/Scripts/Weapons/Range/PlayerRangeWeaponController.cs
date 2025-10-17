@@ -1,28 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerRangeWeaponModel))]
+[RequireComponent(typeof(PlayerRangeWeaponModelMB))]
 public class PlayerRangeWeaponController : MonoBehaviour
 {
     [SerializeField] private Projectile projectile;
     [SerializeField] private Transform playerTransform;
-    private PlayerRangeWeaponModel model;
+    private PlayerRangeWeaponModelMB modelMB;
     private PlayerController playerController;
 
     private void Awake()
     {
-        model = GetComponent<PlayerRangeWeaponModel>();
+        modelMB = GetComponent<PlayerRangeWeaponModelMB>();
         playerController = GetComponentInParent<PlayerController>();
         playerController.StartRange.AddListener(StartRange);
     }
 
     private void StartRange()
     {
-        if (model.IsAttackReady)
+        if (modelMB.IsAttackReady)
         {
             var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
             var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, GetShotAngle(shotDirection));
-            spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * model.InitialForce);
-            StartCoroutine(model.WaitForAttackCooldown());
+            spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * modelMB.InitialForce);
+            StartCoroutine(modelMB.WaitForAttackCooldown());
         }
     }
 

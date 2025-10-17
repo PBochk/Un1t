@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(ProjectileModel))]
+[RequireComponent(typeof(ProjectileModelMB))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private LayerMask solid;
@@ -14,8 +14,12 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         projectileCollider = GetComponent<Collider2D>();
-        model = GetComponent<ProjectileModel>();
         contactFilter.SetLayerMask(solid);
+    }
+
+    private void Start()
+    {
+        model = GetComponent<ProjectileModelMB>().projectileModel;
         StartCoroutine(DestroyProjectile());
     }
 
@@ -32,7 +36,7 @@ public class Projectile : MonoBehaviour
         if (targets.Count == 0) return;
         foreach (var target in targets)
         {
-            if (target.TryGetComponent<Hittable>(out var hittable))
+            if (target.TryGetComponent<Hitable>(out var hittable))
             {
                 hittable.HitTaken.Invoke(model.AttackData);
             }

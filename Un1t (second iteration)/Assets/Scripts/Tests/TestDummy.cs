@@ -6,7 +6,7 @@ public class TestDummy : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<Hittable>().HitTaken.AddListener(TakeDamage);
+        GetComponent<Hitable>().HitTaken.AddListener(TakeDamage);
     }
 
     private void TakeDamage(AttackData attackData)
