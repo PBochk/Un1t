@@ -13,7 +13,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
-    private Hittable hittable;
     private PlayerModel playerModel;
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
@@ -30,8 +29,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModelMB>().playerModel;
-        hittable = GetComponent<Hittable>();
-        hittable.HitTaken.AddListener(OnHitTaken);
+        GetComponent<Hittable>().HitTaken.AddListener(OnHitTaken);
     }
 
     private void FixedUpdate()
