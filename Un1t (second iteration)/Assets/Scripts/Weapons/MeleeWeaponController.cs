@@ -68,7 +68,9 @@ public abstract class MeleeWeaponController : MonoBehaviour
                 {
                     if (!damagedTargets.Contains(target))
                     {
-                        target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
+                        //target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
+                        var hittable = target.GetComponent<Hittable>();
+                        hittable.HitTaken.Invoke(model.AttackData);
                         damagedTargets.Add(target);
                     }
                 }

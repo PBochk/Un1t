@@ -77,16 +77,17 @@ GameObject:
   m_Component:
   - component: {fileID: 560221877772887277}
   - component: {fileID: 7691705762184161645}
+  - component: {fileID: 9179293386692360931}
   - component: {fileID: 5965787015759184982}
   - component: {fileID: 956851122708948023}
   - component: {fileID: 8564208846730262985}
   - component: {fileID: 3230494579449482461}
   - component: {fileID: 6555124608399606011}
   - component: {fileID: 4697431313275488480}
+  - component: {fileID: 7790997573628290336}
   - component: {fileID: 4831991179820454322}
   - component: {fileID: 2683753899706659779}
-  - component: {fileID: 6997724423585996430}
-  - component: {fileID: 7790997573628290336}
+  - component: {fileID: 416904604416964280}
   m_Layer: 0
   m_Name: PlayerWithGun
   m_TagString: Untagged
@@ -166,6 +167,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &9179293386692360931
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.23, y: 0.48}
+  m_Direction: 0
 --- !u!50 &5965787015759184982
 Rigidbody2D:
   serializedVersion: 5
@@ -416,6 +454,20 @@ MonoBehaviour:
   StartRange:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7790997573628290336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingSpeed: 15
+  healthComponent: {fileID: 0}
 --- !u!114 &4831991179820454322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 10
   xpCoefficient: 25
---- !u!114 &6997724423585996430
+--- !u!114 &416904604416964280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -451,27 +503,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1217057890759837180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bef11165c831542b2349de7b31a3cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a25c3212ba0d9c44b49f6115d4ad940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  Death:
+  HitTaken:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7790997573628290336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217057890759837180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingSpeed: 15
-  healthComponent: {fileID: 6997724423585996430}
 --- !u!1001 &7719972767225688515
 PrefabInstance:
   m_ObjectHideFlags: 0

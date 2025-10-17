@@ -32,9 +32,9 @@ public class Projectile : MonoBehaviour
         if (targets.Count == 0) return;
         foreach (var target in targets)
         {
-            if (target.TryGetComponent<HealthComponent>(out var targetHealth))
+            if (target.TryGetComponent<Hittable>(out var hittable))
             {
-                targetHealth.TakeDamage(model.Damage);
+                hittable.HitTaken.Invoke(model.AttackData);
             }
         }
        Destroy(gameObject);
