@@ -28,10 +28,13 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected virtual void Awake()
     {
         modelMB = GetComponent<MeleeWeaponModelMB>();
-        model = modelMB.MeleeWeaponModel;
         contactFilter.SetLayerMask(targetMask);
     }
 
+    protected virtual void Start()
+    {
+        model = modelMB.MeleeWeaponModel;
+    }
 
     /// <summary>
     /// Could be overriden with base call BEFORE model.IsAttackReady update
@@ -73,8 +76,6 @@ public abstract class MeleeWeaponController : MonoBehaviour
                     if (!damagedTargets.Contains(target))
                     {
                         var hittable = target.GetComponent<Hitable>();
-                        Debug.Log(model);
-                        Debug.Log(model.AttackData);
                         hittable.TakeHit(model.AttackData);
                         damagedTargets.Add(target);
                     }
