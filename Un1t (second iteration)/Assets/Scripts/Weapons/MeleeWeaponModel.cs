@@ -5,9 +5,11 @@ using UnityEngine;
 public abstract class MeleeWeaponModel : MonoBehaviour 
 {
     [SerializeField] protected float damage;
+    [SerializeField] protected DamageType damageType = DamageType.Physical;
+    private AttackData attackData;
+    public AttackData AttackData => attackData;
     protected bool isAttackReady = true;
     protected bool isAttackActive = false;
-    public float Damage => damage;
     public bool IsAttackReady => isAttackReady;
     public bool IsAttackActive => isAttackActive;
 
@@ -20,5 +22,9 @@ public abstract class MeleeWeaponModel : MonoBehaviour
         isAttackActive = false;
     }
 
+    private void Awake()
+    {
+        attackData = new AttackData(damage, damageType, gameObject);
+    }
 
 }

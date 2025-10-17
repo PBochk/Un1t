@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
+    private Hittable hittable;
     private PlayerModel playerModel;
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModelMB>().playerModel;
+        hittable = GetComponent<Hittable>();
+        hittable.HitTaken.AddListener(OnHitTaken);
     }
 
     private void FixedUpdate()
@@ -44,6 +47,12 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void MovePlayer(Vector2 inputVector)
     {
         rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
+    }
+
+    public void OnHitTaken(AttackData attackData)
+    {
+        playerModel.TakeDamage(attackData.Damage);
+        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.Health);
     }
 
     public void OnMeleeAttack()

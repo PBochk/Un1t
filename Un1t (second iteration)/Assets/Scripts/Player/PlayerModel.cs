@@ -1,5 +1,9 @@
+using System.Diagnostics;
+
 public class PlayerModel
 {
+    private float health;
+    public float Health => health;
     private float movingSpeed;
     private HealthComponent healthComponent;
     private PlayerExperienceModel experienceModel;
@@ -12,5 +16,10 @@ public class PlayerModel
         this.movingSpeed = movingSpeed;
         this.healthComponent = healthComponent;
         this.experienceModel = experienceModel;
+    }
+
+    public void TakeDamage(float decrement)
+    {
+        health -= decrement;
     }
 }

@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 2683753899706659779}
   - component: {fileID: 6997724423585996430}
   - component: {fileID: 7790997573628290336}
+  - component: {fileID: 416904604416964280}
   m_Layer: 0
   m_Name: PlayerWithGun
   m_TagString: Untagged
@@ -472,6 +473,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movingSpeed: 15
   healthComponent: {fileID: 6997724423585996430}
+--- !u!114 &416904604416964280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a25c3212ba0d9c44b49f6115d4ad940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitTaken:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &7719972767225688515
 PrefabInstance:
   m_ObjectHideFlags: 0
