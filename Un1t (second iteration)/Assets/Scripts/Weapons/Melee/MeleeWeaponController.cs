@@ -10,31 +10,35 @@ using UnityEngine;
 /// and invoke changes in model.IsAttackReady
 /// </remarks>
 
-[RequireComponent(typeof(MeleeWeaponModel))]
+[RequireComponent(typeof(MeleeWeaponModelMB))]
 public abstract class MeleeWeaponController : MonoBehaviour
 {
     [SerializeField] protected LayerMask targetMask;
     [SerializeField] protected Collider2D[] weaponColliders;
 
+    protected MeleeWeaponModelMB modelMB;
     protected MeleeWeaponModel model;
     protected ContactFilter2D contactFilter = new();
     protected HashSet<Collider2D> damagedTargets = new();
     protected WaitForFixedUpdate waitForFixedUpdate = new();
+
     /// <summary>
     /// Could be overriden with base call
     /// </summary>
     protected virtual void Awake()
     {
-        model = GetComponent<MeleeWeaponModel>();
+        modelMB = GetComponent<MeleeWeaponModelMB>();
+        model = modelMB.MeleeWeaponModel;
         contactFilter.SetLayerMask(targetMask);
     }
+
 
     /// <summary>
     /// Could be overriden with base call BEFORE model.IsAttackReady update
     /// </summary>
     protected virtual void StartMelee()
     {
-        if (model.IsAttackReady)
+        if (modelMB.IsAttackReady)
         {
             damagedTargets.Clear();
         }
@@ -45,7 +49,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     protected virtual void StartMeleeActive()
     {
-        model.StartActive(); // Maybe it's better to subscribe model on some event, idk
+        modelMB.StartActive(); // Maybe it's better to subscribe model on some event, idk
         StartCoroutine(OnMeleeActive());
     }
 
@@ -68,16 +72,17 @@ public abstract class MeleeWeaponController : MonoBehaviour
                 {
                     if (!damagedTargets.Contains(target))
                     {
-                        //target.GetComponent<HealthComponent>().TakeDamage(model.Damage);
-                        var hittable = target.GetComponent<Hittable>();
-                        hittable.HitTaken.Invoke(model.AttackData);
+                        var hittable = target.GetComponent<Hitable>();
+                        Debug.Log(model);
+                        Debug.Log(model.AttackData);
+                        hittable.TakeHit(model.AttackData);
                         damagedTargets.Add(target);
                     }
                 }
             }
             yield return waitForFixedUpdate;
         }
-        while (model.IsAttackActive);
+        while (modelMB.IsAttackActive);
     }
 
     /// <summary>
@@ -85,8 +90,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     protected virtual void EndMeleeActive()
     {
-        model.EndActive();
+        modelMB.EndActive();
     }
-
 }
 

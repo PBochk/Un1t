@@ -148,8 +148,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1300040097739187278}
   - component: {fileID: 6257263928277993852}
-  - component: {fileID: 1707515046822358410}
   - component: {fileID: 8462505186542389312}
+  - component: {fileID: 1707515046822358410}
   m_Layer: 0
   m_Name: Melee
   m_TagString: Untagged
@@ -228,6 +228,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8462505186542389312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602477215093059071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b2c3661c7b2584bb03f1752c780ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  damageType: 0
+  attackCooldown: 0.25
 --- !u!114 &1707515046822358410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,17 +263,3 @@ MonoBehaviour:
   StartMeleeAnimation:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8462505186542389312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5602477215093059071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68b2c3661c7b2584bb03f1752c780ed1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  attackCooldown: 0.25

@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
         if (targets.Count == 0) return;
         foreach (var target in targets)
         {
-            if (target.TryGetComponent<Hittable>(out var hittable))
+            if (target.TryGetComponent<Hitable>(out var hittable))
             {
                 hittable.HitTaken.Invoke(model.AttackData);
             }

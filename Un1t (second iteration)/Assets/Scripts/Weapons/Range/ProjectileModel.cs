@@ -10,6 +10,6 @@ public class ProjectileModel : MonoBehaviour
 
     private void Awake()
     {
-        attackData = new AttackData(damage, DamageType.Physical, gameObject);
+        attackData = new AttackData(damage, DamageType.Physical);
     }
 }

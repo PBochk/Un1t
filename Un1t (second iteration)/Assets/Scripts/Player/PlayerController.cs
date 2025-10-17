@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         rb = GetComponent<Rigidbody2D>();
         playerModel = GetComponent<PlayerModelMB>().playerModel;
-        GetComponent<Hittable>().HitTaken.AddListener(OnHitTaken);
+        GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
     }
 
     private void FixedUpdate()
