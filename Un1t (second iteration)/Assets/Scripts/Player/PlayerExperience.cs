@@ -16,7 +16,7 @@ public class PlayerExperience : MonoBehaviour
 
     private void Start()
     {
-        model = GetComponent<PlayerModelMB>().playerModel;
+        model = GetComponent<PlayerModelMB>().PlayerModel;
     }
 
     public void AddXP(int increment)

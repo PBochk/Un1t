@@ -39,11 +39,6 @@ public class PlayerModel
         currentHealth -= decrement;
     }
 
-    public void UpgradeHealth()
-    {
-        maxHealth += healthUpgrade;
-    }
-
     public void AddXP(int increment)
     {
         currentXP += increment;
@@ -69,6 +64,12 @@ public class PlayerModel
     {
         nextLevelXP = GetFibonachi(level) * xpCoefficient;
     }
+
+    public void UpgradeHealth()
+    {
+        maxHealth += healthUpgrade;
+    }
+    
 
     private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
 

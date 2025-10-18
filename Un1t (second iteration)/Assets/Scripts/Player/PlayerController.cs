@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerModel = GetComponent<PlayerModelMB>().playerModel;
+        playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
     }
 

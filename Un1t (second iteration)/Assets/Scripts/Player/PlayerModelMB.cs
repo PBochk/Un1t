@@ -10,11 +10,11 @@ public class PlayerModelMB: MonoBehaviour
     [SerializeField] private float movingSpeed;
     [SerializeField] private int level;
     [SerializeField] private int xpCoefficient;
-    public PlayerModel playerModel;
+    public PlayerModel PlayerModel;
 
     private void Awake()
     {
         // Temporary solution for serialization
-        playerModel = new PlayerModel(maxHealth, movingSpeed, level, xpCoefficient);
+        PlayerModel = new PlayerModel(maxHealth, movingSpeed, level, xpCoefficient);
     }
 }

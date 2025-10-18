@@ -17,12 +17,12 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     /// </summary>
     protected override void Awake()
     {
+        base.Awake();
         modelMB = GetComponent<PlayerMeleeWeaponModelMB>();
         playerController = GetComponentInParent<PlayerController>();
         playerController.StartMelee.AddListener(StartMelee);
         playerController.StartMeleeActive.AddListener(StartMeleeActive);
         playerController.EndMeleeActive.AddListener(EndMeleeActive);
-        base.Awake();
     }
 
     /// <summary>

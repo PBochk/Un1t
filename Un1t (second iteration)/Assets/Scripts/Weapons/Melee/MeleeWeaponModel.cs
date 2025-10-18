@@ -1,9 +1,8 @@
 public class MeleeWeaponModel
 {
-    private float damage;
-    private DamageType damageType;
-    private AttackData attackData;
-
+    protected float damage;
+    protected DamageType damageType;
+    protected AttackData attackData;
     public float Damage => damage;
     public DamageType DamageType => damageType;
     public AttackData AttackData => attackData; 
