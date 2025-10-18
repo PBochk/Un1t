@@ -17,6 +17,6 @@ public class ConditionalTransition : EnemyStateTransition
 
     public override void PerformTransition()
     {
-        controller.ChangeState(condition(controller.Target, controller.Model) ? trueState : falseState);
+        controller.ChangeState(condition(controller.Target, controller.Model.NativeModel) ? trueState : falseState);
     }
 }

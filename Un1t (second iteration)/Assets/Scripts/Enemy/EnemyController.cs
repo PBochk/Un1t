@@ -16,19 +16,18 @@ using UnityEngine.Events;
 /// -> make a prefab variant of base enemy and attach controller and view to it
 /// </remarks>
 [RequireComponent(typeof(IdleState))]
+[RequireComponent(typeof(EnemyModelMB))]
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] private EnemyConfig config;
-    
-    //Those are used by state transitions
     public IEnemyTarget Target { get; private set; }
-    public EnemyModel Model { get; private set; }
    
     //protected EnemyView View;
     protected Rigidbody2D Rb;
     protected IdleState IdleState;
-
+    protected EnemyModelMB ModelMB;
     protected EnemyState CurrentState;
+    
+    public EnemyModelMB Model => ModelMB;
     
     public UnityEvent onDeath;
     public UnityEvent onHit;
@@ -45,7 +44,10 @@ public abstract class EnemyController : MonoBehaviour
         ChangeState(IdleState);
     }
 
-    protected abstract void BindModel();
+    protected virtual void BindModel()
+    {
+        ModelMB = GetComponent<EnemyModelMB>();
+    }
     
     //TODO: Consider removing
     protected abstract void BindStates();
@@ -89,6 +91,6 @@ public abstract class EnemyController : MonoBehaviour
         //TODO: Make it impossible to change state when current is not exited or interrupted yet
         Debug.Log($"Changed state: {CurrentState} -> {newState}");
         CurrentState = newState;
-        CurrentState.EnterState(Target, Model);
+        CurrentState.EnterState(Target, ModelMB.NativeModel);
     }
 }

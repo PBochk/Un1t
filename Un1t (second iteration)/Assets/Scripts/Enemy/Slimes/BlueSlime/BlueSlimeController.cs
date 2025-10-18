@@ -31,6 +31,7 @@ public class BlueSlimeController : EnemyController
    
     protected override void BindModel()
     {
+        base.BindModel();
     }
 
     protected override void BindStates()
