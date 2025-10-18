@@ -33,9 +33,6 @@ public abstract class EnemyController : MonoBehaviour
     public UnityEvent onDeath;
     public UnityEvent onHit;
 
-    /// <summary>
-    /// Feel free to override it, but don't forget to call base 
-    /// </summary>
     protected void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
@@ -44,7 +41,7 @@ public abstract class EnemyController : MonoBehaviour
         BindView();
         BindStates();
         MakeTransitions();
-        Model = new EnemyModel(config.MaxHealth,  config.MaxHealth, config.SpeedScale, config.Damage);
+        //Model = new EnemyModel(config.maxHealth,  config.maxHealth, config.SpeedScale, config.Damage);
         ChangeState(IdleState);
     }
 

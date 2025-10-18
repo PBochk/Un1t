@@ -14,7 +14,6 @@ public class SlimeFollowState : EnemyState
     private const float BASE_MOVE_TIME = 1f;
     private const float BASE_RANGE = 0.75f;
     
-    //TODO: Make this configurable
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
     private Vector2 startPosition;
