@@ -1,20 +1,22 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerModelMB))]
-[RequireComponent(typeof(PlayerExperienceModelMB))]
 public class PlayerExperience : MonoBehaviour
 {
-    private PlayerExperienceModel model;
     public static PlayerExperience Instance;
+    private PlayerModel model;
 
-
-    public void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-        model = GetComponent<PlayerExperienceModelMB>().experienceModel;
+    }
+
+    private void Start()
+    {
+        model = GetComponent<PlayerModelMB>().playerModel;
     }
 
     public void AddXP(int increment)

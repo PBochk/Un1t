@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     public void OnHitTaken(AttackData attackData)
     {
         playerModel.TakeDamage(attackData.Damage);
-        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.Health);
+        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
     public void OnMeleeAttack()

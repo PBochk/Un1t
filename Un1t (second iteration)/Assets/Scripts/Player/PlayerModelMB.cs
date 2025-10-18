@@ -6,13 +6,15 @@ using UnityEngine;
 /// </summary>
 public class PlayerModelMB: MonoBehaviour
 {
+    [SerializeField] private float maxHealth;
     [SerializeField] private float movingSpeed;
-    [SerializeField] private PlayerExperienceModel experienceModel;
+    [SerializeField] private int level;
+    [SerializeField] private int xpCoefficient;
     public PlayerModel playerModel;
 
     private void Awake()
     {
         // Temporary solution for serialization
-        playerModel = new PlayerModel(movingSpeed, experienceModel);
+        playerModel = new PlayerModel(maxHealth, movingSpeed, level, xpCoefficient);
     }
 }
