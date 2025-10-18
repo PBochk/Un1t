@@ -19,4 +19,9 @@ public class PlayerRangeWeaponModel
         this.attackCooldown = attackCooldown;
         this.ammo = ammo;
     }
+
+    public void SpendAmmo()
+    {
+        ammo--;
+    }
 }
