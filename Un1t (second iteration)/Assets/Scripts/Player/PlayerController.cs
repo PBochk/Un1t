@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerModel = GetComponent<PlayerModelMB>().playerModel;
+        playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
     }
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     public void OnHitTaken(AttackData attackData)
     {
         playerModel.TakeDamage(attackData.Damage);
-        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.Health);
+        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
     public void OnMeleeAttack()

@@ -8,11 +8,12 @@ public class PlayerMeleeWeaponModelMB : MeleeWeaponModelMB
 {
     [SerializeField] private float attackCooldown;
     public PlayerMeleeWeaponModel model;
+    public PlayerMeleeWeaponModel PlayerMeleeWeaponModel => model;
 
     protected override void Awake()
     {
         base.Awake();
-        model = new PlayerMeleeWeaponModel(attackCooldown);
+        model = new PlayerMeleeWeaponModel(damage, damageType, attackCooldown);
     }
 
     /// <summary>

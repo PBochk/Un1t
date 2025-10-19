@@ -23,11 +23,10 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected WaitForFixedUpdate waitForFixedUpdate = new();
 
     /// <summary>
-    /// Could be overriden with base call
+    /// Should be overriden with base call and modelMB assignment
     /// </summary>
     protected virtual void Awake()
     {
-        modelMB = GetComponent<MeleeWeaponModelMB>();
         contactFilter.SetLayerMask(targetMask);
     }
 

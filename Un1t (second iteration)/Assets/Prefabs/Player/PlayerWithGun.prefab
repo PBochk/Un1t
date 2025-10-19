@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 4697431313275488480}
   - component: {fileID: 7790997573628290336}
   - component: {fileID: 4831991179820454322}
-  - component: {fileID: 2683753899706659779}
   - component: {fileID: 4399124830697755736}
   m_Layer: 0
   m_Name: PlayerWithGun
@@ -399,8 +398,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   movingSpeed: 15
-  healthComponent: {fileID: 0}
+  level: 0
+  xpCoefficient: 0
 --- !u!114 &4831991179820454322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,20 +414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e29ccec388fde4394f8b3cbc6dcf15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2683753899706659779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217057890759837180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65f0f3dfdbeb87d4795652092e212c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 10
-  xpCoefficient: 25
 --- !u!114 &4399124830697755736
 MonoBehaviour:
   m_ObjectHideFlags: 0
