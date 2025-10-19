@@ -7,9 +7,11 @@ using UnityEngine;
 /// <remarks>
 /// Used by <see cref="EnemyController"/>, <see cref="EnemyState"/> and its derivatives
 /// </remarks>
+[RequireComponent(typeof(EnemyModelMB))]
 public abstract class EnemyView : MonoBehaviour
-
 {
+    protected EnemyModelMB model;
+    
     private void Awake()
     {
         BindModel();
@@ -19,7 +21,10 @@ public abstract class EnemyView : MonoBehaviour
     }
 
 
-    protected abstract void BindModel();
+    protected virtual void BindModel()
+    {
+        model = GetComponent<EnemyModelMB>();
+    }
     protected abstract void BindStates();
     protected abstract void BindAnimator();
     protected abstract void BindSoundPlayer();

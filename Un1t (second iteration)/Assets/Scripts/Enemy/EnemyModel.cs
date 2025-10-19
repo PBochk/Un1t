@@ -1,41 +1,25 @@
 using UnityEngine;
 
-/// <summary>
-/// Used to determine enemy's current state,
-/// intended to be immutable
-/// </summary>
-public struct EnemyModel
+//TODO: Decide if to use native events for reactive view update
+public class EnemyModel
 {
-    public float Health { get; }
-    public float MaxHealth { get; }
-    public float Speed { get; }
-    public float Damage { get; }
-    
-    public EnemyModel(float health, float maxHealth, float speed, float damage)
+    private float hp;
+    private float speedCoeff;
+
+    public float Hp => hp;
+    public float SpeedCoeff => speedCoeff;
+
+    public EnemyModel(float hp, float speedCoeff)
     {
-        Health = health;
-        MaxHealth = maxHealth;
-        Speed = speed;
-        Damage = damage;
+        this.hp = hp;
+        this.speedCoeff = speedCoeff;
     }
-    
-    public EnemyModel WithHealth(float health)
+
+    public void Damage(AttackData data)
     {
-        return new EnemyModel(MaxHealth, health, Speed, Damage);
+        //May be changed later
+        hp -= data.Damage;
     }
-    
-    public EnemyModel WithMaxHealth(float maxHealth)
-    {
-        return new EnemyModel(maxHealth, Health, Speed, Damage);
-    }
-    
-    public EnemyModel WithDamage(float damage)
-    {
-        return new EnemyModel(MaxHealth, Health, Speed, damage);
-    }
-    
-    public EnemyModel WithSpeed(float speed)
-    {
-        return new EnemyModel(MaxHealth, Health, speed, Damage);
-    }
+    //To be implemented
+    //public void Heal()
 }

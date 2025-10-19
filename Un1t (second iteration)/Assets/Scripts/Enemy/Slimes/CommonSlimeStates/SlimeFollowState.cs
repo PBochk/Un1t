@@ -3,18 +3,15 @@ using System.Collections;
 using System.Dynamic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class SlimeFollowState : EnemyState
 {
     public UnityEvent jumpStart;
     
-    //TODO: Make this configurable
-    private const float BASE_SPEED = 3f;
-    private const float BASE_MOVE_TIME = 1f;
-    private const float BASE_RANGE = 0.75f;
+    [SerializeField] private float baseMoveTime = 1f;
     
-    //TODO: Make this configurable
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
     private Vector2 startPosition;
@@ -22,27 +19,29 @@ public class SlimeFollowState : EnemyState
     
     private Rigidbody2D enemyRb;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         enemyRb =  GetComponent<Rigidbody2D>();
     }
     
-    public override void EnterState(IEnemyTarget target, EnemyModel model)
+    public override void EnterState(IEnemyTarget target)
     {
-        base.EnterState(target, model);
-        var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - BASE_RANGE, BASE_SPEED);
+        base.EnterState(target);
+        var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - model.Config.AggroRange, model.Config.BaseMoveSpeed);
         startPosition = enemyRb.position;
         direction = (target.Position - enemyRb.position).normalized * distance;
-        StartCoroutine(Jump());
+        //TODO: Fix Possible DivisionByZeroException 
+        StartCoroutine(Jump(baseMoveTime / model.NativeModel.SpeedCoeff));
     }
 
     //TODO: Maybe make a windup animation
-    private IEnumerator Jump()
+    private IEnumerator Jump(float moveTime)
     {
         Debug.Log("Jump start");
-        while (moveTimer <= BASE_MOVE_TIME)
+        while (moveTimer <= moveTime)
         {
-            enemyRb.MovePosition(startPosition + direction * moveTimer /  BASE_MOVE_TIME);
+            enemyRb.MovePosition(startPosition + direction * moveTimer /  moveTime);
             moveTimer += Time.fixedDeltaTime;
             yield return physicsUpdate;
         }

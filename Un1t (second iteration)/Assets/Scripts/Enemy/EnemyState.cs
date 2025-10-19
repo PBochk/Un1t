@@ -7,27 +7,33 @@ using UnityEngine.Events;
 /// <remarks>
 /// Used by <see cref="EnemyController"/> and its derivatives
 /// </remarks>
+[RequireComponent(typeof(EnemyModelMB))]
 public abstract class EnemyState : MonoBehaviour
 {
     public UnityEvent OnStateEnter;
     public UnityEvent OnStateExit;
 
     protected IEnemyTarget target;
-    protected EnemyModel model;
+    protected EnemyModelMB model;
     
     //TODO: ensure that this is not null
     private EnemyStateTransition transition;
+
+    protected virtual void Awake()
+    {
+        model = GetComponent<EnemyModelMB>();
+    }
 
     public void MakeTransition(EnemyStateTransition transition)
     {
         this.transition = transition;
     }
         
-    public virtual void EnterState(IEnemyTarget target, EnemyModel model)
+    public virtual void EnterState(IEnemyTarget target)
     {
         Debug.Log($"Entered state: {this}");
         this.target = target;
-        this.model = model;
+        //this.model = model;
         OnStateEnter.Invoke();
     }
     

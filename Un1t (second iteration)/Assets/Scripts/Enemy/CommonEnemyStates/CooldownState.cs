@@ -6,9 +6,9 @@ public class CooldownState : EnemyState
     [SerializeField] private float cooldown;
     WaitForSeconds cooldownTimer;
     
-    public override void EnterState(IEnemyTarget target, EnemyModel model)
+    public override void EnterState(IEnemyTarget target)
     {
-        base.EnterState(target, model);
+        base.EnterState(target);
         cooldownTimer = new WaitForSeconds(cooldown);
         StartCoroutine(CooldownTimer());
     }

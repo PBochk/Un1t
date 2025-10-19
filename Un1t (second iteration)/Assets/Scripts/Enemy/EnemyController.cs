@@ -16,26 +16,23 @@ using UnityEngine.Events;
 /// -> make a prefab variant of base enemy and attach controller and view to it
 /// </remarks>
 [RequireComponent(typeof(IdleState))]
+[RequireComponent(typeof(EnemyModelMB))]
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] private EnemyConfig config;
-    
-    //Those are used by state transitions
     public IEnemyTarget Target { get; private set; }
-    public EnemyModel Model { get; private set; }
    
     //protected EnemyView View;
     protected Rigidbody2D Rb;
     protected IdleState IdleState;
-
+    protected EnemyModelMB ModelMB;
     protected EnemyState CurrentState;
+    
+    //it is needed for example in Transitions
+    public EnemyModelMB Model => ModelMB;
     
     public UnityEvent onDeath;
     public UnityEvent onHit;
 
-    /// <summary>
-    /// Feel free to override it, but don't forget to call base 
-    /// </summary>
     protected void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
@@ -44,11 +41,13 @@ public abstract class EnemyController : MonoBehaviour
         BindView();
         BindStates();
         MakeTransitions();
-        Model = new EnemyModel(config.MaxHealth,  config.MaxHealth, config.SpeedScale, config.Damage);
         ChangeState(IdleState);
     }
 
-    protected abstract void BindModel();
+    protected virtual void BindModel()
+    {
+        ModelMB = GetComponent<EnemyModelMB>();
+    }
     
     //TODO: Consider removing
     protected abstract void BindStates();
@@ -57,23 +56,6 @@ public abstract class EnemyController : MonoBehaviour
 
     protected abstract void MakeTransitions();
     
-
-    /// <summary>
-    /// Feel free to override it, but don't forget to call base 
-    /// </summary>
-    protected virtual void FixedUpdate()
-    {
-        MakeDecision();
-    }
-
-    /// <summary>
-    /// Feel free to override it, but don't forget to call base 
-    /// </summary>
-    protected virtual void MakeDecision()
-    {
-        //currentState.MakeDecision(target, model);
-    }
-
     /// <summary>
     /// Normally used on the initialization step, but can be changed in the lifetime for example, to make enemy aggro
     /// to the fake player
@@ -92,6 +74,6 @@ public abstract class EnemyController : MonoBehaviour
         //TODO: Make it impossible to change state when current is not exited or interrupted yet
         Debug.Log($"Changed state: {CurrentState} -> {newState}");
         CurrentState = newState;
-        CurrentState.EnterState(Target, Model);
+        CurrentState.EnterState(Target);
     }
 }
