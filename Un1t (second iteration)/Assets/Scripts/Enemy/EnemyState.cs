@@ -19,7 +19,7 @@ public abstract class EnemyState : MonoBehaviour
     //TODO: ensure that this is not null
     private EnemyStateTransition transition;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         model = GetComponent<EnemyModelMB>();
     }

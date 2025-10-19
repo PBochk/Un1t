@@ -5,6 +5,7 @@ public class EnemyAtackConfig : ScriptableObject
 {
     [SerializeField] private float damage;
     [SerializeField] private DamageType damageType;
+    //Unused rn
     [SerializeField] private float baseCooldownTime;
 
     private AttackData attackData;

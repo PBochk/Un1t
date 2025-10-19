@@ -11,6 +11,7 @@ public class EnemyModelMB : MonoBehaviour
     public EnemyModel NativeModel;
     public EnemyConfig Config => config;
 
+    //TODO: Make an event for values changing for view/animator to update animation speed
     //TODO: Think if we should pass any parameters here
     //or to remove this event even
     public UnityEvent OnDamageTaken;
