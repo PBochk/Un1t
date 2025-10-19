@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ConditionalTransition : EnemyStateTransition
 {
-    public delegate bool Condition(IEnemyTarget target, EnemyModel model);
+    public delegate bool Condition(IEnemyTarget target);
     
     private readonly Condition condition;
     private readonly EnemyState trueState;
@@ -17,6 +17,6 @@ public class ConditionalTransition : EnemyStateTransition
 
     public override void PerformTransition()
     {
-        controller.ChangeState(condition(controller.Target, controller.Model.NativeModel) ? trueState : falseState);
+        controller.ChangeState(condition(controller.Target) ? trueState : falseState);
     }
 }

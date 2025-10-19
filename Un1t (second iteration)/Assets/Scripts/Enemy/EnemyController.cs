@@ -27,7 +27,7 @@ public abstract class EnemyController : MonoBehaviour
     protected EnemyModelMB ModelMB;
     protected EnemyState CurrentState;
     
-    public EnemyModelMB Model => ModelMB;
+    //public EnemyModelMB Model => ModelMB;
     
     public UnityEvent onDeath;
     public UnityEvent onHit;
@@ -40,7 +40,6 @@ public abstract class EnemyController : MonoBehaviour
         BindView();
         BindStates();
         MakeTransitions();
-        //Model = new EnemyModel(config.maxHealth,  config.maxHealth, config.SpeedScale, config.Damage);
         ChangeState(IdleState);
     }
 
@@ -74,6 +73,6 @@ public abstract class EnemyController : MonoBehaviour
         //TODO: Make it impossible to change state when current is not exited or interrupted yet
         Debug.Log($"Changed state: {CurrentState} -> {newState}");
         CurrentState = newState;
-        CurrentState.EnterState(Target, ModelMB.NativeModel);
+        CurrentState.EnterState(Target);
     }
 }

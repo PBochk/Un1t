@@ -9,7 +9,6 @@ public class BlueSlimeView : EnemyView
     [SerializeField] private DecisionState decisionState;
     [SerializeField] private SlimeAnimator animator;
 
-    //TODO: Decide how to get model from view and if we should even use it
     protected override void BindModel()
     {
     }

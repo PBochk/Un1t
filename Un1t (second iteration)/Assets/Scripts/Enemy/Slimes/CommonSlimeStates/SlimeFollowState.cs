@@ -26,9 +26,9 @@ public class SlimeFollowState : EnemyState
         enemyRb =  GetComponent<Rigidbody2D>();
     }
     
-    public override void EnterState(IEnemyTarget target, EnemyModel model)
+    public override void EnterState(IEnemyTarget target)
     {
-        base.EnterState(target, model);
+        base.EnterState(target);
         var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - BASE_RANGE, BASE_SPEED);
         startPosition = enemyRb.position;
         direction = (target.Position - enemyRb.position).normalized * distance;

@@ -2,17 +2,14 @@ using System;
 using UnityEngine;
 
 //RequireComponent is still relevant because it satisfyingly adds all the components when adding controller
-[RequireComponent(typeof(SlimeFollowState),
-    typeof(DeadState),
-    typeof(IdleState))]
-[RequireComponent(typeof(BlueSlimeView),
-    typeof(SlimeMeleeAttackState))]
+[RequireComponent(typeof(SlimeFollowState))]
+[RequireComponent(typeof(DeadState))]
+[RequireComponent(typeof(IdleState))]
+[RequireComponent(typeof(BlueSlimeView))]
+[RequireComponent(typeof(SlimeMeleeAttackState))]
+[RequireComponent(typeof(EnemyModelMB))]
 public class BlueSlimeController : EnemyController
 {
-    //TODO: Make this configurable
-    private const float BASE_RANGE = 0.75f;
-    private const float BASE_AGGRO_RANGE = 1f;
-
     private BlueSlimeView view;
    
     [SerializeField] private SlimeFollowState followState;
@@ -29,11 +26,6 @@ public class BlueSlimeController : EnemyController
     private EnemyStateTransition afterJumpCooldownTransition;
     private EnemyStateTransition afterAttackCooldownTransition;
    
-    protected override void BindModel()
-    {
-        base.BindModel();
-    }
-
     protected override void BindStates()
     {
     }
@@ -62,8 +54,8 @@ public class BlueSlimeController : EnemyController
         afterJumpCooldown.MakeTransition(afterJumpCooldownTransition);
     }
 
-    private bool CheckInRange(IEnemyTarget target, EnemyModel model)
+    private bool CheckInRange(IEnemyTarget target)
     {
-        return Vector2.Distance(target.Position, Rb.position) <= BASE_AGGRO_RANGE;
+        return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange;
     }
 }

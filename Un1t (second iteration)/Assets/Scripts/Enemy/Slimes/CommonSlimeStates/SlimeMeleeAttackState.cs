@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class SlimeMeleeAttackState : EnemyState
 {
-    public override void EnterState(IEnemyTarget target, EnemyModel model)
+    public override void EnterState(IEnemyTarget target)
     {
-        base.EnterState(target, model);
+        base.EnterState(target);
         ExitState();
     }
 }
