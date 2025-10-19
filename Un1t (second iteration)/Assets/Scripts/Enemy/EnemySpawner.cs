@@ -26,5 +26,6 @@ public class EnemySpawner : MonoBehaviour
     {
         var enemy = Instantiate(enemyPrefab);
         enemy.SetTarget(target);
+        var model = enemy.GetComponent<EnemyModelMB>();
     }
 }

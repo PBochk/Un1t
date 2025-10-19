@@ -24,6 +24,7 @@ public abstract class EnemyController : MonoBehaviour
     //protected EnemyView View;
     protected Rigidbody2D Rb;
     protected IdleState IdleState;
+    protected DeadState DeadState;
     protected EnemyModelMB ModelMB;
     protected EnemyState CurrentState;
     
@@ -37,6 +38,7 @@ public abstract class EnemyController : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
         IdleState = GetComponent<IdleState>();
+        DeadState = GetComponent<DeadState>();
         BindModel();
         BindView();
         BindStates();
@@ -47,6 +49,7 @@ public abstract class EnemyController : MonoBehaviour
     protected virtual void BindModel()
     {
         ModelMB = GetComponent<EnemyModelMB>();
+        ModelMB.OnDeath.AddListener(OnDeath);
     }
     
     //TODO: Consider removing
@@ -55,7 +58,14 @@ public abstract class EnemyController : MonoBehaviour
     protected abstract void BindView();
 
     protected abstract void MakeTransitions();
-    
+
+    protected virtual void OnDeath()
+    {
+        CurrentState.StopAllCoroutines();
+        ChangeState(DeadState);
+        Destroy(gameObject);
+    }
+
     /// <summary>
     /// Normally used on the initialization step, but can be changed in the lifetime for example, to make enemy aggro
     /// to the fake player
