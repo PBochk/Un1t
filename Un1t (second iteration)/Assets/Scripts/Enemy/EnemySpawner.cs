@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public UnityEvent<EnemyController> EnemySpawned;
     
     //TODO: Methods for enemy creation, and in initialization this should be on creation step
+    //TODO: Subscribe experience component on enemy death
     private void Awake()
     {
         dummyTarget = Instantiate(dummyTargetPrefab);

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+// TODO: Delete as obsolete
 public class HealthComponent : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
@@ -34,10 +35,10 @@ public class HealthComponent : MonoBehaviour
 
     private void OnDeath()
     {
-        if (TryGetComponent<ExperienceComponent>(out var experienceComponent))
-        {
-            PlayerExperience.Instance.AddXP(experienceComponent.XP);
-        }
+        //if (TryGetComponent<ExperienceComponent>(out var experienceComponent))
+        //{
+        //    PlayerExperience.Instance.AddXP(experienceComponent.XP);
+        //}
         Death?.Invoke();
         Destroy(gameObject);
     }
