@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e527596971c8f9679772c03ea78b016, type: 3}
   m_Name: BlueSlimeConfig
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  SpeedScale: 0.75
-  Damage: 1
-  AttackSpeed: 10
-  XpGain: 1
+  maxHealth: 10
+  initialSpeedCoefficient: 1
+  xpGain: 1
+  baseMoveSpeed: 0
+  aggroRange: 0

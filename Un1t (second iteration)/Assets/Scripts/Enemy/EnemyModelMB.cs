@@ -7,6 +7,7 @@ public class EnemyModelMB : MonoBehaviour
 {
     [SerializeField] private EnemyConfig config;
     
+    //TODO: fix public field use
     public EnemyModel NativeModel;
     public EnemyConfig Config => config;
 

@@ -27,7 +27,8 @@ public abstract class EnemyController : MonoBehaviour
     protected EnemyModelMB ModelMB;
     protected EnemyState CurrentState;
     
-    //public EnemyModelMB Model => ModelMB;
+    //it is needed for example in Transitions
+    public EnemyModelMB Model => ModelMB;
     
     public UnityEvent onDeath;
     public UnityEvent onHit;
