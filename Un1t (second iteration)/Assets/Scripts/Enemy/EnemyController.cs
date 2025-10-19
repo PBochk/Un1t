@@ -56,23 +56,6 @@ public abstract class EnemyController : MonoBehaviour
 
     protected abstract void MakeTransitions();
     
-
-    /// <summary>
-    /// Feel free to override it, but don't forget to call base 
-    /// </summary>
-    protected virtual void FixedUpdate()
-    {
-        MakeDecision();
-    }
-
-    /// <summary>
-    /// Feel free to override it, but don't forget to call base 
-    /// </summary>
-    protected virtual void MakeDecision()
-    {
-        //currentState.MakeDecision(target, model);
-    }
-
     /// <summary>
     /// Normally used on the initialization step, but can be changed in the lifetime for example, to make enemy aggro
     /// to the fake player
