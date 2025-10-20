@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8bbb71845d1f5c348ae41f7b3bb35e56
+guid: 945b5ff38ec9bdb4d8fd7f01b88f9ea8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1437518083614475044
-    second: TestTile_0
+      213: -3532966129015516711
+    second: "Wall (9-\u044B\u0439 \u0442\u0430\u0439\u043B \u0438\u0437 10)_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TestTile_0
+      name: "Wall (9-\u044B\u0439 \u0442\u0430\u0439\u043B \u0438\u0437 10)_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cdc75f35be8ec0ce0800000000000000
-      internalID: -1437518083614475044
+      spriteID: 9d11b8c260268fec0800000000000000
+      internalID: -3532966129015516711
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TestTile_0: -1437518083614475044
+      "Wall (9-\u044B\u0439 \u0442\u0430\u0439\u043B \u0438\u0437 10)_0": -3532966129015516711
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

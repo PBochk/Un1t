@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallModel : MonoBehaviour
 {
     [SerializeField] private Tilemap tilemap;
@@ -9,48 +10,52 @@ public class OuterWallModel : MonoBehaviour
     private Vector2Int size;
     private bool wasCreated;
 
+    private const float TILE_SIZE = 0.24f;
+
     public void Awake()
     {
-        static bool IsInteger(float numberValue)
-            => numberValue == Mathf.Floor(numberValue);
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
 
-        if (!IsInteger(transform.localScale.x))
-            Debug.LogWarning("Wall's width isn't integer value");
-        if (!IsInteger(transform.localScale.y))
-            Debug.LogWarning("Wall's height isn't integer value");
+        if (!IsCorrectSize(transform.localScale.x, out int width))
+            Debug.LogWarning("Wall's width isn't multiple of 0.24", this);
+        if (!IsCorrectSize(transform.localScale.y, out int height))
+            Debug.LogWarning("Wall's height isn't multiple of 0.24", this);
 
-        size = new Vector2Int((int)transform.localScale.x,
-            (int)transform.localScale.y);
-
-        if (size.x > 1 && size.y > 1)
-            Debug.LogWarning("Wall has got uncorrect size");
-
+        size = new Vector2Int(width, height);
         Create();
-
     }
+
     public void Create()
     {
         if (wasCreated)
-        {
-            Debug.LogWarning("Wall was created more than one time");
+        { 
+            Debug.LogError("Wall was already created", this);
             return;
         }
 
-        Vector3Int originPosition = tilemap.WorldToCell(transform.position);
+        Vector3Int center = tilemap.WorldToCell(transform.position);
 
-        int startX = originPosition.x - size.x / 2;
-        int startY = originPosition.y - size.y / 2;
+        int startX = center.x - size.x / 2;
+        int startY = center.y - size.y / 2;
 
-
-        if (size.x >= size.y)
-            for (int x = 0; x < size.x; x++)
-                tilemap.SetTile(new Vector3Int(startX + x, startY, 0), wallTile);
-        else
+        for (int x = 0; x < size.x; x++)
+        {
             for (int y = 0; y < size.y; y++)
-                tilemap.SetTile(new Vector3Int(startX, startY + y, 0), wallTile);
+            {
+                tilemap.SetTile(new Vector3Int(startX + x, startY + y, 0), wallTile);
+            }
+        }
 
         wasCreated = true;
     }
 
-
+    private static bool IsCorrectSize(float numberValue, out int integerDimension)
+    {
+        const float epsilon = 1e-5f;
+        float tiles = numberValue / TILE_SIZE;
+        integerDimension = Mathf.RoundToInt(tiles);
+        float remainder = Mathf.Abs(tiles - integerDimension);
+        return remainder < epsilon;
+    }
 }
