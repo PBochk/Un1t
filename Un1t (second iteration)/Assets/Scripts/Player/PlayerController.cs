@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,9 +17,15 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private Rigidbody2D rb;
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
+    private PlayerMeleeWeaponController meleeController;
+    private PlayerRangeWeaponController rangeController;
+
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
     public Vector2 MousePosition { get; private set; }
+
+    private PlayerTools lastTool = PlayerTools.None;
+    private PlayerTools equippedTool = PlayerTools.None;
 
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
@@ -31,6 +38,8 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
+        meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
     }
 
     private void Start()
@@ -43,8 +52,8 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MovePlayer(moveDirection);
     }
 
-    public void EnableInput() => playerInput.enabled = true;
-    public void DisableInput() => playerInput.enabled = false;
+
+    public void SetInputEnabled(bool isEnabled) => playerInput.enabled = isEnabled;
 
     public void OnMove(InputValue value)
     {
@@ -62,10 +71,26 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
-    public void OnMeleeAttack()
+    public void OnAttack()
     {
-        StartMelee?.Invoke();
+        if (equippedTool == PlayerTools.Melee)
+        {
+            StartMelee?.Invoke();
+        }
+        else if (equippedTool == PlayerTools.Range)
+        {
+            StartRange?.Invoke();
+        }
     }
+
+    //public void OnMeleeAttack()
+    //{
+    //    Debug.Log(equippedTool);
+    //    if (equippedTool == PlayerTools.Melee)
+    //    {
+    //        StartMelee?.Invoke();
+    //    }
+    //}
 
     public void OnMeleeActiveStart()
     {
@@ -76,10 +101,13 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         EndMeleeActive?.Invoke();
     }
 
-    public void OnRangeAttack()
-    {
-        StartRange?.Invoke();
-    }
+    //public void OnRangeAttack()
+    //{
+    //    if (equippedTool == PlayerTools.Range)
+    //    {
+    //        StartRange?.Invoke();
+    //    }
+    //}
 
     public void OnMouseMove(InputValue value)
     {
@@ -87,4 +115,39 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
 
+
+    public void OnEquipLastTool()
+    {
+        (lastTool, equippedTool) = (equippedTool, lastTool);
+        Debug.Log(lastTool + " / " + equippedTool);
+        ChangeTool();
+    }
+
+    public void OnEquipMelee()
+    {
+        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
+        {
+            lastTool = equippedTool;
+            equippedTool = PlayerTools.Melee;
+            ChangeTool();
+        }
+    }
+
+    public void OnEquipRange()
+    {
+        if (playerModel.AvailableTools.Contains(PlayerTools.Range))
+        {
+            lastTool = equippedTool;
+            equippedTool = PlayerTools.Range;
+            ChangeTool();
+        }
+    }
+
+    private void ChangeTool()
+    {
+        if (meleeController)
+        {
+            meleeController.SetRendererActive(equippedTool == PlayerTools.Melee);
+        }
+    }
 }

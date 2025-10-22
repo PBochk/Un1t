@@ -8,10 +8,10 @@ public class PlayerExperienceView : MonoBehaviour
     [SerializeField] private Button health;
     [SerializeField] private Button attackSpeed;
     [SerializeField] private Button damage;
-    private PlayerModel model;
+    [SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
     private PlayerMeleeWeaponModel meleeModel;
+    private PlayerModel model;
     private PlayerController controller;
-
     private void Awake()
     {
         health.onClick.AddListener(UpgradeHealth);
@@ -24,7 +24,7 @@ public class PlayerExperienceView : MonoBehaviour
     {
         model = GetComponent<PlayerModelMB>().PlayerModel;
         model.NextLevel += OnLevelUp;
-        meleeModel = (PlayerMeleeWeaponModel)GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
+        meleeModel = (PlayerMeleeWeaponModel)meleeModelMB.MeleeWeaponModel;
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
@@ -42,7 +42,7 @@ public class PlayerExperienceView : MonoBehaviour
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
-        controller.DisableInput();
+        controller.SetInputEnabled(false);
     }
 
     private void UpgradeHealth()
@@ -64,7 +64,7 @@ public class PlayerExperienceView : MonoBehaviour
     private void DeactivateCanvas()
     {
         canvas.gameObject.SetActive(false);
-        controller.EnableInput();
+        controller.SetInputEnabled(true);
     }
 
 }

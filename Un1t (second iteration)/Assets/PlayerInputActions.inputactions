@@ -16,18 +16,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MeleeAttack",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "2b712890-a6b4-47f0-8012-16a1724c31b1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RangeAttack",
-                    "type": "Button",
-                    "id": "a616d120-f10f-41f8-9cc4-399059650752",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -41,6 +32,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "EquipLastTool",
+                    "type": "Button",
+                    "id": "0cf0e86c-8e7d-4799-b6ed-595563886713",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EquipMelee",
+                    "type": "Button",
+                    "id": "1c9eb178-509f-4854-b2ce-13fcbbb09ad0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EquipRange",
+                    "type": "Button",
+                    "id": "3a21b00d-b633-405a-93af-1e4d0b5febdb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -106,18 +124,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MeleeAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c1356fcb-b9d8-4a3b-91fa-b7cd2217bea5",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RangeAttack",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -129,6 +136,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d1950cf-ccd0-4432-96c8-436fb45bae03",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipLastTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2689050-8aad-48c3-955c-b8ac1595bd49",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipMelee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c4fc414-fced-41f0-9833-e56dc53d1aca",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipRange",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
