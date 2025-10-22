@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7790997573628290336}
   - component: {fileID: 4831991179820454322}
   - component: {fileID: 4399124830697755736}
+  - component: {fileID: 7771967822136418215}
   m_Layer: 0
   m_Name: PlayerWithGun
   m_TagString: Untagged
@@ -398,10 +399,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 100
   movingSpeed: 15
-  level: 0
-  xpCoefficient: 0
+  level: 1
+  xpCoefficient: 25
 --- !u!114 &4831991179820454322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +430,22 @@ MonoBehaviour:
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7771967822136418215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8c358848cf51c48b1fb533f2a87050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  health: {fileID: 0}
+  attackSpeed: {fileID: 0}
+  damage: {fileID: 0}
 --- !u!1001 &5340491274210201089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -586,6 +603,14 @@ PrefabInstance:
     - target: {fileID: 6257263928277993852, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462505186542389312, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462505186542389312, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: damageIncrement
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

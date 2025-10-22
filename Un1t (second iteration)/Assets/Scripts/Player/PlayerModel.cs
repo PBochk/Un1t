@@ -70,7 +70,6 @@ public class PlayerModel
         maxHealth += healthUpgrade;
     }
     
-
     private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
 
 }

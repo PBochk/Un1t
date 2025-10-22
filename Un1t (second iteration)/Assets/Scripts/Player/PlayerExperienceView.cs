@@ -22,7 +22,7 @@ public class PlayerExperienceView : MonoBehaviour
     {
         model = GetComponent<PlayerModelMB>().PlayerModel;
         model.NextLevel += OnLevelUp;
-        meleeModel = GetComponentInChildren<PlayerMeleeWeaponModelMB>().PlayerMeleeWeaponModel;
+        meleeModel = (PlayerMeleeWeaponModel)GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
@@ -49,7 +49,7 @@ public class PlayerExperienceView : MonoBehaviour
     }
     private void UpgradeAttackSpeed()
     { 
-        meleeModel.UpgradeAttackCooldown();
+        meleeModel.UpgradeAttackSpeed(model.Level);
         canvas.gameObject.SetActive(false);
     }
     private void UpgradeDamage()

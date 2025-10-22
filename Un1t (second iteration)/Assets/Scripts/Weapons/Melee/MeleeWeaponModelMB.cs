@@ -6,7 +6,7 @@ public abstract class MeleeWeaponModelMB : MonoBehaviour
 {
     [SerializeField] protected float damage;
     [SerializeField] protected DamageType damageType = DamageType.Physical;
-    private MeleeWeaponModel meleeWeaponModel;
+    protected MeleeWeaponModel meleeWeaponModel;
     public MeleeWeaponModel MeleeWeaponModel => meleeWeaponModel;
 
     protected bool isAttackReady = true;
