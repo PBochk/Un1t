@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MovePlayer(moveDirection);
     }
 
-
     public void SetInputEnabled(bool isEnabled) => playerInput.enabled = isEnabled;
 
     public void OnMove(InputValue value)
@@ -83,15 +82,6 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         }
     }
 
-    //public void OnMeleeAttack()
-    //{
-    //    Debug.Log(equippedTool);
-    //    if (equippedTool == PlayerTools.Melee)
-    //    {
-    //        StartMelee?.Invoke();
-    //    }
-    //}
-
     public void OnMeleeActiveStart()
     {
         StartMeleeActive?.Invoke();
@@ -100,14 +90,6 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         EndMeleeActive?.Invoke();
     }
-
-    //public void OnRangeAttack()
-    //{
-    //    if (equippedTool == PlayerTools.Range)
-    //    {
-    //        StartRange?.Invoke();
-    //    }
-    //}
 
     public void OnMouseMove(InputValue value)
     {
@@ -119,7 +101,6 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     public void OnEquipLastTool()
     {
         (lastTool, equippedTool) = (equippedTool, lastTool);
-        Debug.Log(lastTool + " / " + equippedTool);
         ChangeTool();
     }
 
