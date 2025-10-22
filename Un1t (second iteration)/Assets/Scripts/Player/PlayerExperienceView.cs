@@ -10,12 +10,14 @@ public class PlayerExperienceView : MonoBehaviour
     [SerializeField] private Button damage;
     private PlayerModel model;
     private PlayerMeleeWeaponModel meleeModel;
+    private PlayerController controller;
 
     private void Awake()
     {
         health.onClick.AddListener(UpgradeHealth);
         attackSpeed.onClick.AddListener(UpgradeAttackSpeed);
         damage.onClick.AddListener(UpgradeDamage);
+        controller = GetComponent<PlayerController>();
     }
 
     private void Start()
@@ -40,23 +42,29 @@ public class PlayerExperienceView : MonoBehaviour
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
+        controller.DisableInput();
     }
 
     private void UpgradeHealth()
     {
         model.UpgradeHealth();
-        canvas.gameObject.SetActive(false);
+        DeactivateCanvas();
     }
     private void UpgradeAttackSpeed()
     { 
         meleeModel.UpgradeAttackSpeed(model.Level);
-        canvas.gameObject.SetActive(false);
+        DeactivateCanvas();
     }
     private void UpgradeDamage()
     {
         meleeModel.UpgradeDamage();
-        canvas.gameObject.SetActive(false);
+        DeactivateCanvas();
     }
 
+    private void DeactivateCanvas()
+    {
+        canvas.gameObject.SetActive(false);
+        controller.EnableInput();
+    }
 
 }

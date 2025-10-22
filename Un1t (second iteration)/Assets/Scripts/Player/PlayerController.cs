@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,10 +14,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
+    private PlayerInput playerInput; 
     private PlayerModel playerModel;
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
-
     public Vector2 MousePosition { get; private set; }
 
     public UnityEvent StartMelee;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
     }
 
@@ -41,6 +43,9 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MovePlayer(moveDirection);
     }
 
+    public void EnableInput() => playerInput.enabled = true;
+    public void DisableInput() => playerInput.enabled = false;
+
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
@@ -48,7 +53,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     private void MovePlayer(Vector2 inputVector)
     {
-        rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + playerModel.MovingSpeed * Time.fixedDeltaTime * inputVector);
     }
 
     public void OnHitTaken(AttackData attackData)
