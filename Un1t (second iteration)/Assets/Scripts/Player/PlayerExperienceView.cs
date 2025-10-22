@@ -8,21 +8,23 @@ public class PlayerExperienceView : MonoBehaviour
     [SerializeField] private Button health;
     [SerializeField] private Button attackSpeed;
     [SerializeField] private Button damage;
-    private PlayerModel model;
+    [SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
     private PlayerMeleeWeaponModel meleeModel;
-
+    private PlayerModel model;
+    private PlayerController controller;
     private void Awake()
     {
         health.onClick.AddListener(UpgradeHealth);
         attackSpeed.onClick.AddListener(UpgradeAttackSpeed);
         damage.onClick.AddListener(UpgradeDamage);
+        controller = GetComponent<PlayerController>();
     }
 
     private void Start()
     {
         model = GetComponent<PlayerModelMB>().PlayerModel;
         model.NextLevel += OnLevelUp;
-        meleeModel = (PlayerMeleeWeaponModel)GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
+        meleeModel = (PlayerMeleeWeaponModel)meleeModelMB.MeleeWeaponModel;
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
@@ -40,23 +42,29 @@ public class PlayerExperienceView : MonoBehaviour
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
+        controller.SetInputEnabled(false);
     }
 
     private void UpgradeHealth()
     {
         model.UpgradeHealth();
-        canvas.gameObject.SetActive(false);
+        DeactivateCanvas();
     }
     private void UpgradeAttackSpeed()
     { 
         meleeModel.UpgradeAttackSpeed(model.Level);
-        canvas.gameObject.SetActive(false);
+        DeactivateCanvas();
     }
     private void UpgradeDamage()
     {
         meleeModel.UpgradeDamage();
-        canvas.gameObject.SetActive(false);
+        DeactivateCanvas();
     }
 
+    private void DeactivateCanvas()
+    {
+        canvas.gameObject.SetActive(false);
+        controller.SetInputEnabled(true);
+    }
 
 }

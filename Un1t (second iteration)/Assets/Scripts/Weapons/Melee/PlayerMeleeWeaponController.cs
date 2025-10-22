@@ -8,6 +8,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMeleeWeaponModelMB))]
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private PlayerController playerController;
     public UnityEvent StartMeleeAnimation;
 
@@ -36,5 +37,14 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
             StartMeleeAnimation?.Invoke();
             StartCoroutine(((PlayerMeleeWeaponModelMB)modelMB).WaitForAttackCooldown());
         }
+    }
+
+    /// <summary>
+    /// Temporary solution for displaying weapon's change
+    /// </summary>
+    // TODO: rework it in view when there are animations
+    public void SetRendererActive(bool isActive)
+    {
+        spriteRenderer.gameObject.SetActive(isActive);
     }
 }

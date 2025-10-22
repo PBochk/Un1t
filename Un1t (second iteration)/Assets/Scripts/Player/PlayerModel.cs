@@ -1,14 +1,18 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerModel
 {
     private float maxHealth;
-    public float MaxHealth => maxHealth;
     private float currentHealth;
-    public float CurrentHealth => currentHealth;
-    private float healthUpgrade;
     private float movingSpeed;
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth;
     public float MovingSpeed => movingSpeed;
+
+    private float healthUpgrade;
+
 
     private int level;
     private int xpCoefficient;
@@ -19,6 +23,10 @@ public class PlayerModel
     public float NextLevelXP => nextLevelXP;
     public event Action NextLevel;
 
+    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range };
+    public List<PlayerTools> AvailableTools => availableTools;
+    private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee };
+    public List<PlayerTools> UnlockedTools => unlockedTools;
     public PlayerModel(float maxHealth, float movingSpeed, int level, int xpCoefficient)
     {
         this.maxHealth = maxHealth;
@@ -71,5 +79,4 @@ public class PlayerModel
     }
     
     private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
-
 }

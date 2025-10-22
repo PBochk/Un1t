@@ -102,18 +102,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""MeleeAttack"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""2b712890-a6b4-47f0-8012-16a1724c31b1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RangeAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""a616d120-f10f-41f8-9cc4-399059650752"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -127,6 +118,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""EquipLastTool"",
+                    ""type"": ""Button"",
+                    ""id"": ""0cf0e86c-8e7d-4799-b6ed-595563886713"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipMelee"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c9eb178-509f-4854-b2ce-13fcbbb09ad0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipRange"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a21b00d-b633-405a-93af-1e4d0b5febdb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,18 +210,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MeleeAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c1356fcb-b9d8-4a3b-91fa-b7cd2217bea5"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RangeAttack"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -217,6 +224,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MouseMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d1950cf-ccd0-4432-96c8-436fb45bae03"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipLastTool"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2689050-8aad-48c3-955c-b8ac1595bd49"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipMelee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c4fc414-fced-41f0-9833-e56dc53d1aca"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipRange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -226,9 +266,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_MeleeAttack = m_Player.FindAction("MeleeAttack", throwIfNotFound: true);
-        m_Player_RangeAttack = m_Player.FindAction("RangeAttack", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
+        m_Player_EquipLastTool = m_Player.FindAction("EquipLastTool", throwIfNotFound: true);
+        m_Player_EquipMelee = m_Player.FindAction("EquipMelee", throwIfNotFound: true);
+        m_Player_EquipRange = m_Player.FindAction("EquipRange", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -310,9 +352,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_MeleeAttack;
-    private readonly InputAction m_Player_RangeAttack;
+    private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_MouseMove;
+    private readonly InputAction m_Player_EquipLastTool;
+    private readonly InputAction m_Player_EquipMelee;
+    private readonly InputAction m_Player_EquipRange;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -329,17 +373,25 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player/MeleeAttack".
+        /// Provides access to the underlying input action "Player/Attack".
         /// </summary>
-        public InputAction @MeleeAttack => m_Wrapper.m_Player_MeleeAttack;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/RangeAttack".
-        /// </summary>
-        public InputAction @RangeAttack => m_Wrapper.m_Player_RangeAttack;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         /// <summary>
         /// Provides access to the underlying input action "Player/MouseMove".
         /// </summary>
         public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EquipLastTool".
+        /// </summary>
+        public InputAction @EquipLastTool => m_Wrapper.m_Player_EquipLastTool;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EquipMelee".
+        /// </summary>
+        public InputAction @EquipMelee => m_Wrapper.m_Player_EquipMelee;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EquipRange".
+        /// </summary>
+        public InputAction @EquipRange => m_Wrapper.m_Player_EquipRange;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -369,15 +421,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @MeleeAttack.started += instance.OnMeleeAttack;
-            @MeleeAttack.performed += instance.OnMeleeAttack;
-            @MeleeAttack.canceled += instance.OnMeleeAttack;
-            @RangeAttack.started += instance.OnRangeAttack;
-            @RangeAttack.performed += instance.OnRangeAttack;
-            @RangeAttack.canceled += instance.OnRangeAttack;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
             @MouseMove.started += instance.OnMouseMove;
             @MouseMove.performed += instance.OnMouseMove;
             @MouseMove.canceled += instance.OnMouseMove;
+            @EquipLastTool.started += instance.OnEquipLastTool;
+            @EquipLastTool.performed += instance.OnEquipLastTool;
+            @EquipLastTool.canceled += instance.OnEquipLastTool;
+            @EquipMelee.started += instance.OnEquipMelee;
+            @EquipMelee.performed += instance.OnEquipMelee;
+            @EquipMelee.canceled += instance.OnEquipMelee;
+            @EquipRange.started += instance.OnEquipRange;
+            @EquipRange.performed += instance.OnEquipRange;
+            @EquipRange.canceled += instance.OnEquipRange;
         }
 
         /// <summary>
@@ -392,15 +450,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @MeleeAttack.started -= instance.OnMeleeAttack;
-            @MeleeAttack.performed -= instance.OnMeleeAttack;
-            @MeleeAttack.canceled -= instance.OnMeleeAttack;
-            @RangeAttack.started -= instance.OnRangeAttack;
-            @RangeAttack.performed -= instance.OnRangeAttack;
-            @RangeAttack.canceled -= instance.OnRangeAttack;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
             @MouseMove.started -= instance.OnMouseMove;
             @MouseMove.performed -= instance.OnMouseMove;
             @MouseMove.canceled -= instance.OnMouseMove;
+            @EquipLastTool.started -= instance.OnEquipLastTool;
+            @EquipLastTool.performed -= instance.OnEquipLastTool;
+            @EquipLastTool.canceled -= instance.OnEquipLastTool;
+            @EquipMelee.started -= instance.OnEquipMelee;
+            @EquipMelee.performed -= instance.OnEquipMelee;
+            @EquipMelee.canceled -= instance.OnEquipMelee;
+            @EquipRange.started -= instance.OnEquipRange;
+            @EquipRange.performed -= instance.OnEquipRange;
+            @EquipRange.canceled -= instance.OnEquipRange;
         }
 
         /// <summary>
@@ -449,19 +513,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "MeleeAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMeleeAttack(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "RangeAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRangeAttack(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "MouseMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -469,5 +526,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouseMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipLastTool" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipLastTool(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipMelee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipMelee(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipRange" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipRange(InputAction.CallbackContext context);
     }
 }

@@ -710,7 +710,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.4293094, y: 0.052788854, z: -10}
+  m_LocalPosition: {x: -0.60392475, y: 0.05285883, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -748,6 +748,28 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &606516055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8975838670633704521, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+  m_PrefabInstance: {fileID: 1791303685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695902b03f8751942a467a4d362c5529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &606516056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+  m_PrefabInstance: {fileID: 1791303685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b2c3661c7b2584bb03f1752c780ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,6 +1803,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 455476359561305258, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 560221877772887277, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -1841,12 +1867,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1695857501953679923, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2683753899706659779, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: level
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2683753899706659779, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: xpCoefficient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782420880032685116, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
@@ -1869,6 +1903,10 @@ PrefabInstance:
       propertyPath: attackSound
       value: 
       objectReference: {fileID: 393965744}
+    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: weaponController
+      value: 
+      objectReference: {fileID: 606516055}
     - target: {fileID: 7771967822136418215, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: canvas
       value: 
@@ -1885,6 +1923,10 @@ PrefabInstance:
       propertyPath: attackSpeed
       value: 
       objectReference: {fileID: 1055127974}
+    - target: {fileID: 7771967822136418215, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: meleeModelMB
+      value: 
+      objectReference: {fileID: 606516056}
     m_RemovedComponents:
     - {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
     m_RemovedGameObjects: []

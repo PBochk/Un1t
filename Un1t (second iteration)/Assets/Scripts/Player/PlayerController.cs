@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,11 +15,17 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IEnemyTarget
 {
     private Rigidbody2D rb;
+    private PlayerInput playerInput; 
     private PlayerModel playerModel;
+    private PlayerMeleeWeaponController meleeController;
+    private PlayerRangeWeaponController rangeController;
+
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
-
     public Vector2 MousePosition { get; private set; }
+
+    private PlayerTools lastTool = PlayerTools.None;
+    private PlayerTools equippedTool = PlayerTools.None;
 
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
@@ -28,7 +36,10 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
+        meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
     }
 
     private void Start()
@@ -41,6 +52,8 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MovePlayer(moveDirection);
     }
 
+    public void SetInputEnabled(bool isEnabled) => playerInput.enabled = isEnabled;
+
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
@@ -48,7 +61,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     private void MovePlayer(Vector2 inputVector)
     {
-        rb.MovePosition(rb.position + inputVector * playerModel.MovingSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + playerModel.MovingSpeed * Time.fixedDeltaTime * inputVector);
     }
 
     public void OnHitTaken(AttackData attackData)
@@ -57,9 +70,16 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
-    public void OnMeleeAttack()
+    public void OnAttack()
     {
-        StartMelee?.Invoke();
+        if (equippedTool == PlayerTools.Melee)
+        {
+            StartMelee?.Invoke();
+        }
+        else if (equippedTool == PlayerTools.Range)
+        {
+            StartRange?.Invoke();
+        }
     }
 
     public void OnMeleeActiveStart()
@@ -71,15 +91,52 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         EndMeleeActive?.Invoke();
     }
 
-    public void OnRangeAttack()
-    {
-        StartRange?.Invoke();
-    }
-
     public void OnMouseMove(InputValue value)
     {
         var screenPosition = value.Get<Vector2>();
         MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
 
+    //Player starts with no weapon equipped
+    //Equipping keys:
+    //1 - melee
+    //2 - range
+    //q - previous weapon
+
+    public void OnEquipLastTool()
+    {
+        (lastTool, equippedTool) = (equippedTool, lastTool);
+        ChangeTool();
+    }
+
+    public void OnEquipMelee()
+    {
+        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
+        {
+            lastTool = equippedTool;
+            equippedTool = PlayerTools.Melee;
+            ChangeTool();
+        }
+    }
+
+    public void OnEquipRange()
+    {
+        if (playerModel.AvailableTools.Contains(PlayerTools.Range))
+        {
+            lastTool = equippedTool;
+            equippedTool = PlayerTools.Range;
+            ChangeTool();
+        }
+    }
+
+    /// <summary>
+    /// Temporary solution for displaying weapon's change
+    /// </summary>
+    private void ChangeTool()
+    {
+        if (meleeController)
+        {
+            meleeController.SetRendererActive(equippedTool == PlayerTools.Melee);
+        }
+    }
 }
