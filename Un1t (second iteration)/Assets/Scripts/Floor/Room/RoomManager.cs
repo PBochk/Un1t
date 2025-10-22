@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviour
     private bool wasContentCreated = false;
 
     private ImmutableList<GameObject> entities;
+    //private List<GameObject>
+
     public IReadOnlyList<GameObject> Entities => entities;
 
     /// <summary>

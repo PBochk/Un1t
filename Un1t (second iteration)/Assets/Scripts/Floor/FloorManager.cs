@@ -239,6 +239,7 @@ public class FloorManager : MonoBehaviour
     }
     #endregion
 
+    //Replace to anonym type
     #region RoomDescription
     /// <summary>
     /// Used only in CreateAnotherOneRoom() method to chain outer wall and it's neighbor FloorGridPosition
