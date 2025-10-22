@@ -6,14 +6,13 @@ using UnityEngine;
 /// </summary>
 public class PlayerMeleeWeaponModelMB : MeleeWeaponModelMB
 {
-    [SerializeField] private float attackCooldown;
-    public PlayerMeleeWeaponModel model;
-    public PlayerMeleeWeaponModel PlayerMeleeWeaponModel => model;
+    [SerializeField] private float attackSpeed;
+    [SerializeField] private float damageIncrement;
 
     protected override void Awake()
     {
         base.Awake();
-        model = new PlayerMeleeWeaponModel(damage, damageType, attackCooldown);
+        meleeWeaponModel = new PlayerMeleeWeaponModel(damage, damageType, attackSpeed, damageIncrement);
     }
 
     /// <summary>
@@ -22,7 +21,7 @@ public class PlayerMeleeWeaponModelMB : MeleeWeaponModelMB
     public IEnumerator WaitForAttackCooldown()
     {
         isAttackReady = false;
-        yield return new WaitForSeconds(model.AttackCooldown);
+        yield return new WaitForSeconds(((PlayerMeleeWeaponModel)meleeWeaponModel).AttackCooldown);
         isAttackReady = true;
     }
 }
