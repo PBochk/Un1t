@@ -27,15 +27,6 @@ public class PlayerModel
     public List<PlayerTools> AvailableTools => availableTools;
     private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee };
     public List<PlayerTools> UnlockedTools => unlockedTools;
-
-    //private Dictionary<PlayerTools, bool> availableTools = new()
-    //{
-    //    { PlayerTools.None, true },
-    //    { PlayerTools.Melee, false },
-    //    { PlayerTools.Range, false },
-    //    { PlayerTools.Pickaxe, false }
-    //};
-    //public Dictionary<PlayerTools, bool> AvailableTools => availableTools;
     public PlayerModel(float maxHealth, float movingSpeed, int level, int xpCoefficient)
     {
         this.maxHealth = maxHealth;
@@ -45,7 +36,6 @@ public class PlayerModel
         this.xpCoefficient = xpCoefficient;
         SetNextLevelXP();
     }
-
 
     public void TakeHeal(float heal)
     {
@@ -89,10 +79,4 @@ public class PlayerModel
     }
     
     private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
-
-
-    //public void SetToolEnabled(PlayerTools tool, bool isEnabled)
-    //{
-    //    availableTools[tool] = isEnabled;
-    //}
 }

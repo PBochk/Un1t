@@ -97,6 +97,11 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
 
+    //Player starts with no weapon equipped
+    //Equipping keys:
+    //1 - melee
+    //2 - range
+    //q - previous weapon
 
     public void OnEquipLastTool()
     {
@@ -124,6 +129,9 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         }
     }
 
+    /// <summary>
+    /// Temporary solution for displaying weapon's change
+    /// </summary>
     private void ChangeTool()
     {
         if (meleeController)

@@ -40,6 +40,4 @@ public class PlayerRangeWeaponController : MonoBehaviour
                                 playerTransform.localRotation.y, 
                                 rotationZ);
     }
-
-
 }
