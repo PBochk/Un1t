@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerMeleeWeaponController pickaxe—ontroller;
+    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
 
     private Vector2 moveDirection;
@@ -150,9 +150,9 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         {
             meleeController.SetRendererActive(equippedTool == PlayerTools.Melee);
         }
-        if (pickaxe—ontroller)
+        if (pickaxeController)
         {
-            pickaxe—ontroller.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
+            pickaxeController.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
         }
     }
 }
