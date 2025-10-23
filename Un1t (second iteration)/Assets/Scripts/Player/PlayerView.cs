@@ -14,7 +14,8 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource attackSound;
     private PlayerController controller;
-    private PlayerMeleeWeaponController weaponController;
+    [SerializeField] private PlayerMeleeWeaponController meleeController;
+    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     private Animator animator;
     private bool isFacingRight = true;
     
@@ -22,9 +23,10 @@ public class PlayerView : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<PlayerController>();
-        weaponController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        weaponController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
+        //meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         controller.StartMelee.AddListener(OnMelee);
+        pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
     }
 
     public void OnMove(InputValue value)
@@ -38,7 +40,7 @@ public class PlayerView : MonoBehaviour
                                                      playerTransform.localScale.y,
                                                      playerTransform.localScale.z);
 
-            // Line above changes player's facing direction more correctly, but breaks camera
+            // Line below changes player's facing direction more correctly, but breaks camera
             // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
         animator.SetBool("IsRunningForward", moveDirection.x != 0);
@@ -51,5 +53,10 @@ public class PlayerView : MonoBehaviour
     private void OnMelee()
     {
         attackSound.Play();
+    }
+
+    private void PickaxeAnimationStart()
+    {
+        animator.SetTrigger("PickaxeAttack");
     }
 }

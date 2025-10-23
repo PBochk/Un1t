@@ -23,9 +23,9 @@ public class PlayerModel
     public float NextLevelXP => nextLevelXP;
     public event Action NextLevel;
 
-    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range };
+    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
+    private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     public List<PlayerTools> AvailableTools => availableTools;
-    private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee };
     public List<PlayerTools> UnlockedTools => unlockedTools;
     public PlayerModel(float maxHealth, float movingSpeed, int level, int xpCoefficient)
     {

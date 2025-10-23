@@ -11,6 +11,7 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     [SerializeField] private SpriteRenderer spriteRenderer;
     private PlayerController playerController;
     public UnityEvent StartMeleeAnimation;
+    public UnityEvent StartPickaxeAnimation;
 
     /// <summary>
     /// Overrides abstract model on player's implementation
@@ -34,7 +35,14 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
         base.StartMelee();
         if (modelMB.IsAttackReady)
         {
-            StartMeleeAnimation?.Invoke();
+            if(playerController.EquippedTool == PlayerTools.Melee)
+            {
+                StartMeleeAnimation?.Invoke();
+            }
+            else if (playerController.EquippedTool == PlayerTools.Pickaxe)
+            {
+                StartPickaxeAnimation?.Invoke();
+            }
             StartCoroutine(((PlayerMeleeWeaponModelMB)modelMB).WaitForAttackCooldown());
         }
     }

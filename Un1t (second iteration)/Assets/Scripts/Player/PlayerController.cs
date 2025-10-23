@@ -17,8 +17,9 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private Rigidbody2D rb;
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
-    private PlayerMeleeWeaponController meleeController;
-    private PlayerRangeWeaponController rangeController;
+    [SerializeField] private PlayerMeleeWeaponController meleeController;
+    [SerializeField] private PlayerMeleeWeaponController pickaxe—ontroller;
+    [SerializeField] private PlayerRangeWeaponController rangeController;
 
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     private PlayerTools lastTool = PlayerTools.None;
     private PlayerTools equippedTool = PlayerTools.None;
+    public PlayerTools EquippedTool => equippedTool;
 
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
@@ -38,8 +40,8 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
-        meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
+        //meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        //rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
     }
 
     private void Start()
@@ -129,6 +131,16 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         }
     }
 
+    public void OnEquipPickaxe()
+    {
+        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
+        {
+            lastTool = equippedTool;
+            equippedTool = PlayerTools.Pickaxe;
+            ChangeTool();
+        }
+    }
+
     /// <summary>
     /// Temporary solution for displaying weapon's change
     /// </summary>
@@ -137,6 +149,10 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         if (meleeController)
         {
             meleeController.SetRendererActive(equippedTool == PlayerTools.Melee);
+        }
+        if (pickaxe—ontroller)
+        {
+            pickaxe—ontroller.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
         }
     }
 }
