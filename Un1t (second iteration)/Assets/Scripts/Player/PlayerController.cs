@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     public void OnAttack()
     {
-        if (equippedTool == PlayerTools.Melee)
+        if (equippedTool == PlayerTools.Melee || equippedTool == PlayerTools.Pickaxe)
         {
             StartMelee?.Invoke();
         }
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     public void OnEquipPickaxe()
     {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
+        if (playerModel.AvailableTools.Contains(PlayerTools.Pickaxe))
         {
             lastTool = equippedTool;
             equippedTool = PlayerTools.Pickaxe;
@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         if (pickaxeController)
         {
             pickaxeController.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
+            
         }
     }
 }

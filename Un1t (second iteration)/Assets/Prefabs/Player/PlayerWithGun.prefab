@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 7771967822136418215}
   - component: {fileID: 8338548874993576277}
   - component: {fileID: 9121096697557502566}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerWithGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeController: {fileID: 8975838670633704521}
-  "pickaxe\u0421ontroller": {fileID: 8034888495029483493}
+  pickaxeController: {fileID: 8034888495029483493}
   rangeController: {fileID: 3966181562768119467}
   StartMelee:
     m_PersistentCalls:
@@ -555,6 +555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5498633260368007851, guid: 700d54515606384489f32699dbed498f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9013824477315733674, guid: 700d54515606384489f32699dbed498f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -588,6 +592,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 560221877772887277}
     m_Modifications:
+    - target: {fileID: 311717351828104673, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 311717351828104673, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -632,9 +640,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2797759687163227565, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5602477215093059071, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_Name
       value: Melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602477215093059071, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -665,6 +681,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 560221877772887277}
     m_Modifications:
+    - target: {fileID: 311717351828104673, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 311717351828104673, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -714,12 +734,20 @@ PrefabInstance:
       value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 2797759687163227565, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797759687163227565, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5602477215093059071, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_Name
       value: Pickaxe
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602477215093059071, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_Sprite
