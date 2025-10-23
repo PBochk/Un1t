@@ -145,6 +145,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipPickaxe"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba8bdef2-28ba-43f4-aec1-94c52629217e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +266,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""EquipRange"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1306d689-9c58-4d34-a2ce-c96540b96f8c"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipPickaxe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +291,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_EquipLastTool = m_Player.FindAction("EquipLastTool", throwIfNotFound: true);
         m_Player_EquipMelee = m_Player.FindAction("EquipMelee", throwIfNotFound: true);
         m_Player_EquipRange = m_Player.FindAction("EquipRange", throwIfNotFound: true);
+        m_Player_EquipPickaxe = m_Player.FindAction("EquipPickaxe", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -357,6 +378,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EquipLastTool;
     private readonly InputAction m_Player_EquipMelee;
     private readonly InputAction m_Player_EquipRange;
+    private readonly InputAction m_Player_EquipPickaxe;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -392,6 +414,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/EquipRange".
         /// </summary>
         public InputAction @EquipRange => m_Wrapper.m_Player_EquipRange;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EquipPickaxe".
+        /// </summary>
+        public InputAction @EquipPickaxe => m_Wrapper.m_Player_EquipPickaxe;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +462,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @EquipRange.started += instance.OnEquipRange;
             @EquipRange.performed += instance.OnEquipRange;
             @EquipRange.canceled += instance.OnEquipRange;
+            @EquipPickaxe.started += instance.OnEquipPickaxe;
+            @EquipPickaxe.performed += instance.OnEquipPickaxe;
+            @EquipPickaxe.canceled += instance.OnEquipPickaxe;
         }
 
         /// <summary>
@@ -465,6 +494,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @EquipRange.started -= instance.OnEquipRange;
             @EquipRange.performed -= instance.OnEquipRange;
             @EquipRange.canceled -= instance.OnEquipRange;
+            @EquipPickaxe.started -= instance.OnEquipPickaxe;
+            @EquipPickaxe.performed -= instance.OnEquipPickaxe;
+            @EquipPickaxe.canceled -= instance.OnEquipPickaxe;
         }
 
         /// <summary>
@@ -547,5 +579,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEquipRange(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipPickaxe" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipPickaxe(InputAction.CallbackContext context);
     }
 }
