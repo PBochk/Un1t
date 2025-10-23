@@ -11,7 +11,7 @@ public class UnconditionalTransition : EnemyStateTransition
 
     public override void PerformTransition()
     {
-        Debug.Log($"Performing transition -> {nextState}");
+        //Debug.Log($"Performing transition -> {nextState}");
         controller.ChangeState(nextState);
     }
 }

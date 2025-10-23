@@ -82,7 +82,7 @@ public abstract class EnemyController : MonoBehaviour
     public void ChangeState(EnemyState newState)
     {
         //TODO: Make it impossible to change state when current is not exited or interrupted yet
-        Debug.Log($"Changed state: {CurrentState} -> {newState}");
+        ////Debug.Log($"Changed state: {CurrentState} -> {newState}");
         CurrentState = newState;
         CurrentState.EnterState(Target);
     }

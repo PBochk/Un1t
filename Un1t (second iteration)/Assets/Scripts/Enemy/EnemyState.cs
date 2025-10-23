@@ -31,7 +31,7 @@ public abstract class EnemyState : MonoBehaviour
         
     public virtual void EnterState(IEnemyTarget target)
     {
-        Debug.Log($"Entered state: {this}");
+        //Debug.Log($"Entered state: {this}");
         this.target = target;
         //this.model = model;
         OnStateEnter.Invoke();
@@ -40,8 +40,8 @@ public abstract class EnemyState : MonoBehaviour
     //TODO: Ensure that a state can only be exited once
     protected void ExitState()
     {
-        Debug.Log($"Exited state: {this}");
-        Debug.Log($"Transition: {transition}");
+        //Debug.Log($"Exited state: {this}");
+        //Debug.Log($"Transition: {transition}");
         transition.PerformTransition();
         OnStateExit.Invoke();
     }

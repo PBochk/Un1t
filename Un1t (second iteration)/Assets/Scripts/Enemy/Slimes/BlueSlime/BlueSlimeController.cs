@@ -17,7 +17,7 @@ public class BlueSlimeController : EnemyController
     [SerializeField] private CooldownState afterJumpCooldown;
     [SerializeField] private CooldownState afterAttackCooldown;
     [SerializeField] private DecisionState decisionState;
-    [SerializeField] private GameObject meleeAttack;
+    [SerializeField] private SpriteRenderer meleeAttack;
 
     //TODO: Consider to remove
     private EnemyStateTransition idleTransition;
@@ -62,11 +62,11 @@ public class BlueSlimeController : EnemyController
 
     private void TurnOnHitbox()
     {
-        meleeAttack.SetActive(true);
+        meleeAttack.enabled = true;
     }
 
     private void TurnOffHitbox()
     {
-        meleeAttack.SetActive(false);
+        meleeAttack.enabled = false;
     }
 }
