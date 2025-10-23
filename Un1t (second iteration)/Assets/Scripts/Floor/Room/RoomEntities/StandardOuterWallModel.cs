@@ -26,9 +26,12 @@ public class StandardOuterWallModel : OuterWallModel
         int onePartSizeTiles = (direction == Direction.Horizontal ? sizeTiles.x : sizeTiles.y) / 3;
 
         for (var i = 0; i < parts.Length; i++)
+        {
+            Debug.Log(onePartSizeTiles * i);
             if (parts[i])
                 for (var j = onePartSizeTiles * i; j < onePartSizeTiles * (i + 1); j++)
                     tilesAreEmpty[j] = true;
-        
+        }
+        Create();
     }
 }

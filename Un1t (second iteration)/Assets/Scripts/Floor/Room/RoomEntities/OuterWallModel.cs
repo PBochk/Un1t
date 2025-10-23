@@ -40,7 +40,7 @@ public class OuterWallModel : MonoBehaviour
         if (width != THICKNESS && height != THICKNESS)
             Debug.LogWarning("Wall has got incorrect size", this);
 
-        if (width > height)
+        if (width >= height)
         {
             direction = Direction.Horizontal;
             tilesAreEmpty = new bool[width];
@@ -49,14 +49,14 @@ public class OuterWallModel : MonoBehaviour
                 || outerWallType == OuterWallType.Bottom || outerWallType == OuterWallType.Angle))
                 Debug.LogWarning("Horizontal wall's size is incorrect", this);
         }
-        else if (width < height)
+        else
         {
 
             direction = Direction.Vertical;
             tilesAreEmpty = new bool[height];
 
             if (!(outerWallType == OuterWallType.Left 
-                || outerWallType == OuterWallType.Right || outerWallType == OuterWallType.Angle))
+                || outerWallType == OuterWallType.Right))
                 Debug.LogWarning("Vertical wall's size is incorrect", this);
         }
 
