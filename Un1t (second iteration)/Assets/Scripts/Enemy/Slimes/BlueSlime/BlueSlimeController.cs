@@ -17,6 +17,7 @@ public class BlueSlimeController : EnemyController
     [SerializeField] private CooldownState afterJumpCooldown;
     [SerializeField] private CooldownState afterAttackCooldown;
     [SerializeField] private DecisionState decisionState;
+    [SerializeField] private GameObject meleeAttack;
 
     //TODO: Consider to remove
     private EnemyStateTransition idleTransition;
@@ -57,5 +58,15 @@ public class BlueSlimeController : EnemyController
     private bool CheckInRange(IEnemyTarget target)
     {
         return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange * 1.5f;
+    }
+
+    private void TurnOnHitbox()
+    {
+        meleeAttack.SetActive(true);
+    }
+
+    private void TurnOffHitbox()
+    {
+        meleeAttack.SetActive(false);
     }
 }
