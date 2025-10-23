@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerMeleeWeaponController pickaxe—ontroller;
+    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
 
     private Vector2 moveDirection;
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     public void OnAttack()
     {
-        if (equippedTool == PlayerTools.Melee)
+        if (equippedTool == PlayerTools.Melee || equippedTool == PlayerTools.Pickaxe)
         {
             StartMelee?.Invoke();
         }
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     public void OnEquipPickaxe()
     {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
+        if (playerModel.AvailableTools.Contains(PlayerTools.Pickaxe))
         {
             lastTool = equippedTool;
             equippedTool = PlayerTools.Pickaxe;
@@ -150,9 +150,10 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         {
             meleeController.SetRendererActive(equippedTool == PlayerTools.Melee);
         }
-        if (pickaxe—ontroller)
+        if (pickaxeController)
         {
-            pickaxe—ontroller.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
+            pickaxeController.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
+            
         }
     }
 }
