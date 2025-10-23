@@ -20,6 +20,11 @@ public class PlayerRangeWeaponModel
         this.ammo = ammo;
     }
 
+    public void AddAmmo(int increment)
+    {
+        ammo += increment;
+    }
+
     public void SpendAmmo()
     {
         ammo--;
