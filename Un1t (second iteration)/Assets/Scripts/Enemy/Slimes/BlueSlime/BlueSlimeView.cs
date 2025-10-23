@@ -20,7 +20,11 @@ public class BlueSlimeView : EnemyView
     protected override void BindAnimator()
     {
         followState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
-        followState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        //followState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        meleeState.OnStateEnter.AddListener(animator.PlayMeleeAttackAnimation);
+        //meleeState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        afterJumpCooldown.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        afterAttackCooldown.OnStateEnter.AddListener(animator.PlayIdleAnimation);
     }
 
     protected override void BindSoundPlayer()
