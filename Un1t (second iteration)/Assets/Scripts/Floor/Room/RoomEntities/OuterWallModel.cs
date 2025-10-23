@@ -1,19 +1,24 @@
 using UnityEngine;
+//TODO: refactor it according to OCP
+
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallModel : MonoBehaviour
 {
-    [SerializeField] private GameObject wallTile;
+    [SerializeField] protected GameObject wallTile;
+    [SerializeField] protected OuterWallType outerWallType;
 
-    private const float TILE_SIZE = 0.24f;
+    public const float TILE_SIZE = 0.24f;
+
     private const int THICKNESS = 3;
 
-    private bool wasCreated;
-    private Vector2Int sizeTiles;
-    private bool[] tilesIsFilling;
-    private Direction direction;
+    protected Vector2Int sizeTiles;
+    protected Direction direction;
+    protected bool[] tilesAreEmpty;
 
-    public void Awake()
+    private bool wasCreated;
+
+    protected virtual void Awake()
     {
         static bool IsCorrectSize(float numberValue, out int integerDimension)
         {
@@ -33,38 +38,43 @@ public class OuterWallModel : MonoBehaviour
             Debug.LogWarning($"Wall's height isn't multiple of {TILE_SIZE}", this);
 
         if (width != THICKNESS && height != THICKNESS)
-            Debug.LogWarning($"Wall has got uncorrect size", this);
+            Debug.LogWarning("Wall has got incorrect size", this);
 
-        if (width >= height)
+        if (width > height)
         {
             direction = Direction.Horizontal;
-            tilesIsFilling = new bool[width];
+            tilesAreEmpty = new bool[width];
+
+            if (!(outerWallType == OuterWallType.Top 
+                || outerWallType == OuterWallType.Bottom || outerWallType == OuterWallType.Angle))
+                Debug.LogWarning("Horizontal wall's size is incorrect", this);
         }
-        else
+        else if (width < height)
         {
 
             direction = Direction.Vertical;
-            tilesIsFilling = new bool[height];
+            tilesAreEmpty = new bool[height];
+
+            if (!(outerWallType == OuterWallType.Left 
+                || outerWallType == OuterWallType.Right || outerWallType == OuterWallType.Angle))
+                Debug.LogWarning("Vertical wall's size is incorrect", this);
         }
 
         sizeTiles = new Vector2Int(width, height);
 
-        for (int i = 0; i < tilesIsFilling.Length; i++)
-        {
-            tilesIsFilling[i] = true;
-        }
-
-
-        Create();
     }
 
-    public void Create()
+    public void Create(params int[] emptyTilesNumbers)
     {
         if (wasCreated)
         {
             Debug.LogError("Wall was already created", this);
             return;
         }
+
+        foreach (int emptyTileNumber in emptyTilesNumbers)
+            tilesAreEmpty[emptyTileNumber] = true;
+
 
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
             ? new Vector3(TILE_SIZE * (sizeTiles.x - 1) / 2, 0)
@@ -73,21 +83,20 @@ public class OuterWallModel : MonoBehaviour
         int currentFragmentSize = 0;
         int segmentStartIndex = 0;
 
-        for (int i = 0; i <= tilesIsFilling.Length; i++)
+        for (int i = 0; i <= tilesAreEmpty.Length; i++)
         {
-            bool isCurrentFilled = (i < tilesIsFilling.Length && tilesIsFilling[i]);
-            bool shouldCreateTile = (i == tilesIsFilling.Length) || !isCurrentFilled;
+            bool isCurrentFilled = (i < tilesAreEmpty.Length && !tilesAreEmpty[i]);
+            bool shouldCreateTile = (i == tilesAreEmpty.Length) || !isCurrentFilled;
 
             if (isCurrentFilled)
-            {
                 currentFragmentSize++;
-            }
 
             if (shouldCreateTile && currentFragmentSize > 0)
             {
                 GameObject tile = Instantiate(wallTile);
                 SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();
-
+                tile.transform.parent = transform;
+                tile.GetComponent<BoxCollider2D>().size = tile.transform.localScale;
 
                 Vector2 tileSize = direction == Direction.Horizontal
                     ? new Vector2(currentFragmentSize, THICKNESS)
@@ -98,9 +107,7 @@ public class OuterWallModel : MonoBehaviour
                 float centerOffset = TILE_SIZE * segmentStartIndex + TILE_SIZE * (currentFragmentSize - 1) / 2.0f;
 
                 if (direction == Direction.Vertical)
-                {
                     centerOffset = -centerOffset;
-                }
 
                 tileRenderer.transform.position = direction == Direction.Horizontal
                     ? new Vector3(basePosition.x + centerOffset, basePosition.y)
@@ -110,15 +117,12 @@ public class OuterWallModel : MonoBehaviour
                 segmentStartIndex = i + 1;
             }
             else if (!isCurrentFilled)
-            {
                 segmentStartIndex = i + 1;
-            }
         }
 
         wasCreated = true;
     }
+    protected enum OuterWallType : sbyte { Indefinite, Left, Right, Top, Bottom, Angle }
 
-    public void MakeShurf() { }
-
-    private enum Direction : sbyte { Vertical, Horizontal }
+    protected enum Direction : sbyte { Vertical, Horizontal }
 }

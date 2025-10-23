@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 /// <summary>
@@ -12,9 +13,10 @@ public class RoomManager : MonoBehaviour
     private bool wasContentCreated = false;
 
     private ImmutableList<GameObject> entities;
-    //private List<GameObject>
+    private ImmutableList<GameObject> outerWallFragments;
 
     public IReadOnlyList<GameObject> Entities => entities;
+    public IReadOnlyList<GameObject> WallFragmentts => entities;
 
     /// <summary>
     /// Creates all RoomEntities in this room 
@@ -27,6 +29,18 @@ public class RoomManager : MonoBehaviour
             Debug.Log("Content of the room was created more than one time");
 
         ImmutableList<GameObject>.Builder entitiesBuilder = ImmutableList.CreateBuilder<GameObject>();
+        ImmutableList<GameObject>.Builder wallFragmentsBuilder = ImmutableList.CreateBuilder<GameObject>();
+
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            GameObject wallFragment = transform.GetChild(i).gameObject;
+            Instantiate(wallFragment, wallFragment.transform.position 
+                + transform.position, Quaternion.identity, transform);
+            wallFragment.GetComponent<OuterWallModel>().Create();
+            wallFragmentsBuilder.Add(wallFragment);
+        }
+
+        outerWallFragments = wallFragmentsBuilder.ToImmutable();
 
         foreach (RoomEntity entity in roomEntities)
         {
