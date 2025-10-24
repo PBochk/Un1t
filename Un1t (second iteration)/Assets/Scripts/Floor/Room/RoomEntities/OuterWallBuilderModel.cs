@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class OuterWallModel : MonoBehaviour
+public class OuterWallBuilderModel : MonoBehaviour
 {
     [SerializeField] protected GameObject wallTile;
     [SerializeField] protected OuterWallType outerWallType;

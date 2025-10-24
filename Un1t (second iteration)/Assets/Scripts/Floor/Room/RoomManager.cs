@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 /// <summary>
@@ -15,8 +15,13 @@ public class RoomManager : MonoBehaviour
     private ImmutableList<GameObject> entities;
     private ImmutableList<GameObject> outerWallFragments;
 
+    private readonly static Range shurfesCountRange = new(2, 5);
+
+    private int shurfesCount;
+
     public IReadOnlyList<GameObject> Entities => entities;
     public IReadOnlyList<GameObject> WallFragmentts => entities;
+
 
     /// <summary>
     /// Creates all RoomEntities in this room 
@@ -36,11 +41,15 @@ public class RoomManager : MonoBehaviour
             GameObject wallFragment = transform.GetChild(i).gameObject;
             Instantiate(wallFragment, wallFragment.transform.position 
                 + transform.position, Quaternion.identity, transform);
-            wallFragment.GetComponent<OuterWallModel>().Create();
+            wallFragment.GetComponent<OuterWallBuilderModel>().Create();
             wallFragmentsBuilder.Add(wallFragment);
         }
 
         outerWallFragments = wallFragmentsBuilder.ToImmutable();
+
+
+        shurfesCount = UnityEngine.Random.Range(shurfesCountRange.Start.Value, shurfesCountRange.End.Value + 1);
+      
 
         foreach (RoomEntity entity in roomEntities)
         {

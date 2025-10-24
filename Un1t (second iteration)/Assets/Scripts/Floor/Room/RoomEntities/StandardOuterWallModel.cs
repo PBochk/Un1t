@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class StandardOuterWallModel : OuterWallModel
+public class StandardOuterWallModel : OuterWallBuilderModel
 {
     [Header("Wall's parts are empty or filled")]
     [SerializeField] private bool firstPartIsEmpty;
     [SerializeField] private bool secondPartIsEmpty;
     [SerializeField] private bool thirdPartIsEmpty;
 
-    public const int STANDARD_BASE_WALL_WIDTH = 16*5;
-    public const int STANDARD_SIDE_WALL_HEIGHT = 9*5;
+    public const int STANDARD_BASE_WALL_WIDTH = 16*3;
+    public const int STANDARD_SIDE_WALL_HEIGHT = 9*3;
 
 
     protected override void Awake()
