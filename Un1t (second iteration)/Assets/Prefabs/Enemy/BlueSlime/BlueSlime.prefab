@@ -528,7 +528,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
-  cooldown: 1
+  cooldown: 0.5
 --- !u!114 &-2811225169903788571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
-  cooldown: 1
+  cooldown: 0.7
 --- !u!114 &7747756052266841450
 MonoBehaviour:
   m_ObjectHideFlags: 0

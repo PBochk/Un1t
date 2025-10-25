@@ -55,7 +55,7 @@ public class BlueSlimeController : EnemyController
         afterJumpCooldown.MakeTransition(afterJumpCooldownTransition);
     }
 
-    private bool CheckInRange(IEnemyTarget target)
+    private bool CheckInRange(EnemyTargetComponent target)
     {
         return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange * 1.5f;
     }

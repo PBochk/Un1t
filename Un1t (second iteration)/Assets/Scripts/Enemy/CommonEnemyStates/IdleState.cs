@@ -8,7 +8,7 @@ public class IdleState : EnemyState
     //So we need to wait (one frame in this example)
     //For enemy to get properly initialized by spawner
     //(i should make it a singleton btw)
-    public override void EnterState(IEnemyTarget target)
+    public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
         StartCoroutine(WaitForNextFrame());

@@ -13,7 +13,7 @@ public abstract class EnemyState : MonoBehaviour
     public UnityEvent OnStateEnter;
     public UnityEvent OnStateExit;
 
-    protected IEnemyTarget target;
+    protected EnemyTargetComponent target;
     protected EnemyModelMB model;
     
     //TODO: ensure that this is not null
@@ -29,7 +29,7 @@ public abstract class EnemyState : MonoBehaviour
         this.transition = transition;
     }
         
-    public virtual void EnterState(IEnemyTarget target)
+    public virtual void EnterState(EnemyTargetComponent target)
     {
         //Debug.Log($"Entered state: {this}");
         this.target = target;
