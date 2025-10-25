@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b215e2fcc72126429e91e76d16b7247, type: 3}
+  m_Name: Level1Bottom
+  m_EditorClassIdentifier: 
+  basicWallTile: {fileID: 8252421113222450477, guid: 4934117f1b1fa2249a1349a52ba4fa36, type: 3}
+  previousAngleWallTile: {fileID: 8252421113222450477, guid: 0bd5bd7b4cffde642a5fbc4b072ce3cd, type: 3}
+  nextAngleWallTile: {fileID: 8252421113222450477, guid: 86986bad925537c4c90a0cdcf83a5337, type: 3}

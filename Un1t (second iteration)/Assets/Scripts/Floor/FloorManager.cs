@@ -4,10 +4,11 @@ using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
 
+//TODO: class should be divided according to SRP
+
 /// <summary>
 /// Creates and manages all rooms in the game level
 /// </summary>
-//TODO: class should be divided according to SRP
 public class FloorManager : MonoBehaviour
 {
     [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
@@ -145,6 +146,8 @@ public class FloorManager : MonoBehaviour
         rooms[position] = room;
         Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)position * RoomInfo.SIZE),
             Quaternion.identity, transform);
+
+        CreateRoomContent(room);
     }
 
     /// <summary>
@@ -239,6 +242,7 @@ public class FloorManager : MonoBehaviour
     }
     #endregion
 
+    //Replace to anonym type
     #region RoomDescription
     /// <summary>
     /// Used only in CreateAnotherOneRoom() method to chain outer wall and it's neighbor FloorGridPosition
@@ -256,9 +260,16 @@ public class FloorManager : MonoBehaviour
     }
     #endregion
 
+    //TODO: next method should be moved to a separate class
+    private void CreateRoomContent(RoomInfo room)
+    {
+
+    }
+
+
     //TODO: next methods should be refactored and moved to a separate class
 
-    public void ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition position)
+    private void ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition position)
     {
         GameObject roomInstance = Instantiate(roomTemplate, (Vector2)((Vector2Int)position * RoomInfo.SIZE), Quaternion.identity, transform);
 
@@ -272,6 +283,8 @@ public class FloorManager : MonoBehaviour
             new Vector2(16 - 0.666f - 6, 2 - 5), WallDirection.Vertical);
 
         rooms[position] = new RoomInfo(roomInstance, roomOuterWalls);
+
+        CreateRoomContent(rooms[position]);
     }
 
     private static void CreateWall(Transform parent, in RoomOuterWalls.Wall wall,

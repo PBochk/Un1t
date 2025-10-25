@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4e7ed997a944a459f3b55e9666a179, type: 3}
+  m_Name: StartBottomRoom
+  m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 1047099008050089770, guid: 5e6aedcc2a1135b4ab6dfc0f2df9c91b, type: 3}
+  leftTopIsEmpty: 0
+  middleTopIsEmpty: 0
+  rightTopIsEmpty: 0
+  leftBottomIsEmpty: 0
+  middleBottomIsEmpty: 1
+  rightBottomIsEmpty: 0
+  topLeftIsEmpty: 0
+  middleLeftIsEmpty: 0
+  bottomLeftIsEmpty: 0
+  topRightIsEmpty: 0
+  middleRightIsEmpty: 0
+  bottomRightIsEmpty: 0
