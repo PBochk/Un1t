@@ -152,7 +152,7 @@ MonoBehaviour:
   MainScenePath: Assets/Scenes/EnviromentScene.unity
   enemySpawner: {fileID: 3413214056609131267, guid: f0aed43159c57dc8d906c8f11ba2f585, type: 3}
   player: {fileID: 4697431313275488480, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-  mainCamera: {fileID: 653979994397089207, guid: 528b708fe8407edc5bb92e82555a2885, type: 3}
+  mainCamera: {fileID: 8723287996989258889, guid: e8af0d6f1d6b6eef3a8b30e6d75a1d3d, type: 3}
 --- !u!4 &1469847071
 Transform:
   m_ObjectHideFlags: 0
