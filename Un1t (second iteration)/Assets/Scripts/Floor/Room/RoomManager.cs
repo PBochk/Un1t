@@ -41,7 +41,7 @@ public class RoomManager : MonoBehaviour
             GameObject wallFragment = transform.GetChild(i).gameObject;
             Instantiate(wallFragment, wallFragment.transform.position 
                 + transform.position, Quaternion.identity, transform);
-            wallFragment.GetComponent<OuterWallBuilderModel>().Create();
+            wallFragment.GetComponent<OuterWallBuilder>().Create();
             wallFragmentsBuilder.Add(wallFragment);
         }
 

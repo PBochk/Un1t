@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public abstract class OuterWallBuilder : MonoBehaviour
+public class OuterWallBuilder : MonoBehaviour
 {
     public const float TILE_SIZE = 1f;
 
@@ -15,7 +15,7 @@ public abstract class OuterWallBuilder : MonoBehaviour
 
     private bool wasCreated;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         sizeTiles = new Vector2Int((int)spriteRenderer.size.x, (int)spriteRenderer.size.y);
@@ -36,7 +36,6 @@ public abstract class OuterWallBuilder : MonoBehaviour
         }
 
         CheckSize(direction, sizeTiles);
-        Create(4, 5, 6);
     }
 
     public void Create(params int[] emptyTilesNumbers)
@@ -120,5 +119,5 @@ public abstract class OuterWallBuilder : MonoBehaviour
 
     protected enum Direction : sbyte { Vertical, Horizontal }
 
-    protected abstract void CheckSize(Direction direction, Vector2Int sizeTiles);
+    protected virtual void CheckSize(Direction direction, Vector2Int sizeTiles) { }
 }

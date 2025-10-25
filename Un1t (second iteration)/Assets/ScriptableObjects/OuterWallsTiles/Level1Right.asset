@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b215e2fcc72126429e91e76d16b7247, type: 3}
-  m_Name: Level1EdgeBottomOuterWall
+  m_Name: Level1Right
   m_EditorClassIdentifier: 
-  basicWallSprite: {fileID: 1626166971, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
-  previousAngleWallSprite: {fileID: 996101118, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
-  nextAngleWallSprite: {fileID: -7418294944245916237, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
+  basicWallTile: {fileID: 8252421113222450477, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
+  previousAngleWallTile: {fileID: 8252421113222450477, guid: 0bd5bd7b4cffde642a5fbc4b072ce3cd, type: 3}
+  nextAngleWallTile: {fileID: 8252421113222450477, guid: 0ec58f0f5ae261348b64ab331c1443af, type: 3}
