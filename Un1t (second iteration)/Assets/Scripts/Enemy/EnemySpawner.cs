@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyDummyTarget dummyTargetPrefab;
     private EnemyDummyTarget dummyTarget;
     private IEnemyTarget target;
+    private EnemyTargetComponent targetComponent;
 
     public UnityEvent<EnemyController> EnemySpawned;
     
@@ -17,15 +18,15 @@ public class EnemySpawner : MonoBehaviour
         dummyTarget = Instantiate(dummyTargetPrefab);
     }
 
-    public void SetTarget(IEnemyTarget target)
+    public void SetTarget(EnemyTargetComponent targetComponent)
     {
-        this.target = target;
+        this.targetComponent = targetComponent;
     }
 
     public void CreateEnemy()
     {
         var enemy = Instantiate(enemyPrefab);
-        enemy.SetTarget(target);
-        var model = enemy.GetComponent<EnemyModelMB>();
+        enemy.SetTarget(targetComponent);
+        //var model = enemy.GetComponent<EnemyModelMB>();
     }
 }

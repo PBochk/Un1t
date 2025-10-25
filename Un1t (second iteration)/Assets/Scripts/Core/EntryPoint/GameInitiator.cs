@@ -41,7 +41,7 @@ public class GameInitiator : MonoBehaviour
     /// </summary>
     private void Initialize()
     {
-        enemySpawner.SetTarget(player);
+        enemySpawner.SetTarget(player.GetComponent<EnemyTargetComponent>());
     }
 
     /// <summary>

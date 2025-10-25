@@ -19,7 +19,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(EnemyModelMB))]
 public abstract class EnemyController : MonoBehaviour
 {
-    public IEnemyTarget Target { get; private set; }
+    public EnemyTargetComponent Target { get; private set; }
    
     //protected EnemyView View;
     protected Rigidbody2D Rb;
@@ -70,11 +70,11 @@ public abstract class EnemyController : MonoBehaviour
     /// Normally used on the initialization step, but can be changed in the lifetime for example, to make enemy aggro
     /// to the fake player
     /// </summary>
-    public void SetTarget(IEnemyTarget target)
+    public void SetTarget(EnemyTargetComponent target)
     {
         if (target is null)
             return;
-        this.Target = target;
+        Target = target;
     }
 
     //It needed to be called from EnemyStateTransition
@@ -82,7 +82,7 @@ public abstract class EnemyController : MonoBehaviour
     public void ChangeState(EnemyState newState)
     {
         //TODO: Make it impossible to change state when current is not exited or interrupted yet
-        Debug.Log($"Changed state: {CurrentState} -> {newState}");
+        ////Debug.Log($"Changed state: {CurrentState} -> {newState}");
         CurrentState = newState;
         CurrentState.EnterState(Target);
     }

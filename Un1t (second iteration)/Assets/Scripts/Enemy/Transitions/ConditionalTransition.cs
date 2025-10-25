@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ConditionalTransition : EnemyStateTransition
 {
-    public delegate bool Condition(IEnemyTarget target);
+    public delegate bool Condition(EnemyTargetComponent target);
     
     private readonly Condition condition;
     private readonly EnemyState trueState;

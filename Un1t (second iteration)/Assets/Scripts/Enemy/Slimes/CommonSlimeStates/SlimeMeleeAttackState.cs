@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SlimeMeleeAttackState : EnemyState
 {
-    public override void EnterState(IEnemyTarget target)
+    public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
         StartCoroutine(WaitForAttack());
