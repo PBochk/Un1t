@@ -27,7 +27,6 @@ public class StandardOuterWallModel : OuterWallBuilderModel
 
         for (var i = 0; i < parts.Length; i++)
         {
-            Debug.Log(onePartSizeTiles * i);
             if (parts[i])
                 for (var j = onePartSizeTiles * i; j < onePartSizeTiles * (i + 1); j++)
                     tilesAreEmpty[j] = true;

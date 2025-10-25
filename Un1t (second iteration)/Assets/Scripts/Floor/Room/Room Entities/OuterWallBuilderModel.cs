@@ -1,5 +1,4 @@
 using UnityEngine;
-//TODO: refactor it according to OCP
 
 
 [RequireComponent(typeof(SpriteRenderer))]

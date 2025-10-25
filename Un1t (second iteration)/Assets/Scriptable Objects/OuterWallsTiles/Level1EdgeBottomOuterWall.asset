@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b215e2fcc72126429e91e76d16b7247, type: 3}
+  m_Name: Level1EdgeBottomOuterWall
+  m_EditorClassIdentifier: 
+  basicWallSprite: {fileID: 1626166971, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
+  previousAngleWallSprite: {fileID: 996101118, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
+  nextAngleWallSprite: {fileID: -7418294944245916237, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
