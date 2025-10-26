@@ -1,4 +1,4 @@
-public class SlimeRunawayState
+public class SlimeRunawayState : EnemyState
 {
     
 }
