@@ -9,10 +9,6 @@ public class BlueSlimeView : EnemyView
     [SerializeField] private DecisionState decisionState;
     [SerializeField] private SlimeAnimator animator;
 
-    protected override void BindModel()
-    {
-    }
-
     protected override void BindStates()
     {
     }
