@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,26 +8,47 @@ using UnityEngine.InputSystem;
 /// </summary>
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerModelMB))]
 [RequireComponent(typeof(PlayerController))]
 // TODO: figure out how to require component in children
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource attackSound;
-    private PlayerController controller;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerMeleeWeaponController pickaxeController;
+    [SerializeField] private TMP_Text hpText;
+    private PlayerModelMB playerModelMB;
+    private PlayerModel playerModel;
+    private PlayerController playerController;
     private Animator animator;
     private bool isFacingRight = true;
-    
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        controller = GetComponent<PlayerController>();
-        //meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        playerModelMB = GetComponent<PlayerModelMB>();
+        playerController = GetComponent<PlayerController>();
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
-        controller.StartMelee.AddListener(OnMelee);
+        playerController.StartMelee.AddListener(OnMelee);
         pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
+    }
+
+    private void Start()
+    {
+        playerModel = playerModelMB.PlayerModel;
+        playerModel.HealthChange += OnHealthChange; //Should be in OnEnable
+        Initialize();
+    }
+
+    private void OnDisable()
+    {
+        playerModel.HealthChange -= OnHealthChange;
+    }
+
+    private void Initialize()
+    {
+        OnHealthChange();
     }
 
     public void OnMove(InputValue value)
@@ -58,5 +80,11 @@ public class PlayerView : MonoBehaviour
     private void PickaxeAnimationStart()
     {
         animator.SetTrigger("PickaxeAttack");
+    }
+
+    private void OnHealthChange()
+    {
+        hpText.text = playerModel.CurrentHealth + " / " + playerModel.MaxHealth;
+        Debug.Log(playerModel.CurrentHealth + " / " + playerModel.MaxHealth);
     }
 }
