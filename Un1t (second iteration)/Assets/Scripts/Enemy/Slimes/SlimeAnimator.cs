@@ -31,4 +31,14 @@ public class SlimeAnimator : MonoBehaviour
         
         animator.SetTrigger("SlimeMeleeAttackAnimation");
     }
+
+    public void SetPlaybackSpeed(float speed)
+    {
+        animator.speed = speed;
+    }
+
+    public void ResetPlaybackSpeed()
+    {
+        animator.speed = 1;
+    }
 }

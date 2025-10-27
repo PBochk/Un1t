@@ -17,6 +17,7 @@ public class BlueSlimeController : EnemyController
     [SerializeField] private CooldownState afterJumpCooldown;
     [SerializeField] private CooldownState afterAttackCooldown;
     [SerializeField] private DecisionState decisionState;
+    //TODO: Move this to view and make this a debug option
     [SerializeField] private SpriteRenderer meleeAttack;
 
     //TODO: Consider to remove
@@ -39,20 +40,41 @@ public class BlueSlimeController : EnemyController
     protected override void MakeTransitions()
     {
         idleTransition = new UnconditionalTransition(this, followState);
+        // =========================
+        // DECISION STATES
+        // =========================
+        decisionTransition = new ConditionalTransition(
+            this,
+            CheckInRange,
+            meleeState,    // If in range - attack
+            followState    // Else - follow target
+        );
+
+
+        // =========================
+        // ACTION STATES
+        // =========================
         followTransition = new UnconditionalTransition(this, afterJumpCooldown);
-        afterJumpCooldownTransition = new UnconditionalTransition(this, decisionState);
-        decisionTransition = new ConditionalTransition(this, CheckInRange, meleeState, followState);
         meleeTransition = new UnconditionalTransition(this, afterAttackCooldown);
+
+
+        // =========================
+        // COOLDOWN STATES
+        // =========================
+        afterJumpCooldownTransition = new UnconditionalTransition(this, decisionState);
         afterAttackCooldownTransition = new UnconditionalTransition(this, decisionState);
-        
-        
+
+
+        // =========================
+        // TRANSITION REGISTRATION
+        // =========================
         IdleState.MakeTransition(idleTransition);
         followState.MakeTransition(followTransition);
         meleeState.MakeTransition(meleeTransition);
         decisionState.MakeTransition(decisionTransition);
-        meleeState.MakeTransition(meleeTransition);
-        afterAttackCooldown.MakeTransition(afterAttackCooldownTransition);
         afterJumpCooldown.MakeTransition(afterJumpCooldownTransition);
+        afterAttackCooldown.MakeTransition(afterAttackCooldownTransition);
+
     }
 
     private bool CheckInRange(EnemyTargetComponent target)

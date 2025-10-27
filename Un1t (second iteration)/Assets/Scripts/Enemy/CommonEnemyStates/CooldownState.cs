@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CooldownState : EnemyState
 {
+    [Tooltip("Usually enemies can have multiple different cooldowns, so this is made to differentiate them in inspector")]
+    [SerializeField] private string label;
     [SerializeField] private float cooldown;
     WaitForSeconds cooldownTimer;
     

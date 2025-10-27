@@ -10,7 +10,7 @@ public class SlimeFollowState : EnemyState
 {
     public UnityEvent jumpStart;
     
-    [SerializeField] private float baseMoveTime = 1f;
+    [SerializeField] public float baseMoveTime { get; private set; } = 1f;
     
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
@@ -38,7 +38,6 @@ public class SlimeFollowState : EnemyState
     //TODO: Maybe make a windup animation
     private IEnumerator Jump(float moveTime)
     {
-        Debug.Log("Jump start");
         while (moveTimer <= moveTime)
         {
             enemyRb.MovePosition(startPosition + direction * moveTimer /  moveTime);
