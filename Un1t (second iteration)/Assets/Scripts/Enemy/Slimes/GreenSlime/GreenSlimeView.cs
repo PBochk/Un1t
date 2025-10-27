@@ -25,7 +25,7 @@ public class GreenSlimeView : EnemyView
         followState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
         runawayState.OnStateEnter.AddListener(() =>
         {
-            var speed = 1 * model.NativeModel.SpeedCoeff * followState.baseMoveTime ;
+            var speed = 1 * model.NativeModel.SpeedCoeff / followState.baseMoveTime;
             animator.SetPlaybackSpeed(speed);
         });
         followState.OnStateExit.AddListener(animator.ResetPlaybackSpeed);
@@ -33,7 +33,7 @@ public class GreenSlimeView : EnemyView
         runawayState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
         runawayState.OnStateEnter.AddListener(() =>
         {
-            var speed = 1 * model.NativeModel.SpeedCoeff * runawayState.baseMoveTime ;
+            var speed = 1 * model.NativeModel.SpeedCoeff / runawayState.baseMoveTime;
             animator.SetPlaybackSpeed(speed);
         });
         runawayState.OnStateExit.AddListener(animator.ResetPlaybackSpeed);

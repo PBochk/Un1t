@@ -6,6 +6,7 @@ public class DecisionState : EnemyState
     [SerializeField] private string label;
     public override void EnterState(EnemyTargetComponent target)
     {
+        base.EnterState(target);
         ExitState();
     }
 }

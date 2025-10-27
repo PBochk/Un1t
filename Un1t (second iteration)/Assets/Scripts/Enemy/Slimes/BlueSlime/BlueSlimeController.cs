@@ -79,7 +79,7 @@ public class BlueSlimeController : EnemyController
 
     private bool CheckInRange(EnemyTargetComponent target)
     {
-        return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange * 1.5f;
+        return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange;
     }
 
     private void TurnOnHitbox()

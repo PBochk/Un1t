@@ -135,6 +135,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 799aacfd8b9e74c9ca4dcbb1ff2a6e1b, type: 2}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -223,6 +231,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3708714666001732577}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2609521758479921794}
   m_SourcePrefab: {fileID: 100100000, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
 --- !u!1 &176842301264460836 stripped
 GameObject:
@@ -256,7 +267,8 @@ MonoBehaviour:
   followCooldownState: {fileID: 7581788288315896852}
   runawayCooldownState: {fileID: 2407914522037244029}
   attackCooldownState: {fileID: 3708714666001732577}
-  view: {fileID: 0}
+  view: {fileID: 4777484714795784334}
+  tooCloseRange: 2
 --- !u!114 &4777484714795784334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +290,7 @@ MonoBehaviour:
   followCooldownState: {fileID: 7581788288315896852}
   runawayCooldownState: {fileID: 2407914522037244029}
   attackCooldownState: {fileID: 3708714666001732577}
+  animator: {fileID: 2609521758479921794}
 --- !u!114 &6057341422518328120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +331,6 @@ MonoBehaviour:
   jumpStart:
     m_PersistentCalls:
       m_Calls: []
-  baseMoveTime: 1
 --- !u!114 &7826072461106897600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +504,18 @@ MonoBehaviour:
       m_Calls: []
   label: Attack cd
   cooldown: 1
+--- !u!114 &2609521758479921794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176842301264460836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27685fdca894eb29ee3c077b359a478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4185776194229857038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}

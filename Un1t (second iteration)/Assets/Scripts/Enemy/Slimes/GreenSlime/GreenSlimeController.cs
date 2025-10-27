@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(DecisionState))]
 public class GreenSlimeController : EnemyController
 {
+    [Header("States")]
     [SerializeField] private IdleState idleState;
     [SerializeField] private SlimeFollowState followState;
     [SerializeField] private SlimeRangedAttackState rangedAttackState;
@@ -20,6 +21,12 @@ public class GreenSlimeController : EnemyController
     [SerializeField] private CooldownState runawayCooldownState;
     [SerializeField] private CooldownState attackCooldownState;
     [SerializeField] private GreenSlimeView view;
+    
+    //TODO: fix this shit and make better config system
+    [Header("Config that isn't in config")]
+    [Tooltip("In units")]
+    [SerializeField]
+    private float tooCloseRange = 0.5f;
 
     private EnemyStateTransition idleTransition;
     private EnemyStateTransition followTransition;
@@ -29,10 +36,10 @@ public class GreenSlimeController : EnemyController
     private EnemyStateTransition attackTransition;
     private EnemyStateTransition followCooldownTransition;
     private EnemyStateTransition attackCooldownTransition;
+    private EnemyStateTransition runawayCooldownTransition;
     
     protected override void BindStates()
     {
-        //throw new System.NotImplementedException();
     }
 
     protected override void BindView()
@@ -72,7 +79,7 @@ public class GreenSlimeController : EnemyController
         // COOLDOWN STATES
         // =========================
         followCooldownTransition = new UnconditionalTransition(this, isInRangeDecisionState);
-        runawayTransition = new UnconditionalTransition(this, isInRangeDecisionState);
+        runawayCooldownTransition = new UnconditionalTransition(this, isInRangeDecisionState);
         attackCooldownTransition = new UnconditionalTransition(this, isInRangeDecisionState);
 
 
@@ -88,17 +95,17 @@ public class GreenSlimeController : EnemyController
         rangedAttackState.MakeTransition(attackTransition);
 
         followCooldownState.MakeTransition(followCooldownTransition);
-        runawayCooldownState.MakeTransition(runawayTransition);
+        runawayCooldownState.MakeTransition(runawayCooldownTransition);
         attackCooldownState.MakeTransition(attackCooldownTransition);
     }
 
     private bool CheckTargetInRange(EnemyTargetComponent target)
     {
-        return false;
+        return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange;
     }
     
     private bool CheckTargetTooClose(EnemyTargetComponent target)
     {
-        return false;
+        return Vector2.Distance(target.Position, Rb.position) <= tooCloseRange;
     }
 }

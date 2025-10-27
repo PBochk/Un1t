@@ -7,7 +7,7 @@ public class SlimeRunawayState : EnemyState
     
     public UnityEvent jumpStart;
     
-    [SerializeField] public float baseMoveTime { get; private set; } = 0.5f;
+    [SerializeField] public float baseMoveTime { get; private set; } = 0.75f;
     
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
@@ -26,9 +26,9 @@ public class SlimeRunawayState : EnemyState
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
-        var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - model.Config.AggroRange, model.Config.BaseMoveSpeed);
+        var distance = model.Config.BaseMoveSpeed;
         startPosition = enemyRb.position;
-        direction = -(target.Position - enemyRb.position).normalized * distance;
+        direction =  (enemyRb.position - target.Position).normalized * distance;
         //TODO: Fix Possible DivisionByZeroException 
         StartCoroutine(Jump(baseMoveTime / model.NativeModel.SpeedCoeff));
     }
