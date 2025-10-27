@@ -383,6 +383,7 @@ MonoBehaviour:
   attackSound: {fileID: 0}
   meleeController: {fileID: 8975838670633704521}
   pickaxeController: {fileID: 8034888495029483493}
+  hpText: {fileID: 0}
 --- !u!114 &4697431313275488480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  healthUpgrade: 25
   movingSpeed: 15
   level: 1
   xpCoefficient: 25
