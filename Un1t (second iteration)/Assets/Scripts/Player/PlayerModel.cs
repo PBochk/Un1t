@@ -13,7 +13,7 @@ public class PlayerModel
         private set
         {
             maxHealth = value;
-            HealthChange.Invoke();
+            HealthChanged.Invoke();
         }
     }
     public float CurrentHealth
@@ -22,7 +22,7 @@ public class PlayerModel
         private set
         {
             currentHealth = value;
-            HealthChange.Invoke();
+            HealthChanged.Invoke();
         }
     }
     public float MovingSpeed => movingSpeed;
@@ -32,19 +32,37 @@ public class PlayerModel
 
     private int level;
     private int xpCoefficient;
-    private int currentXP;
+    private int currentXP = 0;
     private int nextLevelXP;
     public int Level => level;
-    public float CurrentXP => currentXP;
-    public float NextLevelXP => nextLevelXP;
+    public int CurrentXP
+    {
+        get => currentXP;
+        private set
+        {
+            currentXP = value;
+            ExperienceChanged.Invoke();
+        }
+    }
+
+    public int NextLevelXP
+    {
+        get => nextLevelXP;
+        private set
+        {
+            nextLevelXP = value;
+            ExperienceChanged.Invoke();
+        }
+    }
 
     private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     public List<PlayerTools> AvailableTools => availableTools;
     public List<PlayerTools> UnlockedTools => unlockedTools;
 
+    public event Action HealthChanged;
+    public event Action ExperienceChanged;
     public event Action NextLevel;
-    public event Action HealthChange;
 
     public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
     {
@@ -54,7 +72,7 @@ public class PlayerModel
         this.movingSpeed = movingSpeed;
         this.level = level;
         this.xpCoefficient = xpCoefficient;
-        SetNextLevelXP();
+        nextLevelXP = GetNextLevelXP();
     }
 
     public void TakeHeal(float heal)
@@ -70,13 +88,13 @@ public class PlayerModel
 
     public void AddXP(int increment)
     {
-        currentXP += increment;
+        CurrentXP += increment;
         CheckXP();
     }
 
     private void CheckXP()
     {
-        if (currentXP >= nextLevelXP)
+        if (CurrentXP >= nextLevelXP)
         {
             LevelUp();
         }
@@ -85,13 +103,13 @@ public class PlayerModel
     private void LevelUp()
     {
         level++;
-        SetNextLevelXP();
+        NextLevelXP = GetNextLevelXP();
         NextLevel?.Invoke();
     }
 
-    private void SetNextLevelXP()
+    private int GetNextLevelXP()
     {
-        nextLevelXP = GetFibonachi(level) * xpCoefficient;
+        return GetFibonachi(level + 1) * xpCoefficient;
     }
 
     public void UpgradeHealth()

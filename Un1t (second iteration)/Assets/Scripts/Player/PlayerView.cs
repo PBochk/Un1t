@@ -18,6 +18,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     [SerializeField] private TMP_Text hpText;
+    [SerializeField] private TMP_Text xpText;
     private PlayerModelMB playerModelMB;
     private PlayerModel playerModel;
     private PlayerController playerController;
@@ -37,18 +38,21 @@ public class PlayerView : MonoBehaviour
     private void Start()
     {
         playerModel = playerModelMB.PlayerModel;
-        playerModel.HealthChange += OnHealthChange; //Should be in OnEnable
+        playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
+        playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
         Initialize();
     }
 
     private void OnDisable()
     {
-        playerModel.HealthChange -= OnHealthChange;
+        playerModel.HealthChanged -= OnHealthChanged;
+        playerModel.ExperienceChanged -= OnExperienceChanged;
     }
 
     private void Initialize()
     {
-        OnHealthChange();
+        OnHealthChanged();
+        OnExperienceChanged();
     }
 
     public void OnMove(InputValue value)
@@ -82,9 +86,13 @@ public class PlayerView : MonoBehaviour
         animator.SetTrigger("PickaxeAttack");
     }
 
-    private void OnHealthChange()
+    private void OnHealthChanged()
     {
         hpText.text = playerModel.CurrentHealth + " / " + playerModel.MaxHealth;
-        Debug.Log(playerModel.CurrentHealth + " / " + playerModel.MaxHealth);
     }
+    private void OnExperienceChanged()
+    {
+        xpText.text =  playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
+    }
+
 }
