@@ -103,8 +103,7 @@ public class FloorManager : MonoBehaviour
             availableRoomsToGenerate[randomIndex].Wall = RoomOuterWalls.Wall.CentreExit;
             availableRoomsToGenerate.RemoveAt(randomIndex);
         }
-
-        
+      
         top.Wall ??= RoomOuterWalls.Wall.Solid;
         bottom.Wall ??= RoomOuterWalls.Wall.Solid;
         left.Wall ??= RoomOuterWalls.Wall.Solid;
@@ -144,12 +143,12 @@ public class FloorManager : MonoBehaviour
     /// <param name="position">Position to place the room</param>
     private void GenerateRoom(RoomInfo room, in FloorGridPosition position)
     {
-        Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)position * RoomInfo.SIZE),
+        GameObject roomInstance = Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)position * RoomInfo.SIZE),
             Quaternion.identity, transform);
 
         rooms[position] = room;
 
-        CreateRoomContent(room.RoomPrefab);
+        CreateRoomContent(roomInstance);
     }
 
     /// <summary>

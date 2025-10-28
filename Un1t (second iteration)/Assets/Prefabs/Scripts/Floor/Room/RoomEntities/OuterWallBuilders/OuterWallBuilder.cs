@@ -43,6 +43,7 @@ public class OuterWallBuilder : MonoBehaviour
         foreach (int emptyTileNumber in emptyTilesNumbers)
             tilesAreEmpty[emptyTileNumber] = true;
 
+        Debug.Log(transform.position);
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
             ? new Vector3(TILE_SIZE * (sizeTiles.x - 1) / 2, 0)
             : new Vector3(0, -TILE_SIZE * (sizeTiles.y - 1) / 2));
@@ -50,7 +51,7 @@ public class OuterWallBuilder : MonoBehaviour
         int currentFragmentSize = 0;
         int segmentStartIndex = 0;
 
-        for (int i = 0; i <= tilesAreEmpty.Length; i++)
+        for (var i = 0; i <= tilesAreEmpty.Length; i++)
         {
             bool isCurrentFilled = (i < tilesAreEmpty.Length && !tilesAreEmpty[i]);
             bool shouldCreateTile = (i == tilesAreEmpty.Length) || !isCurrentFilled;
@@ -88,9 +89,9 @@ public class OuterWallBuilder : MonoBehaviour
 
     }
 
-    private void CreateTile(GameObject tilePrefab, int startIndex, int fragmentSize, Vector3 basePosition)
+    private void CreateTile(GameObject tilePrefab, int startIndex, int fragmentSize, in Vector3 basePosition)
     {
-        GameObject tile = Instantiate(tilePrefab);
+        GameObject tile = Instantiate(tilePrefab, transform);
         SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();
 
         Vector2 tileSize = direction == Direction.Horizontal
@@ -103,7 +104,6 @@ public class OuterWallBuilder : MonoBehaviour
 
         if (direction == Direction.Vertical)
             centerOffset = -centerOffset;
-
         tileRenderer.transform.position = direction == Direction.Horizontal
             ? new Vector3(basePosition.x + centerOffset, basePosition.y)
             : new Vector3(basePosition.x, basePosition.y + centerOffset);
