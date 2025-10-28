@@ -43,7 +43,6 @@ public class OuterWallBuilder : MonoBehaviour
         foreach (int emptyTileNumber in emptyTilesNumbers)
             tilesAreEmpty[emptyTileNumber] = true;
 
-        Debug.Log(transform.position);
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
             ? new Vector3(TILE_SIZE * (sizeTiles.x - 1) / 2, 0)
             : new Vector3(0, -TILE_SIZE * (sizeTiles.y - 1) / 2));

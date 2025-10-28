@@ -14,6 +14,9 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
     [SerializeField] private TemplateRoomInfo[] availableStartRooms;
 
+    [SerializeField] private int minRoomsCount = 5;
+    [SerializeField] private int maxRoomsCount = 7;
+
     //TODO: next serilize fields should be moved to a separate class
     [SerializeField] private GameObject roomTemplate;
 
@@ -22,7 +25,6 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject leftOuterWall;
     [SerializeField] private GameObject rightOuterWall;
 
-    private readonly static Range roomsCountRange = new(3, 5);
     private readonly RoomGrid rooms = new();
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
@@ -35,7 +37,7 @@ public class FloorManager : MonoBehaviour
                 group => group.Select(template => template.Info).ToImmutableList()
         );
 
-        int roomCount = UnityEngine.Random.Range(roomsCountRange.Start.Value, roomsCountRange.End.Value);
+        int roomCount = UnityEngine.Random.Range(minRoomsCount, maxRoomsCount) - 2;
         GenerateFloor(roomCount);
     }
 
@@ -58,10 +60,28 @@ public class FloorManager : MonoBehaviour
     {
         firstRoomPosition = new FloorGridPosition(RoomGrid.FLOOR_SIZE / 2, RoomGrid.FLOOR_SIZE / 2);
 
-        GenerateRoom(availableStartRooms[1].Info, firstRoomPosition);
+        RoomInfo firstRoom = availableStartRooms[UnityEngine.Random.Range(0, availableStartRooms.Length)].Info;
 
-        firstRoomPosition += new FloorGridPosition(-1, 0);
+        GenerateRoom(firstRoom, firstRoomPosition);
+
+        firstRoomPosition += GetOppositeExitDirection(firstRoom.OuterWalls);
     }
+
+    /// <summary>
+    /// Define which one direction of room is free
+    /// </summary>
+    private FloorGridPosition GetOppositeExitDirection(RoomOuterWalls outerWalls)
+    {
+        static bool HasExit(RoomOuterWalls.Wall wall) => wall.First.IsEmpty || wall.Middle.IsEmpty || wall.Last.IsEmpty;
+
+        if (HasExit(outerWalls.Top)) return FloorGridPosition.Bottom;
+        if (HasExit(outerWalls.Bottom)) return FloorGridPosition.Top;
+        if (HasExit(outerWalls.Left)) return FloorGridPosition.Right;
+        if (HasExit(outerWalls.Right)) return FloorGridPosition.Left;
+
+        throw new Exception("Start room hasn't got any exits");
+    }
+
 
     /// <summary>
     /// Creates additional rooms recursively based on available positions

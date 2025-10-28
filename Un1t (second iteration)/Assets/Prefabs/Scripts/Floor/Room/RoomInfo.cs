@@ -50,8 +50,6 @@ public class RoomInfo
     {
         RoomPrefab = roomPrefab;
         OuterWalls = outerWalls;
-
-        RoomExits = CalculateRoomExits(OuterWalls);
     }
 
 
