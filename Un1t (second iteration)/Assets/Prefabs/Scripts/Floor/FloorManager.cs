@@ -13,13 +13,14 @@ public class FloorManager : MonoBehaviour
 {
     [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
     [SerializeField] private TemplateRoomInfo[] availableStartRooms;
-    [SerializeField] private TemplateRoomInfo errorRoom; //For debug purpose only
 
     //TODO: next serilize fields should be moved to a separate class
     [SerializeField] private GameObject roomTemplate;
-    [SerializeField] private GameObject sideWallPart;
-    [SerializeField] private GameObject baseWallPart;
-    [SerializeField] private GameObject angleWallPart;
+
+    [SerializeField] private GameObject topOuterWall;
+    [SerializeField] private GameObject bottomOuterWall;
+    [SerializeField] private GameObject leftOuterWall;
+    [SerializeField] private GameObject rightOuterWall;
 
     private readonly static Range roomsCountRange = new(3, 5);
     private readonly RoomGrid rooms = new();
@@ -143,11 +144,12 @@ public class FloorManager : MonoBehaviour
     /// <param name="position">Position to place the room</param>
     private void GenerateRoom(RoomInfo room, in FloorGridPosition position)
     {
-        rooms[position] = room;
         Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)position * RoomInfo.SIZE),
             Quaternion.identity, transform);
 
-        CreateRoomContent(room);
+        rooms[position] = room;
+
+        CreateRoomContent(room.RoomPrefab);
     }
 
     /// <summary>
@@ -242,7 +244,6 @@ public class FloorManager : MonoBehaviour
     }
     #endregion
 
-    //Replace to anonym type
     #region RoomDescription
     /// <summary>
     /// Used only in CreateAnotherOneRoom() method to chain outer wall and it's neighbor FloorGridPosition
@@ -260,48 +261,30 @@ public class FloorManager : MonoBehaviour
     }
     #endregion
 
-    //TODO: next method should be moved to a separate class
-    private void CreateRoomContent(RoomInfo room)
+    private void CreateRoomContent(GameObject room) 
     {
-
+        room.GetComponent<RoomManager>().CreateContent();
     }
 
 
-    //TODO: next methods should be refactored and moved to a separate class
+    //TODO: next method should be refactored and moved to a separate class,
+    //Caching room types
 
     private void ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition position)
     {
         GameObject roomInstance = Instantiate(roomTemplate, (Vector2)((Vector2Int)position * RoomInfo.SIZE), Quaternion.identity, transform);
+        Vector2 roomCenter = (Vector2)roomInstance.transform.position;
 
-        CreateWall(roomInstance.transform, roomOuterWalls.Top, baseWallPart,
-            new Vector2(0 - 6, 10 - 5), WallDirection.Horizontal);
-        CreateWall(roomInstance.transform, roomOuterWalls.Bottom, baseWallPart,
-            new Vector2(0 - 6, 0 - 5), WallDirection.Horizontal);
-        CreateWall(roomInstance.transform, roomOuterWalls.Left, sideWallPart,
-            new Vector2(-3f + 0.333f - 6, 2 - 5), WallDirection.Vertical);
-        CreateWall(roomInstance.transform, roomOuterWalls.Right, sideWallPart,
-            new Vector2(16 - 0.666f - 6, 2 - 5), WallDirection.Vertical);
+        Instantiate(topOuterWall, new Vector2(0, 6) + roomCenter, Quaternion.identity, roomInstance.transform).GetComponent<StandardOuterWallBuilder>().SetPartsEmptiness(roomOuterWalls.Top);
+        Instantiate(bottomOuterWall, new Vector2(0, -5) + roomCenter, Quaternion.identity, roomInstance.transform).GetComponent<StandardOuterWallBuilder>().SetPartsEmptiness(roomOuterWalls.Bottom);
+        Instantiate(leftOuterWall, new Vector2(-9.5f, 0) + roomCenter, Quaternion.identity, roomInstance.transform).GetComponent<StandardOuterWallBuilder>().SetPartsEmptiness(roomOuterWalls.Left);
+        Instantiate(rightOuterWall, new Vector2(9.5f, 0) + roomCenter, Quaternion.identity, roomInstance.transform).GetComponent<StandardOuterWallBuilder>().SetPartsEmptiness(roomOuterWalls.Right);
 
-        rooms[position] = new RoomInfo(roomInstance, roomOuterWalls);
+        rooms[position] = new(roomInstance, roomOuterWalls);
 
-        CreateRoomContent(rooms[position]);
+        CreateRoomContent(roomInstance);
     }
 
-    private static void CreateWall(Transform parent, in RoomOuterWalls.Wall wall,
-        GameObject wallPartObject, in Vector2 startPosition, WallDirection direction)
-    {
-        Vector3 currentPosition = startPosition;
-        Vector3 step = direction == WallDirection.Horizontal ? new Vector2(6.333f, 0f) : new Vector2(0, 3);
-
-        foreach (RoomOuterWalls.Wall.WallPart wallPart in
-            new RoomOuterWalls.Wall.WallPart[] { wall.First, wall.Middle, wall.Last })
-        {
-            if (!wallPart.IsEmpty)
-                Instantiate(wallPartObject, currentPosition + parent.position, Quaternion.identity, parent);
-
-            currentPosition += step;
-        }
-    }
 
     private enum WallDirection
     {

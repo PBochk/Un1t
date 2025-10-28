@@ -6,7 +6,7 @@ using UnityEngine;
 public class RoomInfo
 {
 
-    public readonly static Vector2Int SIZE = new Vector2Int(16, 9) + new Vector2Int(2, 2);
+    public readonly static Vector2Int SIZE = new Vector2Int(18, 9) + new Vector2Int(2, 4);
 
     public GameObject RoomPrefab { get; }
     public RoomOuterWalls OuterWalls { get; }

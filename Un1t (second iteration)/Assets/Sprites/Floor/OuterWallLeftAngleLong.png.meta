@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 261ab125301cb734a8ed43984f733c8b
+guid: 0f855b22231809b4389275b1d11134c4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7870276711496609559
-    second: PlayerRun_0
-  - first:
-      213: 1728719941392088379
-    second: PlayerRun_1
-  - first:
-      213: 5511062410843008217
-    second: PlayerRun_2
-  - first:
-      213: 1354115375237695471
-    second: PlayerRun_3
-  - first:
-      213: -4522731149510019502
-    second: PlayerRun_4
+      213: 7837882520760998748
+    second: OuterWallLeftAngleLong_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,15 +40,15 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 24
@@ -112,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerRun_0
+      name: OuterWallLeftAngleLong_0
       rect:
         serializedVersion: 2
-        x: 14
+        x: 0
         y: 0
-        width: 17
-        height: 44
+        width: 24
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,96 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e01737870927c290800000000000000
-      internalID: -7870276711496609559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerRun_1
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 0
-        width: 23
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b3d3fc6a0a5adf710800000000000000
-      internalID: 1728719941392088379
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerRun_2
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 0
-        width: 27
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9dc2e45501a3b7c40800000000000000
-      internalID: 5511062410843008217
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerRun_3
-      rect:
-        serializedVersion: 2
-        x: 154
-        y: 0
-        width: 22
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe700f562c8cac210800000000000000
-      internalID: 1354115375237695471
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerRun_4
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 26
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2567cd26bf70c31c0800000000000000
-      internalID: -4522731149510019502
+      spriteID: c5bd33130a0c5cc60800000000000000
+      internalID: 7837882520760998748
       vertices: []
       indices: 
       edges: []
@@ -235,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerRun_0: -7870276711496609559
-      PlayerRun_1: 1728719941392088379
-      PlayerRun_2: 5511062410843008217
-      PlayerRun_3: 1354115375237695471
-      PlayerRun_4: -4522731149510019502
+      OuterWallLeftAngleLong_0: 7837882520760998748
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

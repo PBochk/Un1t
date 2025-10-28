@@ -13,9 +13,7 @@ public class OuterWallBuilder : MonoBehaviour
     protected Direction direction;
     protected bool[] tilesAreEmpty;
 
-    private bool wasCreated;
-
-    protected virtual void Awake()
+    protected virtual void SetSize()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         sizeTiles = new Vector2Int((int)spriteRenderer.size.x, (int)spriteRenderer.size.y);
@@ -40,11 +38,7 @@ public class OuterWallBuilder : MonoBehaviour
 
     public void Create(params int[] emptyTilesNumbers)
     {
-        if (wasCreated)
-        {
-            Debug.LogError("Wall was already created", this);
-            return;
-        }
+        SetSize();
 
         foreach (int emptyTileNumber in emptyTilesNumbers)
             tilesAreEmpty[emptyTileNumber] = true;
@@ -92,14 +86,12 @@ public class OuterWallBuilder : MonoBehaviour
             }
         }
 
-        wasCreated = true;
     }
 
     private void CreateTile(GameObject tilePrefab, int startIndex, int fragmentSize, Vector3 basePosition)
     {
         GameObject tile = Instantiate(tilePrefab);
         SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();
-        tile.transform.parent = transform;
 
         Vector2 tileSize = direction == Direction.Horizontal
             ? new Vector2(fragmentSize, thickness)
