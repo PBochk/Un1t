@@ -7,21 +7,29 @@ public class StandardOuterWallBuilder : OuterWallBuilder
     [SerializeField] private bool middlePartIsEmpty;
     [SerializeField] private bool lastPartIsEmpty;
 
-    public const int STANDARD_BASE_WALL_WIDTH = 18;
+    public const int STANDARD_BASE_WALL_WIDTH = 16;
     public const int STANDARD_SIDE_WALL_HEIGHT = 9;
 
     private const int STANDARD_EDGE_WALL_THICKNESS = 1;
 
-    protected override void SetSize()
-    {
-        base.SetSize();
-        bool[] parts = new bool[3] { firstPartIsEmpty, middlePartIsEmpty, lastPartIsEmpty };
-        int onePartSizeTiles = (direction == Direction.Horizontal ? sizeTiles.x : sizeTiles.y) / 3;
+    private static readonly int[] STANDARD_BASE_WALL_PARTS_LENGTHS = new int[] { 5, 6, 5 };
+    private static readonly int[] STANDARD_SIDE_WALL_PARTS_LENGTHS = new int[] { 3, 3, 3 };
 
+    protected override void SetConfiguration()
+    {
+        base.SetConfiguration();
+        bool[] parts = new bool[3] { firstPartIsEmpty, middlePartIsEmpty, lastPartIsEmpty };
+        int[] lengths = direction == Direction.Horizontal ? STANDARD_BASE_WALL_PARTS_LENGTHS : STANDARD_SIDE_WALL_PARTS_LENGTHS;
+
+        int wallTileIndex = 0;
         for (var i = 0; i < parts.Length; i++)
+        {
             if (parts[i])
-                for (var j = onePartSizeTiles * i; j < onePartSizeTiles * (i + 1); j++)
-                    tilesAreEmpty[j] = true;
+                for (var j = wallTileIndex; j < wallTileIndex + lengths[i]; j++)
+                    if (j < tilesAreEmpty.Length)
+                        tilesAreEmpty[j] = true;
+            wallTileIndex += lengths[i];
+        }
     }
 
     public void SetPartsEmptiness(RoomOuterWalls.Wall wall)

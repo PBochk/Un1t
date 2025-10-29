@@ -6,7 +6,7 @@ using UnityEngine;
 public class RoomInfo
 {
 
-    public readonly static Vector2Int SIZE = new Vector2Int(18, 9) + new Vector2Int(2, 4);
+    public readonly static Vector2Int SIZE = new Vector2Int(16, 9) + new Vector2Int(2, 4);
 
     public GameObject RoomPrefab { get; }
     public RoomOuterWalls OuterWalls { get; }
@@ -56,6 +56,7 @@ public class RoomInfo
 
     /// <summary>
     /// Calculates room exits based on the outer walls configuration
+    /// Used in previous version of the generation algorithm
     /// </summary>
     /// <param name="roomOuterWalls">Outer walls configuration to analyze</param>
     /// <returns>Calculated room exits</returns>

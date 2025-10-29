@@ -5,15 +5,17 @@ public class OuterWallBuilder : MonoBehaviour
 {
     public const float TILE_SIZE = 1f;
 
-    //TODO: gain wall sprite of current level
+    //TODO: gain wall sprite of current level.
     [SerializeField] protected OuterWallTiles WallTile;
+    [SerializeField] protected ShurfsSpawnDirection shurfsSpawnDirection = 
+        ShurfsSpawnDirection.Unidentified;
 
     protected float thickness;
     protected Vector2Int sizeTiles;
     protected Direction direction;
     protected bool[] tilesAreEmpty;
 
-    protected virtual void SetSize()
+    protected virtual void SetConfiguration()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         sizeTiles = new Vector2Int((int)spriteRenderer.size.x, (int)spriteRenderer.size.y);
@@ -36,11 +38,11 @@ public class OuterWallBuilder : MonoBehaviour
         CheckSize(direction, sizeTiles);
     }
 
-    public void Create(params int[] emptyTilesNumbers)
+    public void Create(params int[] emptyTilesForShurfesNumbers)
     {
-        SetSize();
+        SetConfiguration();
 
-        foreach (int emptyTileNumber in emptyTilesNumbers)
+        foreach (int emptyTileNumber in emptyTilesForShurfesNumbers)
             tilesAreEmpty[emptyTileNumber] = true;
 
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
@@ -67,13 +69,13 @@ public class OuterWallBuilder : MonoBehaviour
                     CreateTile(WallTile.BasicWallTile, segmentStartIndex, currentFragmentSize, basePosition);
                 else
                 {
-                    GameObject firstTilePrefab = hasLeftHole ? WallTile.PreviousAngleWallTile : WallTile.BasicWallTile;
+                    GameObject firstTilePrefab = hasLeftHole ? WallTile.PreviousCornerWallTile : WallTile.BasicWallTile;
                     CreateTile(firstTilePrefab, segmentStartIndex, 1, basePosition);
 
                     if (currentFragmentSize > 2)
                         CreateTile(WallTile.BasicWallTile, segmentStartIndex + 1, currentFragmentSize - 2, basePosition);
 
-                    GameObject lastTilePrefab = hasRightHole ? WallTile.NextAngleWallTile : WallTile.BasicWallTile;
+                    GameObject lastTilePrefab = hasRightHole ? WallTile.NextCornerWallTile : WallTile.BasicWallTile;
                     CreateTile(lastTilePrefab, segmentStartIndex + currentFragmentSize - 1, 1, basePosition);
                 }
 
@@ -109,6 +111,7 @@ public class OuterWallBuilder : MonoBehaviour
     }
 
     protected enum Direction : sbyte { Vertical, Horizontal }
+    protected enum ShurfsSpawnDirection : sbyte {Unidentified, Top, Bottom, Left, Right }
 
     protected virtual void CheckSize(Direction direction, Vector2Int sizeTiles) { }
 }

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1313293004647485692, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: m_Size.x
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1313293004647485692, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: m_Size.y
@@ -21,11 +21,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7532815278962680450, guid: d5bff92efdf9efe4eab2b98615a716e2, type: 3}
     - target: {fileID: 1313293004647485692, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313293004647485692, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2066958409807581604, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: middlePartIsEmpty
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162934915708124704, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162934915708124704, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325240363023554341, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325240363023554341, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2462693236700925349, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
@@ -92,9 +112,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5354613681584752869, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6082598311174248589, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: m_Name
       value: StartTopRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657468010759620788, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8363123849200886240, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

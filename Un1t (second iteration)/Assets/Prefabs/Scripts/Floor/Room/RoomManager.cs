@@ -59,8 +59,9 @@ entities = entitiesBuilder.ToImmutable();
         for (var i = 0; i < transform.childCount; i++)
         {
             GameObject outerWall = transform.GetChild(i).gameObject;
-            outerWall.TryGetComponent(out OuterWallBuilder wallBuilder);
-            wallBuilder.Create();
+            if (outerWall.TryGetComponent(out OuterWallBuilder wallBuilder))
+                wallBuilder.Create();
+
             immutableList.Add(outerWall);
         }
 
