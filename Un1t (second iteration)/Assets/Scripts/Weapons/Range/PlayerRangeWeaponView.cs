@@ -1,11 +1,11 @@
 using UnityEngine;
 
+// TODO: move all to player tools ui, make initialization there
 public class PlayerRangeWeaponView : MonoBehaviour
 {
-    [SerializeField] private ToolsUI toolsUI;
+    [SerializeField] private PlayerToolsUI toolsUI;
     private PlayerRangeWeaponModelMB modelMB;
     private PlayerRangeWeaponModel model;
-
     private void Awake()
     {
         modelMB = GetComponent<PlayerRangeWeaponModelMB>();
@@ -14,7 +14,7 @@ public class PlayerRangeWeaponView : MonoBehaviour
     private void Start()
     {
         // TODO: move subscription to OnEnable after model initialization rework 
-        model = modelMB.playerRangeWeaponModel;
+        model = modelMB.PlayerRangeWeaponModel;
         model.AmmoChanged += OnAmmoChanged;
         Initialize();
     }

@@ -29,7 +29,6 @@ public class PlayerModel
 
     private float healthUpgrade;
 
-
     private int level;
     private int xpCoefficient;
     private int currentXP = 0;
@@ -55,6 +54,11 @@ public class PlayerModel
         }
     }
 
+    private PlayerTools previousTool = PlayerTools.None;
+    private PlayerTools equippedTool = PlayerTools.None;
+    public PlayerTools PreviousTool => previousTool;
+    public PlayerTools EquippedTool => equippedTool;
+
     private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     public List<PlayerTools> AvailableTools => availableTools;
@@ -63,7 +67,7 @@ public class PlayerModel
     public event Action HealthChanged;
     public event Action ExperienceChanged;
     public event Action NextLevel;
-
+    public event Action<PlayerTools> ToolChanged;
     public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
     {
         this.maxHealth = maxHealth;
@@ -107,6 +111,7 @@ public class PlayerModel
         NextLevel?.Invoke();
     }
 
+    // TODO: replace with scriptable object
     private int GetNextLevelXP()
     {
         return GetFibonachi(level + 1) * xpCoefficient;
@@ -118,5 +123,14 @@ public class PlayerModel
         CurrentHealth += healthUpgrade;
     }
     
+    // TODO: remove
     private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
+
+    public void SetEquippedTool(PlayerTools tool)
+    {
+        (previousTool, equippedTool) = (equippedTool, tool);
+        ToolChanged.Invoke(equippedTool);
+    }
+
+    public void SetPreviousEquippedTool() => SetEquippedTool(previousTool);
 }
