@@ -10,8 +10,6 @@ public class PlayerUpgradeUI : MonoBehaviour
     [SerializeField] private Button damage;
     [SerializeField] private PlayerModelMB playerModelMB;
     [SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
-    //TODO: remove controller from here
-    [SerializeField] private PlayerController controller; // Shouldn't be here
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
 
@@ -27,14 +25,15 @@ public class PlayerUpgradeUI : MonoBehaviour
         playerModel = playerModelMB.PlayerModel;
         playerModel.NextLevel += OnLevelUp;
         meleeModel = (PlayerMeleeWeaponModel)meleeModelMB.MeleeWeaponModel;
-        DeactivateCanvas();
+        canvas.gameObject.SetActive(false);
+
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
     // TODO: move subscription in OnEnable after model initialization rework
     //private void OnEnable()
     //{
-    //    model.NextLevel += OnLevelUp;
+    //    playerModel.NextLevel += OnLevelUp;
     //}
 
     //private void OnDisable()
@@ -46,7 +45,7 @@ public class PlayerUpgradeUI : MonoBehaviour
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
-        controller.SetInputEnabled(false); // Shouldn't be here
+        playerModel.SetPlayerRestrained(true);
     }
 
     private void UpgradeHealth()
@@ -68,6 +67,6 @@ public class PlayerUpgradeUI : MonoBehaviour
     private void DeactivateCanvas()
     {
         canvas.gameObject.SetActive(false);
-        controller.SetInputEnabled(true); // Shouldn't be here
+        playerModel.SetPlayerRestrained(false);
     }
 }
