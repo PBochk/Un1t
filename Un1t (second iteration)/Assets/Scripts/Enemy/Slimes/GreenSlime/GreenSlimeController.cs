@@ -20,13 +20,18 @@ public class GreenSlimeController : EnemyController
     [SerializeField] private CooldownState followCooldownState;
     [SerializeField] private CooldownState runawayCooldownState;
     [SerializeField] private CooldownState attackCooldownState;
+    
+    [Header("View")]
     [SerializeField] private GreenSlimeView view;
+
+    [Header("Other gameobjects")] [SerializeField]
+    private SingleShotWeapon weapon;
     
     //TODO: fix this shit and make better config system
     [Header("Config that isn't in config")]
     [Tooltip("In units")]
     [SerializeField]
-    private float tooCloseRange = 0.5f;
+    private float tooCloseRange;
 
     private EnemyStateTransition idleTransition;
     private EnemyStateTransition followTransition;
@@ -37,6 +42,11 @@ public class GreenSlimeController : EnemyController
     private EnemyStateTransition followCooldownTransition;
     private EnemyStateTransition attackCooldownTransition;
     private EnemyStateTransition runawayCooldownTransition;
+
+    public void Shot()
+    {
+        weapon.Shot(Target);
+    }
     
     protected override void BindStates()
     {
