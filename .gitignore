@@ -104,3 +104,4 @@ InitTestScene*.unity*
 Un1t (second iteration)/.github/copilot-instructions.md
 # NuGet packages
 /Un1t (second iteration)/Assets/Packages
+nuget-packages/

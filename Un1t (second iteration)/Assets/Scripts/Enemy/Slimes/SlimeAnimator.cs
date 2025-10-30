@@ -21,9 +21,24 @@ public class SlimeAnimator : MonoBehaviour
         animator.SetTrigger("SlimeIdleAnimation");
     }
 
+    public void PlayRangedAttackAnimation()
+    {
+        animator.SetTrigger("SlimeRangedAnimation");
+    }
+
     public void PlayMeleeAttackAnimation()
     {
         
         animator.SetTrigger("SlimeMeleeAttackAnimation");
+    }
+
+    public void SetPlaybackSpeed(float speed)
+    {
+        animator.speed = speed;
+    }
+
+    public void ResetPlaybackSpeed()
+    {
+        animator.speed = 1;
     }
 }

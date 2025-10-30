@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e527596971c8f9679772c03ea78b016, type: 3}
   m_Name: GreenSlimeConfig
   m_EditorClassIdentifier: 
-  MaxHealth: 50
-  SpeedScale: 1
-  Damage: 10
-  AttackSpeed: 1
-  XpGain: 1
+  maxHealth: 5
+  initialSpeedCoefficient: 1.25
+  xpGain: 1
+  baseMoveSpeed: 0.6
+  aggroRange: 3.5
