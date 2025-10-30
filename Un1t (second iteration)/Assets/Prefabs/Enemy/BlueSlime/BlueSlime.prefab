@@ -251,11 +251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalPosition.x
@@ -443,7 +443,6 @@ MonoBehaviour:
   jumpStart:
     m_PersistentCalls:
       m_Calls: []
-  baseMoveTime: 1
 --- !u!114 &8408372610529251379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,6 +527,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
+  label: 
   cooldown: 0.5
 --- !u!114 &-2811225169903788571
 MonoBehaviour:
@@ -547,6 +547,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
+  label: 
   cooldown: 0.7
 --- !u!114 &7747756052266841450
 MonoBehaviour:
@@ -566,6 +567,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
+  label: 
 --- !u!114 &318089329910636186
 MonoBehaviour:
   m_ObjectHideFlags: 0
