@@ -1,60 +1,61 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 //TODO: make UI class instead
-public class PlayerExperienceView : MonoBehaviour
+public class PlayerUpgradeUI : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button health;
     [SerializeField] private Button attackSpeed;
     [SerializeField] private Button damage;
+    [SerializeField] private PlayerModelMB playerModelMB;
     [SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
+    private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
-    private PlayerModel model;
-    private PlayerController controller;
+
     private void Awake()
     {
         health.onClick.AddListener(UpgradeHealth);
         attackSpeed.onClick.AddListener(UpgradeAttackSpeed);
         damage.onClick.AddListener(UpgradeDamage);
-        controller = GetComponent<PlayerController>();
     }
 
     private void Start()
     {
-        model = GetComponent<PlayerModelMB>().PlayerModel;
-        model.NextLevel += OnLevelUp;
+        playerModel = playerModelMB.PlayerModel;
+        playerModel.NextLevel += OnLevelUp;
         meleeModel = (PlayerMeleeWeaponModel)meleeModelMB.MeleeWeaponModel;
+        canvas.gameObject.SetActive(false);
+
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
     // TODO: move subscription in OnEnable after model initialization rework
     //private void OnEnable()
     //{
-    //    model.NextLevel += OnLevelUp;
+    //    playerModel.NextLevel += OnLevelUp;
     //}
 
-    private void OnDisable()
-    {
-        model.NextLevel -= OnLevelUp;
-    }
+    //private void OnDisable()
+    //{
+    //    playerModel.NextLevel -= OnLevelUp;
+    //}
 
     private void OnLevelUp()
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
-        controller.SetInputEnabled(false);
+        playerModel.SetPlayerRestrained(true);
     }
 
     private void UpgradeHealth()
     {
-        model.UpgradeHealth();
+        playerModel.UpgradeHealth();
         DeactivateCanvas();
     }
     private void UpgradeAttackSpeed()
     { 
-        meleeModel.UpgradeAttackSpeed(model.Level);
+        meleeModel.UpgradeAttackSpeed(playerModel.Level);
         DeactivateCanvas();
     }
     private void UpgradeDamage()
@@ -66,7 +67,6 @@ public class PlayerExperienceView : MonoBehaviour
     private void DeactivateCanvas()
     {
         canvas.gameObject.SetActive(false);
-        controller.SetInputEnabled(true);
+        playerModel.SetPlayerRestrained(false);
     }
-
 }

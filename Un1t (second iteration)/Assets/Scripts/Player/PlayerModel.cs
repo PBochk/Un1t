@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerModel
@@ -7,6 +6,7 @@ public class PlayerModel
     private float maxHealth;
     private float currentHealth;
     private float movingSpeed;
+    private bool isRestrained;
     public float MaxHealth
     { 
         get => maxHealth;
@@ -26,6 +26,15 @@ public class PlayerModel
         }
     }
     public float MovingSpeed => movingSpeed;
+    public bool IsRestrained
+    {
+        get => isRestrained;
+        private set
+        {
+            isRestrained = value;
+            PlayerRestrained.Invoke();
+        }
+    }
 
     private float healthUpgrade;
 
@@ -65,9 +74,11 @@ public class PlayerModel
     public List<PlayerTools> UnlockedTools => unlockedTools;
 
     public event Action HealthChanged;
+    public event Action PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action NextLevel;
     public event Action<PlayerTools> ToolChanged;
+
     public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
     {
         this.maxHealth = maxHealth;
@@ -87,7 +98,11 @@ public class PlayerModel
     public void TakeDamage(float decrement)
     {
         CurrentHealth -= decrement;
+    }
 
+    public void SetPlayerRestrained(bool isRestrained)
+    {
+        IsRestrained = isRestrained;
     }
 
     public void AddXP(int increment)

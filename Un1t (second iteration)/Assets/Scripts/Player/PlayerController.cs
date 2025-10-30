@@ -44,6 +44,12 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
+        playerModel.PlayerRestrained += SetInputEnabled;
+    }
+
+    private void OnDisable()
+    {
+        playerModel.PlayerRestrained -= SetInputEnabled;
     }
 
     private void FixedUpdate()
@@ -51,7 +57,11 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
         MovePlayer(moveDirection);
     }
 
-    public void SetInputEnabled(bool isEnabled) => playerInput.enabled = isEnabled;
+    public void SetInputEnabled()
+    {
+        Debug.Log("Input is enabled: " + playerModel.IsRestrained);
+        playerInput.enabled = !playerModel.IsRestrained;
+    }
 
     public void OnMove(InputValue value)
     {
