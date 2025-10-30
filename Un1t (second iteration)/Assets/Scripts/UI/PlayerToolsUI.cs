@@ -19,7 +19,6 @@ public class PlayerToolsUI : MonoBehaviour
     private PlayerRangeWeaponModel rangeModel;
     private Dictionary<PlayerTools, Sprite> toolImages;
 
-
     private void Awake()
     {
         toolImages = new Dictionary<PlayerTools, Sprite>
@@ -32,7 +31,6 @@ public class PlayerToolsUI : MonoBehaviour
     }
 
     // TODO: move subscription in OnEnable after model initialization rework
-
     private void Start()
     {
         playerModel = playerModelMB.PlayerModel;
