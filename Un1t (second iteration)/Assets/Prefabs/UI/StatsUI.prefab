@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5201674528402504452}
   - component: {fileID: 8885450140116026211}
   - component: {fileID: 6194519881096534559}
+  - component: {fileID: 8528726885699141699}
   m_Layer: 0
   m_Name: StatsUI
   m_TagString: Untagged
@@ -103,6 +104,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8528726885699141699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248406444609519938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d875d97dcb29654e897bb8607585404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpText: {fileID: 3956642382733745496}
+  xpText: {fileID: 2430635779013878994}
+  playerModelMB: {fileID: 0}
 --- !u!1 &6212539649086159623
 GameObject:
   m_ObjectHideFlags: 0

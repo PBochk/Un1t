@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerRangeWeaponModelMB : MonoBehaviour
 {
-    // TODO: implement ammo system
     [SerializeField] private float damage;
     [SerializeField] private float lifetime;
     [SerializeField] private float attackCooldown;
