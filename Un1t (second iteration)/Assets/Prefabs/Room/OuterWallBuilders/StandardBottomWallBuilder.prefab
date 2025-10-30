@@ -82,7 +82,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 16, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751878a5fe436e94f9d7ff3f54df4db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallTile: {fileID: 0}
+  WallTile: {fileID: 11400000, guid: af1b0ef62ccb6594fbfc3a08e705fcd4, type: 2}
+  shurfsSpawnDirection: 2
   firstPartIsEmpty: 0
-  secondPartIsEmpty: 0
-  thirdPartIsEmpty: 0
+  middlePartIsEmpty: 0
+  lastPartIsEmpty: 0

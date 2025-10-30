@@ -166,28 +166,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OuterWallBottomLeftAngle
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 24
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ed04d181216be047bcc00d06cf27cdd
-      internalID: -11718717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: OuterWallBottomRightAngle
       rect:
         serializedVersion: 2
@@ -297,6 +275,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: OuterWallBottomLeftAngle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86e88256a01b11a4ea230a4c6f0c7ba8
+      internalID: -195942254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -316,13 +316,17 @@ TextureImporter:
       OuterBottomRLeftAngle: 1260261943
       OuterWall: -1395197467
       OuterWallBottom: 1626166971
-      OuterWallBottomLeftAngle: -11718717
+      OuterWallBottomLeftAngle: -195942254
       OuterWallBottomRightAngle: 1260261943
       OuterWallLeft: -1691277303
+      OuterWallLeftAngleLong: -11718717
       OuterWallRight: 1438246290
+      OuterWallRightAngleLong: 253303962
       OuterWallTop: 1655546497
       OuterWallTopLeftAngle: -7418294944245916237
+      OuterWallTopLong: -52538612
       OuterWallTopRightAngle: 996101118
+      "OuterWall\u041D": -1395197467
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

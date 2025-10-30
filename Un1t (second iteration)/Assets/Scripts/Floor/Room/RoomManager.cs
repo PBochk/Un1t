@@ -10,17 +10,18 @@ using UnityEngine;
 /// </summary>
 public class RoomManager : MonoBehaviour
 {
-    private bool wasContentCreated = false;
+
+    private SpawnersManager spawnersManager;
 
     private ImmutableList<GameObject> entities;
-    private ImmutableList<GameObject> outerWallFragments;
+    private ImmutableList<GameObject> outerWalls;
 
     private readonly static Range shurfesCountRange = new(2, 5);
 
     private int shurfesCount;
 
     public IReadOnlyList<GameObject> Entities => entities;
-    public IReadOnlyList<GameObject> WallFragmentts => entities;
+    public IReadOnlyList<GameObject> OuterWalls => outerWalls;
 
 
     /// <summary>
@@ -28,37 +29,42 @@ public class RoomManager : MonoBehaviour
     /// RoomEntities are placed relative to the room's position
     /// Shall only be called one time for each room
     /// </summary>
-    public void CreateContent(RoomEntity[] roomEntities)
+    public void CreateContent()
     {
-        if (wasContentCreated)
-            Debug.Log("Content of the room was created more than one time");
-
-        ImmutableList<GameObject>.Builder entitiesBuilder = ImmutableList.CreateBuilder<GameObject>();
-        ImmutableList<GameObject>.Builder wallFragmentsBuilder = ImmutableList.CreateBuilder<GameObject>();
-
-        for (var i = 0; i < transform.childCount; i++)
-        {
-            GameObject wallFragment = transform.GetChild(i).gameObject;
-            Instantiate(wallFragment, wallFragment.transform.position 
-                + transform.position, Quaternion.identity, transform);
-            wallFragment.GetComponent<OuterWallBuilder>().Create();
-            wallFragmentsBuilder.Add(wallFragment);
-        }
-
-        outerWallFragments = wallFragmentsBuilder.ToImmutable();
-
 
         shurfesCount = UnityEngine.Random.Range(shurfesCountRange.Start.Value, shurfesCountRange.End.Value + 1);
-      
 
-        foreach (RoomEntity entity in roomEntities)
+        CreateOuterWalls();
+        CreateEntities();
+
+    }
+
+    private void CreateEntities()
+    {
+        ImmutableList<GameObject>.Builder entitiesBuilder = ImmutableList.CreateBuilder<GameObject>();
+        /*
+foreach (RoomEntity entity in roomEntities)
+{
+    Instantiate(entity.GameObject, entity.StartPosition + transform.position, Quaternion.identity, transform);
+    entitiesBuilder.Add(entity.GameObject);
+}
+
+entities = entitiesBuilder.ToImmutable();
+*/
+    }
+
+    private void CreateOuterWalls()
+    {
+        ImmutableList<GameObject>.Builder immutableList = ImmutableList.CreateBuilder<GameObject>();
+        for (var i = 0; i < transform.childCount; i++)
         {
-            Instantiate(entity.GameObject, entity.StartPosition + transform.position, Quaternion.identity, transform);
-            entitiesBuilder.Add(entity.GameObject);
+            GameObject outerWall = transform.GetChild(i).gameObject;
+            if (outerWall.TryGetComponent(out OuterWallBuilder wallBuilder))
+                wallBuilder.Create();
+
+            immutableList.Add(outerWall);
         }
 
-        entities = entitiesBuilder.ToImmutable();
-
-        wasContentCreated = true;
+        outerWalls = immutableList.ToImmutable();
     }
 }

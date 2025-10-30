@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level1Right
   m_EditorClassIdentifier: 
   basicWallTile: {fileID: 8252421113222450477, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
-  previousAngleWallTile: {fileID: 8252421113222450477, guid: 0bd5bd7b4cffde642a5fbc4b072ce3cd, type: 3}
-  nextAngleWallTile: {fileID: 8252421113222450477, guid: 0ec58f0f5ae261348b64ab331c1443af, type: 3}
+  previousCornerWallTile: {fileID: 8252421113222450477, guid: 0bd5bd7b4cffde642a5fbc4b072ce3cd, type: 3}
+  nextCornerWallTile: {fileID: 8252421113222450477, guid: 0ec58f0f5ae261348b64ab331c1443af, type: 3}
