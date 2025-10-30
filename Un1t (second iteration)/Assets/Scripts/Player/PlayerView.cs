@@ -13,15 +13,10 @@ using UnityEngine.InputSystem;
 // TODO: figure out how to require component in children
 public class PlayerView : MonoBehaviour
 {
-    // TODO: move UI in separate class 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerMeleeWeaponController pickaxeController;
-    [SerializeField] private TMP_Text hpText;
-    [SerializeField] private TMP_Text xpText;
-    private PlayerModelMB playerModelMB;
-    private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
     private bool isFacingRight = true;
@@ -29,31 +24,10 @@ public class PlayerView : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerModelMB = GetComponent<PlayerModelMB>();
         playerController = GetComponent<PlayerController>();
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         playerController.StartMelee.AddListener(OnMelee);
         pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
-    }
-
-    private void Start()
-    {
-        playerModel = playerModelMB.PlayerModel;
-        playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
-        playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
-        Initialize();
-    }
-
-    private void OnDisable()
-    {
-        playerModel.HealthChanged -= OnHealthChanged;
-        playerModel.ExperienceChanged -= OnExperienceChanged;
-    }
-
-    private void Initialize()
-    {
-        OnHealthChanged();
-        OnExperienceChanged();
     }
 
     public void OnMove(InputValue value)
@@ -86,14 +60,4 @@ public class PlayerView : MonoBehaviour
     {
         animator.SetTrigger("PickaxeAttack");
     }
-
-    private void OnHealthChanged()
-    {
-        hpText.text = playerModel.CurrentHealth + " / " + playerModel.MaxHealth;
-    }
-    private void OnExperienceChanged()
-    {
-        xpText.text =  playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
-    }
-
 }

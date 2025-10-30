@@ -31,6 +31,8 @@ public class PlayerToolsUI : MonoBehaviour
         };
     }
 
+    // TODO: move subscription in OnEnable after model initialization rework
+
     private void Start()
     {
         playerModel = playerModelMB.PlayerModel;

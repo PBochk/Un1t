@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//TODO: make UI class instead
 public class PlayerExperienceView : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
@@ -28,6 +29,7 @@ public class PlayerExperienceView : MonoBehaviour
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
+    // TODO: move subscription in OnEnable after model initialization rework
     //private void OnEnable()
     //{
     //    model.NextLevel += OnLevelUp;
