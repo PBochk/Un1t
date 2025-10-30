@@ -21,8 +21,5 @@ public class PlayerResources : MonoBehaviour
     public void AddAmmo(int increment)
     {
         model.AddAmmo(increment);
-        Debug.Log(model.Ammo);
     }
-
-
 }
