@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1587562411337747525}
   - component: {fileID: 4774667196260465280}
-  - component: {fileID: 1487069661727597505}
+  - component: {fileID: 1242096590687245545}
   m_Layer: 0
-  m_Name: StandardLeftWallBuilder
+  m_Name: LeftWallBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,13 +82,13 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1, y: 9}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1487069661727597505
+--- !u!114 &1242096590687245545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,11 +97,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7883462119553367088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 751878a5fe436e94f9d7ff3f54df4db6, type: 3}
+  m_Script: {fileID: 11500000, guid: 51ffb6c2918d3a349b4dbd0af9ee1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WallTile: {fileID: 11400000, guid: 8a7ad5da3d170a841868205614e650d3, type: 2}
   shurfsSpawnDirection: 3
-  firstPartIsEmpty: 0
-  middlePartIsEmpty: 0
-  lastPartIsEmpty: 0

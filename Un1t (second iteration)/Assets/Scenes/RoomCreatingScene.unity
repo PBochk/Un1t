@@ -620,6 +620,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8252421113222450477, guid: 6d5661e06434bcb4ca35ce3fcf17dfda, type: 3}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: maxRoomsCount
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: minRoomsCount
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: rightTopCorner
       value: 
       objectReference: {fileID: 8252421113222450477, guid: 2b224560a8dd45d4f8d2d67532b0ab95, type: 3}
@@ -631,6 +639,58 @@ PrefabInstance:
       propertyPath: rightBottomCorner
       value: 
       objectReference: {fileID: 8252421113222450477, guid: fd3af196d0a490f4d8db77d7da1671d6, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: availableCommonRooms.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: abad6fc821e8aea44b89ab8bd3ee55ee, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b59fbbaed61de4949b4b7a8ac798d1cf, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 486762c1bd839cf4fa0309ed2df8b9b3, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a29c86181a9a07345b5f61d4e94fa3cd, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 35fc8a0ba3c5f8e4e9bb7b554f4c0d0e, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 52e7cd92d65139a48bd74b9679c7641c, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e117b76159557a84da52228a9c4f868a, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: abec2181e947a42469c0ae15f3b630f4, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a1ff50219be2ae49a96e5f523675acd, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 45cb214f7a2d0ea42bc84cf2274f585d, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[10]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 74bc239905271614b997299540f5f296, type: 2}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: 'availableCommonRooms.Array.data[11]'
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

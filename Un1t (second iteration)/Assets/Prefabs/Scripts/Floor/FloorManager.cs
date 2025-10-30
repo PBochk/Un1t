@@ -79,10 +79,10 @@ public class FloorManager : MonoBehaviour
     {
         static bool HasExit(RoomOuterWalls.Wall wall) => wall.First.IsEmpty || wall.Middle.IsEmpty || wall.Last.IsEmpty;
 
-        if (HasExit(outerWalls.Top)) return FloorGridPosition.Bottom;
-        if (HasExit(outerWalls.Bottom)) return FloorGridPosition.Top;
-        if (HasExit(outerWalls.Left)) return FloorGridPosition.Right;
-        if (HasExit(outerWalls.Right)) return FloorGridPosition.Left;
+        if (HasExit(outerWalls.Top)) return FloorGridPosition.Top;
+        if (HasExit(outerWalls.Bottom)) return FloorGridPosition.Bottom;
+        if (HasExit(outerWalls.Left)) return FloorGridPosition.Left;
+        if (HasExit(outerWalls.Right)) return FloorGridPosition.Right;
 
         throw new Exception("Start room hasn't got any exits");
     }

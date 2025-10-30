@@ -12,14 +12,14 @@ public class StandardOuterWallBuilder : OuterWallBuilder
 
     private const int STANDARD_EDGE_WALL_THICKNESS = 1;
 
-    private static readonly int[] STANDARD_BASE_WALL_PARTS_LENGTHS = new int[] { 5, 6, 5 };
-    private static readonly int[] STANDARD_SIDE_WALL_PARTS_LENGTHS = new int[] { 3, 3, 3 };
+    private static readonly int[] standardBaseWallPartsLengths = new int[] { 5, 6, 5 };
+    private static readonly int[] standardSideWallPartsLengths = new int[] { 3, 3, 3 };
 
     protected override void SetConfiguration()
     {
         base.SetConfiguration();
         bool[] parts = new bool[3] { firstPartIsEmpty, middlePartIsEmpty, lastPartIsEmpty };
-        int[] lengths = direction == Direction.Horizontal ? STANDARD_BASE_WALL_PARTS_LENGTHS : STANDARD_SIDE_WALL_PARTS_LENGTHS;
+        int[] lengths = direction == Direction.Horizontal ? standardBaseWallPartsLengths : standardSideWallPartsLengths;
 
         int wallTileIndex = 0;
         for (var i = 0; i < parts.Length; i++)

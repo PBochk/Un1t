@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e4e7ed997a944a459f3b55e9666a179, type: 3}
-  m_Name: DoubleCrossroadsRoomInfo
+  m_Name: CentralHorizontalDoubleHallwayRoom
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 1047099008050089770, guid: 72632b3d27d9bb248a23ef5fd3f8b6bf, type: 3}
+  roomPrefab: {fileID: 7164782393490148376, guid: 6175bc661a74b90418ded610dae809be, type: 3}
   leftTopIsEmpty: 0
   middleTopIsEmpty: 1
   rightTopIsEmpty: 0

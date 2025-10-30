@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e4e7ed997a944a459f3b55e9666a179, type: 3}
-  m_Name: CentralVerticalBottomDeadlockRoomInfo
+  m_Name: CentralHorizontalTopHallwayRoom
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 1047099008050089770, guid: 0dcb59365c17a1c41806c727ac40bfaa, type: 3}
+  roomPrefab: {fileID: 7164782393490148376, guid: 53e6c8524747a1c4aa6453a04d93e1cc, type: 3}
   leftTopIsEmpty: 0
   middleTopIsEmpty: 1
   rightTopIsEmpty: 0
@@ -20,8 +20,8 @@ MonoBehaviour:
   middleBottomIsEmpty: 0
   rightBottomIsEmpty: 0
   topLeftIsEmpty: 0
-  middleLeftIsEmpty: 0
+  middleLeftIsEmpty: 1
   bottomLeftIsEmpty: 0
   topRightIsEmpty: 0
-  middleRightIsEmpty: 0
+  middleRightIsEmpty: 1
   bottomRightIsEmpty: 0

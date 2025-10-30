@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WallTile: {fileID: 11400000, guid: af1b0ef62ccb6594fbfc3a08e705fcd4, type: 2}
+  shurfsSpawnDirection: 2
   firstPartIsEmpty: 0
   middlePartIsEmpty: 0
   lastPartIsEmpty: 0
