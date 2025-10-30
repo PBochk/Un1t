@@ -120,7 +120,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""EquipLastTool"",
+                    ""name"": ""EquipPreviousTool"",
                     ""type"": ""Button"",
                     ""id"": ""0cf0e86c-8e7d-4799-b6ed-595563886713"",
                     ""expectedControlType"": """",
@@ -241,7 +241,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""EquipLastTool"",
+                    ""action"": ""EquipPreviousTool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -288,7 +288,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
-        m_Player_EquipLastTool = m_Player.FindAction("EquipLastTool", throwIfNotFound: true);
+        m_Player_EquipPreviousTool = m_Player.FindAction("EquipPreviousTool", throwIfNotFound: true);
         m_Player_EquipMelee = m_Player.FindAction("EquipMelee", throwIfNotFound: true);
         m_Player_EquipRange = m_Player.FindAction("EquipRange", throwIfNotFound: true);
         m_Player_EquipPickaxe = m_Player.FindAction("EquipPickaxe", throwIfNotFound: true);
@@ -375,7 +375,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_MouseMove;
-    private readonly InputAction m_Player_EquipLastTool;
+    private readonly InputAction m_Player_EquipPreviousTool;
     private readonly InputAction m_Player_EquipMelee;
     private readonly InputAction m_Player_EquipRange;
     private readonly InputAction m_Player_EquipPickaxe;
@@ -403,9 +403,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
         /// <summary>
-        /// Provides access to the underlying input action "Player/EquipLastTool".
+        /// Provides access to the underlying input action "Player/EquipPreviousTool".
         /// </summary>
-        public InputAction @EquipLastTool => m_Wrapper.m_Player_EquipLastTool;
+        public InputAction @EquipPreviousTool => m_Wrapper.m_Player_EquipPreviousTool;
         /// <summary>
         /// Provides access to the underlying input action "Player/EquipMelee".
         /// </summary>
@@ -453,9 +453,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MouseMove.started += instance.OnMouseMove;
             @MouseMove.performed += instance.OnMouseMove;
             @MouseMove.canceled += instance.OnMouseMove;
-            @EquipLastTool.started += instance.OnEquipLastTool;
-            @EquipLastTool.performed += instance.OnEquipLastTool;
-            @EquipLastTool.canceled += instance.OnEquipLastTool;
+            @EquipPreviousTool.started += instance.OnEquipPreviousTool;
+            @EquipPreviousTool.performed += instance.OnEquipPreviousTool;
+            @EquipPreviousTool.canceled += instance.OnEquipPreviousTool;
             @EquipMelee.started += instance.OnEquipMelee;
             @EquipMelee.performed += instance.OnEquipMelee;
             @EquipMelee.canceled += instance.OnEquipMelee;
@@ -485,9 +485,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MouseMove.started -= instance.OnMouseMove;
             @MouseMove.performed -= instance.OnMouseMove;
             @MouseMove.canceled -= instance.OnMouseMove;
-            @EquipLastTool.started -= instance.OnEquipLastTool;
-            @EquipLastTool.performed -= instance.OnEquipLastTool;
-            @EquipLastTool.canceled -= instance.OnEquipLastTool;
+            @EquipPreviousTool.started -= instance.OnEquipPreviousTool;
+            @EquipPreviousTool.performed -= instance.OnEquipPreviousTool;
+            @EquipPreviousTool.canceled -= instance.OnEquipPreviousTool;
             @EquipMelee.started -= instance.OnEquipMelee;
             @EquipMelee.performed -= instance.OnEquipMelee;
             @EquipMelee.canceled -= instance.OnEquipMelee;
@@ -559,12 +559,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouseMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "EquipLastTool" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "EquipPreviousTool" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEquipLastTool(InputAction.CallbackContext context);
+        void OnEquipPreviousTool(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "EquipMelee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

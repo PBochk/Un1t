@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private PlayerModel playerModel;
     private PlayerController playerController;
     public UnityEvent StartMeleeAnimation;
     public UnityEvent StartPickaxeAnimation;
@@ -26,6 +27,12 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
         playerController.StartMeleeActive.AddListener(StartMeleeActive);
         playerController.EndMeleeActive.AddListener(EndMeleeActive);
     }
+    
+    protected override void Start()
+    {
+        base.Start();
+        playerModel = GetComponentInParent<PlayerModelMB>().PlayerModel;
+    }
 
     /// <summary>
     /// When attack is ready starts cooldown in model
@@ -35,11 +42,11 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
         base.StartMelee();
         if (modelMB.IsAttackReady)
         {
-            if(playerController.EquippedTool == PlayerTools.Melee)
+            if(playerModel.EquippedTool == PlayerTools.Melee)
             {
                 StartMeleeAnimation?.Invoke();
             }
-            else if (playerController.EquippedTool == PlayerTools.Pickaxe)
+            else if (playerModel.EquippedTool == PlayerTools.Pickaxe)
             {
                 StartPickaxeAnimation?.Invoke();
             }

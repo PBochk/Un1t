@@ -15,14 +15,11 @@ public class PlayerResources : MonoBehaviour
 
     private void Start()
     {
-        model = GetComponentInChildren<PlayerRangeWeaponModelMB>().playerRangeWeaponModel;
+        model = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
     }
 
     public void AddAmmo(int increment)
     {
         model.AddAmmo(increment);
-        Debug.Log(model.Ammo);
     }
-
-
 }

@@ -15,11 +15,11 @@ public class PlayerRangeWeaponModelMB : MonoBehaviour
     public float InitialForce => initialForce;
     private bool isAttackReady = true;
     public bool IsAttackReady => isAttackReady;
-    public PlayerRangeWeaponModel playerRangeWeaponModel;
+    public PlayerRangeWeaponModel PlayerRangeWeaponModel;
 
     private void Awake()
     {
-        playerRangeWeaponModel = new PlayerRangeWeaponModel(damage, lifetime, attackCooldown, ammo);
+        PlayerRangeWeaponModel = new PlayerRangeWeaponModel(damage, lifetime, attackCooldown, ammo);
     }
 
     public IEnumerator WaitForAttackCooldown()

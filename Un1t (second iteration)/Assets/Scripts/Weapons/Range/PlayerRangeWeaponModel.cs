@@ -1,3 +1,5 @@
+using System;
+
 public class PlayerRangeWeaponModel
 {
     private float damage;
@@ -10,7 +12,16 @@ public class PlayerRangeWeaponModel
     public float Lifetime => lifetime;
     public float InitialForce => initialForce;
     public float AttackCooldown => attackCooldown;
-    public int Ammo => ammo;
+    public event Action AmmoChanged;
+    public int Ammo
+    {
+        get => ammo;
+        private set
+        {
+            ammo = value;
+            AmmoChanged.Invoke();
+        }
+    }
 
     public PlayerRangeWeaponModel(float damage, float lifetime, float attackCooldown, int ammo)
     {
@@ -22,11 +33,11 @@ public class PlayerRangeWeaponModel
 
     public void AddAmmo(int increment)
     {
-        ammo += increment;
+        Ammo += increment;
     }
 
     public void SpendAmmo()
     {
-        ammo--;
+        Ammo--;
     }
 }

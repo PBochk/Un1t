@@ -25,14 +25,11 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     public Vector2 Position => rb.position;
     public Vector2 MousePosition { get; private set; }
 
-    private PlayerTools lastTool = PlayerTools.None;
-    private PlayerTools equippedTool = PlayerTools.None;
-    public PlayerTools EquippedTool => equippedTool;
-
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
+    public UnityEvent ToolChange;
     //public UnityEvent<Vector2> MouseMove;
 
     private void Awake()
@@ -74,11 +71,11 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     public void OnAttack()
     {
-        if (equippedTool == PlayerTools.Melee || equippedTool == PlayerTools.Pickaxe)
+        if (playerModel.EquippedTool == PlayerTools.Melee || playerModel.EquippedTool == PlayerTools.Pickaxe)
         {
             StartMelee?.Invoke();
         }
-        else if (equippedTool == PlayerTools.Range)
+        else if (playerModel.EquippedTool == PlayerTools.Range)
         {
             StartRange?.Invoke();
         }
@@ -105,9 +102,9 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     //2 - range
     //q - previous weapon
 
-    public void OnEquipLastTool()
+    public void OnEquipPreviousTool()
     {
-        (lastTool, equippedTool) = (equippedTool, lastTool);
+        playerModel.SetPreviousEquippedTool();
         ChangeTool();
     }
 
@@ -115,8 +112,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
         {
-            lastTool = equippedTool;
-            equippedTool = PlayerTools.Melee;
+            playerModel.SetEquippedTool(PlayerTools.Melee);
             ChangeTool();
         }
     }
@@ -125,8 +121,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         if (playerModel.AvailableTools.Contains(PlayerTools.Range))
         {
-            lastTool = equippedTool;
-            equippedTool = PlayerTools.Range;
+            playerModel.SetEquippedTool(PlayerTools.Range);
             ChangeTool();
         }
     }
@@ -135,8 +130,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     {
         if (playerModel.AvailableTools.Contains(PlayerTools.Pickaxe))
         {
-            lastTool = equippedTool;
-            equippedTool = PlayerTools.Pickaxe;
+            playerModel.SetEquippedTool(PlayerTools.Pickaxe);
             ChangeTool();
         }
     }
@@ -144,16 +138,16 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     /// <summary>
     /// Temporary solution for displaying weapon's change
     /// </summary>
+    // TODO: remove when animations are finished
     private void ChangeTool()
     {
         if (meleeController)
         {
-            meleeController.SetRendererActive(equippedTool == PlayerTools.Melee);
+            meleeController.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
         }
         if (pickaxeController)
         {
-            pickaxeController.SetRendererActive(equippedTool == PlayerTools.Pickaxe);
-            
+            pickaxeController.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
         }
     }
 }

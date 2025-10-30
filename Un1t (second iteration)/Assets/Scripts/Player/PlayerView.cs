@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 // TODO: figure out how to require component in children
 public class PlayerView : MonoBehaviour
 {
+    // TODO: move UI in separate class 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
