@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 8363282232141168541}
   - component: {fileID: 8182183663412278694}
   - component: {fileID: 3355437916732709785}
+  - component: {fileID: 1288411115921068522}
   m_Layer: 5
   m_Name: UpgradeUI
   m_TagString: Untagged
@@ -562,6 +563,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1288411115921068522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6362834484404230852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8c358848cf51c48b1fb533f2a87050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 8363282232141168541}
+  health: {fileID: 8543609267012428604}
+  attackSpeed: {fileID: 4335397540591753365}
+  damage: {fileID: 3046084432696004710}
+  playerModelMB: {fileID: 0}
+  meleeModelMB: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!1 &7861323231996936203
 GameObject:
   m_ObjectHideFlags: 0
