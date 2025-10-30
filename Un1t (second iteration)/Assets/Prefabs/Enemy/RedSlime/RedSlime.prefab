@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8431920235684139020}
   - component: {fileID: 6965981247692984139}
-  - component: {fileID: 5230452232851010633}
-  - component: {fileID: 3774440376704159032}
+  - component: {fileID: 3083416028773361040}
   m_Layer: 6
   m_Name: MeleeAttack
   m_TagString: Untagged
@@ -29,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.25, z: 0}
-  m_LocalScale: {x: 2.2, y: 0.5, z: 1}
+  m_LocalScale: {x: 2.6, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6653659124523713193}
@@ -89,36 +88,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5230452232851010633
-MonoBehaviour:
+--- !u!61 &3083416028773361040
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4987674022880246976}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ab758e638fd4a56b9ba5ef314b68bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  damageType: 0
---- !u!114 &3774440376704159032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4987674022880246976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cba901bee3dd47ec80be593c8d6e27bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetMask:
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 256
-  weaponColliders: []
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &7904636942783787435
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8465872278452760833}
   - component: {fileID: 1202135567377446006}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: RangedWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 5982593351042311661, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
-  ProjectileSpeed: 3
+  ProjectileSpeed: 9
 --- !u!1 &9183337173879669035
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +372,24 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7855915820678067506}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6997300440921999422}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6481762561795025438}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7863647726602399608}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2170196319409681857}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1435143145588068324}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 57271144412338712}
   m_SourcePrefab: {fileID: 100100000, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
 --- !u!4 &6653659124523713193 stripped
 Transform:
@@ -386,6 +419,21 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  idleState: {fileID: 8921819636017684678}
+  followState: {fileID: 5868562932419149305}
+  meleeAttackState: {fileID: 6156674411470786210}
+  rangedAttackState: {fileID: 3929780030466954181}
+  runawayState: {fileID: 4506467211136871}
+  isInRangeDecisionState: {fileID: 8888824053268705974}
+  isTooCloseDecisionState: {fileID: 7855915820678067506}
+  followCooldownState: {fileID: 6997300440921999422}
+  runawayCooldownState: {fileID: 6481762561795025438}
+  meleeCooldownState: {fileID: 7863647726602399608}
+  rangedCooldownState: {fileID: 2170196319409681857}
+  view: {fileID: 2689443160242506967}
+  weapon: {fileID: 1202135567377446006}
+  rangedRange: 12
+  tooCloseRange: 6
 --- !u!114 &2689443160242506967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +446,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a95e8755204734a091e591d9bebc05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followState: {fileID: 5868562932419149305}
+  meleeState: {fileID: 6156674411470786210}
+  rangedAttackState: {fileID: 3929780030466954181}
+  runawayState: {fileID: 4506467211136871}
+  animator: {fileID: 1444842502626499024}
+  meleeHitboxDebug: {fileID: 6965981247692984139}
 --- !u!114 &2131350985370992236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4acd7cd2714e8090ff7e36544eb7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 0}
+  config: {fileID: 11400000, guid: b0aa75d8ce6152f20afa93c1d0136e2f, type: 2}
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -561,7 +615,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
-  label: 
+  label: In range decision
 --- !u!114 &7855915820678067506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,4 +634,115 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
-  label: 
+  label: Too close decision
+--- !u!114 &6997300440921999422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220417952015701379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfbe1da53744f75830337fa582a24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  label: Follow cooldown
+  cooldown: 1
+--- !u!114 &6481762561795025438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220417952015701379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfbe1da53744f75830337fa582a24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  label: Runaway cooldown
+  cooldown: 0.5
+--- !u!114 &7863647726602399608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220417952015701379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfbe1da53744f75830337fa582a24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  label: Melee cooldown
+  cooldown: 1
+--- !u!114 &2170196319409681857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220417952015701379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfbe1da53744f75830337fa582a24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  label: Ranged cooldown
+  cooldown: 1
+--- !u!114 &1435143145588068324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220417952015701379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab758e638fd4a56b9ba5ef314b68bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 35
+  damageType: 0
+--- !u!114 &57271144412338712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220417952015701379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba901bee3dd47ec80be593c8d6e27bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  weaponColliders:
+  - {fileID: 3083416028773361040}

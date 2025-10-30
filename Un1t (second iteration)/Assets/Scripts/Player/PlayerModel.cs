@@ -22,7 +22,7 @@ public class PlayerModel
         private set
         {
             currentHealth = value;
-            HealthChanged.Invoke();
+            HealthChanged?.Invoke();
         }
     }
     public float MovingSpeed => movingSpeed;
@@ -129,7 +129,7 @@ public class PlayerModel
     public void SetEquippedTool(PlayerTools tool)
     {
         (previousTool, equippedTool) = (equippedTool, tool);
-        ToolChanged.Invoke(equippedTool);
+        ToolChanged?.Invoke(equippedTool);
     }
 
     public void SetPreviousEquippedTool() => SetEquippedTool(previousTool);
