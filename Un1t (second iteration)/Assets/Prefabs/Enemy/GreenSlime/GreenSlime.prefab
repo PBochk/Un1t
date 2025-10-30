@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 5982593351042311661, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
+  ProjectileSpeed: 9
 --- !u!1 &1900158794122361522
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,11 +151,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 799aacfd8b9e74c9ca4dcbb1ff2a6e1b, type: 2}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalPosition.x
@@ -283,7 +284,7 @@ MonoBehaviour:
   attackCooldownState: {fileID: 3708714666001732577}
   view: {fileID: 4777484714795784334}
   weapon: {fileID: 2684830868489424121}
-  tooCloseRange: 2
+  tooCloseRange: 6
 --- !u!114 &4777484714795784334
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,31 +22,40 @@ public class GreenSlimeView : EnemyView
 
     protected override void BindAnimator()
     {
-        followState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
-        runawayState.OnStateEnter.AddListener(() =>
+        followState.OnStateEnter.AddListener(() =>
         {
             var speed = 1 * model.NativeModel.SpeedCoeff / followState.baseMoveTime;
             animator.SetPlaybackSpeed(speed);
+            animator.PlayJumpAnimation();
         });
-        followState.OnStateExit.AddListener(animator.ResetPlaybackSpeed);
+        followState.OnStateExit.AddListener(() =>
+        {
+            animator.ResetPlaybackSpeed();
+            animator.PlayIdleAnimation();
+        });
         
-        runawayState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
         runawayState.OnStateEnter.AddListener(() =>
         {
             var speed = 1 * model.NativeModel.SpeedCoeff / runawayState.baseMoveTime;
             animator.SetPlaybackSpeed(speed);
+            animator.PlayJumpAnimation();
         });
-        runawayState.OnStateExit.AddListener(animator.ResetPlaybackSpeed);
+        runawayState.OnStateExit.AddListener(() =>
+        {
+            animator.ResetPlaybackSpeed();
+            animator.PlayIdleAnimation();
+        });
         
-        followCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
-        runawayCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
-        attackCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
-
         rangedAttackState.OnStateEnter.AddListener(animator.PlayRangedAttackAnimation);
+        rangedAttackState.OnStateExit.AddListener(animator.PlayIdleAnimation);
     }
 
     protected override void BindSoundPlayer()
     {
         //throw new System.NotImplementedException();
+    }
+
+    public override void ResetAllAnimations()
+    {
     }
 }
