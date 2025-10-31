@@ -228,6 +228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6362834484404230852, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -266,14 +270,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 150
       objectReference: {fileID: 0}
-    - target: {fileID: 8961590833255985, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8961590833255985, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 138
-      objectReference: {fileID: 0}
     - target: {fileID: 3326663156148268487, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_Name
       value: ToolsUI
@@ -285,14 +281,6 @@ PrefabInstance:
     - target: {fileID: 5599864454888579060, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_SizeDelta.y
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5599864454888579060, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -185
-      objectReference: {fileID: 0}
-    - target: {fileID: 5599864454888579060, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 138
       objectReference: {fileID: 0}
     - target: {fileID: 7072449748886836803, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_Pivot.x
