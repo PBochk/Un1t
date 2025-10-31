@@ -2,20 +2,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOverUI : MonoBehaviour
+public class PauseUI : MonoBehaviour
 {
     [SerializeField] private PlayerModelMB playerModelMB;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private Button unpause;
     [SerializeField] private Button reload;
+    [SerializeField] private Button quit;
     private PlayerModel playerModel;
+
+    private void Awake()
+    {
+        unpause.onClick.AddListener(UnpauseScene);
+        reload.onClick.AddListener(ReloadScene);
+        quit.onClick.AddListener(QuitGame);
+        canvas.enabled = false;
+    }
 
     private void Start()
     {
         playerModel = playerModelMB.PlayerModel;
-        // TODO: move subscription in OnEnable after model initialization rework
-        playerModel.PlayerDeath += OnPlayerDeath;
-        reload.onClick.AddListener(ReloadScene);
-        canvas.enabled = false;
     }
 
     //private void OnEnable()
@@ -23,12 +29,7 @@ public class GameOverUI : MonoBehaviour
     //    playerModel.PlayerDeath += OnPlayerDeath;
     //}
 
-    private void OnDisable()
-    {
-        playerModel.PlayerDeath -= OnPlayerDeath;
-    }
-
-    private void OnPlayerDeath()
+    private void OnPause()
     {
         canvas.enabled = true;
         PauseScene();
@@ -43,10 +44,21 @@ public class GameOverUI : MonoBehaviour
         playerModel.SetPlayerRestrained(true);
     }
 
-    private void ReloadScene()
+    private void UnpauseScene()
     {
         Time.timeScale = 1f;
         playerModel.SetPlayerRestrained(false);
+        canvas.enabled = false;
+    }
+
+    private void ReloadScene()
+    {
+        UnpauseScene();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }
