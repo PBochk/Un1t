@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private PlayerModelMB playerModelMB;
+    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button reload;
     private PlayerModel playerModel;
@@ -31,22 +32,11 @@ public class GameOverUI : MonoBehaviour
     private void OnPlayerDeath()
     {
         canvas.enabled = true;
-        PauseScene();
-    }
-
-
-    // Below lies temporary solution for demonstration
-    // TODO: remove from here
-    private void PauseScene()
-    {
-        Time.timeScale = 0f;
-        playerModel.SetPlayerRestrained(true);
+        pauseManager.PauseScene();
     }
 
     private void ReloadScene()
     {
-        Time.timeScale = 1f;
-        playerModel.SetPlayerRestrained(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        pauseManager.ReloadScene();
     }
 }
