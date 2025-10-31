@@ -1,15 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-//TODO: make UI class instead
 public class PlayerUpgradeUI : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button health;
     [SerializeField] private Button attackSpeed;
     [SerializeField] private Button damage;
-    [SerializeField] private PlayerModelMB playerModelMB;
-    [SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
 
@@ -22,9 +19,10 @@ public class PlayerUpgradeUI : MonoBehaviour
 
     private void Start()
     {
-        playerModel = playerModelMB.PlayerModel;
+        var playerUI = GetComponentInParent<PlayerUI>();
+        playerModel = playerUI.PlayerModelMB.PlayerModel;
         playerModel.NextLevel += OnLevelUp;
-        meleeModel = (PlayerMeleeWeaponModel)meleeModelMB.MeleeWeaponModel;
+        meleeModel = (PlayerMeleeWeaponModel)playerUI.PlayerMeleeWeaponModelMB.MeleeWeaponModel;
         canvas.gameObject.SetActive(false);
 
     }

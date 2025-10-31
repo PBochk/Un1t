@@ -5,13 +5,12 @@ public class PlayerStatsUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text hpText;
     [SerializeField] private TMP_Text xpText;
-    [SerializeField] private PlayerModelMB playerModelMB;
     private PlayerModel playerModel;
 
     // TODO: move subscription in OnEnable after model initialization rework
     private void Start()
     {
-        playerModel = playerModelMB.PlayerModel;
+        playerModel = GetComponentInParent<PlayerUI>().PlayerModelMB.PlayerModel;
         playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
         playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
         Initialize();

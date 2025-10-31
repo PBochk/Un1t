@@ -3991,6 +3991,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8296280566369038448, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: playerModelMB
+      value: 
+      objectReference: {fileID: 831836296}
+    - target: {fileID: 8296280566369038448, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: playerMeleeModelMB
+      value: 
+      objectReference: {fileID: 606516056}
+    - target: {fileID: 8296280566369038448, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: playerRangeModelMB
+      value: 
+      objectReference: {fileID: 1782802316}
     - target: {fileID: 8381613149308081875, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: playerModelMB
       value: 
