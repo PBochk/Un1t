@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemySpawner : MonoBehaviour
+public class TestEnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyController enemyPrefab;
     [SerializeField] private EnemyDummyTarget dummyTargetPrefab;
