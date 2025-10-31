@@ -15,9 +15,9 @@ public class StandardOuterWallBuilder : OuterWallBuilder
     private static readonly int[] standardBaseWallPartsLengths = new int[] { 5, 6, 5 };
     private static readonly int[] standardSideWallPartsLengths = new int[] { 3, 3, 3 };
 
-    protected override void SetConfiguration()
+    protected override void SetConfiguration(int[] emptyTilesForShurfesNumbers)
     {
-        base.SetConfiguration();
+        base.SetConfiguration(emptyTilesForShurfesNumbers);
         bool[] parts = new bool[3] { firstPartIsEmpty, middlePartIsEmpty, lastPartIsEmpty };
         int[] lengths = direction == Direction.Horizontal ? standardBaseWallPartsLengths : standardSideWallPartsLengths;
 
@@ -45,5 +45,18 @@ public class StandardOuterWallBuilder : OuterWallBuilder
             || (direction == Direction.Vertical 
             && (sizeTiles.y != STANDARD_SIDE_WALL_HEIGHT || (sizeTiles.x != STANDARD_EDGE_WALL_THICKNESS))))
                 Debug.LogWarning($"{direction} standard outer wall has got incorrect size: {sizeTiles.x}x{sizeTiles.y}");
+
+        if (shurfsSpawnDirection == ShurfsSpawnDirection.Unidentified)
+        {
+            Debug.LogWarning("Standard outer wall's shurfs spawn direction is unidentified");
+            return;
+        }
+
+        if ((direction == Direction.Horizontal && (shurfsSpawnDirection != ShurfsSpawnDirection.Top 
+            && shurfsSpawnDirection != ShurfsSpawnDirection.Bottom))
+
+            || direction == Direction.Vertical && (shurfsSpawnDirection != ShurfsSpawnDirection.Left
+            && shurfsSpawnDirection != ShurfsSpawnDirection.Right))
+            Debug.LogWarning($"{direction} standard outer wall shurfs spawn direction is {shurfsSpawnDirection}");
     }
 }
