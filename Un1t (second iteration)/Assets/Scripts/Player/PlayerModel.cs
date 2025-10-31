@@ -13,7 +13,7 @@ public class PlayerModel
         private set
         {
             maxHealth = value;
-            HealthChanged.Invoke();
+            HealthChanged?.Invoke();
         }
     }
     public float CurrentHealth
@@ -74,6 +74,7 @@ public class PlayerModel
     public List<PlayerTools> UnlockedTools => unlockedTools;
 
     public event Action HealthChanged;
+    public event Action PlayerDeath;
     public event Action PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action NextLevel;
@@ -98,6 +99,15 @@ public class PlayerModel
     public void TakeDamage(float decrement)
     {
         CurrentHealth -= decrement;
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if (CurrentHealth <= 0)
+        {
+            PlayerDeath?.Invoke();
+        }
     }
 
     public void SetPlayerRestrained(bool isRestrained)
