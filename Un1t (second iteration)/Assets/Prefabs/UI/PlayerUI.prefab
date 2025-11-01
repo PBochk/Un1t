@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 717108518256535060}
   - component: {fileID: 8296280566369038448}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,6 +61,18 @@ PrefabInstance:
     - target: {fileID: 248406444609519938, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
       propertyPath: m_Name
       value: StatsUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 248406444609519938, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212539649086159623, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7655813178485128967, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8032479278380416835, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
       propertyPath: m_Pivot.x
@@ -240,6 +252,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5351355836919446537, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6362834484404230852, guid: b887e5fd1340c204b925c788327528cf, type: 3}
       propertyPath: m_Name
       value: UpgradeUI
@@ -297,6 +313,10 @@ PrefabInstance:
     - target: {fileID: 5599864454888579060, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_SizeDelta.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668569117688784958, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7072449748886836803, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_Pivot.x
@@ -377,6 +397,14 @@ PrefabInstance:
     - target: {fileID: 7072449748886836803, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954380654324965861, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954380654324965861, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1429727313
       objectReference: {fileID: 0}
     - target: {fileID: 8887822339001357362, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_VerticalAlignment

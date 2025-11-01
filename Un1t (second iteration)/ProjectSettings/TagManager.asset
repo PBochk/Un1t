@@ -15,7 +15,7 @@ TagManager:
   - Breakable
   - Player
   - EnemyAttacks
-  - 
+  - New
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3931070419
+    locked: 0
+  - name: UI
+    uniqueID: 2865239983
     locked: 0
   m_RenderingLayers:
   - Default

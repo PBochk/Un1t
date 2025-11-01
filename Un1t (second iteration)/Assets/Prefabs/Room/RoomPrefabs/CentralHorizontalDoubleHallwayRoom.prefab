@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3222441725506253698, guid: 99782673fc118e44b8c89ffd9d376fbb, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4269104565408447813, guid: 99782673fc118e44b8c89ffd9d376fbb, type: 3}
       propertyPath: m_LocalScale.z
       value: 0
@@ -530,7 +534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6082598311174248589, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: m_Name
-      value: CentralHorizontalTopHallwayRoom
+      value: CentralHorizontalDoubleHallwayRoom
       objectReference: {fileID: 0}
     - target: {fileID: 7657468010759620788, guid: 8c71bbb3b6c264c4e81982d38a8fdd63, type: 3}
       propertyPath: m_Enabled
@@ -673,6 +677,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794336688731676394, guid: 99782673fc118e44b8c89ffd9d376fbb, type: 3}
       propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3222441725506253698, guid: 99782673fc118e44b8c89ffd9d376fbb, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4269104565408447813, guid: 99782673fc118e44b8c89ffd9d376fbb, type: 3}

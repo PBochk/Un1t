@@ -1008,7 +1008,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2923355, y: 0.052908897, z: -10}
+  m_LocalPosition: {x: 0.29670334, y: 0.052718878, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2970,6 +2970,10 @@ PrefabInstance:
       propertyPath: weaponController
       value: 
       objectReference: {fileID: 606516055}
+    - target: {fileID: 7691705762184161645, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3629217275716142144, guid: 512f90c3962015f45969db14be803129, type: 3}
     - target: {fileID: 7771967822136418215, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: canvas
       value: 
@@ -3967,6 +3971,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4059247614240557360, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4840349011799165215, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: controller
       value: 
@@ -4036,6 +4044,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3370739300095299695, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1429727313
+      objectReference: {fileID: 0}
     - target: {fileID: 4107090773148581290, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: pauseManager
       value: 

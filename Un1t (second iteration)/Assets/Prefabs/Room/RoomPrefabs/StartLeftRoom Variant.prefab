@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartLeftRoom Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7652108311313145088, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

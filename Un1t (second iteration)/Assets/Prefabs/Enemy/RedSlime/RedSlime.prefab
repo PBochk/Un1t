@@ -261,7 +261,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.4583334, y: 0.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -322,6 +322,10 @@ PrefabInstance:
     - target: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856889224303810842, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      propertyPath: xp
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -727,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab758e638fd4a56b9ba5ef314b68bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 35
+  damage: 1
   damageType: 0
 --- !u!114 &57271144412338712
 MonoBehaviour:

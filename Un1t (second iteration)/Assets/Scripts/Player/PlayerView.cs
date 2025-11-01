@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private AudioSource attackSound;
+    //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     private PlayerController playerController;
@@ -50,7 +50,7 @@ public class PlayerView : MonoBehaviour
 
     private void OnMelee()
     {
-        attackSound.Play();
+        //attackSound.Play();
     }
 
     private void PickaxeAnimationStart()

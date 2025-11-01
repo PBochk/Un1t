@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1587562411337747525}
   - component: {fileID: 4774667196260465280}
   - component: {fileID: 1242096590687245545}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WallBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,4 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ffb6c2918d3a349b4dbd0af9ee1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallTile: {fileID: 0}
+  wallTile: {fileID: 0}
+  shurfFirstSideTile: {fileID: 0}
+  shurfSecondSideTile: {fileID: 0}
+  direction: 0
+  shurfsSpawnDirection: 0
