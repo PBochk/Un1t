@@ -15,8 +15,6 @@ public class RoomManager : MonoBehaviour
 
     private List<GameObject> entities;
     private List<GameObject> outerWalls;
-    private ImmutableList<GameObject> entities;
-    private ImmutableList<GameObject> outerWalls;
     private IReadOnlyList<EnemyController> spawnableEnemies;
 
     private readonly static Range shurfesCountRange = new(2, 5);
