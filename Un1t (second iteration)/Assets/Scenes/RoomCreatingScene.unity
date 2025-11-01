@@ -690,6 +690,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: rock
+      value: 
+      objectReference: {fileID: 2050524529450626461, guid: e33b0bdc5bc09464196908222d570a57, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 5488166656052903477, guid: 8b2af04592ee649a787baf3bc80914ff, type: 3}
