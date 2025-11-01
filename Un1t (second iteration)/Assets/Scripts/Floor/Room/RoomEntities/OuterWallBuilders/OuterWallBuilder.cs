@@ -1,33 +1,36 @@
-using System;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallBuilder : MonoBehaviour
 {
     public const float TILE_SIZE = 1f;
 
+    public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
+
     //TODO: gain wall sprite of current level.
     [SerializeField] protected OuterWallTiles wallTile;
     [SerializeField] protected GameObject shurfFirstSideTile;
     [SerializeField] protected GameObject shurfSecondSideTile;
 
+    [SerializeField] protected Direction direction;
     [SerializeField] protected ShurfsSpawnDirection shurfsSpawnDirection = 
         ShurfsSpawnDirection.Unidentified;
 
-    protected float thickness;
     protected Vector2Int sizeTiles;
-    protected Direction direction;
     protected bool[] tilesAreEmpty;
 
-    private const int SHURFES_DEPTHS = 2;
+    private const int SHURFES_DEPTHS = 3;
 
-        private void Awake()
-    {
-        Create(3);
-    }
+    private int thickness;
 
-    public void Create(params int[] emptyTilesForShurfesNumbers)
+    private void Awake()
+        {
+
+            Create((4, 5));
+        }
+
+    public void Create(params (int start, int end)[] emptyTilesForShurfesNumbers)
     {
         SetConfiguration(emptyTilesForShurfesNumbers);
 
@@ -37,35 +40,42 @@ public class OuterWallBuilder : MonoBehaviour
 
         PlaceFragments(basePosition);
 
-        if (shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified)
-            PlaceShurfes(emptyTilesForShurfesNumbers, basePosition);
+        if (CanCreateShurf)
+        {
+            SpriteRenderer shurfFirstSideRenderer = shurfFirstSideTile.GetComponent<SpriteRenderer>();
+            SpriteRenderer shurfSecondSideRenderer = shurfSecondSideTile.GetComponent<SpriteRenderer>();
+
+            PlaceShurfes(emptyTilesForShurfesNumbers, basePosition, shurfFirstSideRenderer.size, shurfSecondSideRenderer.size);
+        }
     }
 
 
-    protected virtual void SetConfiguration(int[] emptyTilesForShurfesNumbers)
+    protected virtual void SetConfiguration((int start, int end)[] emptyTilesForShurfesNumberCouples)
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        sizeTiles = new Vector2Int((int)spriteRenderer.size.x, (int)spriteRenderer.size.y);
+        SpriteRenderer wallRenderer = GetComponent<SpriteRenderer>();
 
-        spriteRenderer.enabled = false;
+        sizeTiles = new Vector2Int((int)wallRenderer.size.x, (int)wallRenderer.size.y);
 
-        if (sizeTiles.x > sizeTiles.y)
+        wallRenderer.enabled = false;
+
+        if (direction == Direction.Horizontal)
         {
-            direction = Direction.Horizontal;
             tilesAreEmpty = new bool[sizeTiles.x];
             thickness = sizeTiles.y;
         }
         else
         {
-            direction = Direction.Vertical;
             tilesAreEmpty = new bool[sizeTiles.y];
             thickness = sizeTiles.x;
         }
 
         CheckSize(direction, sizeTiles);
 
-        foreach (int emptyTileNumber in emptyTilesForShurfesNumbers)
-            tilesAreEmpty[emptyTileNumber] = true;
+        foreach ((int start, int end) in emptyTilesForShurfesNumberCouples)
+        {
+            tilesAreEmpty[start] = true;
+            tilesAreEmpty[end] = true;
+        }
     }
 
 
@@ -88,20 +98,20 @@ public class OuterWallBuilder : MonoBehaviour
                 bool hasRightHole = i < tilesAreEmpty.Length;
 
                 if (currentFragmentSize == 1)
-                    CreateFragment(wallTile.BasicWallTile, currentFragmentSize, direction,
+                    CreateFragment(wallTile.BasicWallTile, currentFragmentSize, thickness, direction,
                         CalculateWallFragmentPosition(segmentStartIndex, currentFragmentSize, basePosition));
                 else
                 {
                     GameObject firstTilePrefab = hasLeftHole ? wallTile.PreviousCornerWallTile : wallTile.BasicWallTile;
-                    CreateFragment(firstTilePrefab, 1, direction,
+                    CreateFragment(firstTilePrefab, 1, thickness, direction,
                         CalculateWallFragmentPosition(segmentStartIndex, 1, basePosition));
 
                     if (currentFragmentSize > 2)
-                        CreateFragment(wallTile.BasicWallTile, currentFragmentSize - 2, direction,
+                        CreateFragment(wallTile.BasicWallTile, currentFragmentSize - 2, thickness, direction,
                             CalculateWallFragmentPosition(segmentStartIndex+1, currentFragmentSize - 2, basePosition));
 
                     GameObject lastTilePrefab = hasRightHole ? wallTile.NextCornerWallTile : wallTile.BasicWallTile;
-                    CreateFragment(lastTilePrefab, 1, direction,
+                    CreateFragment(lastTilePrefab, 1, thickness, direction,
                         CalculateWallFragmentPosition(segmentStartIndex + currentFragmentSize - 1, 1, basePosition));
                 }
 
@@ -114,38 +124,58 @@ public class OuterWallBuilder : MonoBehaviour
 
     }
 
-    private void PlaceShurfes(int[] emptyTilesForShurfesNumbers, in Vector3 basePosition)
+    private void PlaceShurfes((int start, int end)[] emptyTilesForShurfesNumbers, Vector3 basePosition, Vector2 shurfFirstSideSize, Vector2 shurfSecondSideSize)
     {
-        foreach (int tileNumber in emptyTilesForShurfesNumbers)
+        Direction shurfDirection;
+        float verticalPosition = 0f;
+        float horizontalPosition = 0f;
+        int shurfFirstSideThickness;
+        int shurfSecondSideThickness;
+
+        if (direction == Direction.Horizontal)
+        {
+            shurfDirection = Direction.Vertical;
+            verticalPosition = basePosition.y + (SHURFES_DEPTHS / 2f + thickness / 2f) * TILE_SIZE * (shurfsSpawnDirection == ShurfsSpawnDirection.Bottom
+                ? -1 : 1);
+            shurfFirstSideThickness = (int)shurfFirstSideSize.x;
+            shurfSecondSideThickness = (int)shurfSecondSideSize.x;
+
+        }
+        else
+        {           
+            shurfDirection = Direction.Horizontal;
+            horizontalPosition = basePosition.x + (SHURFES_DEPTHS / 2f + thickness / 2f) * TILE_SIZE * (shurfsSpawnDirection == ShurfsSpawnDirection.Left
+                ? -1 : 1);
+            shurfFirstSideThickness = (int)shurfFirstSideSize.y;
+            shurfSecondSideThickness = (int)shurfSecondSideSize.y;
+        }
+
+        foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.start + 0.5f))
         {
             Vector3 firstSidePosition;
             Vector3 secondSidePosition;
-            Direction shurfDirection;
+
             if (direction == Direction.Horizontal)
             {
-                float verticalPosition = basePosition.y + (TILE_SIZE * SHURFES_DEPTHS - TILE_SIZE/2) * (shurfsSpawnDirection == ShurfsSpawnDirection.Bottom
-                    ? -1 : 1);
-
-                firstSidePosition = new(basePosition.x + (tileNumber + 1) * TILE_SIZE, verticalPosition);
-                secondSidePosition = new(basePosition.x + (tileNumber - 1) * TILE_SIZE, verticalPosition); 
-                shurfDirection = Direction.Vertical;
+                firstSidePosition = new(basePosition.x + (shurfCenter - shurfFirstSideThickness - 0.5f) * TILE_SIZE, verticalPosition);
+                secondSidePosition = new(basePosition.x + (shurfCenter + shurfSecondSideThickness + 0.5f) * TILE_SIZE, verticalPosition);
             }
             else
             {
-                float horizontalPosition = basePosition.x + (TILE_SIZE * SHURFES_DEPTHS - TILE_SIZE / 2) * (shurfsSpawnDirection == ShurfsSpawnDirection.Left
-                  ? -1 : 1);
+                firstSidePosition = new (horizontalPosition, basePosition.y - (shurfCenter - shurfFirstSideThickness - 0.5f) * TILE_SIZE);
+                secondSidePosition = new (horizontalPosition, basePosition.y - (shurfCenter + shurfSecondSideThickness + 0.5f) * TILE_SIZE);
 
-                firstSidePosition = new (horizontalPosition, basePosition.y + (tileNumber - 1) * TILE_SIZE);
-                secondSidePosition = new (horizontalPosition, basePosition.y + (tileNumber + 1) * TILE_SIZE);
-                shurfDirection = Direction.Horizontal;
+                //TODO: rewrite algorithm and remove next two lines
+                if (shurfFirstSideThickness == 3) 
+                    firstSidePosition -= new Vector3(0f, 1f);
             }
 
-            CreateFragment(shurfFirstSideTile,  SHURFES_DEPTHS, shurfDirection, firstSidePosition);
-            CreateFragment(shurfSecondSideTile, SHURFES_DEPTHS, shurfDirection, secondSidePosition);
+            CreateFragment(shurfFirstSideTile, SHURFES_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
+            CreateFragment(shurfSecondSideTile, SHURFES_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
         }
     }
 
-    private void CreateFragment(GameObject tilePrefab, int fragmentSize, Direction direction, in Vector3 position)
+    private void CreateFragment(GameObject tilePrefab, int fragmentSize, int thickness, Direction direction, in Vector3 position)
     {
         GameObject tile = Instantiate(tilePrefab, transform);
         SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();

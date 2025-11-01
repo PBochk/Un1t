@@ -100,7 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751878a5fe436e94f9d7ff3f54df4db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallTile: {fileID: 11400000, guid: fb95f89b743c3054380fdc19bfde85f3, type: 2}
+  wallTile: {fileID: 11400000, guid: fb95f89b743c3054380fdc19bfde85f3, type: 2}
+  shurfFirstSideTile: {fileID: 8252421113222450477, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
+  shurfSecondSideTile: {fileID: 8252421113222450477, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
+  direction: 1
   shurfsSpawnDirection: 1
   firstPartIsEmpty: 0
   middlePartIsEmpty: 0

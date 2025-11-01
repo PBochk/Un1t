@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using UnityEngine;
 
 
@@ -13,8 +12,8 @@ public class RoomManager : MonoBehaviour
 
     private SpawnersManager spawnersManager;
 
-    private ImmutableList<GameObject> entities;
-    private ImmutableList<GameObject> outerWalls;
+    private List<GameObject> entities;
+    private List<GameObject> outerWalls;
 
     private readonly static Range shurfesCountRange = new(2, 5);
 
@@ -34,6 +33,7 @@ public class RoomManager : MonoBehaviour
 
         shurfesCount = UnityEngine.Random.Range(shurfesCountRange.Start.Value, shurfesCountRange.End.Value + 1);
 
+
         CreateOuterWalls();
         CreateEntities();
 
@@ -41,7 +41,7 @@ public class RoomManager : MonoBehaviour
 
     private void CreateEntities()
     {
-        ImmutableList<GameObject>.Builder entitiesBuilder = ImmutableList.CreateBuilder<GameObject>();
+        List<GameObject> entitiesBuilder = new();
         /*
 foreach (RoomEntity entity in roomEntities)
 {
@@ -55,16 +55,20 @@ entities = entitiesBuilder.ToImmutable();
 
     private void CreateOuterWalls()
     {
-        ImmutableList<GameObject>.Builder immutableList = ImmutableList.CreateBuilder<GameObject>();
+        List<OuterWallBuilder> shurfableWalls = new();
+
+        List<GameObject> outerWalls = new();
         for (var i = 0; i < transform.childCount; i++)
         {
             GameObject outerWall = transform.GetChild(i).gameObject;
             if (outerWall.TryGetComponent(out OuterWallBuilder wallBuilder))
-                wallBuilder.Create();
+            {
+                if (wallBuilder.CanCreateShurf)
+                    shurfableWalls.Add(wallBuilder);
+            }
 
-            immutableList.Add(outerWall);
+            outerWalls.Add(outerWall);
         }
 
-        outerWalls = immutableList.ToImmutable();
     }
 }
