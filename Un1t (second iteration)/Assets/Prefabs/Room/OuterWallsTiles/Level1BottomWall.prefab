@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4269104565408447813}
   - component: {fileID: 794336688731676394}
   - component: {fileID: 1642686101991599582}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Level1BottomWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1888559543
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 1626166971, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
