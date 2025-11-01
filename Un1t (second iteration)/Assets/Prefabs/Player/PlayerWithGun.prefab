@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 9121096697557502566}
   m_Layer: 8
   m_Name: PlayerWithGun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

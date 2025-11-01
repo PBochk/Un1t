@@ -29,7 +29,7 @@ public class RoomEnemySpawner : MonoBehaviour
     /// <returns>An instance of created anemy</returns>
     public EnemyController CreateEnemy()
     {
-        if (enemyPrefab is null || target is null)
+        if (enemyPrefab == null || target == null)
             throw new Exception("Room enemy spawner must be initialized through SetCreationEnemy first");
         var enemy = Instantiate(enemyPrefab,  spawnPosition, Quaternion.identity);
         enemy.SetTarget(target);

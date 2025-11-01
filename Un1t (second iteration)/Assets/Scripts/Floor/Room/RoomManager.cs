@@ -10,11 +10,13 @@ using UnityEngine;
 /// </summary>
 public class RoomManager : MonoBehaviour
 {
+    private RoomEnemySpawner enemySpawner;
 
     private SpawnersManager spawnersManager;
 
     private ImmutableList<GameObject> entities;
     private ImmutableList<GameObject> outerWalls;
+    private IReadOnlyList<EnemyController> spawnableEnemies;
 
     private readonly static Range shurfesCountRange = new(2, 5);
 
@@ -35,8 +37,21 @@ public class RoomManager : MonoBehaviour
         shurfesCount = UnityEngine.Random.Range(shurfesCountRange.Start.Value, shurfesCountRange.End.Value + 1);
 
         CreateOuterWalls();
-        CreateEntities();
 
+        spawnersManager = new();
+
+        //This solution for getting player's reference is for demonstration purpose only. Should be optimized.
+        GameObject player = GameObject.FindWithTag("Player");
+        spawnersManager.SetSpawners(spawnableEnemies[0], transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
+
+        CreateEntities();
+        //spawnersManager.CreateSpawners();
+    }
+
+    public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner)
+    {
+        spawnableEnemies = enemies;
+        this.enemySpawner = enemySpawner;
     }
 
     private void CreateEntities()
@@ -52,6 +67,7 @@ foreach (RoomEntity entity in roomEntities)
 entities = entitiesBuilder.ToImmutable();
 */
     }
+
 
     private void CreateOuterWalls()
     {
