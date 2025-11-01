@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using UnityEngine;
 
 
@@ -10,11 +9,13 @@ using UnityEngine;
 /// </summary>
 public class RoomManager : MonoBehaviour
 {
+    private RoomEnemySpawner enemySpawner;
 
     private SpawnersManager spawnersManager;
 
-    private ImmutableList<GameObject> entities;
-    private ImmutableList<GameObject> outerWalls;
+    private List<GameObject> entities;
+    private List<GameObject> outerWalls;
+    private IReadOnlyList<EnemyController> spawnableEnemies;
 
     private readonly static Range shurfesCountRange = new(2, 5);
 
@@ -34,14 +35,28 @@ public class RoomManager : MonoBehaviour
 
         shurfesCount = UnityEngine.Random.Range(shurfesCountRange.Start.Value, shurfesCountRange.End.Value + 1);
 
-        CreateOuterWalls();
-        CreateEntities();
 
+        CreateOuterWalls();
+
+        spawnersManager = new();
+
+        //This solution for getting player's reference is for demonstration purpose only. Should be optimized.
+        GameObject player = GameObject.FindWithTag("Player");
+        EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
+        spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
+
+        CreateEntities();
+    }
+
+    public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner)
+    {
+        spawnableEnemies = enemies;
+        this.enemySpawner = enemySpawner;
     }
 
     private void CreateEntities()
     {
-        ImmutableList<GameObject>.Builder entitiesBuilder = ImmutableList.CreateBuilder<GameObject>();
+        List<GameObject> entitiesBuilder = new();
         /*
 foreach (RoomEntity entity in roomEntities)
 {
@@ -53,18 +68,31 @@ entities = entitiesBuilder.ToImmutable();
 */
     }
 
+    //TODO: make full shurf generation, this version is only for demonstration purpose.
+
     private void CreateOuterWalls()
     {
-        ImmutableList<GameObject>.Builder immutableList = ImmutableList.CreateBuilder<GameObject>();
+        List<OuterWallBuilder> shurfableWalls = new();
+
+        List<GameObject> outerWalls = new();
         for (var i = 0; i < transform.childCount; i++)
         {
             GameObject outerWall = transform.GetChild(i).gameObject;
             if (outerWall.TryGetComponent(out OuterWallBuilder wallBuilder))
-                wallBuilder.Create();
+            {
+                wallBuilder.SetConfiguration();
+                if (wallBuilder.CanCreateShurf && wallBuilder.Length > 5)
+                {
+                    int start = wallBuilder.Length / 2;
+                    int end = start + 1;
+                    wallBuilder.SetShurfesLocation((start, end));
+                }
 
-            immutableList.Add(outerWall);
+                wallBuilder.Create();
+            }
+
+            outerWalls.Add(outerWall);
         }
 
-        outerWalls = immutableList.ToImmutable();
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4774667196260465280}
   - component: {fileID: 1242096590687245545}
   m_Layer: 0
-  m_Name: TopWallBuilder 3
+  m_Name: TopWallBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,5 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ffb6c2918d3a349b4dbd0af9ee1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallTile: {fileID: 11400000, guid: fb95f89b743c3054380fdc19bfde85f3, type: 2}
+  wallTile: {fileID: 11400000, guid: fb95f89b743c3054380fdc19bfde85f3, type: 2}
+  shurfFirstSideTile: {fileID: 8252421113222450477, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
+  shurfSecondSideTile: {fileID: 8252421113222450477, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
+  direction: 1
   shurfsSpawnDirection: 1
