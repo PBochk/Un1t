@@ -53,6 +53,8 @@ entities = entitiesBuilder.ToImmutable();
 */
     }
 
+    //TODO: make full shurf generation, this version is only for demonstration purpose.
+
     private void CreateOuterWalls()
     {
         List<OuterWallBuilder> shurfableWalls = new();
@@ -63,8 +65,15 @@ entities = entitiesBuilder.ToImmutable();
             GameObject outerWall = transform.GetChild(i).gameObject;
             if (outerWall.TryGetComponent(out OuterWallBuilder wallBuilder))
             {
-                if (wallBuilder.CanCreateShurf)
-                    shurfableWalls.Add(wallBuilder);
+                wallBuilder.SetConfiguration();
+                if (wallBuilder.CanCreateShurf && wallBuilder.Length > 5)
+                {
+                    int start = wallBuilder.Length / 2;
+                    int end = start + 1;
+                    wallBuilder.SetShurfesLocation((start, end));
+                }
+
+                wallBuilder.Create();
             }
 
             outerWalls.Add(outerWall);

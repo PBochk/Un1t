@@ -621,11 +621,11 @@ PrefabInstance:
       objectReference: {fileID: 8252421113222450477, guid: 6d5661e06434bcb4ca35ce3fcf17dfda, type: 3}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: maxRoomsCount
-      value: 37
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: minRoomsCount
-      value: 35
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: rightTopCorner
