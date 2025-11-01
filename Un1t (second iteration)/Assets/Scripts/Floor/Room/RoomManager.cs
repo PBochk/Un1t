@@ -9,6 +9,9 @@ using UnityEngine;
 /// </summary>
 public class RoomManager : MonoBehaviour
 {
+    public IReadOnlyList<GameObject> Entities => entities;
+    public IReadOnlyList<GameObject> OuterWalls => outerWalls;
+
     private RoomEnemySpawner enemySpawner;
 
     private SpawnersManager spawnersManager;
@@ -20,9 +23,6 @@ public class RoomManager : MonoBehaviour
     private readonly static Range shurfesCountRange = new(2, 5);
 
     private int shurfesCount;
-
-    public IReadOnlyList<GameObject> Entities => entities;
-    public IReadOnlyList<GameObject> OuterWalls => outerWalls;
 
 
     /// <summary>

@@ -165,7 +165,7 @@ public class OuterWallBuilder : MonoBehaviour
                     basePosition.x + shurfCenter * TILE_SIZE,
                     verticalPosition + wallOffset * (shurfsSpawnDirection == ShurfsSpawnDirection.Bottom ? -1 : 1)
                 );
-                invisibleWallSize = new Vector2(SHURF_WIDTH * TILE_SIZE, TILE_SIZE);
+                invisibleWallSize = new Vector2((SHURF_WIDTH + 2) * TILE_SIZE, TILE_SIZE);
             }
             else
             {
@@ -181,11 +181,12 @@ public class OuterWallBuilder : MonoBehaviour
                     horizontalPosition + wallOffset * (shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1),
                     basePosition.y - shurfCenter * TILE_SIZE
                 );
-                invisibleWallSize = new Vector2(TILE_SIZE, SHURF_WIDTH * TILE_SIZE);
+                invisibleWallSize = new Vector2(TILE_SIZE, (SHURF_WIDTH + 2) * TILE_SIZE);
 
                 if (shurfFirstSideThickness != 1)
                     firstSidePosition -= new Vector3(0f, 1f);
             }
+
             CreateFragment(shurfFirstSideTile, SHURF_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
             CreateFragment(shurfSecondSideTile, SHURF_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
 
@@ -195,8 +196,6 @@ public class OuterWallBuilder : MonoBehaviour
             BoxCollider2D collider = invisibleWall.AddComponent<BoxCollider2D>();
             collider.size = invisibleWallSize;
             invisibleWall.transform.position = invisibleWallPosition;
-
- 
         }
     }
 
