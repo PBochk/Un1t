@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e527596971c8f9679772c03ea78b016, type: 3}
   m_Name: RedSlimeConfig
   m_EditorClassIdentifier: 
-  MaxHealth: 200
-  SpeedScale: 1.25
-  Damage: 1
-  AttackSpeed: 20
-  XpGain: 1
+  maxHealth: 6
+  initialSpeedCoefficient: 1
+  xpGain: 2
+  baseMoveSpeed: 1.8
+  aggroRange: 2

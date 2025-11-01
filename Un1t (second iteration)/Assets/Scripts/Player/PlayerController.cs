@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerModelMB))]
 
-public class PlayerController : MonoBehaviour, IEnemyTarget
+public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerInput playerInput; 
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
+        // TODO: move subscription in OnEnable after model initialization rework
         playerModel.PlayerRestrained += SetInputEnabled;
     }
 
@@ -59,7 +60,6 @@ public class PlayerController : MonoBehaviour, IEnemyTarget
 
     public void SetInputEnabled()
     {
-        Debug.Log("Input is enabled: " + playerModel.IsRestrained);
         playerInput.enabled = !playerModel.IsRestrained;
     }
 

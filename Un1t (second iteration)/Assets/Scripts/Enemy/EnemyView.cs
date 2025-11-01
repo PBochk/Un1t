@@ -28,4 +28,5 @@ public abstract class EnemyView : MonoBehaviour
     protected abstract void BindStates();
     protected abstract void BindAnimator();
     protected abstract void BindSoundPlayer();
+    public abstract void ResetAllAnimations();
 }

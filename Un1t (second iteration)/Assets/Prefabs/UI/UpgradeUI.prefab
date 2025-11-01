@@ -581,7 +581,6 @@ MonoBehaviour:
   damage: {fileID: 3046084432696004710}
   playerModelMB: {fileID: 0}
   meleeModelMB: {fileID: 0}
-  controller: {fileID: 0}
 --- !u!1 &7861323231996936203
 GameObject:
   m_ObjectHideFlags: 0

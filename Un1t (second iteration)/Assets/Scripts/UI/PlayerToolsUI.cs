@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerToolsUI : MonoBehaviour
 {
-    [SerializeField] private PlayerModelMB playerModelMB;
-    [SerializeField] private PlayerRangeWeaponModelMB rangeModelMB;
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Image currentTool;
     [SerializeField] private Sprite bareHands;
@@ -33,9 +31,10 @@ public class PlayerToolsUI : MonoBehaviour
     // TODO: move subscription in OnEnable after model initialization rework
     private void Start()
     {
-        playerModel = playerModelMB.PlayerModel;
+        var playerUI = GetComponentInParent<PlayerUI>();
+        playerModel = playerUI.PlayerModelMB.PlayerModel;
         playerModel.ToolChanged += ChangeCurrentToolIcon;
-        rangeModel = rangeModelMB.PlayerRangeWeaponModel;
+        rangeModel = playerUI.PlayerRangeWeaponModelMB.PlayerRangeWeaponModel;
         rangeModel.AmmoChanged += OnAmmoChanged;
         Initialize();
     }

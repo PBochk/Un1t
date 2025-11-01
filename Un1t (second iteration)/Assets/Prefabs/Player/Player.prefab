@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5640298050859143591}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 560221877772887277}
   attackSound: {fileID: 0}
+  meleeController: {fileID: 0}
+  pickaxeController: {fileID: 0}
 --- !u!114 &4697431313275488480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8268e7ec936d29547b59fa0ac16c2421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeController: {fileID: 0}
+  pickaxeController: {fileID: 0}
+  rangeController: {fileID: 0}
   StartMelee:
     m_PersistentCalls:
       m_Calls: []
@@ -159,6 +164,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   StartRange:
+    m_PersistentCalls:
+      m_Calls: []
+  ToolChange:
     m_PersistentCalls:
       m_Calls: []
 --- !u!95 &956851122708948023
@@ -358,8 +366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  healthUpgrade: 0
   movingSpeed: 10
-  healthComponent: {fileID: 0}
+  level: 0
+  xpCoefficient: 0
 --- !u!114 &5640298050859143591
 MonoBehaviour:
   m_ObjectHideFlags: 0

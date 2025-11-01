@@ -10,7 +10,7 @@ public class SingleShotWeapon : MonoBehaviour
     {
         var targetPosition = target.Position;
         var direction = targetPosition - (Vector2)transform.position;
-        var rot = Quaternion.FromToRotation(Vector3.right, targetPosition);
+        var rot = Quaternion.FromToRotation(Vector3.right, direction);
         var projInstance = Instantiate(projectile, transform.position, rot);
         projInstance.GetComponent<Rigidbody2D>().AddForce(direction.normalized * ProjectileSpeed, ForceMode2D.Impulse);
     }

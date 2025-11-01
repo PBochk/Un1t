@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -186, y: 148}
+  m_AnchoredPosition: {x: -189.8, y: 126.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1252042432814588661
@@ -253,13 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3888e942c06ff05468ceda04c83b9512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModelMB: {fileID: 0}
+  rangeModelMB: {fileID: 0}
   ammoText: {fileID: 8887822339001357362}
+  currentTool: {fileID: 7598838388834060849}
   bareHands: {fileID: 8995154407686431259, guid: 85c5b35bf91cb9240bb89ab737cefbf7, type: 3}
   melee: {fileID: 4498297051687495242, guid: 75d713d35373270448fc6673453456a5, type: 3}
   pickaxe: {fileID: -3865222276603045756, guid: a578e673d7056f94a95dae6464bddf92, type: 3}
   range: {fileID: 3924923142250755176, guid: 8e9cca659238ca6429cbd0973e0f1b71, type: 3}
-  currentTool: {fileID: 7598838388834060849}
-  playerModelMB: {fileID: 0}
 --- !u!1 &5668569117688784958
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -352.6084, y: 152.69054}
+  m_AnchoredPosition: {x: -356.40842, y: 130.99054}
   m_SizeDelta: {x: 0.16, y: 0.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &7954380654324965861

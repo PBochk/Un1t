@@ -26,4 +26,8 @@ public class BlueSlimeView : EnemyView
     protected override void BindSoundPlayer()
     {
     }
+
+    public override void ResetAllAnimations()
+    {
+    }
 }

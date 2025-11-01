@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class GameInitiator : MonoBehaviour
 {
     [SerializeField] private string MainScenePath;
-    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private TestEnemySpawner enemySpawner;
     [SerializeField] private PlayerController player;
     [SerializeField] private Camera mainCamera;
     
@@ -37,7 +37,7 @@ public class GameInitiator : MonoBehaviour
 
     /// <summary>
     /// On this step some additional initialization of previously instantiated systems is happening,
-    /// for example, <see cref="EnemySpawner"/>'s target setting should be here
+    /// for example, <see cref="TestEnemySpawner"/>'s target setting should be here
     /// </summary>
     private void Initialize()
     {
