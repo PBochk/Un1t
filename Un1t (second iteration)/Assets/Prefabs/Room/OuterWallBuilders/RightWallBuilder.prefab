@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4774667196260465280}
   - component: {fileID: 1242096590687245545}
   m_Layer: 0
-  m_Name: BottomWallBuilder 2
+  m_Name: RightWallBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1626166971, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
+  m_Sprite: {fileID: -1691277303, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,5 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ffb6c2918d3a349b4dbd0af9ee1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallTile: {fileID: 11400000, guid: af1b0ef62ccb6594fbfc3a08e705fcd4, type: 2}
-  shurfsSpawnDirection: 2
+  wallTile: {fileID: 11400000, guid: 0ed918ca68d3b3b439ae044e565d5cc8, type: 2}
+  shurfFirstSideTile: {fileID: 8252421113222450477, guid: ad0186a5e5ddbb74abc246c841742372, type: 3}
+  shurfSecondSideTile: {fileID: 8252421113222450477, guid: 4934117f1b1fa2249a1349a52ba4fa36, type: 3}
+  direction: 0
+  shurfsSpawnDirection: 4

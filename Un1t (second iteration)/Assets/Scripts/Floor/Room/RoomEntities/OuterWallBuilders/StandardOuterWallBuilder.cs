@@ -15,7 +15,7 @@ public class StandardOuterWallBuilder : OuterWallBuilder
     private static readonly int[] standardBaseWallPartsLengths = new int[] { 5, 6, 5 };
     private static readonly int[] standardSideWallPartsLengths = new int[] { 3, 3, 3 };
 
-    protected override void SetConfiguration()
+    public override void SetConfiguration()
     {
         base.SetConfiguration();
         bool[] parts = new bool[3] { firstPartIsEmpty, middlePartIsEmpty, lastPartIsEmpty };
@@ -39,8 +39,9 @@ public class StandardOuterWallBuilder : OuterWallBuilder
         lastPartIsEmpty = wall.Last.IsEmpty;
     }
 
-    protected override void CheckSize(Direction direction, Vector2Int sizeTiles)
+    protected override void CheckSize()
     {
+        base.CheckSize();
         if ((direction == Direction.Horizontal && (sizeTiles.x != STANDARD_BASE_WALL_WIDTH))           
             || (direction == Direction.Vertical 
             && (sizeTiles.y != STANDARD_SIDE_WALL_HEIGHT || (sizeTiles.x != STANDARD_EDGE_WALL_THICKNESS))))

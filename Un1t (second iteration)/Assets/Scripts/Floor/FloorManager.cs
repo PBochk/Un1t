@@ -20,6 +20,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private int maxRoomsCount = 7;
 
     //TODO: next serilize fields should be moved to a separate class.
+    [Header("Room types dynamic generation")]
     [SerializeField] private GameObject roomTemplate;
 
     [SerializeField] private GameObject topOuterWall;
