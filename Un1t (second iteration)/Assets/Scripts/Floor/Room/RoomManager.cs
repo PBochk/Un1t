@@ -42,10 +42,10 @@ public class RoomManager : MonoBehaviour
 
         //This solution for getting player's reference is for demonstration purpose only. Should be optimized.
         GameObject player = GameObject.FindWithTag("Player");
-        spawnersManager.SetSpawners(spawnableEnemies[0], transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
+        EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
+        spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
 
         CreateEntities();
-        //spawnersManager.CreateSpawners();
     }
 
     public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner)

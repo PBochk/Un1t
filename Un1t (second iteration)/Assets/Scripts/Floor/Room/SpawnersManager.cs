@@ -14,7 +14,6 @@ public class SpawnersManager
 
     //TODO: implement fully
     //This version is for demonstration purpose only.
-
     public void SetSpawners(EnemyController enemy, Vector2 position, EnemyTargetComponent enemyTarget, RoomEnemySpawner spawner)
     {
         enemySpawners.Add(RoomEnemySpawner.Instantiate(spawner));
