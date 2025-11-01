@@ -11,6 +11,8 @@ using UnityEngine;
 /// </summary>
 public class FloorManager : MonoBehaviour
 {
+    [SerializeField] private FloorEnemiesList spawnableEnemies;
+
     [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
     [SerializeField] private TemplateRoomInfo[] availableStartRooms;
 
@@ -29,6 +31,8 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject rightTopCorner;
     [SerializeField] private GameObject leftBottomCorner;
     [SerializeField] private GameObject rightBottomCorner;
+
+    [SerializeField] RoomEnemySpawner enemySpawner;
 
     private readonly RoomGrid rooms = new();
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
@@ -287,7 +291,9 @@ public class FloorManager : MonoBehaviour
 
     private void CreateRoomContent(GameObject room) 
     {
-        room.GetComponent<RoomManager>().CreateContent();
+        RoomManager roomManager = room.GetComponent<RoomManager>();
+        roomManager.SetContent(spawnableEnemies.Enemies, enemySpawner);
+        roomManager.CreateContent();
     }
 
 
