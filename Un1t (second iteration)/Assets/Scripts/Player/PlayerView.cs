@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Sets animation triggers, plays sounds
 /// </summary>
-
+// TODO: rename methods according to conventions
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PlayerModelMB))]
 [RequireComponent(typeof(PlayerController))]
@@ -14,6 +14,7 @@ public class PlayerView : MonoBehaviour
     //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerMeleeWeaponController pickaxeController;
+    [SerializeField] private PlayerRangeWeaponController rangeController;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -26,6 +27,7 @@ public class PlayerView : MonoBehaviour
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         playerController.StartMelee.AddListener(OnMelee);
         pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
+        rangeController.StartRangeAnimation.AddListener(RangeAnimationStart);
     }
 
     private void Start()
@@ -35,10 +37,10 @@ public class PlayerView : MonoBehaviour
         playerModel.PlayerDeath += OnDeath;
     }
 
-    private void OnDisable()
-    {
-        playerModel.PlayerDeath -= OnDeath;
-    }
+    //private void OnDisable()
+    //{
+    //    playerModel.PlayerDeath -= OnDeath;
+    //}
 
     public void OnMove(InputValue value)
     {
@@ -69,6 +71,11 @@ public class PlayerView : MonoBehaviour
     private void PickaxeAnimationStart()
     {
         animator.SetTrigger("PickaxeAttack");
+    }
+
+    private void RangeAnimationStart()
+    {
+        animator.SetTrigger("RangeAttack");
     }
 
     private void OnDeath()

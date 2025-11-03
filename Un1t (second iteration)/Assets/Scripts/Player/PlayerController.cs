@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
+    public UnityEvent RangeShot;
     public UnityEvent ToolChange;
     //public UnityEvent<Vector2> MouseMove;
 
@@ -98,6 +99,11 @@ public class PlayerController : MonoBehaviour
     public void OnMeleeActiveEnd()
     {
         EndMeleeActive?.Invoke();
+    }
+
+    private void OnRangeShot()
+    {
+        RangeShot?.Invoke();
     }
 
     public void OnMouseMove(InputValue value)
