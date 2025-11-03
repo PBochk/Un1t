@@ -379,7 +379,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 560221877772887277}
-  attackSound: {fileID: 0}
   meleeController: {fileID: 8975838670633704521}
   pickaxeController: {fileID: 8034888495029483493}
 --- !u!114 &4697431313275488480
@@ -679,8 +678,16 @@ PrefabInstance:
       value: -0.094
       objectReference: {fileID: 0}
     - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
