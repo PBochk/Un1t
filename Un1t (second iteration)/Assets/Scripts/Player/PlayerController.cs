@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
+    public UnityEvent RangeShot;
     public UnityEvent ToolChange;
     //public UnityEvent<Vector2> MouseMove;
 
@@ -100,6 +101,11 @@ public class PlayerController : MonoBehaviour
         EndMeleeActive?.Invoke();
     }
 
+    private void OnRangeShot()
+    {
+        RangeShot?.Invoke();
+    }
+
     public void OnMouseMove(InputValue value)
     {
         var screenPosition = value.Get<Vector2>();
@@ -151,13 +157,7 @@ public class PlayerController : MonoBehaviour
     // TODO: remove when animations are finished
     private void ChangeTool()
     {
-        if (meleeController)
-        {
-            meleeController.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
-        }
-        if (pickaxeController)
-        {
-            pickaxeController.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
-        }
+        meleeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
+        pickaxeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerModel
     private float currentHealth;
     private float movingSpeed;
     private bool isRestrained;
+    private bool isDead = false;
     public float MaxHealth
     { 
         get => maxHealth;
@@ -93,11 +94,13 @@ public class PlayerModel
 
     public void TakeHeal(float heal)
     {
+        if (isDead) return;
         CurrentHealth += heal;
     }
 
     public void TakeDamage(float decrement)
     {
+        if(isDead) return;
         CurrentHealth -= decrement;
         CheckHealth();
     }
@@ -106,6 +109,8 @@ public class PlayerModel
     {
         if (CurrentHealth <= 0)
         {
+            isDead = true;
+            SetPlayerRestrained(true);
             PlayerDeath?.Invoke();
         }
     }

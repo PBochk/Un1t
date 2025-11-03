@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerRangeWeaponModelMB))]
 public class PlayerRangeWeaponController : MonoBehaviour
@@ -9,11 +10,14 @@ public class PlayerRangeWeaponController : MonoBehaviour
     private PlayerRangeWeaponModelMB modelMB;
     private PlayerController playerController;
 
+    public UnityEvent StartRangeAnimation;
+
     private void Awake()
     {
         modelMB = GetComponent<PlayerRangeWeaponModelMB>();
         playerController = GetComponentInParent<PlayerController>();
         playerController.StartRange.AddListener(StartRange);
+        playerController.RangeShot.AddListener(ShootProjectile);
     }
 
     private void Start()
@@ -23,14 +27,22 @@ public class PlayerRangeWeaponController : MonoBehaviour
 
     private void StartRange()
     {
+        Debug.Log("Start range animation attempt");
         if (model.Ammo > 0 && modelMB.IsAttackReady)
         {
-            var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
-            var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, GetShotAngle(shotDirection));
-            spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * modelMB.InitialForce);
+            Debug.Log("Start range animation");
+            StartRangeAnimation?.Invoke();
             StartCoroutine(modelMB.WaitForAttackCooldown());
-            model.SpendAmmo();
         }
+    }
+
+    private void ShootProjectile()
+    {
+        Debug.Log("Shoot projectile");
+        var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
+        var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, GetShotAngle(shotDirection));
+        spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * modelMB.InitialForce);
+        model.SpendAmmo();
     }
 
     private Quaternion GetShotAngle(Vector2 shotDirection)

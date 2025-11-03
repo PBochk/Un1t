@@ -379,9 +379,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 560221877772887277}
-  attackSound: {fileID: 0}
   meleeController: {fileID: 8975838670633704521}
   pickaxeController: {fileID: 8034888495029483493}
+  rangeController: {fileID: 3966181562768119467}
 --- !u!114 &4697431313275488480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +407,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   StartRange:
+    m_PersistentCalls:
+      m_Calls: []
+  RangeShot:
     m_PersistentCalls:
       m_Calls: []
   ToolChange:
@@ -475,11 +478,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3523906319305633971, guid: 700d54515606384489f32699dbed498f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.495
       objectReference: {fileID: 0}
     - target: {fileID: 3523906319305633971, guid: 700d54515606384489f32699dbed498f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.555
       objectReference: {fileID: 0}
     - target: {fileID: 3523906319305633971, guid: 700d54515606384489f32699dbed498f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -538,6 +541,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5498633260368007851, guid: 700d54515606384489f32699dbed498f, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498633260368007851, guid: 700d54515606384489f32699dbed498f, type: 3}
       propertyPath: m_Name
       value: RangeWeapon
       objectReference: {fileID: 0}
@@ -584,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 311717351828104673, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919710710951845680, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_LocalScale.x
@@ -679,8 +686,16 @@ PrefabInstance:
       value: -0.094
       objectReference: {fileID: 0}
     - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -819,6 +834,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -3865222276603045756, guid: a578e673d7056f94a95dae6464bddf92, type: 3}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
