@@ -826,6 +826,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -3865222276603045756, guid: a578e673d7056f94a95dae6464bddf92, type: 3}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735111445164139591, guid: d15b745b6c7dcc544bbbc86ca784b4cc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

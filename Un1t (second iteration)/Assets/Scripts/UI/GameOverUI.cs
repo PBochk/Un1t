@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,7 +33,6 @@ public class GameOverUI : MonoBehaviour
     private void OnPlayerDeath()
     {
         canvas.enabled = true;
-        pauseManager.PauseScene();
     }
 
     private void ReloadScene()

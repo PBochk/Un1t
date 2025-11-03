@@ -151,13 +151,7 @@ public class PlayerController : MonoBehaviour
     // TODO: remove when animations are finished
     private void ChangeTool()
     {
-        if (meleeController)
-        {
-            meleeController.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
-        }
-        if (pickaxeController)
-        {
-            pickaxeController.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
-        }
+        meleeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
+        pickaxeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
     }
 }

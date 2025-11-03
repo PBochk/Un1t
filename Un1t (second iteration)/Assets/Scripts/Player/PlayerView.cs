@@ -14,6 +14,7 @@ public class PlayerView : MonoBehaviour
     //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerMeleeWeaponController pickaxeController;
+    private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
     private bool isFacingRight = true;
@@ -25,6 +26,18 @@ public class PlayerView : MonoBehaviour
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         playerController.StartMelee.AddListener(OnMelee);
         pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
+    }
+
+    private void Start()
+    {
+        playerModel = GetComponent<PlayerModelMB>().PlayerModel;
+        // TODO: move subscription in OnEnable after model initialization rework
+        playerModel.PlayerDeath += OnDeath;
+    }
+
+    private void OnDisable()
+    {
+        playerModel.PlayerDeath -= OnDeath;
     }
 
     public void OnMove(InputValue value)
@@ -41,7 +54,7 @@ public class PlayerView : MonoBehaviour
             // Line below changes player's facing direction more correctly, but breaks camera
             // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
-        animator.SetBool("IsRunningForward", moveDirection.x != 0 || moveDirection.y != 0);
+        animator.SetBool("IsRunningForward", moveDirection != Vector2.zero);
     }
     private void MeleeAttackAnimationStart()
     {
@@ -56,5 +69,10 @@ public class PlayerView : MonoBehaviour
     private void PickaxeAnimationStart()
     {
         animator.SetTrigger("PickaxeAttack");
+    }
+
+    private void OnDeath()
+    {
+        animator.SetTrigger("PlayerDeath");
     }
 }

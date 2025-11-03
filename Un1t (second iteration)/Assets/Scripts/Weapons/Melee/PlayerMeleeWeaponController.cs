@@ -32,6 +32,14 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     {
         base.Start();
         playerModel = GetComponentInParent<PlayerModelMB>().PlayerModel;
+        //TODO: remove this subscription
+        playerModel.PlayerDeath += () => SetRendererActive(false);
+    }
+
+    private void OnDisable()
+    {
+        playerModel.PlayerDeath -= () => SetRendererActive(false);
+
     }
 
     /// <summary>
