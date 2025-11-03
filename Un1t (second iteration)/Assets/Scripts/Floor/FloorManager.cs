@@ -9,6 +9,7 @@ using UnityEngine;
 /// <summary>
 /// Creates and manages all rooms in the game level
 /// </summary>
+[RequireComponent(typeof(GroundManager))]
 public class FloorManager : MonoBehaviour
 {
     [SerializeField] private FloorEnemiesList spawnableEnemies;
@@ -33,14 +34,19 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject leftBottomCorner;
     [SerializeField] private GameObject rightBottomCorner;
 
-    [SerializeField] RoomEnemySpawner enemySpawner;
-    [SerializeField] Rock rock;
+    [SerializeField] private RoomEnemySpawner enemySpawner;
+    [SerializeField] private Rock rock;
 
     private readonly RoomGrid rooms = new();
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
-    void Awake()
+    private GroundManager groundManager;
+
+    private void Awake()
     {
+        groundManager = GetComponent<GroundManager>();
+        groundManager.CreateTileGrid();
+
         groupedRoomsByWalls = availableCommonRooms
             .GroupBy(room => room.Info.OuterWalls)
             .ToDictionary(
