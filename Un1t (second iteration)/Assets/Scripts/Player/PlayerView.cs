@@ -41,7 +41,7 @@ public class PlayerView : MonoBehaviour
             // Line below changes player's facing direction more correctly, but breaks camera
             // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
-        animator.SetBool("IsRunningForward", moveDirection.x != 0);
+        animator.SetBool("IsRunningForward", moveDirection.x != 0 || moveDirection.y != 0);
     }
     private void MeleeAttackAnimationStart()
     {
