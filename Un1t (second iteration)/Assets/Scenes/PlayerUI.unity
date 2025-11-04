@@ -4146,14 +4146,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1086053462729865426, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
-    - target: {fileID: 1086053462729865426, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1429727313
-      objectReference: {fileID: 0}
     - target: {fileID: 3199718000143456601, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: pauseManager
       value: 
@@ -4162,14 +4154,6 @@ PrefabInstance:
       propertyPath: playerModelMB
       value: 
       objectReference: {fileID: 831836296}
-    - target: {fileID: 3370739300095299695, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
-    - target: {fileID: 3370739300095299695, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1429727313
-      objectReference: {fileID: 0}
     - target: {fileID: 4107090773148581290, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: pauseManager
       value: 
@@ -4177,14 +4161,6 @@ PrefabInstance:
     - target: {fileID: 5923751415565308295, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: m_Name
       value: Menus
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923751415565308295, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166436741145504665, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7279367299813914039, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: m_LocalPosition.x
