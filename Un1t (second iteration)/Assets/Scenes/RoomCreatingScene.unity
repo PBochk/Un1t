@@ -689,6 +689,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4559913882765723368, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: groundTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a6dca9d30a5d2243a43ae6566df7f45, type: 2}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: rock
       value: 
@@ -697,6 +701,14 @@ PrefabInstance:
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 5488166656052903477, guid: 8b2af04592ee649a787baf3bc80914ff, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: topOuterWall
+      value: 
+      objectReference: {fileID: 1487069661727597505, guid: 2009d4db0f3e7cf448f7ae29b11aa326, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: leftOuterWall
+      value: 
+      objectReference: {fileID: 1487069661727597505, guid: 018db5c29ae890244a4a0d14f5d3aaea, type: 3}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: leftTopCorner
       value: 
@@ -710,9 +722,17 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: rightOuterWall
+      value: 
+      objectReference: {fileID: 1487069661727597505, guid: 7d3a8f8ca2fbebf4b9b0c25f3ca4183d, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: rightTopCorner
       value: 
       objectReference: {fileID: 8252421113222450477, guid: 2b224560a8dd45d4f8d2d67532b0ab95, type: 3}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: bottomOuterWall
+      value: 
+      objectReference: {fileID: 1487069661727597505, guid: 2068aa762030f3e47b223bdbf339e11c, type: 3}
     - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: leftBottomCorner
       value: 

@@ -2,13 +2,13 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class OuterWallBuilder : MonoBehaviour
+public class OuterWallBuilder : TilesBuilder
 {
     public const float TILE_SIZE = 1f;
 
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
-    public Vector2Int SizeTiles => sizeTiles;
+    public Vector2 Position => transform.position;
 
     public int Thickness => thickness;
     public int Length => length;
@@ -23,7 +23,6 @@ public class OuterWallBuilder : MonoBehaviour
     protected ShurfsSpawnDirection shurfsSpawnDirection =
         ShurfsSpawnDirection.Unidentified;
 
-    protected Vector2Int sizeTiles;
     protected bool[] tilesAreEmpty;
 
     private const int SHURF_WIDTH = 2;
@@ -34,7 +33,7 @@ public class OuterWallBuilder : MonoBehaviour
     private (int start, int end)[] emptyTilesForShurfesNumbersCouples;
     private bool wasShurfesCreated;
 
-    public void Create()
+    public override void Create()
     {
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
             ? new Vector3(TILE_SIZE * (sizeTiles.x - 1) / 2, 0)
@@ -51,7 +50,7 @@ public class OuterWallBuilder : MonoBehaviour
         }
     }
 
-    public virtual void SetConfiguration()
+    public override void SetConfiguration()
     {
         SpriteRenderer wallRenderer = GetComponent<SpriteRenderer>();
 
@@ -72,7 +71,7 @@ public class OuterWallBuilder : MonoBehaviour
             length = sizeTiles.y;
         }
 
-        CheckSize();
+        CheckSize(wallRenderer);
 
     }
 
@@ -181,7 +180,7 @@ public class OuterWallBuilder : MonoBehaviour
                     horizontalPosition + wallOffset * (shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1),
                     basePosition.y - shurfCenter * TILE_SIZE
                 );
-                invisibleWallSize = new Vector2(TILE_SIZE, (SHURF_WIDTH + 2) * TILE_SIZE);
+                invisibleWallSize = new Vector2(TILE_SIZE, (SHURF_WIDTH + 1 + 1) * TILE_SIZE);
 
                 if (shurfFirstSideThickness != 1)
                     firstSidePosition -= new Vector3(0f, 1f);
@@ -190,7 +189,7 @@ public class OuterWallBuilder : MonoBehaviour
             CreateFragment(shurfFirstSideTile, SHURF_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
             CreateFragment(shurfSecondSideTile, SHURF_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
 
-            GameObject invisibleWall = new("InvisibleShurfCover");
+            GameObject invisibleWall = new("InvisibleShurfWall");
             invisibleWall.transform.SetParent(transform);
 
             BoxCollider2D collider = invisibleWall.AddComponent<BoxCollider2D>();
@@ -251,8 +250,9 @@ public class OuterWallBuilder : MonoBehaviour
     public enum Direction : sbyte { Vertical, Horizontal }
     protected enum ShurfsSpawnDirection : sbyte { Unidentified, Top, Bottom, Left, Right }
 
-    protected virtual void CheckSize()
+    protected override void CheckSize(SpriteRenderer renderer)
     {
+        base.CheckSize(renderer);
         if (shurfsSpawnDirection == ShurfsSpawnDirection.Unidentified)
             return;
 

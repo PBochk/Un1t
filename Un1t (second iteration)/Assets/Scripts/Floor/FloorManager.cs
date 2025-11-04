@@ -9,7 +9,6 @@ using UnityEngine;
 /// <summary>
 /// Creates and manages all rooms in the game level
 /// </summary>
-[RequireComponent(typeof(GroundManager))]
 public class FloorManager : MonoBehaviour
 {
     [SerializeField] private FloorEnemiesList spawnableEnemies;
@@ -24,10 +23,10 @@ public class FloorManager : MonoBehaviour
     [Header("Room types dynamic generation")]
     [SerializeField] private GameObject roomTemplate;
 
-    [SerializeField] private GameObject topOuterWall;
-    [SerializeField] private GameObject bottomOuterWall;
-    [SerializeField] private GameObject leftOuterWall;
-    [SerializeField] private GameObject rightOuterWall;
+    [SerializeField] private OuterWallBuilder topOuterWall;
+    [SerializeField] private OuterWallBuilder bottomOuterWall;
+    [SerializeField] private OuterWallBuilder leftOuterWall;
+    [SerializeField] private OuterWallBuilder rightOuterWall;
 
     [SerializeField] private GameObject leftTopCorner;
     [SerializeField] private GameObject rightTopCorner;
@@ -40,13 +39,8 @@ public class FloorManager : MonoBehaviour
     private readonly RoomGrid rooms = new();
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
-    private GroundManager groundManager;
-
     private void Awake()
     {
-        groundManager = GetComponent<GroundManager>();
-        groundManager.CreateTileGrid();
-
         groupedRoomsByWalls = availableCommonRooms
             .GroupBy(room => room.Info.OuterWalls)
             .ToDictionary(
@@ -107,6 +101,8 @@ public class FloorManager : MonoBehaviour
     /// <param name="roomPosition">Position where to create the room</param>
     private void CreateAnotherOneRoom(int roomsCount, in FloorGridPosition roomPosition)
     {
+        if (rooms[roomPosition] != null) return;
+
         List<NeighborRoomDescription> availableRoomsToGenerate = new();
         List<FloorGridPosition> usedPositionsToGenerate = new();
 
