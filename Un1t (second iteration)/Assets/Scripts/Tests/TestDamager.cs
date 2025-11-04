@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TestDamager : MonoBehaviour
 {
-    private float damage = 1.0f;
+    [SerializeField] private float damage = 1.0f;
     private AttackData attackData;
     private void Awake()
     {

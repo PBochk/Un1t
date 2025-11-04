@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -189.8, y: 126.3}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -656.39154, y: 268.30945}
+  m_SizeDelta: {x: 200, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1252042432814588661
 CanvasRenderer:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -199,7 +199,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &548055205115364952
 MonoBehaviour:
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1800, y: 900}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -253,8 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3888e942c06ff05468ceda04c83b9512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModelMB: {fileID: 0}
-  rangeModelMB: {fileID: 0}
   ammoText: {fileID: 8887822339001357362}
   currentTool: {fileID: 7598838388834060849}
   bareHands: {fileID: 8995154407686431259, guid: 85c5b35bf91cb9240bb89ab737cefbf7, type: 3}
@@ -271,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8961590833255985}
   - component: {fileID: 7954380654324965861}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ProjectileIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,15 +285,15 @@ RectTransform:
   m_GameObject: {fileID: 5668569117688784958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 500, y: 500, z: 500}
+  m_LocalScale: {x: 150, y: 150, z: 150}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7072449748886836803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -356.40842, y: 130.99054}
-  m_SizeDelta: {x: 0.16, y: 0.09}
+  m_AnchoredPosition: {x: -823, y: 273}
+  m_SizeDelta: {x: 0.75, y: 0.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &7954380654324965861
 SpriteRenderer:
@@ -338,8 +336,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1429727313
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_Sprite: {fileID: -1229858627709956937, guid: 32682fec987227b49ad97ad83b151993, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
