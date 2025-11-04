@@ -17,7 +17,7 @@ public class TestDummy : MonoBehaviour
         Debug.Log("Damage taken: " + attackData.Damage + " current hp: " + health);
         if (health <= 0)
         {
-            Death.Invoke();
+            Death?.Invoke();
             Destroy(gameObject);
         }
     }

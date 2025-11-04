@@ -19,7 +19,7 @@ public class PlayerRangeWeaponModel
         private set
         {
             ammo = value;
-            AmmoChanged.Invoke();
+            AmmoChanged?.Invoke();
         }
     }
 

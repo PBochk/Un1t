@@ -15,6 +15,6 @@ public class Hitable : MonoBehaviour
     public UnityEvent<AttackData> HitTaken;
     public void TakeHit(AttackData attackData)
     {
-        HitTaken.Invoke(attackData);
+        HitTaken?.Invoke(attackData);
     }
 }

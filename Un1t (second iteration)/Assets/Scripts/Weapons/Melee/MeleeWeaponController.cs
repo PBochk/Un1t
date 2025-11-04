@@ -40,10 +40,9 @@ public abstract class MeleeWeaponController : MonoBehaviour
     /// </summary>
     protected virtual void StartMelee()
     {
-        if (modelMB.IsAttackReady)
-        {
-            damagedTargets.Clear();
-        }
+        //if (modelMB.IsAttackReady)
+        //{
+        //}
     }
 
     /// <summary>
@@ -91,6 +90,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected virtual void EndMeleeActive()
     {
         modelMB.EndActive();
+        damagedTargets.Clear();
     }
 }
 

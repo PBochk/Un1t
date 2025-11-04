@@ -13,7 +13,7 @@ public class TestDamager : MonoBehaviour
         Debug.Log("OnTriggerEnter");
         if (collision.gameObject.TryGetComponent<Hitable>(out Hitable hittable))
         {
-            hittable.HitTaken.Invoke(attackData);
+            hittable.HitTaken?.Invoke(attackData);
             Debug.Log(collision.gameObject.name + "took damage: " + damage);
         }
     }

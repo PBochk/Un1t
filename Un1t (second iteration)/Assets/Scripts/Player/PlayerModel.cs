@@ -33,7 +33,7 @@ public class PlayerModel
         private set
         {
             isRestrained = value;
-            PlayerRestrained.Invoke();
+            PlayerRestrained?.Invoke();
         }
     }
 
@@ -50,7 +50,7 @@ public class PlayerModel
         private set
         {
             currentXP = value;
-            ExperienceChanged.Invoke();
+            ExperienceChanged?.Invoke();
         }
     }
 
@@ -60,7 +60,7 @@ public class PlayerModel
         private set
         {
             nextLevelXP = value;
-            ExperienceChanged.Invoke();
+            ExperienceChanged?.Invoke();
         }
     }
 
