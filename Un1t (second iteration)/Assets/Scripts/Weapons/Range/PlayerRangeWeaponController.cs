@@ -40,16 +40,8 @@ public class PlayerRangeWeaponController : MonoBehaviour
     {
         Debug.Log("Shoot projectile");
         var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
-        var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, GetShotAngle(shotDirection));
+        var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.FromToRotation(playerTransform.position, shotDirection));
         spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * modelMB.InitialForce);
         model.SpendAmmo();
-    }
-
-    private Quaternion GetShotAngle(Vector2 shotDirection)
-    {
-        var rotationZ = Mathf.Atan2(shotDirection.y, shotDirection.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(playerTransform.localRotation.x,
-                                playerTransform.localRotation.y, 
-                                rotationZ);
     }
 }
