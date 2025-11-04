@@ -44,7 +44,7 @@ public class PlayerStatsUI : MonoBehaviour
     private void OnHealthChanged()
     {
         hpText.text = playerModel.CurrentHealth + " / " + playerModel.MaxHealth;
-        var number = Mathf.FloorToInt((1 - playerModel.CurrentHealth / playerModel.MaxHealth) * hpCount);
+        var number = playerModel.CurrentHealth <= 0 ? hpCount : Mathf.FloorToInt((1 - playerModel.CurrentHealth / playerModel.MaxHealth) * hpCount);
         hpBar.sprite = hpSprites[number];
     }
     private void OnExperienceChanged()

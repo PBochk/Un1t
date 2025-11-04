@@ -17,6 +17,7 @@ public class PlayerModel
             HealthChanged?.Invoke();
         }
     }
+    //TODO: add value non-negative validation
     public float CurrentHealth
     {
         get => currentHealth;
@@ -150,7 +151,7 @@ public class PlayerModel
     public void UpgradeHealth()
     {
         MaxHealth += healthUpgrade;
-        CurrentHealth += healthUpgrade;
+        //CurrentHealth += healthUpgrade;
     }
     
     // TODO: remove
