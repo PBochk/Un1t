@@ -17,6 +17,7 @@ public class PlayerModel
             HealthChanged?.Invoke();
         }
     }
+    //TODO: add value non-negative validation
     public float CurrentHealth
     {
         get => currentHealth;

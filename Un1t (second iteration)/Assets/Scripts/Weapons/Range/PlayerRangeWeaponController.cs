@@ -27,10 +27,8 @@ public class PlayerRangeWeaponController : MonoBehaviour
 
     private void StartRange()
     {
-        Debug.Log("Start range animation attempt");
         if (model.Ammo > 0 && modelMB.IsAttackReady)
         {
-            Debug.Log("Start range animation");
             StartRangeAnimation?.Invoke();
             StartCoroutine(modelMB.WaitForAttackCooldown());
         }
@@ -38,7 +36,6 @@ public class PlayerRangeWeaponController : MonoBehaviour
 
     private void ShootProjectile()
     {
-        Debug.Log("Shoot projectile");
         var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
         var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.FromToRotation(playerTransform.position, shotDirection));
         spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * modelMB.InitialForce);
