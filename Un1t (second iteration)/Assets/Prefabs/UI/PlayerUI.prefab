@@ -62,6 +62,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatsUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1770704503008312076, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559553178794164484, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00012207031
+      objectReference: {fileID: 0}
     - target: {fileID: 8032479278380416835, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -240,9 +248,63 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3196486188397301313, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 3196486188397301313, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 3196486188397301313, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5546438659839958534, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 5546438659839958534, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 5546438659839958534, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359781758201160258, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 6359781758201160258, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 6359781758201160258, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6362834484404230852, guid: b887e5fd1340c204b925c788327528cf, type: 3}
       propertyPath: m_Name
       value: UpgradeUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410562435013515247, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_text
+      value: 'level up!
+
+        choose one upgrade'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410562435013515247, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 8410562435013515247, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 8410562435013515247, guid: b887e5fd1340c204b925c788327528cf, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -265,6 +327,10 @@ PrefabInstance:
     - target: {fileID: 3326663156148268487, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_Name
       value: ToolsUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599864454888579060, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 273
       objectReference: {fileID: 0}
     - target: {fileID: 7072449748886836803, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_Pivot.x
@@ -344,6 +410,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7072449748886836803, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887822339001357362, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 8887822339001357362, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
+    - target: {fileID: 8887822339001357362, guid: cf155ae1cb35d16468aec0a00b214dc3, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
