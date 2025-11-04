@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789d37819a4af73468d969759e23bb53, type: 3}
   m_Name: Floor1GroundTiles
   m_EditorClassIdentifier: 
-  groundTile: {fileID: 0}
-  smallDecorationTiles: []
-  largeDecorationTiles: []
+  groundTile: {fileID: 3720874285078348273, guid: 9775668d765a3d34fa33917f51f9a1b1, type: 3}
+  smallDecorationTiles:
+  - {fileID: 3720874285078348273, guid: f2038a99de5159c46adf5a88cbf328a7, type: 3}
+  - {fileID: 3720874285078348273, guid: a7cfddfaa11b3d144abd2a3f07027b8b, type: 3}
+  - {fileID: 3720874285078348273, guid: c5b0fbc83df539045b06abf72156c003, type: 3}
+  - {fileID: 3720874285078348273, guid: eb1c8091b1614ca40b0bcf8b3849098c, type: 3}
+  - {fileID: 3720874285078348273, guid: f0bfd82cd59bee843966dca01aa214e2, type: 3}
+  - {fileID: 3720874285078348273, guid: fd4018cddccfbbb40bda9ca8e391e73a, type: 3}
+  largeDecorationTiles:
+  - {fileID: 3720874285078348273, guid: 938cf8ffd8345b444a1bb6f8cbaec6df, type: 3}
+  - {fileID: 3720874285078348273, guid: 930f346130e53e04ca5ba469b5c9eed4, type: 3}

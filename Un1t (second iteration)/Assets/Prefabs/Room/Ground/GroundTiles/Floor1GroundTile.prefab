@@ -57,6 +57,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -4952179146898214801, guid: 576c0e8a36bac664aa8ec177a9a9298b, type: 3}
     - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_DrawMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1028446581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}

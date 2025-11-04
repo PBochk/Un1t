@@ -1,10 +1,17 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public abstract class GroundBuilder : TilesBuilder
 {
-    [SerializeField] protected GroundDecorationsTiles groundDecorationsTiles;
+    [SerializeField] protected GroundTiles groundDecorationsTiles;
 
-    public override void Create() { }
+    public override void Create() 
+    {
+        GameObject tile = Instantiate(groundDecorationsTiles.GroundTile, transform);
+        SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();
+        tileRenderer.size = sizeTiles;
+        tileRenderer.enabled = false;
+    }
 
     public override void SetConfiguration()
     {

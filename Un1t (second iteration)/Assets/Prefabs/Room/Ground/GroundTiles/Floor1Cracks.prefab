@@ -9,8 +9,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,14 +56,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4194279139780166817, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_Name
-      value: Floor1Rock1Tile
+      value: Floor1Cracks
       objectReference: {fileID: 0}
     - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 003949565531bee40ad2c41cb7ad6da7, type: 3}
+      objectReference: {fileID: 21300000, guid: e4b351c045dd6ac4290c241d56b213e2, type: 3}
     - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_DrawMode
       value: 0
@@ -73,16 +81,8 @@ PrefabInstance:
       value: 408425189
       objectReference: {fileID: 0}
     - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
-      propertyPath: m_SpriteTileMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
-      propertyPath: m_AdaptiveModeThreshold
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
