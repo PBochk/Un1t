@@ -50,7 +50,7 @@ public class PlayerStatsUI : MonoBehaviour
     private void OnExperienceChanged()
     {
         xpText.text = playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
-        var number = Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpCount);
+        var number = playerModel.CurrentXP >= playerModel.NextLevelXP ? 0 : Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpCount);
         xpBar.sprite = xpSprites[number];
     }
 }

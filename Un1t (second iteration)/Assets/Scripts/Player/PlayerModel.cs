@@ -151,7 +151,7 @@ public class PlayerModel
     public void UpgradeHealth()
     {
         MaxHealth += healthUpgrade;
-        //CurrentHealth += healthUpgrade;
+        CurrentHealth += healthUpgrade;
     }
     
     // TODO: remove
