@@ -33,6 +33,8 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject leftBottomCorner;
     [SerializeField] private GameObject rightBottomCorner;
 
+    [SerializeField] private GameObject standardRoomGround;
+
     [SerializeField] private RoomEnemySpawner enemySpawner;
     [SerializeField] private Rock rock;
 
@@ -122,7 +124,7 @@ public class FloorManager : MonoBehaviour
             if (!room.Wall.HasValue)
                 availableRoomsToGenerate.Add(room);
 
-        int exitsCount = roomsCount >= 0 
+        int exitsCount = roomsCount >= 0
             ? UnityEngine.Random.Range(1, Unity.Mathematics.math.min(availableRoomsToGenerate.Count, roomsCount))
             : 0;
 
@@ -136,7 +138,7 @@ public class FloorManager : MonoBehaviour
             availableRoomsToGenerate[randomIndex].Wall = RoomOuterWalls.Wall.CentreExit;
             availableRoomsToGenerate.RemoveAt(randomIndex);
         }
-      
+
         topRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
         bottomRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
         leftRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
@@ -176,7 +178,7 @@ public class FloorManager : MonoBehaviour
     /// <param name="position">Position to place the room</param>
     private void GenerateRoom(RoomInfo room, in FloorGridPosition position)
     {
-        GameObject roomInstance = Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)position * RoomInfo.SIZE),
+        GameObject roomInstance = Instantiate(room.RoomPrefab, (Vector2)((Vector2Int)position * RoomInfo.Size),
             Quaternion.identity, transform);
 
         rooms[position] = room;
@@ -293,7 +295,7 @@ public class FloorManager : MonoBehaviour
     }
     #endregion
 
-    private void CreateRoomContent(GameObject room) 
+    private void CreateRoomContent(GameObject room)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
         roomManager.SetContent(spawnableEnemies.Enemies, enemySpawner, rock);
@@ -306,7 +308,7 @@ public class FloorManager : MonoBehaviour
 
     private void ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition position)
     {
-        GameObject roomInstance = Instantiate(roomTemplate, (Vector2)((Vector2Int)position * RoomInfo.SIZE), Quaternion.identity, transform);
+        GameObject roomInstance = Instantiate(roomTemplate, (Vector2)((Vector2Int)position * RoomInfo.Size), Quaternion.identity, transform);
         Vector2 roomCenter = (Vector2)roomInstance.transform.position;
 
         Instantiate(topOuterWall, new Vector2(0, 6) + roomCenter, Quaternion.identity, roomInstance.transform)
@@ -329,6 +331,8 @@ public class FloorManager : MonoBehaviour
         Instantiate(leftBottomCorner, new Vector2(8.5f, 5) + roomCenter, Quaternion.identity, roomInstance.transform);
         Instantiate(rightTopCorner, new Vector2(-8.5f, -5) + roomCenter, Quaternion.identity, roomInstance.transform);
         Instantiate(leftTopCorner, new Vector2(8.5f, -5) + roomCenter, Quaternion.identity, roomInstance.transform);
+
+        Instantiate(standardRoomGround, roomCenter, Quaternion.identity, roomInstance.transform);
 
         rooms[position] = new(roomInstance, roomOuterWalls);
 

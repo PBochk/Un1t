@@ -67,17 +67,18 @@ public class RoomManager : MonoBehaviour
         for (var i = 0; i < transform.childCount; i++)
         {
             GameObject outerWall = transform.GetChild(i).gameObject;
-            if (outerWall.TryGetComponent(out OuterWallBuilder wallBuilder))
+            if (outerWall.TryGetComponent(out TilesBuilder tilesBuilder))
             {
-                wallBuilder.SetConfiguration();
-                if (wallBuilder.CanCreateShurf && wallBuilder.Length > 5)
+                tilesBuilder.SetConfiguration();
+                if (tilesBuilder is OuterWallBuilder wallBuilder
+                    && wallBuilder.CanCreateShurf && wallBuilder.Length > 5)
                 {
                     int start = wallBuilder.Length / 2;
                     int end = start + 1;
                     wallBuilder.SetShurfesLocation((start, end));
                 }
 
-                wallBuilder.Create();
+                tilesBuilder.Create();
             }
 
             outerWalls.Add(outerWall);

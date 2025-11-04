@@ -234,7 +234,6 @@ public class OuterWallBuilder : TilesBuilder
             collider.size = tileSize;
             collider.offset = Vector2.zero;
         }
-
     }
 
     private Vector3 CalculateWallFragmentPosition(int startIndex, int fragmentSize, in Vector3 basePosition)

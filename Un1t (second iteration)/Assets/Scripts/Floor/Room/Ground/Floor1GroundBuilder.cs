@@ -7,25 +7,20 @@ public class Floor1GroundBuilder : GroundBuilder
     private const float LARGE_DECORATION_DENSITY = 0.05f;
     private const int LARGE_DECORATION_SIZE = 4;
 
-    private void Awake()
-    {
-        SetConfiguration();
-        Create();
-    }
-
     public override void Create()
     {
         base.Create();
+
         GenerateDecorations();
     }
 
     private void GenerateDecorations()
     {
         bool[,] tileGrid = new bool[sizeTiles.x, sizeTiles.y];
-        Vector3 topLeftPosition = transform.position - new Vector3(sizeTiles.x / 2, sizeTiles.y / 2) + new Vector3(0.5f, 0);
+        Vector3 topLeftPosition = transform.position - new Vector3(sizeTiles.x / 2, sizeTiles.y / 2);
 
-        GenerateLargeDecorations(tileGrid, topLeftPosition);
-        GenerateSmallDecorations(tileGrid, topLeftPosition);
+        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 2));
+        GenerateSmallDecorations(tileGrid, topLeftPosition + new Vector3(0.5f, 0));
     }
 
     private void GenerateLargeDecorations(bool[,] largeOccupiedGrid, Vector3 topLeftPosition)
