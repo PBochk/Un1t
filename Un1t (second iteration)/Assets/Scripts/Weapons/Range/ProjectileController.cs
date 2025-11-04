@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
         {
             if (target.TryGetComponent<Hitable>(out var hittable))
             {
-                hittable.HitTaken.Invoke(model.AttackData);
+                hittable.HitTaken?.Invoke(model.AttackData);
             }
         }
        Destroy(gameObject);
