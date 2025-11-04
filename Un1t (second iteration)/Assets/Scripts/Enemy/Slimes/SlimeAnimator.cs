@@ -5,10 +5,31 @@ using UnityEngine;
 public class SlimeAnimator : MonoBehaviour
 {
     public Animator animator { get; private set; }
+    
+    [Header("Atlases")]
+    [SerializeField] private Texture2D AppearAtlas;
+    [SerializeField] private Texture2D JumpAtlas;
+    [SerializeField] private Texture2D RangedAtlas;
+    [SerializeField] private Texture2D MeleeAtlas;
+    [SerializeField] private Texture2D DeathAtlas;
+    
+    [Header("Object references")]
+    [SerializeField] private SpriteRenderer sprite;
+    
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    public void PlayAppearAnimation()
+    {
+        animator.SetTrigger("SlimeAppearAnimation");
+    }
+
+    public void PlayDeathAnimation()
+    {
+        animator.SetTrigger("SlimeDeathAnimation");
     }
 
     public void PlayJumpAnimation()
