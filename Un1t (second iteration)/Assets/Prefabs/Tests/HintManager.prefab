@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1142834063585798818}
   - component: {fileID: 4751089813458842071}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HintManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,9 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HintOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  HintClosed:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &4571475276047446321
@@ -105,6 +102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5619789797274815103, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7064578963129292355, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
       propertyPath: hintText
       value: "ESC - \u041F\u0430\u0443\u0437\u0430"
@@ -116,6 +117,18 @@ PrefabInstance:
     - target: {fileID: 7089191844328188587, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -179,6 +192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintObject (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5619789797274815103, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7064578963129292355, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
       propertyPath: hintText
       value: "\u0427\u0442\u043E\u0431\u044B \u043F\u0440\u043E\u0439\u0442\u0438
@@ -192,6 +209,18 @@ PrefabInstance:
     - target: {fileID: 7089191844328188587, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -255,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintObject (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5619789797274815103, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7064578963129292355, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
       propertyPath: hintText
       value: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435:\\n WASD
@@ -272,6 +305,18 @@ PrefabInstance:
     - target: {fileID: 7089191844328188587, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656027070148588107, guid: 60860a1470c1fd94b82ceb074f65af88, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

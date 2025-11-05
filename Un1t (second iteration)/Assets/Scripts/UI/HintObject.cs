@@ -11,8 +11,8 @@ public class HintObject : MonoBehaviour
         HintManager.Instance.OpenHintWithText(hintText);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        HintManager.Instance.CloseHint();
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    HintManager.Instance.CloseHint();
+    //}
 }
