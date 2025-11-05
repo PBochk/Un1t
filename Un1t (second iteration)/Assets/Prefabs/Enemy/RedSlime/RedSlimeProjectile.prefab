@@ -24,6 +24,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5083682685185868751, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5083682685185868751, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -363896877
+      objectReference: {fileID: 0}
     - target: {fileID: 5668453742929815372, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: m_Name
       value: RedSlimeProjectile
