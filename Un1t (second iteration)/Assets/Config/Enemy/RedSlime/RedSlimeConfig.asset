@@ -15,5 +15,5 @@ MonoBehaviour:
   maxHealth: 6
   initialSpeedCoefficient: 1
   xpGain: 2
-  baseMoveSpeed: 1.8
+  baseMoveSpeed: 2.5
   aggroRange: 2

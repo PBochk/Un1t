@@ -8,6 +8,7 @@ public class SlimeRunawayState : EnemyState
     public UnityEvent jumpStart;
     
     [SerializeField] public float baseMoveTime { get; private set; } = 0.75f;
+    public override float MotionTime => baseMoveTime / model.NativeModel.SpeedCoeff;
     
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
@@ -30,7 +31,7 @@ public class SlimeRunawayState : EnemyState
         startPosition = enemyRb.position;
         direction =  (enemyRb.position - target.Position).normalized * distance;
         //TODO: Fix Possible DivisionByZeroException 
-        StartCoroutine(Jump(baseMoveTime / model.NativeModel.SpeedCoeff));
+        StartCoroutine(Jump(MotionTime));
     }
 
     //TODO: Maybe make a windup animation

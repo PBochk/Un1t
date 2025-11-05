@@ -7,6 +7,7 @@ public class BlueSlimeView : EnemyView
     [SerializeField] private CooldownState afterJumpCooldown;
     [SerializeField] private CooldownState afterAttackCooldown;
     [SerializeField] private DecisionState decisionState;
+    [SerializeField] private DeadState deadState;
     [SerializeField] private SlimeAnimator animator;
 
     protected override void BindStates()
@@ -15,12 +16,29 @@ public class BlueSlimeView : EnemyView
 
     protected override void BindAnimator()
     {
-        followState.OnStateEnter.AddListener(animator.PlayJumpAnimation);
-        //followState.OnStateExit.AddListener(animator.PlayIdleAnimation);
-        meleeState.OnStateEnter.AddListener(animator.PlayMeleeAttackAnimation);
-        //meleeState.OnStateExit.AddListener(animator.PlayIdleAnimation);
-        afterJumpCooldown.OnStateEnter.AddListener(animator.PlayIdleAnimation);
-        afterAttackCooldown.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        animator.PlayIdleAnimation();
+        
+        followState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustJumpAnimationSpeed(followState.MotionTime);
+            animator.PlayJumpAnimation();
+        });
+        
+        meleeState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustMeleeAttackSpeed(meleeState.MotionTime);
+            animator.PlayMeleeAttackAnimation();
+        });
+        afterJumpCooldown.OnStateEnter.AddListener(() =>
+        {
+            animator.PlayIdleAnimation();
+        });
+        afterAttackCooldown.OnStateEnter.AddListener( () =>
+        {
+            animator.PlayIdleAnimation();
+        });
+        
+        deadState.OnStateEnter.AddListener(animator.PlayDeathAnimation);
     }
 
     protected override void BindSoundPlayer()

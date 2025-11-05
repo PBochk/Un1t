@@ -14,32 +14,36 @@ public class RedSlimeView : EnemyView
     {
         followState.OnStateEnter.AddListener(() =>
         {
-            var speed = 1 * model.NativeModel.SpeedCoeff / followState.baseMoveTime;
-            animator.SetPlaybackSpeed(speed);
+            animator.AdjustJumpAnimationSpeed(followState.MotionTime);
             animator.PlayJumpAnimation();
         });
         followState.OnStateExit.AddListener(() =>
         {
-            animator.ResetPlaybackSpeed();
             animator.PlayIdleAnimation();
         });
 
         runawayState.OnStateEnter.AddListener(() =>
         {
-            var speed = 1 * model.NativeModel.SpeedCoeff / runawayState.baseMoveTime;
-            animator.SetPlaybackSpeed(speed);
+            animator.AdjustJumpAnimationSpeed(runawayState.MotionTime);
             animator.PlayJumpAnimation();
         });
         runawayState.OnStateExit.AddListener(() =>
         {
-            animator.ResetPlaybackSpeed();
             animator.PlayIdleAnimation();
         });
 
-        meleeState.OnStateEnter.AddListener(animator.PlayMeleeAttackAnimation);
+        meleeState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustMeleeAttackSpeed(meleeState.MotionTime);
+            animator.PlayMeleeAttackAnimation();
+        });
         meleeState.OnStateExit.AddListener(animator.PlayIdleAnimation);
 
-        rangedAttackState.OnStateEnter.AddListener(animator.PlayRangedAttackAnimation);
+        rangedAttackState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustRangedAttackSpeed(rangedAttackState.MotionTime);
+            animator.PlayRangedAttackAnimation();
+        });
         rangedAttackState.OnStateExit.AddListener(animator.PlayIdleAnimation);
     }
 

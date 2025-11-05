@@ -12,14 +12,18 @@ public class BlueSlimeController : EnemyController
 {
     private BlueSlimeView view;
    
+    [Header("States")]
     [SerializeField] private SlimeFollowState followState;
     [SerializeField] private SlimeMeleeAttackState meleeState;
     [SerializeField] private CooldownState afterJumpCooldown;
     [SerializeField] private CooldownState afterAttackCooldown;
     [SerializeField] private DecisionState decisionState;
-    //TODO: Move this to view and make this a debug option
     [SerializeField] private SpriteRenderer meleeAttack;
 
+    [Header("Other Components And Objects")]
+    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private GameObject MeleeAttackHitbox;
+    
     //TODO: Consider to remove
     private EnemyStateTransition idleTransition;
     private EnemyStateTransition followTransition;
@@ -39,7 +43,7 @@ public class BlueSlimeController : EnemyController
 
     protected override void MakeTransitions()
     {
-        idleTransition = new UnconditionalTransition(this, followState);
+        idleTransition = new UnconditionalTransition(this, decisionState);
         // =========================
         // DECISION STATES
         // =========================
@@ -77,18 +81,13 @@ public class BlueSlimeController : EnemyController
 
     }
 
+    protected override void TurnOffAllHitboxes()
+    {
+        boxCollider.enabled = false;
+        MeleeAttackHitbox.SetActive(false);
+    }
     private bool CheckInRange(EnemyTargetComponent target)
     {
         return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange;
-    }
-
-    private void TurnOnHitbox()
-    {
-        meleeAttack.enabled = true;
-    }
-
-    private void TurnOffHitbox()
-    {
-        meleeAttack.enabled = false;
     }
 }

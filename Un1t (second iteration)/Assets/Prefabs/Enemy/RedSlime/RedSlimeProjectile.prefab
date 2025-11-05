@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5982593351042311661, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: solid.m_Bits
-      value: 265
+      value: 264
       objectReference: {fileID: 0}
     - target: {fileID: 8178732019974703613, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: m_LocalScale.x

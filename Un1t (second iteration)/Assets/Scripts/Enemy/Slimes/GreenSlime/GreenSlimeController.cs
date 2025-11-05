@@ -109,6 +109,10 @@ public class GreenSlimeController : EnemyController
         attackCooldownState.MakeTransition(attackCooldownTransition);
     }
 
+    protected override void TurnOffAllHitboxes()
+    {
+    }
+
     private bool CheckTargetInRange(EnemyTargetComponent target)
     {
         return Vector2.Distance(target.Position, Rb.position) <= ModelMB.Config.AggroRange;

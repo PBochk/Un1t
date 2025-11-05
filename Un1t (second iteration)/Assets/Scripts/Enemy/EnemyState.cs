@@ -15,6 +15,7 @@ public abstract class EnemyState : MonoBehaviour
 
     protected EnemyTargetComponent target;
     protected EnemyModelMB model;
+    public abstract float MotionTime { get; }
     
     //TODO: ensure that this is not null
     private EnemyStateTransition transition;
@@ -38,11 +39,11 @@ public abstract class EnemyState : MonoBehaviour
     }
     
     //TODO: Ensure that a state can only be exited once
-    protected void ExitState()
+    public void ExitState()
     {
         //Debug.Log($"Exited state: {this}");
         //Debug.Log($"Transition: {transition}");
-        transition.PerformTransition();
+        transition?.PerformTransition();
         OnStateExit.Invoke();
     }
 }

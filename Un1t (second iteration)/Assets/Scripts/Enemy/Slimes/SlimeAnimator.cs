@@ -4,19 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class SlimeAnimator : MonoBehaviour
 {
-    public Animator animator { get; private set; }
+    private const float MeleeAttackBaseTime = 0.88f;
+    private const float RangedAttackBaseTime = 0.5f;
+    private const float JumpBaseTime = 1f;
     
-    [Header("Atlases")]
-    [SerializeField] private Texture2D AppearAtlas;
-    [SerializeField] private Texture2D JumpAtlas;
-    [SerializeField] private Texture2D RangedAtlas;
-    [SerializeField] private Texture2D MeleeAtlas;
-    [SerializeField] private Texture2D DeathAtlas;
+    [SerializeField] private Animator animator;
     
-    [Header("Object references")]
-    [SerializeField] private SpriteRenderer sprite;
-    
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -53,6 +46,24 @@ public class SlimeAnimator : MonoBehaviour
         animator.SetTrigger("SlimeMeleeAttackAnimation");
     }
 
+    public void AdjustMeleeAttackSpeed(float motionTime)
+    {
+        var newSpeed = motionTime / MeleeAttackBaseTime;
+        animator.SetFloat("MeleeAttackSpeedMultiplier", motionTime);
+    }
+
+    public void AdjustRangedAttackSpeed(float motionTime)
+    {
+        var newSpeed = motionTime / RangedAttackBaseTime;
+        animator.SetFloat("RangedAttackSpeedMultiplier", motionTime);
+    }
+    
+    public void AdjustJumpAnimationSpeed(float motionTime)
+    {
+        var newSpeed = motionTime / JumpBaseTime;
+        animator.SetFloat("JumpSpeedMultiplier", motionTime);
+    }
+    
     public void SetPlaybackSpeed(float speed)
     {
         animator.speed = speed;

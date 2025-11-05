@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SlimeMeleeAttackState : EnemyState
 {
+    public override float MotionTime => 0.88f;
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
@@ -11,7 +12,7 @@ public class SlimeMeleeAttackState : EnemyState
 
     private IEnumerator WaitForAttack()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(MotionTime);
         ExitState();
     }
 }

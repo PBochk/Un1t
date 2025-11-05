@@ -153,6 +153,10 @@ public class RedSlimeController : EnemyController
         view.ResetAllAnimations();
         ChangeState(idleState);
     }
+    
+    protected override void TurnOffAllHitboxes()
+    {
+    }
 
     private bool CheckInMeleeRange(EnemyTargetComponent target)
     {
