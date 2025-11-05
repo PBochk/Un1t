@@ -190,7 +190,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -363896877
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -1489232235, guid: c934bea1b3338aef6b34a0a9f81c55d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -385,6 +385,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 57271144412338712}
   m_SourcePrefab: {fileID: 100100000, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+--- !u!61 &71176228068317267 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4031880474664712063, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+  m_PrefabInstance: {fileID: 3965634464864792364}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &6217633891364892737 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7008087674837016429, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
@@ -430,6 +435,8 @@ MonoBehaviour:
   meleeCooldownState: {fileID: 7863647726602399608}
   rangedCooldownState: {fileID: 2170196319409681857}
   view: {fileID: 2689443160242506967}
+  boxCollider2D: {fileID: 71176228068317267}
+  meleeWeapon: {fileID: 4987674022880246976}
   weapon: {fileID: 1202135567377446006}
   rangedRange: 12
   tooCloseRange: 6
