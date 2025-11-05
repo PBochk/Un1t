@@ -5,7 +5,7 @@ public class HintManager : MonoBehaviour
 {
     public static HintManager Instance;
     public UnityEvent<string> HintOpened;
-    public UnityEvent HintClosed;
+    //public UnityEvent HintClosed;
 
     private void Awake()
     {
@@ -19,5 +19,5 @@ public class HintManager : MonoBehaviour
     {
         HintOpened?.Invoke(hintText);
     }
-    public void CloseHint() => HintClosed?.Invoke();
+    //public void CloseHint() => HintClosed?.Invoke();
 }

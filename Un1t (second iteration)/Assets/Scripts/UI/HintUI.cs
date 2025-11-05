@@ -1,25 +1,25 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HintUI : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
-    [SerializeField] private TMP_Text hint;
-    private void Start()
+    [SerializeField] private Button button;
+    [SerializeField] private TMP_Text current;
+    [SerializeField] private List<string> texts;
+    private int count = 0;
+    private void Awake()
     {
-        HintManager.Instance.HintOpened?.AddListener(OnHintOpened);
-        HintManager.Instance.HintClosed?.AddListener(OnHintClosed);
-        OnHintClosed();
+        button.onClick.AddListener(NextHint);
+        NextHint();
     }
 
-    private void OnHintOpened(string hintText)
+    private void NextHint()
     {
-        hint.text = hintText;
-        canvas.gameObject.SetActive(true);
-    }
-
-    private void OnHintClosed()
-    {
-        canvas.gameObject.SetActive(false);
+        if (count >= texts.Count) canvas.gameObject.SetActive(false);
+        else current.text = texts[count];
+        count++;
     }
 }
