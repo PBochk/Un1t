@@ -44,14 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a2eae1a56b86b4d914366845956f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnableEnemies: {fileID: 0}
   availableCommonRooms: []
   availableStartRooms:
   - {fileID: 11400000, guid: abec2181e947a42469c0ae15f3b630f4, type: 2}
   - {fileID: 11400000, guid: 1a1ff50219be2ae49a96e5f523675acd, type: 2}
   - {fileID: 11400000, guid: 45cb214f7a2d0ea42bc84cf2274f585d, type: 2}
   - {fileID: 11400000, guid: 74bc239905271614b997299540f5f296, type: 2}
+  minRoomsCount: 5
+  maxRoomsCount: 7
   roomTemplate: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
-  topOuterWall: {fileID: 7883462119553367088, guid: 2009d4db0f3e7cf448f7ae29b11aa326, type: 3}
-  bottomOuterWall: {fileID: 7883462119553367088, guid: 2068aa762030f3e47b223bdbf339e11c, type: 3}
-  leftOuterWall: {fileID: 7883462119553367088, guid: 018db5c29ae890244a4a0d14f5d3aaea, type: 3}
-  rightOuterWall: {fileID: 7883462119553367088, guid: 7d3a8f8ca2fbebf4b9b0c25f3ca4183d, type: 3}
+  topOuterWall: {fileID: 1487069661727597505, guid: 2009d4db0f3e7cf448f7ae29b11aa326, type: 3}
+  bottomOuterWall: {fileID: 1487069661727597505, guid: 2068aa762030f3e47b223bdbf339e11c, type: 3}
+  leftOuterWall: {fileID: 1487069661727597505, guid: 018db5c29ae890244a4a0d14f5d3aaea, type: 3}
+  rightOuterWall: {fileID: 1487069661727597505, guid: 7d3a8f8ca2fbebf4b9b0c25f3ca4183d, type: 3}
+  leftTopCorner: {fileID: 0}
+  rightTopCorner: {fileID: 0}
+  leftBottomCorner: {fileID: 0}
+  rightBottomCorner: {fileID: 0}
+  standardRoomGround: {fileID: 1792376874662093916, guid: 230fe3ed227c91d43b8f34accdf2ba61, type: 3}
+  enemySpawner: {fileID: 0}
+  rock: {fileID: 0}
