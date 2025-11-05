@@ -348,28 +348,20 @@ public class FloorManager : MonoBehaviour
     private void CreateHallwaysGround(Vector2 roomPosition, RoomOuterWalls roomOuterWalls, Transform parent)
     {
         if (roomOuterWalls.Top.Middle.IsEmpty)
-        {
-            GroundBuilder ground = Instantiate(standardRoomGround, roomPosition + new Vector2(0, 6), Quaternion.identity, parent);
-            ground.SetSize(new(6, 3));
-        }
+            Instantiate(standardRoomGround, roomPosition + new Vector2(0, 6), Quaternion.identity, parent)
+            .SetSize(new(6, 3));
 
         if (roomOuterWalls.Bottom.Middle.IsEmpty)
-        {
-            GroundBuilder ground = Instantiate(standardRoomGround, roomPosition + new Vector2(0, -5), Quaternion.identity, parent);
-            ground.SetSize(new(6, 1));
-        }
+            Instantiate(standardRoomGround, roomPosition + new Vector2(0, -5), Quaternion.identity, parent)
+            .SetSize(new(6, 1));
 
         if (roomOuterWalls.Left.Middle.IsEmpty)
-        {
-            GroundBuilder ground = Instantiate(standardRoomGround, roomPosition + new Vector2(-8.5f, 0), Quaternion.identity, parent);
-            ground.SetSize(new(1, 3));
-        }
+            Instantiate(standardRoomGround, roomPosition + new Vector2(-8.5f, 0), Quaternion.identity, parent)
+            .SetSize(new(1, 3));
 
         if (roomOuterWalls.Right.Middle.IsEmpty)
-        {
-            GroundBuilder ground = Instantiate(standardRoomGround, roomPosition + new Vector2(8.5f, 0), Quaternion.identity, parent);
-            ground.SetSize(new(1, 3));
-        }
+            Instantiate(standardRoomGround, roomPosition + new Vector2(8.5f, 0), Quaternion.identity, parent)
+            .SetSize(new(1, 3));
     }
 
 }

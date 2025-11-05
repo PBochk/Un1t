@@ -103,5 +103,6 @@ MonoBehaviour:
   wallTile: {fileID: 11400000, guid: 8a7ad5da3d170a841868205614e650d3, type: 2}
   shurfFirstSideTile: {fileID: 8252421113222450477, guid: ad0186a5e5ddbb74abc246c841742372, type: 3}
   shurfSecondSideTile: {fileID: 8252421113222450477, guid: 4934117f1b1fa2249a1349a52ba4fa36, type: 3}
+  ground: {fileID: 1792376874662093916, guid: 230fe3ed227c91d43b8f34accdf2ba61, type: 3}
   direction: 0
   shurfsSpawnDirection: 3
