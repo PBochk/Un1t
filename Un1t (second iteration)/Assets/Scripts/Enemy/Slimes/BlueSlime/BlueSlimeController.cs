@@ -83,8 +83,8 @@ public class BlueSlimeController : EnemyController
 
     protected override void TurnOffAllHitboxes()
     {
-        boxCollider.enabled = false;
-        MeleeAttackHitbox.SetActive(false);
+        //boxCollider.enabled = false;
+        //MeleeAttackHitbox.SetActive(false);
     }
     private bool CheckInRange(EnemyTargetComponent target)
     {

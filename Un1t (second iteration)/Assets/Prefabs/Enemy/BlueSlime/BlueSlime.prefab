@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 8762875876041343101}
   - component: {fileID: 6308644958884857042}
   - component: {fileID: 257499187485091055}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: MeleeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,6 +466,8 @@ MonoBehaviour:
   afterAttackCooldown: {fileID: -2811225169903788571}
   decisionState: {fileID: 7747756052266841450}
   meleeAttack: {fileID: 6308644958884857042}
+  boxCollider: {fileID: 0}
+  MeleeAttackHitbox: {fileID: 0}
 --- !u!114 &6393638895824420447
 MonoBehaviour:
   m_ObjectHideFlags: 0

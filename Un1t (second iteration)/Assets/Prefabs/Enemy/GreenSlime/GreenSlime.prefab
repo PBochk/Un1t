@@ -350,6 +350,7 @@ MonoBehaviour:
   followCooldownState: {fileID: 7581788288315896852}
   runawayCooldownState: {fileID: 2407914522037244029}
   attackCooldownState: {fileID: 3708714666001732577}
+  deadState: {fileID: 7826072461106897600}
   animator: {fileID: 2609521758479921794}
 --- !u!114 &6057341422518328120
 MonoBehaviour:
@@ -409,6 +410,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
+  ExitTime: 1.5
 --- !u!114 &1958374654612101927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +429,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
+  EnterTime: 0.4
 --- !u!114 &4514478097528840767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,12 +579,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27685fdca894eb29ee3c077b359a478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AppearAtlas: {fileID: 0}
-  JumpAtlas: {fileID: 0}
-  RangedAtlas: {fileID: 0}
-  MeleeAtlas: {fileID: 0}
-  DeathAtlas: {fileID: 0}
-  sprite: {fileID: 0}
+  animator: {fileID: 3461350466613762534}
+--- !u!95 &3461350466613762534 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7008087674837016429, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+  m_PrefabInstance: {fileID: 5857095645421192843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4185776194229857038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}

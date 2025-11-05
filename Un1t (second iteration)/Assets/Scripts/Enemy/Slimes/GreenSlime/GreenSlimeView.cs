@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 [RequireComponent(typeof(SlimeAnimator))]
 public class GreenSlimeView : EnemyView
@@ -12,6 +13,7 @@ public class GreenSlimeView : EnemyView
     [SerializeField] private CooldownState followCooldownState;
     [SerializeField] private CooldownState runawayCooldownState;
     [SerializeField] private CooldownState attackCooldownState;
+    [SerializeField] private DeadState deadState;
     
     [SerializeField] private SlimeAnimator animator;
     
@@ -22,15 +24,15 @@ public class GreenSlimeView : EnemyView
 
     protected override void BindAnimator()
     {
+        animator.PlayIdleAnimation();
+        
         followState.OnStateEnter.AddListener(() =>
         {
-            animator.PlayJumpAnimation();
             animator.AdjustJumpAnimationSpeed(followState.MotionTime);
+            animator.PlayJumpAnimation();
         });
-        followState.OnStateExit.AddListener(() =>
-        {
-            animator.PlayIdleAnimation();
-        });
+        
+        followCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
         
         runawayState.OnStateEnter.AddListener(() =>
         {
@@ -38,17 +40,18 @@ public class GreenSlimeView : EnemyView
             animator.PlayJumpAnimation();
         });
         
-        runawayState.OnStateExit.AddListener(() =>
-        {
-            animator.PlayIdleAnimation();
-        });
+        runawayCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
         
         rangedAttackState.OnStateEnter.AddListener(() =>
         {
             animator.AdjustRangedAttackSpeed(rangedAttackState.MotionTime);
             animator.PlayRangedAttackAnimation();
         });
+        
+        attackCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
         rangedAttackState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        deadState.OnStateEnter.AddListener(animator.PlayDeathAnimation);
     }
 
     protected override void BindSoundPlayer()

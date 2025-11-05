@@ -48,20 +48,20 @@ public class SlimeAnimator : MonoBehaviour
 
     public void AdjustMeleeAttackSpeed(float motionTime)
     {
-        var newSpeed = motionTime / MeleeAttackBaseTime;
-        animator.SetFloat("MeleeAttackSpeedMultiplier", motionTime);
+        var newSpeed = MeleeAttackBaseTime / motionTime;
+        animator.SetFloat("MeleeAttackSpeedMultiplier", newSpeed);
     }
 
     public void AdjustRangedAttackSpeed(float motionTime)
     {
-        var newSpeed = motionTime / RangedAttackBaseTime;
-        animator.SetFloat("RangedAttackSpeedMultiplier", motionTime);
+        var newSpeed = RangedAttackBaseTime / motionTime;
+        animator.SetFloat("RangedAttackSpeedMultiplier", newSpeed);
     }
     
     public void AdjustJumpAnimationSpeed(float motionTime)
     {
-        var newSpeed = motionTime / JumpBaseTime;
-        animator.SetFloat("JumpSpeedMultiplier", motionTime);
+        var newSpeed = JumpBaseTime / motionTime;
+        animator.SetFloat("JumpSpeedMultiplier", newSpeed);
     }
     
     public void SetPlaybackSpeed(float speed)
