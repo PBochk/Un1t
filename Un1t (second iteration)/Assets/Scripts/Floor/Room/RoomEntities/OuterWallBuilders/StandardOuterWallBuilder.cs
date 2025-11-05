@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+[RequireComponent(typeof(SpriteRenderer))]
 public class StandardOuterWallBuilder : OuterWallBuilder
 {
     [Header("Wall's parts are empty or filled")]
@@ -39,9 +41,9 @@ public class StandardOuterWallBuilder : OuterWallBuilder
         lastPartIsEmpty = wall.Last.IsEmpty;
     }
 
-    protected override void CheckSize()
+    protected override void CheckSize(SpriteRenderer renderer)
     {
-        base.CheckSize();
+        base.CheckSize(renderer);
         if ((direction == Direction.Horizontal && (sizeTiles.x != STANDARD_BASE_WALL_WIDTH))           
             || (direction == Direction.Vertical 
             && (sizeTiles.y != STANDARD_SIDE_WALL_HEIGHT || (sizeTiles.x != STANDARD_EDGE_WALL_THICKNESS))))

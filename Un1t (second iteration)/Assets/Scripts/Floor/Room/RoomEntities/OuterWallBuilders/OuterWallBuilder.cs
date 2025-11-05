@@ -2,13 +2,13 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class OuterWallBuilder : MonoBehaviour
+public class OuterWallBuilder : TilesBuilder
 {
     public const float TILE_SIZE = 1f;
 
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
-    public Vector2Int SizeTiles => sizeTiles;
+    public Vector2 Position => transform.position;
 
     public int Thickness => thickness;
     public int Length => length;
@@ -17,13 +17,13 @@ public class OuterWallBuilder : MonoBehaviour
     [SerializeField] protected OuterWallTiles wallTile;
     [SerializeField] protected GameObject shurfFirstSideTile;
     [SerializeField] protected GameObject shurfSecondSideTile;
+    [SerializeField] protected GroundBuilder ground;
 
     [SerializeField] protected Direction direction;
     [SerializeField]
     protected ShurfsSpawnDirection shurfsSpawnDirection =
         ShurfsSpawnDirection.Unidentified;
 
-    protected Vector2Int sizeTiles;
     protected bool[] tilesAreEmpty;
 
     private const int SHURF_WIDTH = 2;
@@ -34,7 +34,7 @@ public class OuterWallBuilder : MonoBehaviour
     private (int start, int end)[] emptyTilesForShurfesNumbersCouples;
     private bool wasShurfesCreated;
 
-    public void Create()
+    public override void Create()
     {
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
             ? new Vector3(TILE_SIZE * (sizeTiles.x - 1) / 2, 0)
@@ -51,7 +51,7 @@ public class OuterWallBuilder : MonoBehaviour
         }
     }
 
-    public virtual void SetConfiguration()
+    public override void SetConfiguration()
     {
         SpriteRenderer wallRenderer = GetComponent<SpriteRenderer>();
 
@@ -72,7 +72,7 @@ public class OuterWallBuilder : MonoBehaviour
             length = sizeTiles.y;
         }
 
-        CheckSize();
+        CheckSize(wallRenderer);
 
     }
 
@@ -124,24 +124,39 @@ public class OuterWallBuilder : MonoBehaviour
     private void PlaceShurfes((int start, int end)[] emptyTilesForShurfesNumbers, Vector3 basePosition, Vector2 shurfFirstSideSize, Vector2 shurfSecondSideSize)
     {
         Direction shurfDirection;
+        int directionMultiplier;
+
         float verticalPosition = 0f;
         float horizontalPosition = 0f;
+
         int shurfFirstSideThickness;
         int shurfSecondSideThickness;
+
+        Vector2Int shurfGroundSize;
 
         if (direction == Direction.Horizontal)
         {
             shurfDirection = Direction.Vertical;
-            verticalPosition = basePosition.y + (SHURF_DEPTHS / 2f + thickness / 2f) * TILE_SIZE * (shurfsSpawnDirection == ShurfsSpawnDirection.Bottom ? -1 : 1);
+            directionMultiplier = shurfsSpawnDirection == ShurfsSpawnDirection.Bottom ? -1 : 1;
+
+            verticalPosition = basePosition.y + (SHURF_DEPTHS / 2f + thickness / 2f) * TILE_SIZE * directionMultiplier;
+
             shurfFirstSideThickness = (int)shurfFirstSideSize.x;
             shurfSecondSideThickness = (int)shurfSecondSideSize.x;
+
+            shurfGroundSize = new Vector2Int(SHURF_WIDTH, SHURF_DEPTHS + sizeTiles.y);
         }
         else
         {
             shurfDirection = Direction.Horizontal;
-            horizontalPosition = basePosition.x + (SHURF_DEPTHS / 2f + thickness / 2f) * TILE_SIZE * (shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1);
+            directionMultiplier = shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1;
+
+            horizontalPosition = basePosition.x + (SHURF_DEPTHS / 2f + thickness / 2f) * TILE_SIZE;
+
             shurfFirstSideThickness = (int)shurfFirstSideSize.y;
             shurfSecondSideThickness = (int)shurfSecondSideSize.y;
+
+            shurfGroundSize = new Vector2Int(SHURF_DEPTHS + sizeTiles.x, SHURF_WIDTH);
         }
 
         foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.start + 0.5f))
@@ -150,6 +165,7 @@ public class OuterWallBuilder : MonoBehaviour
             Vector3 secondSidePosition;
             Vector3 invisibleWallPosition;
             Vector2 invisibleWallSize;
+            Vector3 shurfGroundPosition;
 
             if (direction == Direction.Horizontal)
             {
@@ -163,9 +179,14 @@ public class OuterWallBuilder : MonoBehaviour
                 float wallOffset = (SHURF_DEPTHS / 2f + 0.5f) * TILE_SIZE;
                 invisibleWallPosition = new Vector3(
                     basePosition.x + shurfCenter * TILE_SIZE,
-                    verticalPosition + wallOffset * (shurfsSpawnDirection == ShurfsSpawnDirection.Bottom ? -1 : 1)
+                    verticalPosition + wallOffset * directionMultiplier
                 );
                 invisibleWallSize = new Vector2((SHURF_WIDTH + 2) * TILE_SIZE, TILE_SIZE);
+
+                shurfGroundPosition = new Vector3(
+                    basePosition.x + shurfCenter * TILE_SIZE,
+                    verticalPosition - sizeTiles.y*directionMultiplier/2f
+                );
             }
             else
             {
@@ -178,24 +199,33 @@ public class OuterWallBuilder : MonoBehaviour
 
                 float wallOffset = (SHURF_DEPTHS / 2f + 0.5f) * TILE_SIZE;
                 invisibleWallPosition = new Vector3(
-                    horizontalPosition + wallOffset * (shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1),
+                    horizontalPosition + wallOffset * directionMultiplier,
                     basePosition.y - shurfCenter * TILE_SIZE
                 );
                 invisibleWallSize = new Vector2(TILE_SIZE, (SHURF_WIDTH + 2) * TILE_SIZE);
 
                 if (shurfFirstSideThickness != 1)
                     firstSidePosition -= new Vector3(0f, 1f);
+
+                shurfGroundPosition = new Vector3(
+                    horizontalPosition - sizeTiles.x * directionMultiplier / 2f,
+                    basePosition.y - shurfCenter * TILE_SIZE
+                );
             }
 
             CreateFragment(shurfFirstSideTile, SHURF_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
             CreateFragment(shurfSecondSideTile, SHURF_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
 
-            GameObject invisibleWall = new("InvisibleShurfCover");
+            GameObject invisibleWall = new("InvisibleShurfWall");
             invisibleWall.transform.SetParent(transform);
 
             BoxCollider2D collider = invisibleWall.AddComponent<BoxCollider2D>();
             collider.size = invisibleWallSize;
             invisibleWall.transform.position = invisibleWallPosition;
+
+            GroundBuilder groundInstance = Instantiate(ground, shurfGroundPosition, Quaternion.identity, transform);
+            groundInstance.SetSize(shurfGroundSize);
+            groundInstance.Create();
         }
     }
 
@@ -235,7 +265,6 @@ public class OuterWallBuilder : MonoBehaviour
             collider.size = tileSize;
             collider.offset = Vector2.zero;
         }
-
     }
 
     private Vector3 CalculateWallFragmentPosition(int startIndex, int fragmentSize, in Vector3 basePosition)
@@ -251,8 +280,9 @@ public class OuterWallBuilder : MonoBehaviour
     public enum Direction : sbyte { Vertical, Horizontal }
     protected enum ShurfsSpawnDirection : sbyte { Unidentified, Top, Bottom, Left, Right }
 
-    protected virtual void CheckSize()
+    protected override void CheckSize(SpriteRenderer renderer)
     {
+        base.CheckSize(renderer);
         if (shurfsSpawnDirection == ShurfsSpawnDirection.Unidentified)
             return;
 

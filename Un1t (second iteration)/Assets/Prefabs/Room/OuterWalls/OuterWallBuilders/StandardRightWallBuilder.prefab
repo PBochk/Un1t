@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4774667196260465280}
   - component: {fileID: 1487069661727597505}
   m_Layer: 3
-  m_Name: StandardTopWallBuilder
+  m_Name: StandardRightWallBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7532815278962680450, guid: d5bff92efdf9efe4eab2b98615a716e2, type: 3}
+  m_Sprite: {fileID: -1691277303, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 16, y: 3}
+  m_Size: {x: 1, y: 9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -100,10 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751878a5fe436e94f9d7ff3f54df4db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallTile: {fileID: 11400000, guid: fb95f89b743c3054380fdc19bfde85f3, type: 2}
-  shurfFirstSideTile: {fileID: 8252421113222450477, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
-  shurfSecondSideTile: {fileID: 8252421113222450477, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
-  direction: 1
+  wallTile: {fileID: 11400000, guid: 0ed918ca68d3b3b439ae044e565d5cc8, type: 2}
+  shurfFirstSideTile: {fileID: 8252421113222450477, guid: ad0186a5e5ddbb74abc246c841742372, type: 3}
+  shurfSecondSideTile: {fileID: 8252421113222450477, guid: 4934117f1b1fa2249a1349a52ba4fa36, type: 3}
+  ground: {fileID: 1792376874662093916, guid: 230fe3ed227c91d43b8f34accdf2ba61, type: 3}
+  direction: 0
   shurfsSpawnDirection: 0
   firstPartIsEmpty: 0
   middlePartIsEmpty: 0

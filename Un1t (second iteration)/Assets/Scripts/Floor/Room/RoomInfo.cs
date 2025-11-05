@@ -5,13 +5,15 @@ using UnityEngine;
 /// </summary>
 public class RoomInfo
 {
-
-    public readonly static Vector2Int SIZE = new Vector2Int(16, 9) + new Vector2Int(2, 4);
+    public static Vector2Int Size => size;
+    public static Vector2Int InnerSize => innerSize;
 
     public GameObject RoomPrefab { get; }
     public RoomOuterWalls OuterWalls { get; }
     public RoomExits RoomExits { get; }
 
+    private static readonly Vector2Int innerSize = new(16, 9);
+    private static readonly Vector2Int size = innerSize + new Vector2Int(2, 4);
 
     public RoomInfo(GameObject roomPrefab,
         bool leftTopIsEmpty, bool middleTopIsEmpty, bool rightTopIsEmpty,
