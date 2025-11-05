@@ -151,7 +151,7 @@ public class OuterWallBuilder : TilesBuilder
             shurfDirection = Direction.Horizontal;
             directionMultiplier = shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1;
 
-            horizontalPosition = basePosition.x + (SHURF_DEPTHS / 2f + thickness / 2f) * TILE_SIZE;
+            horizontalPosition = basePosition.x + (SHURF_DEPTHS / 2f + thickness / 2f) * TILE_SIZE * directionMultiplier;
 
             shurfFirstSideThickness = (int)shurfFirstSideSize.y;
             shurfSecondSideThickness = (int)shurfSecondSideSize.y;
@@ -177,6 +177,7 @@ public class OuterWallBuilder : TilesBuilder
                     verticalPosition);
 
                 float wallOffset = (SHURF_DEPTHS / 2f + 0.5f) * TILE_SIZE;
+
                 invisibleWallPosition = new Vector3(
                     basePosition.x + shurfCenter * TILE_SIZE,
                     verticalPosition + wallOffset * directionMultiplier
@@ -198,6 +199,7 @@ public class OuterWallBuilder : TilesBuilder
                     basePosition.y - (shurfCenter + shurfSecondSideThickness + 0.5f) * TILE_SIZE);
 
                 float wallOffset = (SHURF_DEPTHS / 2f + 0.5f) * TILE_SIZE;
+
                 invisibleWallPosition = new Vector3(
                     horizontalPosition + wallOffset * directionMultiplier,
                     basePosition.y - shurfCenter * TILE_SIZE
