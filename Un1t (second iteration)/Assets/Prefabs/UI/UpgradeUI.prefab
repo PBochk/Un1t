@@ -142,9 +142,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'level up!
-
-    choose one upgrade'
+  m_text: "\u043D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!\n\u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435
+    \u043E\u0434\u043D\u043E \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
   m_sharedMaterial: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
@@ -399,7 +398,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5619070515049902958, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_text
-      value: Attack Speed
+      value: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0430\u0442\u0430\u043A\u0438"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619070515049902958, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
+      propertyPath: m_fontSize
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619070515049902958, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7574264283540306194, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_Pivot.x
@@ -513,6 +520,10 @@ PrefabInstance:
     - target: {fileID: 1379046339261522006, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_Name
       value: HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619070515049902958, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
+      propertyPath: m_text
+      value: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
       objectReference: {fileID: 0}
     - target: {fileID: 7574264283540306194, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_Pivot.x
@@ -629,9 +640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5619070515049902958, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_text
-      value: 'Damage
-
-'
+      value: "\u0423\u0440\u043E\u043D"
       objectReference: {fileID: 0}
     - target: {fileID: 7574264283540306194, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_Pivot.x

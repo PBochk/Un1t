@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You died!
+  m_text: "\u0412\u042B \u041F\u041E\u0413\u0418\u0411\u041B\u0418!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
   m_sharedMaterial: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
@@ -270,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5619070515049902958, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_text
-      value: Reload
+      value: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430?"
       objectReference: {fileID: 0}
     - target: {fileID: 7574264283540306194, guid: faf2da2c3cc2b004eaaf22cf71d3d603, type: 3}
       propertyPath: m_Pivot.x
