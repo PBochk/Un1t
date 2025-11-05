@@ -23,6 +23,8 @@ public class RoomManager : MonoBehaviour
 
     private readonly static Range shurfesCountRange = new(2, 5);
 
+    public static int EnemiesCount { get; set; } = 0; //This field is for demo only.
+
     // TODO: make full room's content generation. This solution is for demonstration purpose only.
     public void CreateContent()
     {
