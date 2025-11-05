@@ -124,199 +124,199 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_0
+      name: Chillin_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 0
         y: 0
-        width: 35
-        height: 21
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5b79cb401502c71d0800000000000000
-      internalID: -3351768490326583371
+      spriteID: 4d5156e967906827db0997cae51abfa3
+      internalID: -1489232235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_1
+      name: Chillin_1
       rect:
         serializedVersion: 2
-        x: 57
+        x: 48
         y: 0
-        width: 32
-        height: 24
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 81564a56edd8e25c0800000000000000
-      internalID: -4238294212981529320
+      spriteID: 068d68c8f3db90ecbb6239ea62395894
+      internalID: 470663790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_2
+      name: Chillin_2
       rect:
         serializedVersion: 2
-        x: 106
+        x: 96
         y: 0
-        width: 30
-        height: 27
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 28f584d6dfae53b20800000000000000
-      internalID: 3113653091577651074
+      spriteID: ea70a73fbbcb9107db8ea8749cf53f22
+      internalID: -960002067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_3
+      name: Chillin_3
       rect:
         serializedVersion: 2
-        x: 153
+        x: 144
         y: 0
-        width: 31
-        height: 29
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e45f9c91d0cb1a470800000000000000
-      internalID: 8404205144103318862
+      spriteID: e4b679103a3f6dcb48b290cabd42cb41
+      internalID: 550542090
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_4
+      name: Chillin_4
       rect:
         serializedVersion: 2
-        x: 202
+        x: 192
         y: 0
-        width: 30
-        height: 27
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c6569780f59d06680800000000000000
-      internalID: -8763765872675691156
+      spriteID: 910fbcea8854b85a6bf0b3046916455b
+      internalID: 613427013
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_5
+      name: Chillin_5
       rect:
         serializedVersion: 2
-        x: 249
+        x: 240
         y: 0
-        width: 32
-        height: 24
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f5056d86fd4bf8340800000000000000
-      internalID: 4868308593840377951
+      spriteID: d140ee44d0ea6bbb2b04863285dc6253
+      internalID: 1429403270
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_6
+      name: Chillin_6
       rect:
         serializedVersion: 2
-        x: 295
+        x: 288
         y: 0
-        width: 35
-        height: 21
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 73860904f8ef44210800000000000000
-      internalID: 1316456882316011575
+      spriteID: d09ecd10df9e41f0db35e1e6b2f115d6
+      internalID: -1318976114
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_7
+      name: Chillin_7
       rect:
         serializedVersion: 2
-        x: 342
+        x: 336
         y: 0
-        width: 38
-        height: 17
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5dc468de0c1b08160800000000000000
-      internalID: 7025810860874812629
+      spriteID: d07032b859c40d329a07fcfbc78828a5
+      internalID: 15893277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: f41475d0a96124736ebf80fd1030b0f1c91eb696_8
+      name: Chillin_8
       rect:
         serializedVersion: 2
-        x: 390
+        x: 384
         y: 0
-        width: 38
-        height: 13
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b5f9eba9a8ffd62f0800000000000000
-      internalID: -977844573302775973
+      spriteID: e47fa09ce1ebf186c83c39caa4f7c12e
+      internalID: -595349698
       vertices: []
       indices: 
       edges: []
@@ -325,7 +325,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a574d305ec7195c5e805147dc3b9ec16
     internalID: 0
     vertices: []
     indices: 
@@ -333,17 +333,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_0: -3351768490326583371
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_1: -4238294212981529320
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_2: 3113653091577651074
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_3: 8404205144103318862
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_4: -8763765872675691156
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_5: 4868308593840377951
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_6: 1316456882316011575
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_7: 7025810860874812629
-      f41475d0a96124736ebf80fd1030b0f1c91eb696_8: -977844573302775973
+      Chillin_0: -1489232235
+      Chillin_1: 470663790
+      Chillin_2: -960002067
+      Chillin_3: 550542090
+      Chillin_4: 613427013
+      Chillin_5: 1429403270
+      Chillin_6: -1318976114
+      Chillin_7: 15893277
+      Chillin_8: -595349698
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
