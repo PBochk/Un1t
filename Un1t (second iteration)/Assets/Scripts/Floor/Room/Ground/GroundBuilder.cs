@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public abstract class GroundBuilder : TilesBuilder
 {
@@ -21,6 +21,12 @@ public abstract class GroundBuilder : TilesBuilder
 
         CheckSize(groundRenderer);
 
+    }
+
+    public void SetSize(Vector2Int size)
+    {
+        sizeTiles = size;
+        GetComponent<SpriteRenderer>().size = size;
     }
 
 }

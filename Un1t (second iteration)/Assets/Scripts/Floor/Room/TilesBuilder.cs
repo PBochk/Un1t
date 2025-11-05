@@ -13,4 +13,5 @@ public abstract class TilesBuilder : MonoBehaviour
             Debug.LogWarning($"Outer wall has got nonintegral size: {renderer.size.x}x{renderer.size.y}");
 
     }
+
 }

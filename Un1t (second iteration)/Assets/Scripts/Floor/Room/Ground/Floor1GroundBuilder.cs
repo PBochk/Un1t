@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Linq;
 
 public class Floor1GroundBuilder : GroundBuilder
 {
@@ -101,10 +100,8 @@ public class Floor1GroundBuilder : GroundBuilder
                     occupiedGrid[x, y] = true;
     }
 
-    private int GetTargetSmallDecorationCount()
-    {
-        return Mathf.RoundToInt(sizeTiles.x * sizeTiles.y * SMALL_DECORATION_DENSITY);
-    }
+    private int GetTargetSmallDecorationCount() =>
+        Mathf.RoundToInt(sizeTiles.x * sizeTiles.y * SMALL_DECORATION_DENSITY);
 
     private int GetTargetLargeDecorationCount()
     {
