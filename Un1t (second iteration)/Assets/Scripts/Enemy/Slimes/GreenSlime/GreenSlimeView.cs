@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 [RequireComponent(typeof(SlimeAnimator))]
 public class GreenSlimeView : EnemyView
@@ -12,6 +13,7 @@ public class GreenSlimeView : EnemyView
     [SerializeField] private CooldownState followCooldownState;
     [SerializeField] private CooldownState runawayCooldownState;
     [SerializeField] private CooldownState attackCooldownState;
+    [SerializeField] private DeadState deadState;
     
     [SerializeField] private SlimeAnimator animator;
     
@@ -22,32 +24,34 @@ public class GreenSlimeView : EnemyView
 
     protected override void BindAnimator()
     {
+        animator.PlayIdleAnimation();
+        
         followState.OnStateEnter.AddListener(() =>
         {
-            var speed = 1 * model.NativeModel.SpeedCoeff / followState.baseMoveTime;
-            animator.SetPlaybackSpeed(speed);
+            animator.AdjustJumpAnimationSpeed(followState.MotionTime);
             animator.PlayJumpAnimation();
         });
-        followState.OnStateExit.AddListener(() =>
-        {
-            animator.ResetPlaybackSpeed();
-            animator.PlayIdleAnimation();
-        });
+        
+        followCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
         
         runawayState.OnStateEnter.AddListener(() =>
         {
-            var speed = 1 * model.NativeModel.SpeedCoeff / runawayState.baseMoveTime;
-            animator.SetPlaybackSpeed(speed);
+            animator.AdjustJumpAnimationSpeed(runawayState.MotionTime);
             animator.PlayJumpAnimation();
         });
-        runawayState.OnStateExit.AddListener(() =>
+        
+        runawayCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
+        rangedAttackState.OnStateEnter.AddListener(() =>
         {
-            animator.ResetPlaybackSpeed();
-            animator.PlayIdleAnimation();
+            animator.AdjustRangedAttackSpeed(rangedAttackState.MotionTime);
+            animator.PlayRangedAttackAnimation();
         });
         
-        rangedAttackState.OnStateEnter.AddListener(animator.PlayRangedAttackAnimation);
+        attackCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
         rangedAttackState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        deadState.OnStateEnter.AddListener(animator.PlayDeathAnimation);
     }
 
     protected override void BindSoundPlayer()

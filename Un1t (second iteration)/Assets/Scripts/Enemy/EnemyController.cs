@@ -43,6 +43,7 @@ public abstract class EnemyController : MonoBehaviour
         BindView();
         BindStates();
         MakeTransitions();
+        BindDeadState();
         ChangeState(IdleState);
     }
 
@@ -59,11 +60,23 @@ public abstract class EnemyController : MonoBehaviour
 
     protected abstract void MakeTransitions();
 
+    protected abstract void TurnOffAllHitboxes();
+
+    private void BindDeadState()
+    {
+        DeadState.OnStateExit.AddListener(() =>
+        {
+            Destroy(gameObject);
+        });
+    }
+
     protected virtual void OnDeath()
     {
         CurrentState.StopAllCoroutines();
-        ChangeState(DeadState);
-        Destroy(gameObject);
+        CurrentState.MakeTransition(new UnconditionalTransition(this, DeadState));
+        //ChangeState(DeadState);
+        CurrentState.ExitState();
+        TurnOffAllHitboxes();
     }
 
     /// <summary>

@@ -28,8 +28,10 @@ public class RedSlimeController : EnemyController
     [Header("View")]
     [SerializeField] private RedSlimeView view;
 
-    [Header("Other gameobjects")] [SerializeField]
-    private SingleShotWeapon weapon;
+    [Header("Other gameobjects")]
+    [SerializeField] private BoxCollider2D boxCollider2D;
+    [SerializeField] private GameObject meleeWeapon;
+    [SerializeField] private SingleShotWeapon weapon;
     
     //TODO: fix this shit and make better config system
     [Header("Config that isn't in config")]
@@ -59,7 +61,7 @@ public class RedSlimeController : EnemyController
     
     private void EnterPhase1()
     {        
-        var idleTransition = new UnconditionalTransition(this, followState);
+        var idleTransition = new UnconditionalTransition(this, isInRangeDecisionState);
         // =========================
         // DECISION STATES
         // =========================
@@ -152,6 +154,12 @@ public class RedSlimeController : EnemyController
         CurrentState.StopAllCoroutines();
         view.ResetAllAnimations();
         ChangeState(idleState);
+    }
+    
+    protected override void TurnOffAllHitboxes()
+    {
+        boxCollider2D.enabled = false;
+        meleeWeapon.SetActive(false);
     }
 
     private bool CheckInMeleeRange(EnemyTargetComponent target)

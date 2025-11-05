@@ -11,6 +11,7 @@ public class SlimeFollowState : EnemyState
     public UnityEvent jumpStart;
     
     [SerializeField] public float baseMoveTime { get; private set; } = 1f;
+    public override float MotionTime => baseMoveTime / model.NativeModel.SpeedCoeff;
     
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
     private float moveTimer = 0;
@@ -28,11 +29,12 @@ public class SlimeFollowState : EnemyState
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
-        var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - model.Config.AggroRange, model.Config.BaseMoveSpeed);
+        //var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - model.Config.AggroRange, model.Config.BaseMoveSpeed);
+        var distance = model.Config.BaseMoveSpeed;
         startPosition = enemyRb.position;
         direction = (target.Position - enemyRb.position).normalized * distance;
         //TODO: Fix Possible DivisionByZeroException 
-        StartCoroutine(Jump(baseMoveTime / model.NativeModel.SpeedCoeff));
+        StartCoroutine(Jump(MotionTime));
     }
 
     //TODO: Maybe make a windup animation

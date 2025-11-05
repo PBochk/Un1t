@@ -6,46 +6,57 @@ public class RedSlimeView : EnemyView
     [SerializeField] private SlimeMeleeAttackState meleeState;
     [SerializeField] private SlimeRangedAttackState rangedAttackState;
     [SerializeField] private SlimeRunawayState runawayState;
+    [SerializeField] private CooldownState followCooldownState;
+    [SerializeField] private CooldownState meleeCooldownState;
+    [SerializeField] private CooldownState rangedCooldownState;
+    [SerializeField] private CooldownState runawayCooldownState;
+    [SerializeField] private DeadState deadState;
 
     [Header("Animator")] [SerializeField] private SlimeAnimator animator;
     [Header("Children")] [SerializeField] private SpriteRenderer meleeHitboxDebug;
 
     protected override void BindStates()
     {
-        followState.OnStateEnter.AddListener(() =>
-        {
-            var speed = 1 * model.NativeModel.SpeedCoeff / followState.baseMoveTime;
-            animator.SetPlaybackSpeed(speed);
-            animator.PlayJumpAnimation();
-        });
-        followState.OnStateExit.AddListener(() =>
-        {
-            animator.ResetPlaybackSpeed();
-            animator.PlayIdleAnimation();
-        });
-
-        runawayState.OnStateEnter.AddListener(() =>
-        {
-            var speed = 1 * model.NativeModel.SpeedCoeff / runawayState.baseMoveTime;
-            animator.SetPlaybackSpeed(speed);
-            animator.PlayJumpAnimation();
-        });
-        runawayState.OnStateExit.AddListener(() =>
-        {
-            animator.ResetPlaybackSpeed();
-            animator.PlayIdleAnimation();
-        });
-
-        meleeState.OnStateEnter.AddListener(animator.PlayMeleeAttackAnimation);
-        meleeState.OnStateExit.AddListener(animator.PlayIdleAnimation);
-
-        rangedAttackState.OnStateEnter.AddListener(animator.PlayRangedAttackAnimation);
-        rangedAttackState.OnStateExit.AddListener(animator.PlayIdleAnimation);
     }
 
     protected override void BindAnimator()
     {
-        //throw new System.NotImplementedException();
+        animator.PlayIdleAnimation();
+        
+        followState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustJumpAnimationSpeed(followState.MotionTime);
+            animator.PlayJumpAnimation();
+        });
+        
+        followCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
+
+        runawayState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustJumpAnimationSpeed(runawayState.MotionTime);
+            animator.PlayJumpAnimation();
+        });
+
+        runawayCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
+        meleeState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustMeleeAttackSpeed(meleeState.MotionTime);
+            animator.PlayMeleeAttackAnimation();
+        });
+
+        meleeCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
+        rangedAttackState.OnStateEnter.AddListener(() =>
+        {
+            animator.AdjustRangedAttackSpeed(rangedAttackState.MotionTime);
+            animator.PlayRangedAttackAnimation();
+        });
+        
+        rangedCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        
+        deadState.OnStateEnter.AddListener(animator.PlayDeathAnimation);
     }
 
     protected override void BindSoundPlayer()

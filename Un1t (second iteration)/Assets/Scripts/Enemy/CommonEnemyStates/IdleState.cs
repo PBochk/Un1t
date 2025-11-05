@@ -3,20 +3,17 @@ using UnityEngine;
 
 public class IdleState : EnemyState
 {
-    //Couldn't think of better solution lol
-    //Turns out Awake calls immediately once prefab is initializated
-    //So we need to wait (one frame in this example)
-    //For enemy to get properly initialized by spawner
-    //(i should make it a singleton btw)
+    [SerializeField] private float EnterTime = 0.4f;
+    public override float MotionTime => EnterTime;
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
-        StartCoroutine(WaitForNextFrame());
+        StartCoroutine(WaitForEnter());
     }
 
-    private IEnumerator WaitForNextFrame()
+    private IEnumerator WaitForEnter()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(EnterTime);
         ExitState();
     }
 }

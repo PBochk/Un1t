@@ -24,8 +24,9 @@ public class GreenSlimeController : EnemyController
     [Header("View")]
     [SerializeField] private GreenSlimeView view;
 
-    [Header("Other gameobjects")] [SerializeField]
-    private SingleShotWeapon weapon;
+    [Header("Other gameobjects")]
+    [SerializeField] private SingleShotWeapon weapon;
+    [SerializeField] private BoxCollider2D boxCollider2D;
     
     //TODO: fix this shit and make better config system
     [Header("Config that isn't in config")]
@@ -107,6 +108,11 @@ public class GreenSlimeController : EnemyController
         followCooldownState.MakeTransition(followCooldownTransition);
         runawayCooldownState.MakeTransition(runawayCooldownTransition);
         attackCooldownState.MakeTransition(attackCooldownTransition);
+    }
+
+    protected override void TurnOffAllHitboxes()
+    {
+        boxCollider2D.enabled = false;
     }
 
     private bool CheckTargetInRange(EnemyTargetComponent target)
