@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: solid.m_Bits
       value: 264
       objectReference: {fileID: 0}
+    - target: {fileID: 7275677558613275339, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8178732019974703613, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
