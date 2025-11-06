@@ -1019,7 +1019,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29122567, y: 0.050768852, z: -10}
+  m_LocalPosition: {x: 0.2923138, y: 0.050698876, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2743,6 +2743,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1086053462729865426, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 1086053462729865426, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1429727313
+      objectReference: {fileID: 0}
     - target: {fileID: 3199718000143456601, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: pauseManager
       value: 
@@ -2751,6 +2759,10 @@ PrefabInstance:
       propertyPath: playerModelMB
       value: 
       objectReference: {fileID: 831836296}
+    - target: {fileID: 3884783961306352921, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 4107090773148581290, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: pauseManager
       value: 

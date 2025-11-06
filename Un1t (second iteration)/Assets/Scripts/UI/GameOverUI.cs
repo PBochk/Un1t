@@ -45,6 +45,15 @@ public class GameOverUI : MonoBehaviour
 
     private void OnPlayerDeath()
     {
+        StartCoroutine(WaitForDeathAnimationEnd());
+    }
+
+
+    // Temporary solution
+    // TODO: make a better one
+    private IEnumerator WaitForDeathAnimationEnd()
+    {
+        yield return new WaitForSeconds(1f);
         canvas.enabled = true;
         gameoverText.text = loseText;
     }

@@ -127,6 +127,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 500723354853911671, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 676081887670158823, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1086053462729865426, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: m_Camera
       value: 
@@ -174,6 +182,10 @@ PrefabInstance:
     - target: {fileID: 5923751415565308295, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923751415565308295, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7279367299813914039, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1185,6 +1197,10 @@ PrefabInstance:
     - target: {fileID: 3452743497480955425, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452743497480955425, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4059247614240557360, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: m_Layer
