@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4087631388311749100, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,12 +77,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_SortingLayerID
       value: 408425189
       objectReference: {fileID: 0}
     - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268724427629157642, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

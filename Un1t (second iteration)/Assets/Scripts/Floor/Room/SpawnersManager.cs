@@ -28,7 +28,6 @@ public class SpawnersManager
 
         void EnemyDead()
         {
-            Debug.Log(RoomManager.EnemiesCount - 1);
             if (--RoomManager.EnemiesCount == 0)
             {
                 GameObject.FindWithTag("LevelEnder").GetComponent<EventParent>().NotifyLevelEnded();
