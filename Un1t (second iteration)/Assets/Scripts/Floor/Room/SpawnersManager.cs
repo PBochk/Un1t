@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpawnersManager
 {
@@ -18,7 +20,21 @@ public class SpawnersManager
     {
         enemySpawners.Add(RoomEnemySpawner.Instantiate(spawner));
         enemySpawners[0].SetCreationEnemy(enemy, position, enemyTarget);
-        enemySpawners[0].CreateEnemy();
-    }
+        EnemyController createdEnemy = enemySpawners[0].CreateEnemy();
 
+        //Next functional is for demo only.
+        RoomManager.EnemiesCount++;
+        createdEnemy.Model.OnDeath.AddListener(EnemyDead);
+
+        void EnemyDead()
+        {
+            Debug.Log(RoomManager.EnemiesCount - 1);
+            if (--RoomManager.EnemiesCount == 0)
+            {
+                GameObject.FindWithTag("LevelEnder").GetComponent<EventParent>().NotifyLevelEnded();
+            }          
+
+        }
+
+    }
 }
