@@ -1,70 +1,91 @@
 fileFormatVersion: 2
-guid: 9783c66a32e3a014587f327e7bb66212
+guid: 4b471076c4a44b74c8d014e04887e1cd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7653998179898489512
-    second: XP_0
+      213: 6255413763022110828
+    second: HP Bar_0
   - first:
-      213: 5305462464028789809
-    second: XP_1
+      213: 3052294857720932668
+    second: HP Bar_1
   - first:
-      213: -8691370637983186527
-    second: XP_2
+      213: 1721745858983967557
+    second: HP Bar_2
   - first:
-      213: -849036631766124899
-    second: XP_3
+      213: 3629140102137727142
+    second: HP Bar_3
   - first:
-      213: 4775273245566461928
-    second: XP_4
+      213: -9009210520496403008
+    second: HP Bar_4
   - first:
-      213: -6901798266690048986
-    second: XP_5
+      213: -794283922597815629
+    second: HP Bar_5
   - first:
-      213: 4843310049013893695
-    second: XP_6
+      213: 5433576594053648600
+    second: HP Bar_6
   - first:
-      213: 5593312177703888419
-    second: XP_7
+      213: -7296817635706813157
+    second: HP Bar_7
   - first:
-      213: -2481058024023725525
-    second: XP_8
+      213: 8278842739219605180
+    second: HP Bar_8
   - first:
-      213: 5722172460582703239
-    second: XP_9
+      213: 3796017329995274679
+    second: HP Bar_9
   - first:
-      213: -6583708144706602511
-    second: XP_10
+      213: -8367456074444822571
+    second: HP Bar_10
   - first:
-      213: -8080060101309279289
-    second: XP_11
+      213: 458688670601112093
+    second: HP Bar_11
   - first:
-      213: -1268368843985744309
-    second: XP_12
+      213: 5201570535385026277
+    second: HP Bar_12
   - first:
-      213: 3716026304939709148
-    second: XP_13
+      213: -3446043410062128748
+    second: HP Bar_13
   - first:
-      213: 1309336211948660454
-    second: XP_14
+      213: 834416121766953971
+    second: HP Bar_14
   - first:
-      213: 6964336788078092778
-    second: XP_15
+      213: 1011257336146829007
+    second: HP Bar_15
   - first:
-      213: 6385321731589948057
-    second: XP_16
+      213: 1678547934827538097
+    second: HP Bar_16
   - first:
-      213: 3917156380817804227
-    second: XP_17
+      213: 1563412976118749686
+    second: HP Bar_17
   - first:
-      213: -726896676481136719
-    second: XP_18
+      213: -146503557000373280
+    second: HP Bar_18
   - first:
-      213: 7482212999917126976
-    second: XP_19
+      213: -4707316185497745914
+    second: HP Bar_19
   - first:
-      213: 7474640045568885581
-    second: XP_20
+      213: 5073062972119108406
+    second: HP Bar_20
+  - first:
+      213: 4192694343522857376
+    second: HP Bar_21
+  - first:
+      213: -193437295249647989
+    second: HP Bar_22
+  - first:
+      213: -8664129155817486089
+    second: HP Bar_23
+  - first:
+      213: -2964090967259426752
+    second: HP Bar_24
+  - first:
+      213: -206813599645725647
+    second: HP Bar_25
+  - first:
+      213: -6436199636249786281
+    second: HP Bar_26
+  - first:
+      213: 1194690343046481256
+    second: HP Bar_27
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -111,7 +132,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -160,7 +181,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: XP_0
+      name: HP Bar_0
       rect:
         serializedVersion: 2
         x: 0
@@ -175,14 +196,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8aaf550cac6783a60800000000000000
-      internalID: 7653998179898489512
+      spriteID: c60c504cca1bfc650800000000000000
+      internalID: 6255413763022110828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_1
+      name: HP Bar_1
       rect:
         serializedVersion: 2
         x: 0
@@ -197,14 +218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 13cca91600ac0a940800000000000000
-      internalID: 5305462464028789809
+      spriteID: c392538500eeb5a20800000000000000
+      internalID: 3052294857720932668
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_2
+      name: HP Bar_2
       rect:
         serializedVersion: 2
         x: 0
@@ -219,14 +240,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a180cf147c026780800000000000000
-      internalID: -8691370637983186527
+      spriteID: 54b3d3e8cbed4e710800000000000000
+      internalID: 1721745858983967557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_3
+      name: HP Bar_3
       rect:
         serializedVersion: 2
         x: 0
@@ -241,14 +262,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d96394a8ead9734f0800000000000000
-      internalID: -849036631766124899
+      spriteID: 6a84b04e1bb4d5230800000000000000
+      internalID: 3629140102137727142
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_4
+      name: HP Bar_4
       rect:
         serializedVersion: 2
         x: 0
@@ -263,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e76a6367bd254240800000000000000
-      internalID: 4775273245566461928
+      spriteID: 0cd8913b3cad8f280800000000000000
+      internalID: -9009210520496403008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_5
+      name: HP Bar_5
       rect:
         serializedVersion: 2
         x: 0
@@ -285,14 +306,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 62c68823b03e730a0800000000000000
-      internalID: -6901798266690048986
+      spriteID: 3bad0ce0bf22af4f0800000000000000
+      internalID: -794283922597815629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_6
+      name: HP Bar_6
       rect:
         serializedVersion: 2
         x: 0
@@ -307,14 +328,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f3a8d8024d4e63340800000000000000
-      internalID: 4843310049013893695
+      spriteID: 8d0d17cbf11f76b40800000000000000
+      internalID: 5433576594053648600
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_7
+      name: HP Bar_7
       rect:
         serializedVersion: 2
         x: 0
@@ -329,14 +350,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 32628ed7acf6f9d40800000000000000
-      internalID: 5593312177703888419
+      spriteID: b15c3e0450f7cba90800000000000000
+      internalID: -7296817635706813157
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_8
+      name: HP Bar_8
       rect:
         serializedVersion: 2
         x: 0
@@ -351,14 +372,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b2aeee25fd2819dd0800000000000000
-      internalID: -2481058024023725525
+      spriteID: cb6a18eab9b54e270800000000000000
+      internalID: 8278842739219605180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_9
+      name: HP Bar_9
       rect:
         serializedVersion: 2
         x: 0
@@ -373,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7801e88198d396f40800000000000000
-      internalID: 5722172460582703239
+      spriteID: 7b9589346a92ea430800000000000000
+      internalID: 3796017329995274679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_10
+      name: HP Bar_10
       rect:
         serializedVersion: 2
         x: 0
@@ -395,14 +416,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f9bae90358f1a4a0800000000000000
-      internalID: -6583708144706602511
+      spriteID: 5d728017803d0eb80800000000000000
+      internalID: -8367456074444822571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_11
+      name: HP Bar_11
       rect:
         serializedVersion: 2
         x: 0
@@ -417,14 +438,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c357a9d52cdddf80800000000000000
-      internalID: -8080060101309279289
+      spriteID: d1aeca96ae69d5600800000000000000
+      internalID: 458688670601112093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_12
+      name: HP Bar_12
       rect:
         serializedVersion: 2
         x: 0
@@ -439,14 +460,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4e8e0aa149d56ee0800000000000000
-      internalID: -1268368843985744309
+      spriteID: 5ee43c3c7d0bf2840800000000000000
+      internalID: 5201570535385026277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_13
+      name: HP Bar_13
       rect:
         serializedVersion: 2
         x: 0
@@ -461,14 +482,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd250f96c3af19330800000000000000
-      internalID: 3716026304939709148
+      spriteID: 499cba6c6c13d20d0800000000000000
+      internalID: -3446043410062128748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_14
+      name: HP Bar_14
       rect:
         serializedVersion: 2
         x: 0
@@ -483,14 +504,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6e661ccf852bb2210800000000000000
-      internalID: 1309336211948660454
+      spriteID: 3f347c4ba01749b00800000000000000
+      internalID: 834416121766953971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_15
+      name: HP Bar_15
       rect:
         serializedVersion: 2
         x: 0
@@ -505,14 +526,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ae1649df86b46a060800000000000000
-      internalID: 6964336788078092778
+      spriteID: fce1a897035b80e00800000000000000
+      internalID: 1011257336146829007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_16
+      name: HP Bar_16
       rect:
         serializedVersion: 2
         x: 0
@@ -527,14 +548,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9924004b8483d9850800000000000000
-      internalID: 6385321731589948057
+      spriteID: 1b66cd114766b4710800000000000000
+      internalID: 1678547934827538097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_17
+      name: HP Bar_17
       rect:
         serializedVersion: 2
         x: 0
@@ -549,14 +570,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3cbcc4079f88c5630800000000000000
-      internalID: 3917156380817804227
+      spriteID: 6f95bc681db52b510800000000000000
+      internalID: 1563412976118749686
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_18
+      name: HP Bar_18
       rect:
         serializedVersion: 2
         x: 0
@@ -571,14 +592,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1b70ee1f25b89e5f0800000000000000
-      internalID: -726896676481136719
+      spriteID: 0eb59a68ac387fdf0800000000000000
+      internalID: -146503557000373280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_19
+      name: HP Bar_19
       rect:
         serializedVersion: 2
         x: 0
@@ -593,14 +614,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 045ced9b41926d760800000000000000
-      internalID: 7482212999917126976
+      spriteID: 606c5f5aed04caeb0800000000000000
+      internalID: -4707316185497745914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: XP_20
+      name: HP Bar_20
       rect:
         serializedVersion: 2
         x: 0
@@ -615,8 +636,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d430b04e4814bb760800000000000000
-      internalID: 7474640045568885581
+      spriteID: 63bc85815e3276640800000000000000
+      internalID: 5073062972119108406
       vertices: []
       indices: 
       edges: []
@@ -625,7 +646,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 06cbd51d4de02d7428fb0c00cc1e78d0
+    spriteID: d5b115940b8f89f478f9104e03797998
     internalID: 0
     vertices: []
     indices: 
@@ -637,27 +658,27 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":21.0},"gridSpriteSize":{"x":300.0,"y":30.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      XP_0: 7653998179898489512
-      XP_1: 5305462464028789809
-      XP_10: -6583708144706602511
-      XP_11: -8080060101309279289
-      XP_12: -1268368843985744309
-      XP_13: 3716026304939709148
-      XP_14: 1309336211948660454
-      XP_15: 6964336788078092778
-      XP_16: 6385321731589948057
-      XP_17: 3917156380817804227
-      XP_18: -726896676481136719
-      XP_19: 7482212999917126976
-      XP_2: -8691370637983186527
-      XP_20: 7474640045568885581
-      XP_3: -849036631766124899
-      XP_4: 4775273245566461928
-      XP_5: -6901798266690048986
-      XP_6: 4843310049013893695
-      XP_7: 5593312177703888419
-      XP_8: -2481058024023725525
-      XP_9: 5722172460582703239
+      HP Bar_0: 6255413763022110828
+      HP Bar_1: 3052294857720932668
+      HP Bar_10: -8367456074444822571
+      HP Bar_11: 458688670601112093
+      HP Bar_12: 5201570535385026277
+      HP Bar_13: -3446043410062128748
+      HP Bar_14: 834416121766953971
+      HP Bar_15: 1011257336146829007
+      HP Bar_16: 1678547934827538097
+      HP Bar_17: 1563412976118749686
+      HP Bar_18: -146503557000373280
+      HP Bar_19: -4707316185497745914
+      HP Bar_2: 1721745858983967557
+      HP Bar_20: 5073062972119108406
+      HP Bar_3: 3629140102137727142
+      HP Bar_4: -9009210520496403008
+      HP Bar_5: -794283922597815629
+      HP Bar_6: 5433576594053648600
+      HP Bar_7: -7296817635706813157
+      HP Bar_8: 8278842739219605180
+      HP Bar_9: 3796017329995274679
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
