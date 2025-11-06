@@ -13,12 +13,13 @@ public class Floor1GroundBuilder : GroundBuilder
         GenerateDecorations();
     }
 
+    //TODO: remade generation algorithm to remove magic numbers.
     private void GenerateDecorations()
     {
         bool[,] tileGrid = new bool[sizeTiles.x, sizeTiles.y];
         Vector3 topLeftPosition = transform.position - new Vector3(sizeTiles.x / 2, sizeTiles.y / 2);
 
-        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 2));
+        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 1));
         GenerateSmallDecorations(tileGrid, topLeftPosition + new Vector3(0.5f, 0));
     }
 
