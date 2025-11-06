@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - LevelEnder
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3931070419
+    locked: 0
+  - name: Darkness
+    uniqueID: 2955952435
     locked: 0
   - name: UI
     uniqueID: 2865239983

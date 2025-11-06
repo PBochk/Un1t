@@ -103,5 +103,7 @@ MonoBehaviour:
   wallTile: {fileID: 0}
   shurfFirstSideTile: {fileID: 0}
   shurfSecondSideTile: {fileID: 0}
+  ground: {fileID: 0}
+  shurfDarkness: {fileID: 0}
   direction: 0
   shurfsSpawnDirection: 0
