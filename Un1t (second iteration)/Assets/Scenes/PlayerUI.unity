@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -340,6 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -559,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -884,6 +887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1720,6 +1724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1892,6 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1990,6 +1996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -2272,7 +2279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7790997573628290336, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7790997573628290336, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: xpCoefficient
@@ -2704,7 +2711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5355036064164064857, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -38.29999
+      value: -38.299988
       objectReference: {fileID: 0}
     - target: {fileID: 5580452425742398409, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: m_Camera

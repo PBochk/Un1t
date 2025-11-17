@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +7,8 @@ using UnityEngine.Events;
 /// </summary>
 public class Hitable : MonoBehaviour
 {
+    [SerializeField] private float invulTime;
+    private bool isVulnerable = true;
     /// <summary>
     /// Called when gameobject takes hit from weapon or projectile
     /// </summary>
@@ -15,6 +18,18 @@ public class Hitable : MonoBehaviour
     public UnityEvent<AttackData> HitTaken;
     public void TakeHit(AttackData attackData)
     {
+        if (!isVulnerable) return;
         HitTaken?.Invoke(attackData);
+        StartCoroutine(WaitForInvulnerability());
+    }
+
+    /// <summary>
+    /// Makes entity temporarily invulnerable
+    /// </summary>
+    private IEnumerator WaitForInvulnerability()
+    {
+        isVulnerable = false;
+        yield return new WaitForSeconds(invulTime);
+        isVulnerable = true;
     }
 }
