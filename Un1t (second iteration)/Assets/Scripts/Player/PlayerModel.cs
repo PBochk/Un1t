@@ -8,6 +8,7 @@ public class PlayerModel
     private float movingSpeed;
     private bool isRestrained;
     private bool isDead = false;
+    private bool isInvulnerable = false;
     public float MaxHealth
     { 
         get => maxHealth;
@@ -23,7 +24,7 @@ public class PlayerModel
         get => currentHealth;
         private set
         {
-            currentHealth = value;
+            currentHealth = value > 0 ? value : 0;
             HealthChanged?.Invoke();
         }
     }
@@ -37,7 +38,7 @@ public class PlayerModel
             PlayerRestrained?.Invoke();
         }
     }
-
+    public bool IsInvulnerable => isInvulnerable;
     private float healthUpgrade;
 
     private int level;
