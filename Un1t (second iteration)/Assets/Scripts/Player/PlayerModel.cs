@@ -23,7 +23,7 @@ public class PlayerModel
         get => currentHealth;
         private set
         {
-            currentHealth = value;
+            currentHealth = value > 0 ? value : 0;
             HealthChanged?.Invoke();
         }
     }
