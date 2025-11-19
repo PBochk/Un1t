@@ -10,11 +10,11 @@ public class StageInitializator : MonoBehaviour
     {
     }
 
-    public void OnSave(InputAction.CallbackContext context)
+    public void OnSave()
     {
     }
 
-    public void OnLoad(InputAction.CallbackContext context)
+    public void OnLoad()
     {
     }
 

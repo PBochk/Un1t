@@ -15,11 +15,14 @@ public class RunSaveLoader
 
     public void Save(GameRunState gameRunState)
     {
-        throw new System.NotImplementedException();
+        serializer.Save(gameRunState, fullPath);
     }
     
     public bool TryLoad(ref GameRunState gameRunState)
     {
-        throw new System.NotImplementedException();
+        if (!serializer.TryLoad(out var newState, fullPath)) return false;
+        gameRunState = newState;
+        return true;
+
     }
 }
