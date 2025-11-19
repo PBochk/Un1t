@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class made for containing state of player
 /// </summary>
-public class PlayerModelMB: MonoBehaviour
+public class PlayerModelMB: MonoBehaviour, IActor
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float healthUpgrade;
@@ -17,5 +17,10 @@ public class PlayerModelMB: MonoBehaviour
     {
         // Temporary solution for serialization
         PlayerModel = new PlayerModel(maxHealth, healthUpgrade, movingSpeed, level, xpCoefficient);
+    }
+
+    public void Initialize(IInstanceModel model)
+    {
+        PlayerModel = model as PlayerModel;
     }
 }

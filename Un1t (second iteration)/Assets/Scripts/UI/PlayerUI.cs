@@ -9,4 +9,9 @@ public class PlayerUI : MonoBehaviour
     public PlayerMeleeWeaponModelMB PlayerMeleeWeaponModelMB => playerMeleeModelMB;
     public PlayerRangeWeaponModelMB PlayerRangeWeaponModelMB => playerRangeModelMB;
 
+    public void Initialize(PlayerModelMB playerModel)
+    {
+        playerModelMB = playerModel;
+    }
+
 }

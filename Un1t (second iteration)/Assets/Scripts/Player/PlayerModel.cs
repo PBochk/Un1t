@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class PlayerModel
+public class PlayerModel : IInstanceModel
 {
+    [XmlIgnore] private const string PREFAB_NAME = "PlayerWithGun";
+    [XmlIgnore] private static readonly PlayerModelMB playerPrefab;
+        
     private float maxHealth;
     private float currentHealth;
     private float movingSpeed;
@@ -18,7 +24,7 @@ public class PlayerModel
             HealthChanged?.Invoke();
         }
     }
-    //TODO: add value non-negative validation
+    
     public float CurrentHealth
     {
         get => currentHealth;
@@ -72,9 +78,9 @@ public class PlayerModel
     public PlayerTools EquippedTool => equippedTool;
 
     private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
-    private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
+    //private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     public List<PlayerTools> AvailableTools => availableTools;
-    public List<PlayerTools> UnlockedTools => unlockedTools;
+    //public List<PlayerTools> UnlockedTools => unlockedTools;
 
     public event Action HealthChanged;
     public event Action PlayerDeath;
@@ -82,6 +88,17 @@ public class PlayerModel
     public event Action ExperienceChanged;
     public event Action NextLevel;
     public event Action<PlayerTools> ToolChanged;
+
+    static PlayerModel()
+    {
+        playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
+    }
+        
+    
+    //TODO: PlayerModel initialization with base values (config is not done yet)
+    public PlayerModel()
+    {
+    }
 
     public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
     {
@@ -165,4 +182,11 @@ public class PlayerModel
     }
 
     public void SetPreviousEquippedTool() => SetEquippedTool(previousTool);
+    
+    public IActor CreateInstance()
+    {
+        var player = Object.Instantiate(playerPrefab);
+        player.Initialize(this);
+        return player;
+    }
 }
