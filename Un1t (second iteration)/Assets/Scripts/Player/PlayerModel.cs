@@ -15,6 +15,15 @@ public class PlayerModel : IInstanceModel
     private bool isRestrained;
     private bool isDead = false;
     private bool isInvulnerable = false;
+    private float healthUpgrade;
+    private int level;
+    private int xpCoefficient;
+    private int currentXP = 0;
+    private int nextLevelXP;
+    private PlayerTools previousTool = PlayerTools.None;
+    private PlayerTools equippedTool = PlayerTools.None;
+    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
+    
     public float MaxHealth
     { 
         get => maxHealth;
@@ -45,12 +54,6 @@ public class PlayerModel : IInstanceModel
         }
     }
     public bool IsInvulnerable => isInvulnerable;
-    private float healthUpgrade;
-
-    private int level;
-    private int xpCoefficient;
-    private int currentXP = 0;
-    private int nextLevelXP;
     public int Level => level;
     public int CurrentXP
     {
@@ -61,7 +64,6 @@ public class PlayerModel : IInstanceModel
             ExperienceChanged?.Invoke();
         }
     }
-
     public int NextLevelXP
     {
         get => nextLevelXP;
@@ -71,16 +73,9 @@ public class PlayerModel : IInstanceModel
             ExperienceChanged?.Invoke();
         }
     }
-
-    private PlayerTools previousTool = PlayerTools.None;
-    private PlayerTools equippedTool = PlayerTools.None;
     public PlayerTools PreviousTool => previousTool;
     public PlayerTools EquippedTool => equippedTool;
-
-    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
-    //private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     public List<PlayerTools> AvailableTools => availableTools;
-    //public List<PlayerTools> UnlockedTools => unlockedTools;
 
     public event Action HealthChanged;
     public event Action PlayerDeath;
