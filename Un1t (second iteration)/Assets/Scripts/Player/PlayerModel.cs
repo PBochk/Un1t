@@ -9,20 +9,28 @@ public class PlayerModel : IInstanceModel
     [XmlIgnore] private const string PREFAB_NAME = "PlayerWithGun";
     [XmlIgnore] private static readonly PlayerModelMB playerPrefab;
         
+    //sufficient for saving and loading
     private float maxHealth;
-    private float currentHealth;
     private float movingSpeed;
-    private bool isRestrained;
-    private bool isDead = false;
-    private bool isInvulnerable = false;
     private float healthUpgrade;
     private int level;
-    private int xpCoefficient;
     private int currentXP = 0;
-    private int nextLevelXP;
-    private PlayerTools previousTool = PlayerTools.None;
-    private PlayerTools equippedTool = PlayerTools.None;
+    private float currentHealth;
+    //A.K.A. Inventory. I think it's better to move invetory to a completely different class
     private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
+    
+    //not sufficient for saving and loading
+    [XmlIgnore] private bool isRestrained;
+    [XmlIgnore] private bool isDead = false;
+    [XmlIgnore] private bool isInvulnerable = false;
+    [XmlIgnore] private PlayerTools previousTool = PlayerTools.None;
+    [XmlIgnore] private PlayerTools equippedTool = PlayerTools.None;
+    
+    //this could be a computed property
+    [XmlIgnore] private int nextLevelXP;
+    
+    //wtf, why isn't this const
+    [XmlIgnore] private int xpCoefficient;
     
     public float MaxHealth
     { 
@@ -43,6 +51,7 @@ public class PlayerModel : IInstanceModel
             HealthChanged?.Invoke();
         }
     }
+    
     public float MovingSpeed => movingSpeed;
     public bool IsRestrained
     {
@@ -53,6 +62,7 @@ public class PlayerModel : IInstanceModel
             PlayerRestrained?.Invoke();
         }
     }
+    
     public bool IsInvulnerable => isInvulnerable;
     public int Level => level;
     public int CurrentXP
@@ -64,6 +74,7 @@ public class PlayerModel : IInstanceModel
             ExperienceChanged?.Invoke();
         }
     }
+    
     public int NextLevelXP
     {
         get => nextLevelXP;
@@ -73,6 +84,7 @@ public class PlayerModel : IInstanceModel
             ExperienceChanged?.Invoke();
         }
     }
+    
     public PlayerTools PreviousTool => previousTool;
     public PlayerTools EquippedTool => equippedTool;
     public List<PlayerTools> AvailableTools => availableTools;
