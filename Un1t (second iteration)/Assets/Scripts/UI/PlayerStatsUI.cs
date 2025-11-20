@@ -47,6 +47,7 @@ public class PlayerStatsUI : MonoBehaviour
         var number = playerModel.CurrentHealth <= 0 ? hpTilesCount : Mathf.FloorToInt((1 - playerModel.CurrentHealth / playerModel.MaxHealth) * hpTilesCount);
         hpBar.sprite = hpSprites[number];
     }
+
     private void OnExperienceChanged()
     {
         xpText.text = playerModel.CurrentXP + " / " + playerModel.NextLevelXP;

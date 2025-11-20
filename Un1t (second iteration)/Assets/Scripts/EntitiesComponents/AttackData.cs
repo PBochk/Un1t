@@ -4,12 +4,12 @@ public readonly struct AttackData
 {
     public float Damage { get; }
     public DamageType DamageType { get; }
-    //public GameObject Sender { get; }
+    public int XPDamage { get; } // is 0 for every entity except glitch
 
-    public AttackData(float damage, DamageType damageType)
+    public AttackData(float damage, DamageType damageType, int xpDamage = 0)
     {
         Damage = damage;
         DamageType = damageType;
-        //Sender = sender;
+        XPDamage = xpDamage;
     }
 }

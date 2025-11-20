@@ -17,9 +17,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
-    [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
-    [SerializeField] private PlayerRangeWeaponController rangeController;
 
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
@@ -30,16 +27,12 @@ public class PlayerController : MonoBehaviour
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
     public UnityEvent RangeShot;
-    public UnityEvent ToolChange;
-    //public UnityEvent<Vector2> MouseMove;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
-        //meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        //rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
     }
 
     private void Start()
@@ -77,19 +70,18 @@ public class PlayerController : MonoBehaviour
     public void OnHitTaken(AttackData attackData)
     {
         playerModel.TakeDamage(attackData.Damage);
+        playerModel.DecreaseXP(attackData.XPDamage);
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
-    public void OnAttack()
+    public void OnMeleeAttack()
     {
-        if (playerModel.EquippedTool == PlayerTools.Melee || playerModel.EquippedTool == PlayerTools.Pickaxe)
-        {
-            StartMelee?.Invoke();
-        }
-        else if (playerModel.EquippedTool == PlayerTools.Range)
-        {
-            StartRange?.Invoke();
-        }
+        StartMelee?.Invoke();
+    }
+
+    public void OnRangeAttack()
+    {
+        StartRange?.Invoke();
     }
 
     public void OnMeleeActiveStart()
@@ -110,54 +102,5 @@ public class PlayerController : MonoBehaviour
     {
         var screenPosition = value.Get<Vector2>();
         MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
-    }
-
-    //Player starts with no weapon equipped
-    //Equipping keys:
-    //1 - melee
-    //2 - range
-    //q - previous weapon
-
-    public void OnEquipPreviousTool()
-    {
-        playerModel.SetPreviousEquippedTool();
-        ChangeTool();
-    }
-
-    public void OnEquipMelee()
-    {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
-        {
-            playerModel.SetEquippedTool(PlayerTools.Melee);
-            ChangeTool();
-        }
-    }
-
-    public void OnEquipRange()
-    {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Range))
-        {
-            playerModel.SetEquippedTool(PlayerTools.Range);
-            ChangeTool();
-        }
-    }
-
-    public void OnEquipPickaxe()
-    {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Pickaxe))
-        {
-            playerModel.SetEquippedTool(PlayerTools.Pickaxe);
-            ChangeTool();
-        }
-    }
-
-    /// <summary>
-    /// Temporary solution for displaying weapon's change
-    /// </summary>
-    // TODO: remove when animations are finished
-    private void ChangeTool()
-    {
-        meleeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
-        pickaxeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
     }
 }
