@@ -20,8 +20,8 @@ public class PlayerModel : IInstanceModel
     //not sufficient for saving and loading
     [XmlIgnore] private bool isRestrained;
 
-    [XmlIgnore] private readonly List<int> XPToNextLevel;
-        
+    [XmlIgnore] private readonly List<int> XPToNextLevel; // can't use IReadOnlyList because it doesn't support serialization (in config)
+
     public float MaxHealth
     { 
         get => maxHealth;
@@ -59,7 +59,7 @@ public class PlayerModel : IInstanceModel
         get => currentXP;
         private set
         {
-            currentXP = value;
+            currentXP = value > 0 ? value : 0;
             ExperienceChanged?.Invoke();
         }
     }
@@ -128,10 +128,15 @@ public class PlayerModel : IInstanceModel
         IsRestrained = isRestrained;
     }
 
-    public void AddXP(int increment)
+    public void IncreaseXP(int increment)
     {
         CurrentXP += increment;
         CheckXP();
+    }
+
+    public void DecreaseXP(int decrement)
+    {
+        CurrentXP -= decrement;
     }
 
     private void CheckXP()
@@ -145,6 +150,7 @@ public class PlayerModel : IInstanceModel
     private void LevelUp()
     {
         level++;
+        CurrentXP = 0;
         NextLevel?.Invoke();
     }
 

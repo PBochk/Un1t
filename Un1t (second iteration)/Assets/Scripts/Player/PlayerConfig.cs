@@ -9,7 +9,7 @@ public class PlayerConfig : ScriptableObject
     [SerializeField] private float baseMovingSpeed;
     [Tooltip("How much XP player needs to get level")]
     [SerializeField] private int level;
-    [SerializeField] private List<int> xpToNextLevel;
+    [SerializeField] private List<int> xpToNextLevel; // can't use IReadOnlyList because it doesn't support serialization
     public float BaseMaxHealth => baseMaxHealth;
     public float BaseMovingSpeed => baseMovingSpeed;
     public int Level => level;

@@ -26,7 +26,6 @@ public class PlayerStatsUI : MonoBehaviour
         playerModel = GetComponentInParent<PlayerUI>().PlayerModelMB.PlayerModel;
         playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
         playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
-        playerModel.NextLevel += OnExperienceChanged;
         Initialize();
     }
 
@@ -34,7 +33,6 @@ public class PlayerStatsUI : MonoBehaviour
     {
         playerModel.HealthChanged -= OnHealthChanged;
         playerModel.ExperienceChanged -= OnExperienceChanged;
-        playerModel.NextLevel -= OnExperienceChanged;
     }
 
     private void Initialize()

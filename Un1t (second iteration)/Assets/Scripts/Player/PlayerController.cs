@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
-    private PlayerMeleeWeaponController meleeController;
-    private PlayerRangeWeaponController rangeController;
 
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
@@ -35,8 +33,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
-        meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
     }
 
     private void Start()
@@ -74,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public void OnHitTaken(AttackData attackData)
     {
         playerModel.TakeDamage(attackData.Damage);
+        playerModel.DecreaseXP(attackData.XPDamage);
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 

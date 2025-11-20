@@ -21,7 +21,7 @@ public class PlayerExperience : MonoBehaviour
 
     public void AddXP(int increment)
     {
-        model.AddXP(increment);
+        model.IncreaseXP(increment);
     }
    
 
