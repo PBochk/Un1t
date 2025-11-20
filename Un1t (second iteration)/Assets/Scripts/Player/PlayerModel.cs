@@ -12,8 +12,8 @@ public class PlayerModel : IInstanceModel
     //sufficient for saving and loading
     private float maxHealth;
     private float movingSpeed;
-    private float healthUpgrade;
-    private int level;
+    private float healthUpgrade; //TODO: rework upgrade system
+    private int level = 1;
     private int currentXP = 0;
     private float currentHealth;
     //A.K.A. Inventory. I think it's better to move invetory to a completely different class
@@ -21,8 +21,6 @@ public class PlayerModel : IInstanceModel
     
     //not sufficient for saving and loading
     [XmlIgnore] private bool isRestrained;
-    [XmlIgnore] private bool isDead = false;
-    [XmlIgnore] private bool isInvulnerable = false;
     [XmlIgnore] private PlayerTools previousTool = PlayerTools.None;
     [XmlIgnore] private PlayerTools equippedTool = PlayerTools.None;
     
@@ -63,7 +61,6 @@ public class PlayerModel : IInstanceModel
         }
     }
     
-    public bool IsInvulnerable => isInvulnerable;
     public int Level => level;
     public int CurrentXP
     {
@@ -102,31 +99,34 @@ public class PlayerModel : IInstanceModel
     }
         
     
-    //TODO: PlayerModel initialization with base values (config is not done yet)
-    public PlayerModel()
-    {
-    }
-
-    public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
+    public PlayerModel(float maxHealth, float movingSpeed)
     {
         this.maxHealth = maxHealth;
         currentHealth = maxHealth;
-        this.healthUpgrade = healthUpgrade;
         this.movingSpeed = movingSpeed;
-        this.level = level;
-        this.xpCoefficient = xpCoefficient;
-        nextLevelXP = GetNextLevelXP();
     }
+
+    //TODO: replace with initialization from scriptable object
+    //public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
+    //{
+    //    this.maxHealth = maxHealth;
+    //    currentHealth = maxHealth;
+    //    this.healthUpgrade = healthUpgrade;
+    //    this.movingSpeed = movingSpeed;
+    //    this.level = level;
+    //    this.xpCoefficient = xpCoefficient;
+    //    nextLevelXP = GetNextLevelXP();
+    //}
 
     public void TakeHeal(float heal)
     {
-        if (isDead) return;
+        if (CurrentHealth <= 0) return;
         CurrentHealth += heal;
     }
 
     public void TakeDamage(float decrement)
     {
-        if(isDead) return;
+        if (CurrentHealth <= 0) return;
         CurrentHealth -= decrement;
         CheckHealth();
     }
@@ -135,7 +135,6 @@ public class PlayerModel : IInstanceModel
     {
         if (CurrentHealth <= 0)
         {
-            isDead = true;
             SetPlayerRestrained(true);
             PlayerDeath?.Invoke();
         }
@@ -173,6 +172,7 @@ public class PlayerModel : IInstanceModel
         return GetFibonachi(level + 1) * xpCoefficient;
     }
 
+    // TODO: rework upgrades
     public void UpgradeHealth()
     {
         MaxHealth += healthUpgrade;

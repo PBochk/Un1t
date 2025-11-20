@@ -428,6 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1134a41c36866419a301e412aaa493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConfig: {fileID: 11400000, guid: 9cd697727f8d9084699d761f32592ed4, type: 2}
   maxHealth: 100
   healthUpgrade: 25
   movingSpeed: 15
