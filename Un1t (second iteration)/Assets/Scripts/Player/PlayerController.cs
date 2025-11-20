@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput; 
     private PlayerModel playerModel;
-    [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerRangeWeaponController rangeController;
+    private PlayerMeleeWeaponController meleeController;
+    private PlayerRangeWeaponController rangeController;
 
     private Vector2 moveDirection;
     public Vector2 Position => rb.position;
@@ -29,15 +29,14 @@ public class PlayerController : MonoBehaviour
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
     public UnityEvent RangeShot;
-    //public UnityEvent<Vector2> MouseMove;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
-        //meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        //rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
+        meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
+        rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
     }
 
     private void Start()

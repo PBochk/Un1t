@@ -19,13 +19,9 @@ public class PlayerModel : IInstanceModel
     
     //not sufficient for saving and loading
     [XmlIgnore] private bool isRestrained;
-    
-    //this could be a computed property
-    [XmlIgnore] private int nextLevelXP;
-    
-    //wtf, why isn't this const
-    [XmlIgnore] private int xpCoefficient;
-    
+
+    [XmlIgnore] private readonly List<int> XPToNextLevel;
+        
     public float MaxHealth
     { 
         get => maxHealth;
@@ -68,15 +64,7 @@ public class PlayerModel : IInstanceModel
         }
     }
     
-    public int NextLevelXP
-    {
-        get => nextLevelXP;
-        private set
-        {
-            nextLevelXP = value;
-            ExperienceChanged?.Invoke();
-        }
-    }
+    public int NextLevelXP => XPToNextLevel[level];
     
     public event Action HealthChanged;
     public event Action PlayerDeath;
@@ -88,13 +76,14 @@ public class PlayerModel : IInstanceModel
     {
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
     }
-        
     
-    public PlayerModel(float maxHealth, float movingSpeed)
+    public PlayerModel(float maxHealth, float movingSpeed, int level, List<int> XPToNextLevel)
     {
         this.maxHealth = maxHealth;
         currentHealth = maxHealth;
         this.movingSpeed = movingSpeed;
+        this.level = level;
+        this.XPToNextLevel = XPToNextLevel;
     }
 
     //TODO: replace with initialization from scriptable object
@@ -131,6 +120,7 @@ public class PlayerModel : IInstanceModel
         }
     }
 
+    // TODO: move to controller
     public void SetPlayerRestrained(bool isRestrained)
     {
         IsRestrained = isRestrained;
@@ -144,7 +134,7 @@ public class PlayerModel : IInstanceModel
 
     private void CheckXP()
     {
-        if (CurrentXP >= nextLevelXP)
+        if (CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count)
         {
             LevelUp();
         }
@@ -153,14 +143,7 @@ public class PlayerModel : IInstanceModel
     private void LevelUp()
     {
         level++;
-        NextLevelXP = GetNextLevelXP();
         NextLevel?.Invoke();
-    }
-
-    // TODO: replace with scriptable object
-    private int GetNextLevelXP()
-    {
-        return GetFibonachi(level + 1) * xpCoefficient;
     }
 
     // TODO: rework upgrades
@@ -169,9 +152,6 @@ public class PlayerModel : IInstanceModel
         MaxHealth += healthUpgrade;
         CurrentHealth += healthUpgrade;
     }
-    
-    // TODO: remove
-    private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
     
     public IActor CreateInstance()
     {

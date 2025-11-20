@@ -18,7 +18,7 @@ public class PlayerModelMB: MonoBehaviour, IActor
     {
         // Temporary solution for serialization
         //PlayerModel = new PlayerModel(maxHealth, healthUpgrade, movingSpeed, level);
-        PlayerModel = new(playerConfig.BaseMaxHealth, playerConfig.BaseMovingSpeed);
+        PlayerModel = new(playerConfig.BaseMaxHealth, playerConfig.BaseMovingSpeed, playerConfig.Level, playerConfig.XPToNextLevel);
     }
 
     public void Initialize(IInstanceModel model)

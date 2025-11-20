@@ -9,7 +9,6 @@ public class PlayerToolsUI : MonoBehaviour
     [SerializeField] private TMP_Text ammoText;
     private PlayerRangeWeaponModel rangeModel;
 
-
     // TODO: move subscription in OnEnable after model initialization rework
     private void Start()
     {
