@@ -16,13 +16,9 @@ public class PlayerModel : IInstanceModel
     private int level = 1;
     private int currentXP = 0;
     private float currentHealth;
-    //A.K.A. Inventory. I think it's better to move invetory to a completely different class
-    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
     
     //not sufficient for saving and loading
     [XmlIgnore] private bool isRestrained;
-    [XmlIgnore] private PlayerTools previousTool = PlayerTools.None;
-    [XmlIgnore] private PlayerTools equippedTool = PlayerTools.None;
     
     //this could be a computed property
     [XmlIgnore] private int nextLevelXP;
@@ -82,16 +78,11 @@ public class PlayerModel : IInstanceModel
         }
     }
     
-    public PlayerTools PreviousTool => previousTool;
-    public PlayerTools EquippedTool => equippedTool;
-    public List<PlayerTools> AvailableTools => availableTools;
-
     public event Action HealthChanged;
     public event Action PlayerDeath;
     public event Action PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action NextLevel;
-    public event Action<PlayerTools> ToolChanged;
 
     static PlayerModel()
     {
@@ -181,14 +172,6 @@ public class PlayerModel : IInstanceModel
     
     // TODO: remove
     private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
-
-    public void SetEquippedTool(PlayerTools tool)
-    {
-        (previousTool, equippedTool) = (equippedTool, tool);
-        ToolChanged?.Invoke(equippedTool);
-    }
-
-    public void SetPreviousEquippedTool() => SetEquippedTool(previousTool);
     
     public IActor CreateInstance()
     {

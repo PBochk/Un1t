@@ -13,7 +13,6 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
     private PlayerModel playerModel;
     private PlayerController playerController;
@@ -26,7 +25,6 @@ public class PlayerView : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         playerController.StartMelee.AddListener(OnMelee);
-        pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
         rangeController.StartRangeAnimation.AddListener(RangeAnimationStart);
     }
 
@@ -66,11 +64,6 @@ public class PlayerView : MonoBehaviour
     private void OnMelee()
     {
         //attackSound.Play();
-    }
-
-    private void PickaxeAnimationStart()
-    {
-        animator.SetTrigger("PickaxeAttack");
     }
 
     private void RangeAnimationStart()
