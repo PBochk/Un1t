@@ -80,16 +80,14 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
-    public void OnAttack()
+    public void OnMeleeAttack()
     {
-        if (playerModel.EquippedTool == PlayerTools.Melee || playerModel.EquippedTool == PlayerTools.Pickaxe)
-        {
-            StartMelee?.Invoke();
-        }
-        else if (playerModel.EquippedTool == PlayerTools.Range)
-        {
-            StartRange?.Invoke();
-        }
+        StartMelee?.Invoke();
+    }
+
+    public void OnRangeAttack()
+    {
+        StartRange?.Invoke();
     }
 
     public void OnMeleeActiveStart()
