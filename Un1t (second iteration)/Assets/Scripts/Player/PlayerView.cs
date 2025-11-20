@@ -14,6 +14,7 @@ public class PlayerView : MonoBehaviour
     //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
+    [SerializeField] private ParticleSystem damageParticles;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -26,6 +27,7 @@ public class PlayerView : MonoBehaviour
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         playerController.StartMelee.AddListener(OnMelee);
         rangeController.StartRangeAnimation.AddListener(RangeAnimationStart);
+        
     }
 
     private void Start()
@@ -33,6 +35,7 @@ public class PlayerView : MonoBehaviour
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         // TODO: move subscription in OnEnable after model initialization rework
         playerModel.PlayerDeath += OnDeath;
+        playerModel.DamageTaken += OnDamageTaken;
     }
 
     //private void OnDisable()
@@ -55,7 +58,7 @@ public class PlayerView : MonoBehaviour
             // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
         animator.SetBool("IsRunningForward", moveDirection != Vector2.zero);
-    }
+    }    
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
@@ -74,5 +77,10 @@ public class PlayerView : MonoBehaviour
     private void OnDeath()
     {
         animator.SetTrigger("PlayerDeath");
+    }
+
+    private void OnDamageTaken()
+    {
+        damageParticles.Play();
     }
 }

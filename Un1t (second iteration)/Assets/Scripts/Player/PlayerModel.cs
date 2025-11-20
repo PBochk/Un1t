@@ -67,6 +67,7 @@ public class PlayerModel : IInstanceModel
     public int NextLevelXP => XPToNextLevel[level];
     
     public event Action HealthChanged;
+    public event Action DamageTaken;
     public event Action PlayerDeath;
     public event Action PlayerRestrained;
     public event Action ExperienceChanged;
@@ -109,6 +110,7 @@ public class PlayerModel : IInstanceModel
         if (CurrentHealth <= 0) return;
         CurrentHealth -= decrement;
         CheckHealth();
+        DamageTaken?.Invoke();
     }
 
     private void CheckHealth()
