@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput;
     private PlayerModel playerModel;
+    private Hitable playerHitable;
 
     private Vector2 moveDirection;
     private Vector2 dashDirection = Vector2.right;
@@ -35,7 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
+        playerHitable = GetComponent<Hitable>();
+        playerHitable.HitTaken.AddListener(OnHitTaken);
     }
 
     private void Start()
@@ -90,12 +92,13 @@ public class PlayerController : MonoBehaviour
     {
         if (canDash)
         {
-            StartCoroutine(StartDash());
+            StartCoroutine(WaitForDashDuration());
+            playerHitable.SetInvulForSeconds(playerModel.DashDuration);
             StartCoroutine(WaitForDashCooldown());
         }
     }
 
-    private IEnumerator StartDash()
+    private IEnumerator WaitForDashDuration()
     {
         isDashing = true;
         yield return new WaitForSeconds(playerModel.DashDuration);
