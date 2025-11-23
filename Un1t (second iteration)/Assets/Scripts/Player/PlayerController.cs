@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,11 +16,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private PlayerInput playerInput; 
+    private PlayerInput playerInput;
     private PlayerModel playerModel;
+    private Hitable playerHitable;
 
     private Vector2 moveDirection;
-    public Vector2 Position => rb.position;
+    private Vector2 dashDirection = Vector2.right;
+    private bool isDashing;
+    private bool canDash = true;
     public Vector2 MousePosition { get; private set; }
 
     public UnityEvent StartMelee;
@@ -32,7 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
+        playerHitable = GetComponent<Hitable>();
+        playerHitable.HitTaken.AddListener(OnHitTaken);
     }
 
     private void Start()
@@ -46,32 +51,76 @@ public class PlayerController : MonoBehaviour
     {
         playerModel.PlayerRestrained -= SetInputEnabled;
     }
-
-    private void FixedUpdate()
-    {
-        MovePlayer(moveDirection);
-    }
-
     public void SetInputEnabled()
     {
         playerInput.enabled = !playerModel.IsRestrained;
     }
 
+    public void OnMouseMove(InputValue value)
+    {
+        var screenPosition = value.Get<Vector2>();
+        MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDashing)
+        {
+            MovePlayer(dashDirection, playerModel.DashSpeed);
+        }
+        else
+        {
+            MovePlayer(moveDirection, playerModel.MovingSpeed);
+        }
+    }
+
+    private void MovePlayer(Vector2 direction, float speed)
+    {
+        rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * direction);
+    }
+
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
+        if (moveDirection != Vector2.zero && !isDashing)
+        {
+            dashDirection = moveDirection;
+        }
     }
 
-    private void MovePlayer(Vector2 inputVector)
+    public void OnDash()
     {
-        rb.MovePosition(rb.position + playerModel.MovingSpeed * Time.fixedDeltaTime * inputVector);
+        if (canDash)
+        {
+            StartCoroutine(WaitForDashDuration());
+            playerHitable.SetInvulForSeconds(playerModel.DashDuration);
+            StartCoroutine(WaitForDashCooldown());
+        }
     }
 
-    public void OnHitTaken(AttackData attackData)
+    /// <summary>
+    /// Set isDashing true for dash duration
+    /// </summary>
+    /// <remarks>
+    /// Set player restrained because player shouldn't be able to attack while dashing
+    /// </remarks>
+    private IEnumerator WaitForDashDuration()
     {
-        playerModel.TakeDamage(attackData.Damage);
-        playerModel.DecreaseXP(attackData.XPDamage);
-        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
+        isDashing = true;
+        playerModel.SetPlayerRestrained(true);
+        yield return new WaitForSeconds(playerModel.DashDuration);
+        playerModel.SetPlayerRestrained(false);
+        isDashing = false;
+    }
+
+    /// <summary>
+    /// Set the ability to dash on cooldown
+    /// </summary>
+    public IEnumerator WaitForDashCooldown()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(playerModel.DashCooldown);
+        canDash = true;
     }
 
     public void OnMeleeAttack()
@@ -98,9 +147,11 @@ public class PlayerController : MonoBehaviour
         RangeShot?.Invoke();
     }
 
-    public void OnMouseMove(InputValue value)
+    public void OnHitTaken(AttackData attackData)
     {
-        var screenPosition = value.Get<Vector2>();
-        MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        playerModel.TakeDamage(attackData.Damage);
+        playerModel.DecreaseXP(attackData.XPDamage);
+        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
+
 }

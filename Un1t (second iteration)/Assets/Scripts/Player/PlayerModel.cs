@@ -12,13 +12,16 @@ public class PlayerModel : IInstanceModel
     //sufficient for saving and loading
     private float maxHealth;
     private float movingSpeed;
+    private float dashSpeed;
+    private float dashDuration;
+    private float dashCooldown;
     private float healthUpgrade; //TODO: rework upgrade system
     private int level = 1;
     private int currentXP = 0;
     private float currentHealth;
     
     //not sufficient for saving and loading
-    [XmlIgnore] private bool isRestrained;
+    [XmlIgnore] private bool isRestrained; //TODO: move to controller 
 
     [XmlIgnore] private readonly List<int> XPToNextLevel; // can't use IReadOnlyList because it doesn't support serialization (in config)
 
@@ -43,6 +46,10 @@ public class PlayerModel : IInstanceModel
     }
     
     public float MovingSpeed => movingSpeed;
+    public float DashSpeed => dashSpeed;
+    public float DashDuration => dashDuration;
+    public float DashCooldown => dashCooldown;
+
     public bool IsRestrained
     {
         get => isRestrained;
@@ -78,26 +85,23 @@ public class PlayerModel : IInstanceModel
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
     }
     
-    public PlayerModel(float maxHealth, float movingSpeed, int level, List<int> XPToNextLevel)
+    public PlayerModel(float maxHealth, 
+                       float movingSpeed, 
+                       float dashSpeed, 
+                       float dashDuration,
+                       float dashCooldown, 
+                       int level, 
+                       List<int> XPToNextLevel)
     {
         this.maxHealth = maxHealth;
         currentHealth = maxHealth;
         this.movingSpeed = movingSpeed;
+        this.dashSpeed = dashSpeed;
+        this.dashDuration = dashDuration;
+        this.dashCooldown = dashCooldown;
         this.level = level;
         this.XPToNextLevel = XPToNextLevel;
     }
-
-    //TODO: replace with initialization from scriptable object
-    //public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
-    //{
-    //    this.maxHealth = maxHealth;
-    //    currentHealth = maxHealth;
-    //    this.healthUpgrade = healthUpgrade;
-    //    this.movingSpeed = movingSpeed;
-    //    this.level = level;
-    //    this.xpCoefficient = xpCoefficient;
-    //    nextLevelXP = GetNextLevelXP();
-    //}
 
     public void TakeHeal(float heal)
     {
