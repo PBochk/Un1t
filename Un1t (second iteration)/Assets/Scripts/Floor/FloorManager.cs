@@ -51,19 +51,19 @@ public class FloorManager : MonoBehaviour
         );
 
         int roomCount = UnityEngine.Random.Range(minRoomsCount, maxRoomsCount) - 2;
-        GenerateFloor(roomCount);
+        GenerateFloor();
     }
 
     /// <summary>
     /// Creates all rooms for this level
     /// Each room gets it's own content
     /// </summary>
-    private void GenerateFloor(int roomsCount)
+    private void GenerateFloor()
     {
         DungeonFactory dungeonFactory = new();
-        List<Room> rooms = dungeonFactory.CreateDungeon();
+        List<DungeonFactory.Room> rooms = dungeonFactory.CreateDungeon();
 
-        foreach (Room room in rooms)
+        foreach (DungeonFactory.Room room in rooms)
         {
             Vector2 roomPosition = (Vector2)((Vector2Int)room.GridPosition * RoomInfo.Size);
             if (TryChooseTemplateRoom(room.OuterWalls, out RoomInfo roomInfo))
@@ -74,27 +74,6 @@ public class FloorManager : MonoBehaviour
     }
 
 
-
-    /*
-    private void CreateAnotherOneRoom(int roomsCount, in FloorGridPosition roomPositionGrid)
-    {
-      
-
-        topRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
-        bottomRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
-        leftRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
-        rightRoomDescription.Wall ??= RoomOuterWalls.Wall.Solid;
-
-        RoomOuterWalls outerWalls = new(topRoomDescription.Wall.Value, bottomRoomDescription.Wall.Value, leftRoomDescription.Wall.Value, rightRoomDescription.Wall.Value);
-
-        Vector2 roomPosition = (Vector2)((Vector2Int)roomPositionGrid * RoomInfo.Size);
-        if (TryChooseTemplateRoom(outerWalls, out RoomInfo roomInfo))
-            GenerateRoom(roomInfo, roomPositionGrid, roomPosition);
-        else
-            ConstructRoom(outerWalls, roomPositionGrid, roomPosition);
-
-    }
-    */
     /// <summary>
     /// Instantiates a room prefab at the specified position
     /// </summary>

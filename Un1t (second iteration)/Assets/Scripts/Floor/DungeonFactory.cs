@@ -1,13 +1,35 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Random = System.Random;
 
 public class DungeonFactory
 {
     private Random random;
 
+    public enum Direction
+    {
+        North,
+        South,
+        East,
+        West
+    }
+
+    /// <summary>
+    /// Create and generate a complete dungeon.
+    /// </summary>
+    /// <param name="floorNumber">Current floor number (affects total room count)</param>
+    /// <param name="minDistance">Minimum distance from entrance to exit</param>
+    /// <param name="maxDistance">Maximum distance from entrance to exit</param>
+    /// <param name="bonusProbability">Probability of a room being a bonus room</param>
+    /// <param name="seed">Random seed for reproducible generation (null = random)</param>
+    /// <param name="entropy">Controls randomness (0.0-1.0):
+    /// - 0.0: Minimal extra connections, straight paths
+    /// - 0.5: Balanced variety
+    /// - 1.0: Maximum extra connections and variety</param>
+    /// <param name="roomMultiplier">Base multiplier for room count formula</param>
+    /// <param name="roomFloorCoef">Floor number coefficient for room count formula</param>
+    /// <returns>A list of fully generated Room instances</returns>
     public List<Room> CreateDungeon(
         int floorNumber = 0,
         int minDistance = 25,
@@ -29,10 +51,11 @@ public class DungeonFactory
 
         entropy = Math.Max(0.0, Math.Min(1.0, entropy));
 
-        Dungeon dungeon = new Dungeon();
-        dungeon.FloorNumber = floorNumber;
-
-        dungeon.PathLength = random.Next(minDistance, maxDistance + 1);
+        Dungeon dungeon = new()
+        {
+            FloorNumber = floorNumber,
+            PathLength = random.Next(minDistance, maxDistance + 1)
+        };
 
         int totalRooms = dungeon.PathLength * (roomMultiplier + floorNumber * roomFloorCoef);
 
@@ -43,7 +66,7 @@ public class DungeonFactory
         }
 
         int center = dungeon.GridSize / 2;
-        dungeon.entrance = new Tuple<int, int>(center, center);
+        dungeon.EntrancePosition = new FloorGridPosition(center, center);
 
         PlaceRooms(dungeon, totalRooms);
 
@@ -51,26 +74,31 @@ public class DungeonFactory
 
         AddBonusRooms(dungeon, bonusProbability);
 
-        List<Room> allRooms = new List<Room>();
+        List<Room> allRooms = new();
 
-        foreach (var kvp in dungeon.grid)
+        FloorGridPosition firstRoomOffset = new FloorGridPosition(8, 8);
+
+        foreach (KeyValuePair<FloorGridPosition, Room> roomWithPosition in dungeon.grid)
         {
-            Tuple<int, int> pos = kvp.Key;
-            Room room = kvp.Value;
+            FloorGridPosition gridPos = roomWithPosition.Key;
+            Room room = roomWithPosition.Value;
 
-            // Update outer walls based on passage connections
+            int worldX = firstRoomOffset.X + (gridPos.X - dungeon.EntrancePosition.X);
+            int worldY = firstRoomOffset.Y + (gridPos.Y - dungeon.EntrancePosition.Y);
+            FloorGridPosition worldPosition = new FloorGridPosition(worldX, worldY);
+
             UpdateOuterWalls(room);
 
-            if (pos.Equals(dungeon.entrance))
+            if (gridPos.Equals(dungeon.EntrancePosition))
             {
                 room.Type = Room.RoomType.Entrance;
             }
-            else if (pos.Equals(dungeon.exit))
+            else if (gridPos.Equals(dungeon.ExitPosition))
             {
                 room.Type = Room.RoomType.Exit;
             }
 
-            room.GridPosition = new FloorGridPosition(pos.Item1, pos.Item2);
+            room.GridPosition = worldPosition;
             allRooms.Add(room);
         }
 
@@ -79,7 +107,6 @@ public class DungeonFactory
 
     private void UpdateOuterWalls(Room room)
     {
-        // South = Top, North = Bottom, West = Left, East = Right
         RoomOuterWalls.Wall topWall = room.HasSouthPassage ?
             RoomOuterWalls.Wall.CentreExit :
             RoomOuterWalls.Wall.Solid;
@@ -101,45 +128,44 @@ public class DungeonFactory
 
     private void PlaceRooms(Dungeon dungeon, int totalRooms)
     {
-        List<Tuple<int, int>> mainPath = CreateGuaranteedPath(dungeon, dungeon.PathLength);
+        List<FloorGridPosition> mainPath = CreateGuaranteedPath(dungeon, dungeon.PathLength);
 
-        dungeon.mainPath = mainPath;
+        dungeon.MainPath = mainPath;
 
-        HashSet<Tuple<int, int>> placed = new HashSet<Tuple<int, int>>(mainPath);
-        foreach (Tuple<int, int> pos in mainPath)
+        HashSet<FloorGridPosition> placed = new(mainPath);
+        foreach (FloorGridPosition pos in mainPath)
         {
-            Room room = new();
-            dungeon.grid[pos] = room;
+            dungeon.grid[pos] = new();
         }
 
-        dungeon.exit = mainPath[mainPath.Count - 1];
+        dungeon.ExitPosition = mainPath[^1];
 
-        HashSet<Tuple<int, int>> candidates = new HashSet<Tuple<int, int>>();
-        foreach (Tuple<int, int> pos in placed)
+        HashSet<FloorGridPosition> candidates = new();
+        foreach (FloorGridPosition position in placed)
         {
-            foreach (Tuple<int, int> adj in GetAdjacentPositions(dungeon, pos))
+            foreach (FloorGridPosition adjacentPosition in GetAdjacentPositions(dungeon, position))
             {
-                if (!placed.Contains(adj))
+                if (!placed.Contains(adjacentPosition))
                 {
-                    candidates.Add(adj);
+                    candidates.Add(adjacentPosition);
                 }
             }
         }
 
         while (placed.Count < totalRooms && candidates.Count > 0)
         {
-            Tuple<int, int> pos = candidates.ElementAt(random.Next(candidates.Count));
-            candidates.Remove(pos);
+            FloorGridPosition position = candidates.ElementAt(random.Next(candidates.Count));
+            candidates.Remove(position);
 
             Room room = new();
-            dungeon.grid[pos] = room;
-            placed.Add(pos);
+            dungeon.grid[position] = room;
+            placed.Add(position);
 
-            foreach (Tuple<int, int> adj in GetAdjacentPositions(dungeon, pos))
+            foreach (FloorGridPosition adjacentPosition in GetAdjacentPositions(dungeon, position))
             {
-                if (!placed.Contains(adj))
+                if (!placed.Contains(adjacentPosition))
                 {
-                    candidates.Add(adj);
+                    candidates.Add(adjacentPosition);
                 }
             }
         }
@@ -147,7 +173,7 @@ public class DungeonFactory
 
     private void ConnectRooms(Dungeon dungeon, double entropy)
     {
-        List<Tuple<int, int>> mainPath = dungeon.mainPath;
+        List<FloorGridPosition> mainPath = dungeon.MainPath;
 
         if (mainPath != null && mainPath.Count > 0)
         {
@@ -157,18 +183,20 @@ public class DungeonFactory
             }
         }
 
-        HashSet<Tuple<int, int>> mainPathSet = mainPath != null ? new HashSet<Tuple<int, int>>(mainPath) : new HashSet<Tuple<int, int>>();
+        HashSet<FloorGridPosition> mainPathSet = mainPath != null ?
+            new HashSet<FloorGridPosition>(mainPath) :
+            new HashSet<FloorGridPosition>();
 
-        List<Tuple<int, int>> connected = GetConnectedRooms(dungeon, dungeon.entrance);
-        List<Tuple<int, int>> unconnected = new List<Tuple<int, int>>(dungeon.grid.Keys.Except(connected));
+        List<FloorGridPosition> connected = GetConnectedRooms(dungeon, dungeon.EntrancePosition);
+        List<FloorGridPosition> unconnected = new(dungeon.grid.Keys.Except(connected));
 
         while (unconnected.Count > 0)
         {
             bool foundConnection = false;
 
-            foreach (Tuple<int, int> uncon in unconnected.ToList())
+            foreach (FloorGridPosition uncon in unconnected.ToList())
             {
-                foreach (Tuple<int, int> adj in GetAdjacentPositions(dungeon, uncon))
+                foreach (FloorGridPosition adj in GetAdjacentPositions(dungeon, uncon))
                 {
                     if (connected.Contains(adj))
                     {
@@ -188,19 +216,19 @@ public class DungeonFactory
                 break;
             }
 
-            connected = GetConnectedRooms(dungeon, dungeon.entrance);
-            unconnected = new List<Tuple<int, int>>(dungeon.grid.Keys.Except(connected));
+            connected = GetConnectedRooms(dungeon, dungeon.EntrancePosition);
+            unconnected = new List<FloorGridPosition>(dungeon.grid.Keys.Except(connected));
         }
 
         double roomProbability = entropy * 0.5;
         double passageProbability = entropy * 0.6;
 
-        List<Tuple<int, int>> positions = new List<Tuple<int, int>>(dungeon.grid.Keys);
-        foreach (Tuple<int, int> pos in positions)
+        List<FloorGridPosition> positions = new(dungeon.grid.Keys);
+        foreach (FloorGridPosition pos in positions)
         {
             if (random.NextDouble() < roomProbability)
             {
-                foreach (Tuple<int, int> adj in GetAdjacentPositions(dungeon, pos))
+                foreach (FloorGridPosition adj in GetAdjacentPositions(dungeon, pos))
                 {
                     if (!dungeon.grid.ContainsKey(adj))
                     {
@@ -231,15 +259,19 @@ public class DungeonFactory
         }
     }
 
-    private void AddPassage(Dungeon dungeon, Tuple<int, int> pos1, Tuple<int, int> pos2)
+    /// <summary>
+    /// Add a BIDIRECTIONAL passage between two adjacent rooms.
+    /// Only works if BOTH rooms exist and are adjacent.
+    /// </summary>
+    private void AddPassage(Dungeon dungeon, FloorGridPosition pos1, FloorGridPosition pos2)
     {
         if (!dungeon.grid.ContainsKey(pos1) || !dungeon.grid.ContainsKey(pos2))
         {
             return;
         }
 
-        int dx = pos2.Item1 - pos1.Item1;
-        int dy = pos2.Item2 - pos1.Item2;
+        int dx = pos2.X - pos1.X;
+        int dy = pos2.Y - pos1.Y;
 
         if (Math.Abs(dx) + Math.Abs(dy) != 1)
         {
@@ -271,50 +303,53 @@ public class DungeonFactory
         }
     }
 
-    private List<Tuple<int, int>> GetConnectedRooms(Dungeon dungeon, Tuple<int, int> start)
+    /// <summary>
+    /// Get all rooms connected to start via existing passages.
+    /// </summary>
+    private List<FloorGridPosition> GetConnectedRooms(Dungeon dungeon, FloorGridPosition start)
     {
         if (!dungeon.grid.ContainsKey(start))
         {
-            return new List<Tuple<int, int>>();
+            return new List<FloorGridPosition>();
         }
 
-        List<Tuple<int, int>> visited = new List<Tuple<int, int>> { start };
-        Queue<Tuple<int, int>> queue = new Queue<Tuple<int, int>>();
+        List<FloorGridPosition> visited = new() { start };
+        Queue<FloorGridPosition> queue = new();
         queue.Enqueue(start);
 
         while (queue.Count > 0)
         {
-            Tuple<int, int> pos = queue.Dequeue();
+            FloorGridPosition pos = queue.Dequeue();
             Room room = dungeon.grid[pos];
 
             var directions = new[]
             {
-                (Pos: new Tuple<int, int>(pos.Item1, pos.Item2 - 1), HasPassage: room.HasNorthPassage, Opposite: "south"),
-                (Pos: new Tuple<int, int>(pos.Item1, pos.Item2 + 1), HasPassage: room.HasSouthPassage, Opposite: "north"),
-                (Pos: new Tuple<int, int>(pos.Item1 + 1, pos.Item2), HasPassage: room.HasEastPassage, Opposite: "west"),
-                (Pos: new Tuple<int, int>(pos.Item1 - 1, pos.Item2), HasPassage: room.HasWestPassage, Opposite: "east")
+                (Pos: new FloorGridPosition(pos.X, pos.Y - 1), HasPassage: room.HasNorthPassage, Opposite: Direction.South),
+                (Pos: new FloorGridPosition(pos.X, pos.Y + 1), HasPassage: room.HasSouthPassage, Opposite: Direction.North),
+                (Pos: new FloorGridPosition(pos.X + 1, pos.Y), HasPassage: room.HasEastPassage, Opposite: Direction.West),
+                (Pos: new FloorGridPosition(pos.X - 1, pos.Y), HasPassage: room.HasWestPassage, Opposite: Direction.East)
             };
 
-            foreach (var dir in directions)
+            foreach (var (Pos, HasPassage, Opposite) in directions)
             {
-                if (dir.HasPassage && dungeon.grid.ContainsKey(dir.Pos))
+                if (HasPassage && dungeon.grid.ContainsKey(Pos))
                 {
-                    Room neighborRoom = dungeon.grid[dir.Pos];
+                    Room neighborRoom = dungeon.grid[Pos];
                     bool oppositePassage = false;
-                    switch (dir.Opposite)
+                    switch (Opposite)
                     {
-                        case "south": oppositePassage = neighborRoom.HasSouthPassage; break;
-                        case "north": oppositePassage = neighborRoom.HasNorthPassage; break;
-                        case "west": oppositePassage = neighborRoom.HasWestPassage; break;
-                        case "east": oppositePassage = neighborRoom.HasEastPassage; break;
+                        case Direction.South: oppositePassage = neighborRoom.HasSouthPassage; break;
+                        case Direction.North: oppositePassage = neighborRoom.HasNorthPassage; break;
+                        case Direction.West: oppositePassage = neighborRoom.HasWestPassage; break;
+                        case Direction.East: oppositePassage = neighborRoom.HasEastPassage; break;
                     }
 
                     if (oppositePassage)
                     {
-                        if (!visited.Contains(dir.Pos))
+                        if (!visited.Contains(Pos))
                         {
-                            visited.Add(dir.Pos);
-                            queue.Enqueue(dir.Pos);
+                            visited.Add(Pos);
+                            queue.Enqueue(Pos);
                         }
                     }
                 }
@@ -324,18 +359,21 @@ public class DungeonFactory
         return visited;
     }
 
-    private List<Tuple<int, int>> GetAdjacentPositions(Dungeon dungeon, Tuple<int, int> pos)
+    /// <summary>
+    /// Get valid adjacent positions within grid bounds.
+    /// </summary>
+    private List<FloorGridPosition> GetAdjacentPositions(Dungeon dungeon, FloorGridPosition pos)
     {
-        int x = pos.Item1;
-        int y = pos.Item2;
-        List<Tuple<int, int>> adjacent = new List<Tuple<int, int>>();
+        int x = pos.X;
+        int y = pos.Y;
+        List<FloorGridPosition> adjacent = new List<FloorGridPosition>();
 
         (int dx, int dy)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
         foreach ((int dx, int dy) in directions)
         {
-            Tuple<int, int> newPos = new Tuple<int, int>(x + dx, y + dy);
-            if (0 <= newPos.Item1 && newPos.Item1 < dungeon.GridSize &&
-                0 <= newPos.Item2 && newPos.Item2 < dungeon.GridSize)
+            FloorGridPosition newPos = new(x + dx, y + dy);
+            if (0 <= newPos.X && newPos.X < dungeon.GridSize &&
+                0 <= newPos.Y && newPos.Y < dungeon.GridSize)
             {
                 adjacent.Add(newPos);
             }
@@ -344,25 +382,29 @@ public class DungeonFactory
         return adjacent;
     }
 
-    private List<Tuple<int, int>> CreateGuaranteedPath(Dungeon dungeon, int length)
+    /// <summary>
+    /// Create a guaranteed path of exact length starting from entrance.
+    /// Uses a random walk that avoids revisiting positions.
+    /// </summary>
+    private List<FloorGridPosition> CreateGuaranteedPath(Dungeon dungeon, int length)
     {
-        List<Tuple<int, int>> path = new List<Tuple<int, int>> { dungeon.entrance };
-        HashSet<Tuple<int, int>> visited = new HashSet<Tuple<int, int>> { dungeon.entrance };
-        Tuple<int, int> current = dungeon.entrance;
+        List<FloorGridPosition> path = new() { dungeon.EntrancePosition };
+        HashSet<FloorGridPosition> visited = new() { dungeon.EntrancePosition };
+        FloorGridPosition current = dungeon.EntrancePosition;
 
         for (int i = 0; i < length; i++)
         {
-            List<Tuple<int, int>> adjacent = GetAdjacentPositions(dungeon, current);
-            List<Tuple<int, int>> unvisited = adjacent.Where(pos => !visited.Contains(pos)).ToList();
+            List<FloorGridPosition> adjacent = GetAdjacentPositions(dungeon, current);
+            List<FloorGridPosition> unvisited = adjacent.Where(pos => !visited.Contains(pos)).ToList();
 
             if (unvisited.Count == 0)
             {
                 if (path.Count > 1)
                 {
-                    Tuple<int, int> removed = path[path.Count - 1];
+                    FloorGridPosition removed = path[^1];
                     path.RemoveAt(path.Count - 1);
                     visited.Remove(removed);
-                    current = path[path.Count - 1];
+                    current = path[^1];
                     continue;
                 }
                 else
@@ -371,7 +413,7 @@ public class DungeonFactory
                 }
             }
 
-            Tuple<int, int> nextPos = unvisited[random.Next(unvisited.Count)];
+            FloorGridPosition nextPos = unvisited[random.Next(unvisited.Count)];
             path.Add(nextPos);
             visited.Add(nextPos);
             current = nextPos;
@@ -380,10 +422,13 @@ public class DungeonFactory
         return path;
     }
 
+    /// <summary>
+    /// Mark some rooms as bonus rooms.
+    /// </summary>
     private void AddBonusRooms(Dungeon dungeon, double bonusProbability)
     {
-        List<Tuple<int, int>> regularRooms = dungeon.grid.Keys
-            .Where(pos => !pos.Equals(dungeon.entrance) && !pos.Equals(dungeon.exit))
+        List<FloorGridPosition> regularRooms = dungeon.grid.Keys
+            .Where(pos => !pos.Equals(dungeon.EntrancePosition) && !pos.Equals(dungeon.ExitPosition))
             .ToList();
 
         if (regularRooms.Count == 0)
@@ -392,58 +437,69 @@ public class DungeonFactory
         }
 
         int numBonus = Math.Max(1, (int)(regularRooms.Count * bonusProbability));
-        List<Tuple<int, int>> bonusPositions = regularRooms
+        List<FloorGridPosition> bonusPositions = regularRooms
             .OrderBy(x => random.Next())
             .Take(Math.Min(numBonus, regularRooms.Count))
             .ToList();
 
-        foreach (Tuple<int, int> pos in bonusPositions)
+        foreach (FloorGridPosition pos in bonusPositions)
         {
             dungeon.grid[pos].IsBonus = true;
         }
     }
-}
 
-public class Dungeon
-{
-    public Dictionary<Tuple<int, int>, Room> grid = new Dictionary<Tuple<int, int>, Room>();
-    public int FloorNumber { get; set; }
-    public int PathLength { get; set; }
-    public int GridSize { get; set; }
-    public Tuple<int, int> entrance { get; set; }
-    public Tuple<int, int> exit { get; set; }
-    public List<Tuple<int, int>> mainPath { get; set; }
-}
-
-public class Room
-{
-    public RoomOuterWalls OuterWalls { get; set; }
-    public bool IsBonus { get; set; }
-
-    public RoomType Type { get; set; }
-
-    public FloorGridPosition GridPosition { get; set; }
-
-    public bool HasNorthPassage { get; set; }
-    public bool HasSouthPassage { get; set; }
-    public bool HasEastPassage { get; set; }
-    public bool HasWestPassage { get; set; }
-
-    public Room()
+    #region Dungeon
+    /// <summary>
+    /// Internal dungeon data structure for generation process.
+    /// </summary>
+    private class Dungeon
     {
-        HasNorthPassage = false;
-        HasSouthPassage = false;
-        HasEastPassage = false;
-        HasWestPassage = false;
-        IsBonus = false;
-        Type = RoomType.Regular;
+        public Dictionary<FloorGridPosition, Room> grid = new();
+        public int FloorNumber { get; set; }
+        public int PathLength { get; set; }
+        public int GridSize { get; set; }
+        public FloorGridPosition EntrancePosition { get; set; }
+        public FloorGridPosition ExitPosition { get; set; }
+        public List<FloorGridPosition> MainPath { get; set; }
     }
+    #endregion
 
-    public enum RoomType
+    #region Room
+    /// <summary>
+    /// Represents a room in the dungeon with passages and type information.
+    /// </summary>
+    public class Room
     {
-        Regular,
-        Entrance,
-        Exit,
-        Bonus
+        public RoomOuterWalls OuterWalls { get; set; }
+        public bool IsBonus { get; set; }
+        public RoomType Type { get; set; }
+        public FloorGridPosition GridPosition { get; set; }
+
+        public bool HasNorthPassage { get; set; }
+        public bool HasSouthPassage { get; set; }
+        public bool HasEastPassage { get; set; }
+        public bool HasWestPassage { get; set; }
+
+        public Room()
+        {
+            HasNorthPassage = false;
+            HasSouthPassage = false;
+            HasEastPassage = false;
+            HasWestPassage = false;
+            IsBonus = false;
+            Type = RoomType.Regular;
+        }
+
+        /// <summary>
+        /// Types of rooms in the dungeon.
+        /// </summary>
+        public enum RoomType
+        {
+            Regular,
+            Entrance,
+            Exit,
+            Bonus
+        }
     }
+    #endregion
 }
