@@ -1027,7 +1027,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29012895, y: 0.05075884, z: -10}
+  m_LocalPosition: {x: 0.29231668, y: 0.050988913, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2217,6 +2217,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 1941794300054987042, guid: 121376470a328464e91444cf12ec5c0f, type: 3}
+    - target: {fileID: 5965787015759184982, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: lifetime
       value: 2
@@ -2794,6 +2798,10 @@ PrefabInstance:
       propertyPath: pauseManager
       value: 
       objectReference: {fileID: 1069120202}
+    - target: {fileID: 4268633266797673228, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
+      propertyPath: texts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5923751415565308295, guid: d8e7f9bbde3ca5e46af154f974750b5b, type: 3}
       propertyPath: m_Name
       value: Menus
