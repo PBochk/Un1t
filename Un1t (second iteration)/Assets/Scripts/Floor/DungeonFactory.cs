@@ -76,7 +76,7 @@ public class DungeonFactory
 
         List<Room> allRooms = new();
 
-        FloorGridPosition firstRoomOffset = new FloorGridPosition(8, 8);
+        FloorGridPosition firstRoomOffset = new(8, 8);
 
         foreach (KeyValuePair<FloorGridPosition, Room> roomWithPosition in dungeon.grid)
         {
@@ -330,13 +330,13 @@ public class DungeonFactory
                 (Pos: new FloorGridPosition(pos.X - 1, pos.Y), HasPassage: room.HasWestPassage, Opposite: Direction.East)
             };
 
-            foreach (var (Pos, HasPassage, Opposite) in directions)
+            foreach (var (position, hasPassage, opposite) in directions)
             {
-                if (HasPassage && dungeon.grid.ContainsKey(Pos))
+                if (hasPassage && dungeon.grid.ContainsKey(position))
                 {
-                    Room neighborRoom = dungeon.grid[Pos];
+                    Room neighborRoom = dungeon.grid[position];
                     bool oppositePassage = false;
-                    switch (Opposite)
+                    switch (opposite)
                     {
                         case Direction.South: oppositePassage = neighborRoom.HasSouthPassage; break;
                         case Direction.North: oppositePassage = neighborRoom.HasNorthPassage; break;
@@ -346,10 +346,10 @@ public class DungeonFactory
 
                     if (oppositePassage)
                     {
-                        if (!visited.Contains(Pos))
+                        if (!visited.Contains(position))
                         {
-                            visited.Add(Pos);
-                            queue.Enqueue(Pos);
+                            visited.Add(position);
+                            queue.Enqueue(position);
                         }
                     }
                 }
