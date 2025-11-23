@@ -1,19 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = System.Random;
 
 public class DungeonFactory
 {
     private Random random;
 
-    public enum Direction
-    {
-        North,
-        South,
-        East,
-        West
-    }
+    /// <summary>
+    /// Offset for the first room position. All other rooms are positioned relative to this.
+    /// </summary>
+    private static readonly FloorGridPosition firstRoomOffset = new(RoomGrid.FLOOR_SIZE/2, RoomGrid.FLOOR_SIZE / 2);
 
     /// <summary>
     /// Create and generate a complete dungeon.
@@ -32,8 +30,8 @@ public class DungeonFactory
     /// <returns>A list of fully generated Room instances</returns>
     public List<Room> CreateDungeon(
         int floorNumber = 0,
-        int minDistance = 25,
-        int maxDistance = 27,
+        int minDistance = 5,
+        int maxDistance = 7,
         double bonusProbability = 0.15,
         int? seed = null,
         double entropy = 0.2,
@@ -75,8 +73,6 @@ public class DungeonFactory
         AddBonusRooms(dungeon, bonusProbability);
 
         List<Room> allRooms = new();
-
-        FloorGridPosition firstRoomOffset = new(8, 8);
 
         foreach (KeyValuePair<FloorGridPosition, Room> roomWithPosition in dungeon.grid)
         {
@@ -330,13 +326,13 @@ public class DungeonFactory
                 (Pos: new FloorGridPosition(pos.X - 1, pos.Y), HasPassage: room.HasWestPassage, Opposite: Direction.East)
             };
 
-            foreach (var (position, hasPassage, opposite) in directions)
+            foreach (var (Pos, HasPassage, Opposite) in directions)
             {
-                if (hasPassage && dungeon.grid.ContainsKey(position))
+                if (HasPassage && dungeon.grid.ContainsKey(Pos))
                 {
-                    Room neighborRoom = dungeon.grid[position];
+                    Room neighborRoom = dungeon.grid[Pos];
                     bool oppositePassage = false;
-                    switch (opposite)
+                    switch (Opposite)
                     {
                         case Direction.South: oppositePassage = neighborRoom.HasSouthPassage; break;
                         case Direction.North: oppositePassage = neighborRoom.HasNorthPassage; break;
@@ -346,10 +342,10 @@ public class DungeonFactory
 
                     if (oppositePassage)
                     {
-                        if (!visited.Contains(position))
+                        if (!visited.Contains(Pos))
                         {
-                            visited.Add(position);
-                            queue.Enqueue(position);
+                            visited.Add(Pos);
+                            queue.Enqueue(Pos);
                         }
                     }
                 }
@@ -446,6 +442,14 @@ public class DungeonFactory
         {
             dungeon.grid[pos].IsBonus = true;
         }
+    }
+
+    private enum Direction
+    {
+        North,
+        South,
+        East,
+        West
     }
 
     #region Dungeon

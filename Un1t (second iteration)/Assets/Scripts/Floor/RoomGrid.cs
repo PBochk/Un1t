@@ -3,7 +3,7 @@
 /// </summary>
 public class RoomGrid
 {
-    public const int FLOOR_SIZE = 25;
+    public const int FLOOR_SIZE = 16;
 
     private readonly RoomInfo[,] rooms;
 
