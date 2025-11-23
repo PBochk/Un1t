@@ -152,7 +152,7 @@ public class OuterWallBuilder : TilesBuilder
 
             invisibleWallSize = new Vector2((SHURF_WIDTH + shurfFirstSideThickness + shurfSecondSideThickness) * TILE_SIZE, TILE_SIZE);
 
-            darknessSize = invisibleWallSize;
+            darknessSize = new (invisibleWallSize.x, invisibleWallSize.y*2);
 
             shurfGroundSize = new Vector2Int(SHURF_WIDTH, SHURF_DEPTHS + sizeTiles.y);
         }
@@ -168,7 +168,7 @@ public class OuterWallBuilder : TilesBuilder
 
             invisibleWallSize = new Vector2(TILE_SIZE, (SHURF_WIDTH + +shurfFirstSideThickness + shurfSecondSideThickness) * TILE_SIZE);
 
-            darknessSize = invisibleWallSize;
+            darknessSize = new(invisibleWallSize.x * 2, invisibleWallSize.y);
 
             shurfGroundSize = new Vector2Int(SHURF_DEPTHS + sizeTiles.x, SHURF_WIDTH);
 
@@ -199,7 +199,7 @@ public class OuterWallBuilder : TilesBuilder
                     verticalPosition + invisibleWallOffset * directionMultiplier
                 );
 
-                darknessPosition = invisibleWallPosition - new Vector3(0, directionMultiplier);
+                darknessPosition = invisibleWallPosition - new Vector3(0, directionMultiplier* 1.5f);
 
                 shurfGroundPosition = new Vector3(
                     basePosition.x + shurfCenter * TILE_SIZE,
@@ -221,7 +221,7 @@ public class OuterWallBuilder : TilesBuilder
                 );
 
 
-                darknessPosition = invisibleWallPosition - new Vector3(directionMultiplier, 0);
+                darknessPosition = invisibleWallPosition - new Vector3(directionMultiplier*1.5f, 0);
 
                 if (shurfFirstSideThickness != 1)
                     firstSidePosition -= new Vector3(0f, 1f);

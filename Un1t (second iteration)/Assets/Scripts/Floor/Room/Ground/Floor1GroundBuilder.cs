@@ -19,7 +19,7 @@ public class Floor1GroundBuilder : GroundBuilder
         bool[,] tileGrid = new bool[sizeTiles.x, sizeTiles.y];
         Vector3 topLeftPosition = transform.position - new Vector3(sizeTiles.x / 2, sizeTiles.y / 2);
 
-        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 1));
+        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 1.5f));
         GenerateSmallDecorations(tileGrid, topLeftPosition + new Vector3(0.5f, 0));
     }
 
