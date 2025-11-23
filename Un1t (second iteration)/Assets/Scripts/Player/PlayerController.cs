@@ -98,13 +98,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set isDashing true for dash duration
+    /// </summary>
+    /// <remarks>
+    /// Set player restrained because player shouldn't be able to attack while dashing
+    /// </remarks>
     private IEnumerator WaitForDashDuration()
     {
         isDashing = true;
+        playerModel.SetPlayerRestrained(true);
         yield return new WaitForSeconds(playerModel.DashDuration);
+        playerModel.SetPlayerRestrained(false);
         isDashing = false;
     }
 
+    /// <summary>
+    /// Set the ability to dash on cooldown
+    /// </summary>
     public IEnumerator WaitForDashCooldown()
     {
         canDash = false;
