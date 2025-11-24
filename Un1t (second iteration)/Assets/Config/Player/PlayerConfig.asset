@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   baseMaxHealth: 100
-  baseMovingSpeed: 10
+  baseMovingSpeed: 7
   baseDashSpeed: 25
   baseDashDuration: 0.25
   baseDashCooldown: 3

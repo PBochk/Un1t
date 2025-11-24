@@ -10,7 +10,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     //[SerializeField] private PlayerModelMB playerModelMB;
     //[SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
     //[SerializeField] private PlayerRangeWeaponModelMB rangeModelMB;
-    [SerializeField] private List<PlayerUpgrades> unlockedUpgrades;
+    [SerializeField] private List<PlayerUpgradeTypes> unlockedUpgrades;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
@@ -39,14 +39,19 @@ public class PlayerUpgradeManager : MonoBehaviour
             PlayerUpgrade upgrade = null;
             switch (upgradeName)
             {
-                case PlayerUpgrades.MaxHealth:
+                case PlayerUpgradeTypes.MaxHealth:
                 {
                     upgrade = new MaxHealthUpgrade(this, GetRandomTier());
                     break;
                 };
-                case PlayerUpgrades.MeleeSpeed:
+                case PlayerUpgradeTypes.MeleeSpeed:
                 {
                     upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
+                    break;
+                }
+                case PlayerUpgradeTypes.MovingSpeed:
+                {
+                    upgrade = new MovingSpeedUpgrade(this, GetRandomTier());
                     break;
                 }
             }

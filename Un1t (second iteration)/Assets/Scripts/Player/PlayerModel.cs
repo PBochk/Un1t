@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -15,7 +16,6 @@ public class PlayerModel : IInstanceModel
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
-    private float healthUpgrade; //TODO: rework upgrade system
     private int level = 1;
     private int currentXP = 0;
     private float currentHealth;
@@ -165,15 +165,13 @@ public class PlayerModel : IInstanceModel
         NextLevel?.Invoke();
     }
 
-    // TODO: rework upgrades
-    public void UpgradeHealth()
-    {
-        MaxHealth += healthUpgrade;
-        CurrentHealth += healthUpgrade;
-    }
-
     public void UpgradeHealth(float increment)
     {
         MaxHealth += increment;
+    }
+
+    public void UpgradeMovingSpeed(float increment)
+    {
+        movingSpeed += increment;
     }
 }

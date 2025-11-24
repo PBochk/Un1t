@@ -383,9 +383,9 @@ MonoBehaviour:
   upgradeManager: {fileID: 0}
   canvas: {fileID: 8363282232141168541}
   buttons:
-  - {fileID: 8543609267012428604}
   - {fileID: 1230329130675625017}
   - {fileID: 7962935996288967066}
+  - {fileID: 8543609267012428604}
   buttonTexts:
   - {fileID: 5467314761834410308}
   - {fileID: 3769165464096623847}
