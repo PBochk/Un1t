@@ -20,11 +20,12 @@ public class PlayerController : MonoBehaviour
     private PlayerModel playerModel;
     private Hitable playerHitable;
 
+    public Vector2 MousePosition { get; private set; }
+
     private Vector2 moveDirection;
     private Vector2 dashDirection = Vector2.right;
     private bool isDashing;
     private bool canDash = true;
-    public Vector2 MousePosition { get; private set; }
 
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
@@ -154,4 +155,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
     }
 
+    public void OnLevelUp()
+    {
+        if (playerModel.IsLevelUpAvailable)
+        {
+            playerModel.LevelUp();
+        }
+    }
 }

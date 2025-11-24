@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 4831991179820454322}
   - component: {fileID: 8338548874993576277}
   - component: {fileID: 9121096697557502566}
+  - component: {fileID: 2214619805156671631}
   m_Layer: 8
   m_Name: PlayerWithGun
   m_TagString: Player
@@ -423,11 +424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerConfig: {fileID: 11400000, guid: 9cd697727f8d9084699d761f32592ed4, type: 2}
-  maxHealth: 100
-  healthUpgrade: 25
-  movingSpeed: 15
-  level: 1
-  xpCoefficient: 25
 --- !u!114 &4831991179820454322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +460,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9389155ae12547c5a3c3130cbf078c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2214619805156671631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64663759c82509c4292d1d8a4a53db7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockedUpgrades: 000000000100000002000000
+  UpgradesChoiceSet:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &5340491274210201089
 PrefabInstance:
   m_ObjectHideFlags: 0

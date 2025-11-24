@@ -27,7 +27,7 @@ public class PlayerUpgradeManager : MonoBehaviour
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
         //rangeModel = rangeModelMB.PlayerRangeWeaponModel;
-        playerModel.NextLevel += SetUpgradeChoice;
+        playerModel.LevelChanged += SetUpgradeChoice;
     }
 
     public void SetUpgradeChoice()

@@ -72,13 +72,13 @@ public class PlayerModel : IInstanceModel
     }
     
     public int NextLevelXP => XPToNextLevel[level];
-    
+    public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
     public event Action HealthChanged;
     public event Action DamageTaken;
     public event Action PlayerDeath;
     public event Action PlayerRestrained;
     public event Action ExperienceChanged;
-    public event Action NextLevel;
+    public event Action LevelChanged;
 
     static PlayerModel()
     {
@@ -142,7 +142,6 @@ public class PlayerModel : IInstanceModel
     public void IncreaseXP(int increment)
     {
         CurrentXP += increment;
-        CheckXP();
     }
 
     public void DecreaseXP(int decrement)
@@ -150,19 +149,12 @@ public class PlayerModel : IInstanceModel
         CurrentXP -= decrement;
     }
 
-    private void CheckXP()
+    public void LevelUp()
     {
-        if (CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count)
-        {
-            LevelUp();
-        }
-    }
-
-    private void LevelUp()
-    {
+        var diff = CurrentXP - NextLevelXP; // is needed to not trigger OnExperienceChanged too early
         level++;
-        CurrentXP = 0;
-        NextLevel?.Invoke();
+        CurrentXP = diff;
+        LevelChanged?.Invoke();
     }
 
     public void UpgradeHealth(float increment)
