@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -15,7 +16,6 @@ public class PlayerModel : IInstanceModel
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
-    private float healthUpgrade; //TODO: rework upgrade system
     private int level = 1;
     private int currentXP = 0;
     private float currentHealth;
@@ -72,13 +72,13 @@ public class PlayerModel : IInstanceModel
     }
     
     public int NextLevelXP => XPToNextLevel[level];
-    
+    public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
     public event Action HealthChanged;
     public event Action DamageTaken;
     public event Action PlayerDeath;
     public event Action PlayerRestrained;
     public event Action ExperienceChanged;
-    public event Action NextLevel;
+    public event Action LevelChanged;
 
     static PlayerModel()
     {
@@ -101,6 +101,13 @@ public class PlayerModel : IInstanceModel
         this.dashCooldown = dashCooldown;
         this.level = level;
         this.XPToNextLevel = XPToNextLevel;
+    }
+    
+    public IActor CreateInstance()
+    {
+        var player = Object.Instantiate(playerPrefab);
+        player.Initialize(this);
+        return player;
     }
 
     public void TakeHeal(float heal)
@@ -135,7 +142,6 @@ public class PlayerModel : IInstanceModel
     public void IncreaseXP(int increment)
     {
         CurrentXP += increment;
-        CheckXP();
     }
 
     public void DecreaseXP(int decrement)
@@ -143,32 +149,21 @@ public class PlayerModel : IInstanceModel
         CurrentXP -= decrement;
     }
 
-    private void CheckXP()
+    public void LevelUp()
     {
-        if (CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count)
-        {
-            LevelUp();
-        }
-    }
-
-    private void LevelUp()
-    {
+        var diff = CurrentXP - NextLevelXP; // is needed to not trigger OnExperienceChanged too early
         level++;
-        CurrentXP = 0;
-        NextLevel?.Invoke();
+        CurrentXP = diff;
+        LevelChanged?.Invoke();
     }
 
-    // TODO: rework upgrades
-    public void UpgradeHealth()
+    public void UpgradeHealth(float increment)
     {
-        MaxHealth += healthUpgrade;
-        CurrentHealth += healthUpgrade;
+        MaxHealth += increment;
     }
-    
-    public IActor CreateInstance()
+
+    public void UpgradeMovingSpeed(float increment)
     {
-        var player = Object.Instantiate(playerPrefab);
-        player.Initialize(this);
-        return player;
+        movingSpeed += increment;
     }
 }

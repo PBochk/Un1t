@@ -23,6 +23,7 @@ public class PlayerRangeWeaponModel
         }
     }
 
+    // TODO: remade with scriptable object
     public PlayerRangeWeaponModel(float damage, float lifetime, float attackCooldown, int ammo)
     {
         this.damage = damage;
