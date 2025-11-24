@@ -14,18 +14,10 @@ public class PlayerUpgradeUI : MonoBehaviour
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
 
-    private void Awake()
-    {
-        //health.onClick.AddListener(UpgradeHealth);
-        //attackSpeed.onClick.AddListener(UpgradeAttackSpeed);
-        //damage.onClick.AddListener(UpgradeDamage);
-    }
-
     private void Start()
     {
         var playerUI = GetComponentInParent<PlayerUI>();
         playerModel = playerUI.PlayerModelMB.PlayerModel;
-        //playerModel.NextLevel += OnLevelUp;
         meleeModel = (PlayerMeleeWeaponModel)playerUI.PlayerMeleeWeaponModelMB.MeleeWeaponModel;
         canvas.gameObject.SetActive(false);
         upgradeManager.UpgradesChoiceSet.AddListener(OnLevelUp);
@@ -64,22 +56,6 @@ public class PlayerUpgradeUI : MonoBehaviour
         });
 
     }
-
-    //private void UpgradeHealth()
-    //{
-    //    playerModel.UpgradeHealth();
-    //    DeactivateCanvas();
-    //}
-    //private void UpgradeAttackSpeed()
-    //{ 
-    //    meleeModel.UpgradeAttackSpeed(playerModel.Level);
-    //    DeactivateCanvas();
-    //}
-    //private void UpgradeDamage()
-    //{
-    //    meleeModel.UpgradeDamage();
-    //    DeactivateCanvas();
-    //}
 
     private void DeactivateCanvas()
     {
