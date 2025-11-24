@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class PlayerUpgrade
 {
-    public readonly UpgradeManager UpgradeManager;
+    public readonly PlayerUpgradeManager UpgradeManager;
     public string Description { get; protected set; }
     public float UpgradeValue { get; protected set; }
     public UpgradeTiers Tier { get; protected set; }
 
-    protected PlayerUpgrade(UpgradeManager man, UpgradeTiers tier)
+    protected PlayerUpgrade(PlayerUpgradeManager man, UpgradeTiers tier)
     {
         UpgradeManager = man;
         Tier = tier;

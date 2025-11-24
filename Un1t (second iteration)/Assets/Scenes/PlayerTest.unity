@@ -1082,6 +1082,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &436882698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7386959845870949394, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+  m_PrefabInstance: {fileID: 7165545390079771930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &489090655 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2573311817783816770, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
@@ -1362,6 +1373,17 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &535480171 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9120131821291247284, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+  m_PrefabInstance: {fileID: 7165545390079771930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &606516055 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8975838670633704521, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
@@ -2212,6 +2234,17 @@ MonoBehaviour:
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1519169982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1806727529243060657, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+  m_PrefabInstance: {fileID: 7165545390079771930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1569843223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2715,7 +2748,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1217057890759837180, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2117207682}
+      addedObject: {fileID: 2117207694}
   m_SourcePrefab: {fileID: 100100000, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
 --- !u!1 &1819967616
 GameObject:
@@ -2914,7 +2947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8268e7ec936d29547b59fa0ac16c2421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2117207682
+--- !u!114 &2117207694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2923,11 +2956,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 713356117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f4909a127f6eb48a0f06280f5a59d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 64663759c82509c4292d1d8a4a53db7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModelMB: {fileID: 831836296}
-  unlockedUpgrades: 00000000
+  unlockedUpgrades: 0000000001000000
   UpgradesChoiceSet:
     m_PersistentCalls:
       m_Calls: []
@@ -3218,6 +3250,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4464486687824749517, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4840349011799165215, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: controller
       value: 
@@ -3233,7 +3269,19 @@ PrefabInstance:
     - target: {fileID: 4840349011799165215, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: upgradeManager
       value: 
-      objectReference: {fileID: 2117207682}
+      objectReference: {fileID: 2117207694}
+    - target: {fileID: 4840349011799165215, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: 'buttonTexts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1519169982}
+    - target: {fileID: 4840349011799165215, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: 'buttonTexts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 436882698}
+    - target: {fileID: 4840349011799165215, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
+      propertyPath: 'buttonTexts.Array.data[2]'
+      value: 
+      objectReference: {fileID: 535480171}
     - target: {fileID: 5029607170071188974, guid: a44ba39a01b0e6547b61a04d30442007, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -38.299988

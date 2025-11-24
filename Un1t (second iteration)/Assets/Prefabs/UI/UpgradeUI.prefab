@@ -387,9 +387,9 @@ MonoBehaviour:
   - {fileID: 1230329130675625017}
   - {fileID: 7962935996288967066}
   buttonTexts:
-  - {fileID: 3196486188397301313}
   - {fileID: 5467314761834410308}
   - {fileID: 3769165464096623847}
+  - {fileID: 3196486188397301313}
 --- !u!1001 &442829492676198954
 PrefabInstance:
   m_ObjectHideFlags: 0

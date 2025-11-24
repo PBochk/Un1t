@@ -3,7 +3,7 @@ using System;
 public class PlayerMeleeWeaponModel : MeleeWeaponModel
 {
     private float attackSpeed;
-    private float damageIncrement;
+    private readonly float attackSpeedCap;
     private float attackCooldown;
     public float AttackSpeed
     {
@@ -16,20 +16,19 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
     }
     public float AttackCooldown => attackCooldown;
 
-    public PlayerMeleeWeaponModel(float damage, DamageType damageType, float attackSpeed, float damageIncrement) : base(damage, damageType)
+    public PlayerMeleeWeaponModel(float damage, DamageType damageType, float attackSpeed) : base(damage, damageType)
     {
         AttackSpeed = attackSpeed;
-        this.damageIncrement = damageIncrement;
+        attackSpeedCap = attackSpeed * 2;
     }
 
-    public void UpgradeAttackSpeed(int level)
+    public void UpgradeAttackSpeed(float increment)
     {
-        attackSpeed = (float)(0.9f * Math.Pow(1.1f, level));
+        AttackSpeed = AttackSpeed + increment < attackSpeed ? AttackSpeed + increment : attackSpeedCap;
     }
 
     public void UpgradeDamage()
     {
-        Damage += damageIncrement;
     }
 
 }

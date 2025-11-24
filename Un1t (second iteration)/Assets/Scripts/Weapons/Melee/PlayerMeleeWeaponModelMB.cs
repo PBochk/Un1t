@@ -7,12 +7,11 @@ using UnityEngine;
 public class PlayerMeleeWeaponModelMB : MeleeWeaponModelMB
 {
     [SerializeField] private float attackSpeed;
-    [SerializeField] private float damageIncrement;
 
     protected override void Awake()
     {
         base.Awake();
-        meleeWeaponModel = new PlayerMeleeWeaponModel(damage, damageType, attackSpeed, damageIncrement);
+        meleeWeaponModel = new PlayerMeleeWeaponModel(damage, damageType, attackSpeed);
     }
 
     /// <summary>

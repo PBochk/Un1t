@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
-public class UpgradeManager : MonoBehaviour
+
+[RequireComponent(typeof(PlayerModelMB))]
+public class PlayerUpgradeManager : MonoBehaviour
 {
-    [SerializeField] private PlayerModelMB playerModelMB;
+    //[SerializeField] private PlayerModelMB playerModelMB;
     //[SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
     //[SerializeField] private PlayerRangeWeaponModelMB rangeModelMB;
     [SerializeField] private List<PlayerUpgrades> unlockedUpgrades;
@@ -22,13 +24,9 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        playerModel = playerModelMB.PlayerModel;
-        //meleeModel = (PlayerMeleeWeaponModel) meleeModelMB.MeleeWeaponModel;
+        playerModel = GetComponent<PlayerModelMB>().PlayerModel;
+        meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
         //rangeModel = rangeModelMB.PlayerRangeWeaponModel;
-        unlockedUpgrades = new()
-        {
-            PlayerUpgrades.MaxHealth,
-        };
         playerModel.NextLevel += SetUpgradeChoice;
     }
 
@@ -37,7 +35,7 @@ public class UpgradeManager : MonoBehaviour
         currentChoiceUps.Clear();
         for (var i = 0; i < 3; i++)
         {
-            var upgradeName = unlockedUpgrades[Random.Range(0, unlockedUpgrades.Count - 1)];
+            var upgradeName = unlockedUpgrades[Random.Range(0, unlockedUpgrades.Count)];
             PlayerUpgrade upgrade = null;
             switch (upgradeName)
             {
@@ -46,6 +44,11 @@ public class UpgradeManager : MonoBehaviour
                     upgrade = new MaxHealthUpgrade(this, GetRandomTier());
                     break;
                 };
+                case PlayerUpgrades.MeleeSpeed:
+                {
+                    upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
+                    break;
+                }
             }
             currentChoiceUps.Add(upgrade);
         }

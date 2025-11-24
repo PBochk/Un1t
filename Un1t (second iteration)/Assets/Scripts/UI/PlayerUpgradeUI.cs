@@ -7,18 +7,16 @@ using UnityEngine.UI;
 
 public class PlayerUpgradeUI : MonoBehaviour
 {
-    [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private PlayerUpgradeManager upgradeManager;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button[] buttons;
     [SerializeField] private TMP_Text[] buttonTexts;
     private PlayerModel playerModel;
-    private PlayerMeleeWeaponModel meleeModel;
 
     private void Start()
     {
         var playerUI = GetComponentInParent<PlayerUI>();
         playerModel = playerUI.PlayerModelMB.PlayerModel;
-        meleeModel = (PlayerMeleeWeaponModel)playerUI.PlayerMeleeWeaponModelMB.MeleeWeaponModel;
         canvas.gameObject.SetActive(false);
         upgradeManager.UpgradesChoiceSet.AddListener(OnLevelUp);
     }
