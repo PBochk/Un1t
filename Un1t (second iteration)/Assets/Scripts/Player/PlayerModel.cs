@@ -102,6 +102,13 @@ public class PlayerModel : IInstanceModel
         this.level = level;
         this.XPToNextLevel = XPToNextLevel;
     }
+    
+    public IActor CreateInstance()
+    {
+        var player = Object.Instantiate(playerPrefab);
+        player.Initialize(this);
+        return player;
+    }
 
     public void TakeHeal(float heal)
     {
@@ -164,11 +171,9 @@ public class PlayerModel : IInstanceModel
         MaxHealth += healthUpgrade;
         CurrentHealth += healthUpgrade;
     }
-    
-    public IActor CreateInstance()
+
+    public void UpgradeHealth(float increment)
     {
-        var player = Object.Instantiate(playerPrefab);
-        player.Initialize(this);
-        return player;
+        MaxHealth += increment;
     }
 }
