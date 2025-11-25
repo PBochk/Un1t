@@ -10,6 +10,8 @@ public class PlayerConfig : ScriptableObject
     [SerializeField] private List<float> xpToNextLevel; // can't use IReadOnlyList because it doesn't support serialization
     [Tooltip("What part of NextLevelXP will be spent on healing")]
     [SerializeField, Range(0.1f, 1f)] private float baseHealCostCoefficient;
+    [Tooltip("Multiplies all gained XP")]
+    [SerializeField, Range(1f, 5f)] private float baseXPGainCoefficient;
     [SerializeField] private float baseMovingSpeed;
     [SerializeField] private float baseDashSpeed;
     [SerializeField] private float baseDashDuration;
@@ -18,6 +20,7 @@ public class PlayerConfig : ScriptableObject
     public int Level => level;
     public List<float> XPToNextLevel => xpToNextLevel;
     public float BaseHealCostCoefficient => baseHealCostCoefficient;
+    public float BaseXPGainCoefficient => baseXPGainCoefficient;
     public float BaseMovingSpeed => baseMovingSpeed;
     public float BaseDashSpeed => baseDashSpeed;
     public float BaseDashDuration => baseDashDuration;

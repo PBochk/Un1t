@@ -15,6 +15,7 @@ public class PlayerModelMB: MonoBehaviour, IActor
                           playerConfig.Level, 
                           playerConfig.XPToNextLevel,
                           playerConfig.BaseHealCostCoefficient,
+                          playerConfig.BaseXPGainCoefficient,
                           playerConfig.BaseMovingSpeed, 
                           playerConfig.BaseDashSpeed,
                           playerConfig.BaseDashDuration,

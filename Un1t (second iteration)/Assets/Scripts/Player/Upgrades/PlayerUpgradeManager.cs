@@ -49,6 +49,11 @@ public class PlayerUpgradeManager : MonoBehaviour
                     upgrade = new HealCostUpgrade(this, GetRandomTier());
                     break;
                 }
+                case PlayerUpgradeTypes.XPGain:
+                {
+                    upgrade = new XPGainUpgrade(this, GetRandomTier());
+                    break;
+                }
                 case PlayerUpgradeTypes.MeleeSpeed:
                 {
                     upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
@@ -68,6 +73,7 @@ public class PlayerUpgradeManager : MonoBehaviour
 
     private UpgradeTiers GetRandomTier()
     {
+        // TODO: replace magic numbers with serialized variables
         var rand = Random.Range(1, 11);
         if (rand <= 6) return UpgradeTiers.x1;
         else if (rand <= 9) return UpgradeTiers.x2;

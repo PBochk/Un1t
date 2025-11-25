@@ -2,6 +2,7 @@
 {
     MaxHealth,
     HealCost,
+    XPGain,
     MeleeSpeed,
     MovingSpeed
 }

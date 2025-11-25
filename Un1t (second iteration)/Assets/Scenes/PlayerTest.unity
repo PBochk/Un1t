@@ -1366,7 +1366,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29122758, y: 0.05103886, z: -10}
+  m_LocalPosition: {x: 0.29340768, y: 0.05070889, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2692,22 +2692,6 @@ PrefabInstance:
     - target: {fileID: 1695857501953679923, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214619805156671631, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: unlockedUpgrades.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214619805156671631, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: 'unlockedUpgrades.Array.data[1]'
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214619805156671631, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: 'unlockedUpgrades.Array.data[2]'
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214619805156671631, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: 'unlockedUpgrades.Array.data[3]'
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2683753899706659779, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: level

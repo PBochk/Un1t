@@ -15,8 +15,8 @@ public class PlayerModel : IInstanceModel
     private float currentHealth;
     private int level = 1;
     private float currentXP = 0;
-    private float xpGainCoefficient = 1f;
     private float healCostCoefficient = 0.5f;
+    private float xpGainCoefficient = 1f;
     private float movingSpeed;
     private float dashSpeed;
     private float dashDuration;
@@ -81,6 +81,7 @@ public class PlayerModel : IInstanceModel
                        int level, 
                        List<float> XPToNextLevel,
                        float healCostCoefficient,
+                       float xpGainCoefficient,
                        float movingSpeed, 
                        float dashSpeed, 
                        float dashDuration,
@@ -91,6 +92,7 @@ public class PlayerModel : IInstanceModel
         this.level = level;
         this.XPToNextLevel = XPToNextLevel;
         this.healCostCoefficient = healCostCoefficient;
+        this.xpGainCoefficient = xpGainCoefficient;
         this.movingSpeed = movingSpeed;
         this.dashSpeed = dashSpeed;
         this.dashDuration = dashDuration;
@@ -159,6 +161,10 @@ public class PlayerModel : IInstanceModel
     public void UpgradeHealCost(float decrement)
     {
         healCostCoefficient = healCostCoefficient - decrement < 0 ? 0 : healCostCoefficient - decrement;
+    }
+    public void UpgradeXPGain(float increment)
+    {
+        xpGainCoefficient += increment;
     }
     public void UpgradeMovingSpeed(float increment)
     {

@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64663759c82509c4292d1d8a4a53db7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedUpgrades: 000000000100000002000000
+  unlockedUpgrades: 0000000001000000020000000300000004000000
   UpgradesChoiceSet:
     m_PersistentCalls:
       m_Calls: []
