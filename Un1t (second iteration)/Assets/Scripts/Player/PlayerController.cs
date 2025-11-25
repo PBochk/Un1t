@@ -45,16 +45,17 @@ public class PlayerController : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         // TODO: move subscription in OnEnable after model initialization rework
-        playerModel.PlayerRestrained += SetInputEnabled;
+        playerModel.PlayerRestrained += SetInputDisabled;
     }
 
     private void OnDisable()
     {
-        playerModel.PlayerRestrained -= SetInputEnabled;
+        playerModel.PlayerRestrained -= SetInputDisabled;
     }
-    public void SetInputEnabled()
+
+    public void SetInputDisabled(bool isDisabled)
     {
-        playerInput.enabled = !playerModel.IsRestrained;
+        playerInput.enabled = !isDisabled;
     }
 
     public void OnMouseMove(InputValue value)
