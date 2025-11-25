@@ -14,7 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMaxHealth: 100
   level: 1
-  xpToNextLevel: 0000000019000000320000004b0000007d000000c8000000450100000d020000520300005f050000b1080000
+  xpToNextLevel:
+  - 0
+  - 10
+  - 10
+  - 20
+  - 30
+  - 50
+  - 80
+  - 130
+  - 210
+  - 440
+  - 650
+  - 1090
   baseHealCostCoefficient: 0.5
   baseMovingSpeed: 7
   baseDashSpeed: 25

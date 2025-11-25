@@ -14,7 +14,8 @@ public class PlayerModel : IInstanceModel
     private float maxHealth;
     private float currentHealth;
     private int level = 1;
-    private int currentXP = 0;
+    private float currentXP = 0;
+    private float xpGainCoefficient = 1f;
     private float healCostCoefficient = 0.5f;
     private float movingSpeed;
     private float dashSpeed;
@@ -22,7 +23,7 @@ public class PlayerModel : IInstanceModel
     private float dashCooldown;
     
     //not sufficient for saving and loading
-    [XmlIgnore] private readonly List<int> XPToNextLevel;
+    [XmlIgnore] private readonly List<float> XPToNextLevel;
 
     public float MaxHealth
     { 
@@ -46,7 +47,7 @@ public class PlayerModel : IInstanceModel
         }
     }
     public int Level => level;
-    public int CurrentXP
+    public float CurrentXP
     {
         get => currentXP;
         private set
@@ -55,9 +56,9 @@ public class PlayerModel : IInstanceModel
             ExperienceChanged?.Invoke();
         }
     }
-    public int NextLevelXP => XPToNextLevel[level];
+    public float NextLevelXP => XPToNextLevel[level];
     public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
-    public int HealCostInXP => Mathf.CeilToInt(NextLevelXP * healCostCoefficient);
+    public float HealCostInXP => NextLevelXP * healCostCoefficient;
     public float MovingSpeed => movingSpeed;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
@@ -78,7 +79,7 @@ public class PlayerModel : IInstanceModel
     
     public PlayerModel(float maxHealth, 
                        int level, 
-                       List<int> XPToNextLevel,
+                       List<float> XPToNextLevel,
                        float healCostCoefficient,
                        float movingSpeed, 
                        float dashSpeed, 
@@ -103,11 +104,11 @@ public class PlayerModel : IInstanceModel
         return player;
     }
 
-    public void TakeHeal(float heal, int cost = 0)
+    public void TakeHeal(float heal, float xpCost = 0)
     {
-        if (CurrentHealth <= 0 || CurrentHealth == MaxHealth || CurrentXP < cost) return;
+        if (CurrentHealth <= 0 || CurrentHealth == MaxHealth || CurrentXP < xpCost) return;
         CurrentHealth += heal;
-        CurrentXP -= cost;
+        CurrentXP -= xpCost;
     }
 
     public void TakeDamage(float decrement)
@@ -134,7 +135,7 @@ public class PlayerModel : IInstanceModel
 
     public void IncreaseXP(int increment)
     {
-        CurrentXP += increment;
+        CurrentXP += increment * xpGainCoefficient;
     }
 
     public void DecreaseXP(int decrement)
@@ -144,6 +145,7 @@ public class PlayerModel : IInstanceModel
 
     public void LevelUp()
     {
+        if (level >= XPToNextLevel.Count - 1) return;
         var diff = CurrentXP - NextLevelXP; // is needed to not trigger OnExperienceChanged too early
         level++;
         CurrentXP = diff;
