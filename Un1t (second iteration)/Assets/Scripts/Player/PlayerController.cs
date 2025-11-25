@@ -163,4 +163,9 @@ public class PlayerController : MonoBehaviour
             playerModel.LevelUp();
         }
     }
+
+    public void OnHeal()
+    {
+        playerModel.TakeHeal(playerModel.MaxHealth, playerModel.HealCostInXP);
+    }
 }

@@ -12,13 +12,14 @@ public class PlayerModel : IInstanceModel
         
     //sufficient for saving and loading
     private float maxHealth;
+    private float currentHealth;
+    private int level = 1;
+    private int currentXP = 0;
+    private float healCostCoefficient = 0.5f;
     private float movingSpeed;
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
-    private int level = 1;
-    private int currentXP = 0;
-    private float currentHealth;
     
     //not sufficient for saving and loading
     [XmlIgnore] private readonly List<int> XPToNextLevel;
@@ -38,15 +39,12 @@ public class PlayerModel : IInstanceModel
         get => currentHealth;
         private set
         {
-            currentHealth = value > 0 ? value : 0;
+            if(value < 0) currentHealth = 0;
+            else if (value > maxHealth) currentHealth = maxHealth;
+            else currentHealth = value;
             HealthChanged?.Invoke();
         }
     }
-    
-    public float MovingSpeed => movingSpeed;
-    public float DashSpeed => dashSpeed;
-    public float DashDuration => dashDuration;
-    public float DashCooldown => dashCooldown;   
     public int Level => level;
     public int CurrentXP
     {
@@ -59,6 +57,11 @@ public class PlayerModel : IInstanceModel
     }
     public int NextLevelXP => XPToNextLevel[level];
     public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
+    public int HealCostInXP => Mathf.CeilToInt(NextLevelXP * healCostCoefficient);
+    public float MovingSpeed => movingSpeed;
+    public float DashSpeed => dashSpeed;
+    public float DashDuration => dashDuration;
+    public float DashCooldown => dashCooldown;   
 
     public event Action HealthChanged;
     public event Action DamageTaken;
@@ -98,10 +101,11 @@ public class PlayerModel : IInstanceModel
         return player;
     }
 
-    public void TakeHeal(float heal)
+    public void TakeHeal(float heal, int cost = 0)
     {
-        if (CurrentHealth <= 0) return;
+        if (CurrentHealth <= 0 || CurrentHealth == MaxHealth || CurrentXP < cost) return;
         CurrentHealth += heal;
+        CurrentXP -= cost;
     }
 
     public void TakeDamage(float decrement)
