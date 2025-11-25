@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 /// <summary>
@@ -23,16 +24,29 @@ public class PauseManager : MonoBehaviour
 
     public void PauseScene()
     {
+        StartCoroutine(WaitForSetRestrained(true));
         Time.timeScale = 0f;
-        playerModel.SetPlayerRestrained(true);
         isPaused = true;
     }
 
     public void UnpauseScene()
     {
+        StartCoroutine(WaitForSetRestrained(false));
         Time.timeScale = 1f;
-        playerModel.SetPlayerRestrained(false);
         isPaused = false;
+    }
+
+    /// <summary>
+    /// Set player restrained in the next frame after call
+    /// </summary>
+    /// <remarks>
+    /// Waiting is needed to not trigger melee attack on button click, for example 
+    /// </remarks>
+    /// <param name="isRestrained"></param>
+    private IEnumerator WaitForSetRestrained(bool isRestrained)
+    {
+        yield return null;
+        playerModel.SetPlayerRestrained(isRestrained);
     }
 
     public void ReloadScene()
