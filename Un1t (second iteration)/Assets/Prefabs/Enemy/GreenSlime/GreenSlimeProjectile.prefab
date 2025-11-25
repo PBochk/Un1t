@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSlimeProjectile
       objectReference: {fileID: 0}
+    - target: {fileID: 5982593351042311661, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
+      propertyPath: canBeUpgraded
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7275677558613275339, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: damage
       value: 10
