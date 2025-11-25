@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SingleShotWeapon : MonoBehaviour
 {
-    [SerializeField] private Projectile projectile;
+    [SerializeField] private ProjectileController projectile;
     [Tooltip("Used to add force")]
     [SerializeField] private float ProjectileSpeed = 3f;
 

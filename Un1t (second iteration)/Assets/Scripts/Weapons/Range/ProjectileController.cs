@@ -4,9 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(ProjectileModelMB))]
-public class Projectile : MonoBehaviour
+public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private LayerMask solid;
+    [SerializeField] private bool canBeUpgraded;
     private ProjectileModel model;
     private Collider2D projectileCollider;
     private ContactFilter2D contactFilter;
@@ -17,9 +18,18 @@ public class Projectile : MonoBehaviour
         contactFilter.SetLayerMask(solid);
     }
 
+    /// <summary>
+    /// Set default model if there is no need to change model in upgrades
+    /// </summary>
     private void Start()
     {
-        model = GetComponent<ProjectileModelMB>().projectileModel;
+        if (canBeUpgraded) return;
+        Initialize(GetComponent<ProjectileModelMB>().ProjectileModel); 
+    }
+
+    public void Initialize(ProjectileModel model)
+    {
+        this.model = model;
         StartCoroutine(DestroyProjectile());
     }
 

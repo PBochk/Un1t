@@ -7,9 +7,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(PlayerModelMB))]
 public class PlayerUpgradeManager : MonoBehaviour
 {
-    //[SerializeField] private PlayerModelMB playerModelMB;
-    //[SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
-    //[SerializeField] private PlayerRangeWeaponModelMB rangeModelMB;
+
     [SerializeField] private List<PlayerUpgradeTypes> unlockedUpgrades;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
@@ -26,7 +24,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
-        //rangeModel = rangeModelMB.PlayerRangeWeaponModel;
+        rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
         playerModel.LevelChanged += SetUpgradeChoice;
     }
 
@@ -67,6 +65,11 @@ public class PlayerUpgradeManager : MonoBehaviour
                 case PlayerUpgradeTypes.MeleeDamage:
                 {
                     upgrade = new MeleeDamageUpgrade(this, GetRandomTier());
+                    break;
+                }
+                case PlayerUpgradeTypes.RangeDamage:
+                {
+                    upgrade = new RangeDamageUpgrade(this, GetRandomTier());
                     break;
                 }
             }

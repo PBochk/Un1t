@@ -169,6 +169,7 @@ MonoBehaviour:
   solid:
     serializedVersion: 2
     m_Bits: 72
+  canBeUpgraded: 1
 --- !u!114 &3246168876298712580
 MonoBehaviour:
   m_ObjectHideFlags: 0

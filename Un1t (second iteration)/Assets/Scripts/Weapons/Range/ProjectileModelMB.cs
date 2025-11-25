@@ -4,7 +4,9 @@ public class ProjectileModelMB : MonoBehaviour
 {
     [SerializeField] private float damage;
     [SerializeField] private float lifetime;
-    public ProjectileModel projectileModel;
+    
+    private ProjectileModel projectileModel;
+    public ProjectileModel ProjectileModel => projectileModel;
 
     private void Awake()
     {

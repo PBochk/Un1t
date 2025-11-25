@@ -17,4 +17,10 @@ public class ProjectileModel
     {
         attackData = new AttackData(damage, DamageType.Physical);
     }
+
+    public void UpgradeDamage(float increment)
+    {
+        damage += increment;
+        UpdateAttackData();
+    }
 }
