@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3523906319305633971}
   - component: {fileID: 9013824477315733674}
   - component: {fileID: 5259030218432871063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RangeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1941794300054987042, guid: 0c12d5e8acefeba429e03ec9e156f01a, type: 3}
   playerTransform: {fileID: 0}
+  StartRangeAnimation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5259030218432871063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,11 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a80af139d8bd2488fc61f7c0266bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  lifetime: 0
-  attackCooldown: 0
-  ammo: 0
-  initialForce: 0
+  projectileModelMB: {fileID: 0}
+  attackCooldown: 0.5
+  ammo: 10
+  initialForce: 500
   solid:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72

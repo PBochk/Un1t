@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: solid.m_Bits
       value: 264
       objectReference: {fileID: 0}
+    - target: {fileID: 1941794300054987042, guid: 0c12d5e8acefeba429e03ec9e156f01a, type: 3}
+      propertyPath: canBeUpgraded
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4067984271899282738, guid: 0c12d5e8acefeba429e03ec9e156f01a, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.1

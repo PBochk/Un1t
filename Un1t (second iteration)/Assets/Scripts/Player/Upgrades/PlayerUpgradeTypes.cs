@@ -1,6 +1,10 @@
 ﻿public enum PlayerUpgradeTypes
 {
     MaxHealth,
+    HealCost,
+    XPGain,
+    MovingSpeed,
     MeleeSpeed,
-    MovingSpeed
+    MeleeDamage,
+    RangeDamage
 }

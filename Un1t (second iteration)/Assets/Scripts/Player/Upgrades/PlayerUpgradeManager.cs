@@ -7,9 +7,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(PlayerModelMB))]
 public class PlayerUpgradeManager : MonoBehaviour
 {
-    //[SerializeField] private PlayerModelMB playerModelMB;
-    //[SerializeField] private PlayerMeleeWeaponModelMB meleeModelMB;
-    //[SerializeField] private PlayerRangeWeaponModelMB rangeModelMB;
+
     [SerializeField] private List<PlayerUpgradeTypes> unlockedUpgrades;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
@@ -26,7 +24,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
-        //rangeModel = rangeModelMB.PlayerRangeWeaponModel;
+        rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
         playerModel.LevelChanged += SetUpgradeChoice;
     }
 
@@ -44,14 +42,34 @@ public class PlayerUpgradeManager : MonoBehaviour
                     upgrade = new MaxHealthUpgrade(this, GetRandomTier());
                     break;
                 };
-                case PlayerUpgradeTypes.MeleeSpeed:
+                case PlayerUpgradeTypes.HealCost:
                 {
-                    upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
+                    upgrade = new HealCostUpgrade(this, GetRandomTier());
+                    break;
+                }
+                case PlayerUpgradeTypes.XPGain:
+                {
+                    upgrade = new XPGainUpgrade(this, GetRandomTier());
                     break;
                 }
                 case PlayerUpgradeTypes.MovingSpeed:
                 {
                     upgrade = new MovingSpeedUpgrade(this, GetRandomTier());
+                    break;
+                }
+                case PlayerUpgradeTypes.MeleeSpeed:
+                {
+                    upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
+                    break;
+                }
+                case PlayerUpgradeTypes.MeleeDamage:
+                {
+                    upgrade = new MeleeDamageUpgrade(this, GetRandomTier());
+                    break;
+                }
+                case PlayerUpgradeTypes.RangeDamage:
+                {
+                    upgrade = new RangeDamageUpgrade(this, GetRandomTier());
                     break;
                 }
             }
@@ -63,6 +81,7 @@ public class PlayerUpgradeManager : MonoBehaviour
 
     private UpgradeTiers GetRandomTier()
     {
+        // TODO: replace magic numbers with serialized variables
         var rand = Random.Range(1, 11);
         if (rand <= 6) return UpgradeTiers.x1;
         else if (rand <= 9) return UpgradeTiers.x2;

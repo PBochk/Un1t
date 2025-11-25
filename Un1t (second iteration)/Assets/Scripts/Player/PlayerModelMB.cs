@@ -12,12 +12,15 @@ public class PlayerModelMB: MonoBehaviour, IActor
     private void Awake()
     {
         PlayerModel = new(playerConfig.BaseMaxHealth, 
+                          playerConfig.Level, 
+                          playerConfig.XPToNextLevel,
+                          playerConfig.BaseHealCostCoefficient,
+                          playerConfig.BaseXPGainCoefficient,
                           playerConfig.BaseMovingSpeed, 
                           playerConfig.BaseDashSpeed,
                           playerConfig.BaseDashDuration,
-                          playerConfig.BaseDashCooldown,
-                          playerConfig.Level, 
-                          playerConfig.XPToNextLevel);
+                          playerConfig.BaseDashCooldown
+                          );
     }
 
     public void Initialize(IInstanceModel model)

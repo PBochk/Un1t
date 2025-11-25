@@ -4,8 +4,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerRangeWeaponModelMB))]
 public class PlayerRangeWeaponController : MonoBehaviour
 {
-    [SerializeField] private Projectile projectile;
+    [SerializeField] private ProjectileController projectile;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private float initialForce;
     private PlayerRangeWeaponModel model;
     private PlayerRangeWeaponModelMB modelMB;
     private PlayerController playerController;
@@ -38,7 +39,8 @@ public class PlayerRangeWeaponController : MonoBehaviour
     {
         var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
         var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.FromToRotation(playerTransform.position, shotDirection));
-        spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * modelMB.InitialForce);
+        spawnedProjectile.GetComponent<ProjectileController>().Initialize(model.ProjectileModel); // TODO: rework
+        spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * initialForce);
         model.SpendAmmo();
     }
 }
