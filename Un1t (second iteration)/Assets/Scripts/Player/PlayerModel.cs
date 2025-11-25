@@ -21,9 +21,7 @@ public class PlayerModel : IInstanceModel
     private float currentHealth;
     
     //not sufficient for saving and loading
-    [XmlIgnore] private bool isRestrained; //TODO: move to controller 
-
-    [XmlIgnore] private readonly List<int> XPToNextLevel; // can't use IReadOnlyList because it doesn't support serialization (in config)
+    [XmlIgnore] private readonly List<int> XPToNextLevel;
 
     public float MaxHealth
     { 
@@ -48,18 +46,7 @@ public class PlayerModel : IInstanceModel
     public float MovingSpeed => movingSpeed;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
-    public float DashCooldown => dashCooldown;
-
-    public bool IsRestrained
-    {
-        get => isRestrained;
-        private set
-        {
-            isRestrained = value;
-            PlayerRestrained?.Invoke();
-        }
-    }
-    
+    public float DashCooldown => dashCooldown;   
     public int Level => level;
     public int CurrentXP
     {
@@ -70,15 +57,16 @@ public class PlayerModel : IInstanceModel
             ExperienceChanged?.Invoke();
         }
     }
-    
     public int NextLevelXP => XPToNextLevel[level];
     public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
+
     public event Action HealthChanged;
     public event Action DamageTaken;
     public event Action PlayerDeath;
-    public event Action PlayerRestrained;
+    public event Action<bool> PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
+
 
     static PlayerModel()
     {
@@ -133,10 +121,9 @@ public class PlayerModel : IInstanceModel
         }
     }
 
-    // TODO: move to controller
     public void SetPlayerRestrained(bool isRestrained)
     {
-        IsRestrained = isRestrained;
+        PlayerRestrained?.Invoke(isRestrained);
     }
 
     public void IncreaseXP(int increment)
