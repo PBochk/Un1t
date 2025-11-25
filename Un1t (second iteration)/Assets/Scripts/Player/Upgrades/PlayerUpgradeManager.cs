@@ -54,14 +54,19 @@ public class PlayerUpgradeManager : MonoBehaviour
                     upgrade = new XPGainUpgrade(this, GetRandomTier());
                     break;
                 }
+                case PlayerUpgradeTypes.MovingSpeed:
+                {
+                    upgrade = new MovingSpeedUpgrade(this, GetRandomTier());
+                    break;
+                }
                 case PlayerUpgradeTypes.MeleeSpeed:
                 {
                     upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
                     break;
                 }
-                case PlayerUpgradeTypes.MovingSpeed:
+                case PlayerUpgradeTypes.MeleeDamage:
                 {
-                    upgrade = new MovingSpeedUpgrade(this, GetRandomTier());
+                    upgrade = new MeleeDamageUpgrade(this, GetRandomTier());
                     break;
                 }
             }

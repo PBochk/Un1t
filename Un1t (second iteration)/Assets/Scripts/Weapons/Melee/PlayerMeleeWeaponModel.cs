@@ -27,8 +27,9 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
         AttackSpeed = AttackSpeed + increment < attackSpeed ? AttackSpeed + increment : attackSpeedCap;
     }
 
-    public void UpgradeDamage()
+    public void UpgradeDamage(float increment)
     {
+        Damage += increment;
     }
 
 }
