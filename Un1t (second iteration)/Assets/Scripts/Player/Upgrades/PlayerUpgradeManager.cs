@@ -44,6 +44,11 @@ public class PlayerUpgradeManager : MonoBehaviour
                     upgrade = new MaxHealthUpgrade(this, GetRandomTier());
                     break;
                 };
+                case PlayerUpgradeTypes.HealCost:
+                {
+                    upgrade = new HealCostUpgrade(this, GetRandomTier());
+                    break;
+                }
                 case PlayerUpgradeTypes.MeleeSpeed:
                 {
                     upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());

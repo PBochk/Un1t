@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   baseMaxHealth: 100
+  level: 1
+  xpToNextLevel: 0000000019000000320000004b0000007d000000c8000000450100000d020000520300005f050000b1080000
+  baseHealCostCoefficient: 0.5
   baseMovingSpeed: 7
   baseDashSpeed: 25
   baseDashDuration: 0.25
   baseDashCooldown: 3
-  level: 1
-  xpToNextLevel: 0000000019000000320000004b0000007d000000c8000000450100000d020000520300005f050000b1080000

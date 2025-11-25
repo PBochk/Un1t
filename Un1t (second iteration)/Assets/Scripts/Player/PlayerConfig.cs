@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +5,21 @@ using UnityEngine;
 public class PlayerConfig : ScriptableObject
 {
     [SerializeField] private float baseMaxHealth;
+    [SerializeField] private int level;
+    [Tooltip("How much XP player needs to get level")]
+    [SerializeField] private List<int> xpToNextLevel; // can't use IReadOnlyList because it doesn't support serialization
+    [Tooltip("What part of NextLevelXP will be spent on healing")]
+    [SerializeField, Range(0.1f, 1f)] private float baseHealCostCoefficient;
     [SerializeField] private float baseMovingSpeed;
     [SerializeField] private float baseDashSpeed;
     [SerializeField] private float baseDashDuration;
     [SerializeField] private float baseDashCooldown;
-    [SerializeField] private int level;
-    [Tooltip("How much XP player needs to get level")]
-    [SerializeField] private List<int> xpToNextLevel; // can't use IReadOnlyList because it doesn't support serialization
     public float BaseMaxHealth => baseMaxHealth;
+    public int Level => level;
+    public List<int> XPToNextLevel => xpToNextLevel;
+    public float BaseHealCostCoefficient => baseHealCostCoefficient;
     public float BaseMovingSpeed => baseMovingSpeed;
     public float BaseDashSpeed => baseDashSpeed;
     public float BaseDashDuration => baseDashDuration;
     public float BaseDashCooldown => baseDashCooldown;
-    public int Level => level;
-    public List<int> XPToNextLevel => xpToNextLevel;
 }

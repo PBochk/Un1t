@@ -77,21 +77,23 @@ public class PlayerModel : IInstanceModel
     }
     
     public PlayerModel(float maxHealth, 
+                       int level, 
+                       List<int> XPToNextLevel,
+                       float healCostCoefficient,
                        float movingSpeed, 
                        float dashSpeed, 
                        float dashDuration,
-                       float dashCooldown, 
-                       int level, 
-                       List<int> XPToNextLevel)
+                       float dashCooldown)
     {
         this.maxHealth = maxHealth;
         currentHealth = maxHealth;
+        this.level = level;
+        this.XPToNextLevel = XPToNextLevel;
+        this.healCostCoefficient = healCostCoefficient;
         this.movingSpeed = movingSpeed;
         this.dashSpeed = dashSpeed;
         this.dashDuration = dashDuration;
         this.dashCooldown = dashCooldown;
-        this.level = level;
-        this.XPToNextLevel = XPToNextLevel;
     }
     
     public IActor CreateInstance()
@@ -152,7 +154,10 @@ public class PlayerModel : IInstanceModel
     {
         MaxHealth += increment;
     }
-
+    public void UpgradeHealCost(float decrement)
+    {
+        healCostCoefficient = healCostCoefficient - decrement < 0 ? 0 : healCostCoefficient - decrement;
+    }
     public void UpgradeMovingSpeed(float increment)
     {
         movingSpeed += increment;
