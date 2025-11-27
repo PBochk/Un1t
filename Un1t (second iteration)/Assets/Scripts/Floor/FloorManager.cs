@@ -38,7 +38,9 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private RoomEnemySpawner enemySpawner;
     [SerializeField] private Rock rock;
 
-    private readonly RoomGrid rooms = new();
+    private readonly RoomGrid roomGrid = new();
+    private readonly DungeonFactory dungeonFactory = new();
+
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
     private void Awake()
@@ -50,17 +52,14 @@ public class FloorManager : MonoBehaviour
                 group => group.Select(template => template.Info).ToImmutableList()
         );
 
-        int roomCount = UnityEngine.Random.Range(minRoomsCount, maxRoomsCount) - 2;
         GenerateFloor();
     }
 
     /// <summary>
-    /// Creates all rooms for this level
-    /// Each room gets it's own content
+    /// Creates all rooms for this floor
     /// </summary>
-    private void GenerateFloor()
+    public void GenerateFloor()
     {
-        DungeonFactory dungeonFactory = new();
         List<DungeonFactory.Room> rooms = dungeonFactory.CreateDungeon();
 
         foreach (DungeonFactory.Room room in rooms)
@@ -71,6 +70,8 @@ public class FloorManager : MonoBehaviour
             else
                 ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
         }
+
+        transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
     }
 
 
@@ -84,7 +85,7 @@ public class FloorManager : MonoBehaviour
         GameObject roomInstance = Instantiate(room.RoomPrefab, position,
             Quaternion.identity, transform);
 
-        rooms[gridPosition] = room;
+        roomGrid[gridPosition] = room;
 
         CreateHallwaysGround(position, room.OuterWalls, roomInstance.transform);
 
@@ -148,7 +149,7 @@ public class FloorManager : MonoBehaviour
 
         Instantiate(standardRoomGround, position, Quaternion.identity, roomInstance.transform);
 
-        rooms[gridPosition] = new(roomInstance, roomOuterWalls);
+        roomGrid[gridPosition] = new(roomInstance, roomOuterWalls);
         CreateHallwaysGround(position, roomOuterWalls, roomInstance.transform);
 
         CreateRoomContent(roomInstance);
