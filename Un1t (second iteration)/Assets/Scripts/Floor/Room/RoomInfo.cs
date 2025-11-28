@@ -11,7 +11,7 @@ public class RoomInfo
     public GameObject RoomPrefab { get; }
     public RoomOuterWalls OuterWalls { get; }
 
-    private static readonly Vector2Int innerSize = new(16, 9);
+    private static readonly Vector2Int innerSize = new(18, 12);
     private static readonly Vector2Int size = innerSize + new Vector2Int(2, 4);
 
     public RoomInfo(GameObject roomPrefab,
