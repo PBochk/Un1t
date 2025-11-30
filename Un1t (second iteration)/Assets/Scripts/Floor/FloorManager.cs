@@ -23,15 +23,11 @@ public class FloorManager : MonoBehaviour
     [Header("Room types dynamic generation")]
     [SerializeField] private GameObject roomTemplate;
 
-    [SerializeField] private OuterWallBuilder topOuterWall;
-    [SerializeField] private OuterWallBuilder bottomOuterWall;
-    [SerializeField] private OuterWallBuilder leftOuterWall;
-    [SerializeField] private OuterWallBuilder rightOuterWall;
+    [SerializeField] private GameObject topOuterWall;
+    [SerializeField] private GameObject bottomOuterWall;
+    [SerializeField] private GameObject leftOuterWall;
+    [SerializeField] private GameObject rightOuterWall;
 
-    [SerializeField] private GameObject leftTopCorner;
-    [SerializeField] private GameObject rightTopCorner;
-    [SerializeField] private GameObject leftBottomCorner;
-    [SerializeField] private GameObject rightBottomCorner;
 
     [SerializeField] private GroundBuilder standardRoomGround;
 
@@ -126,28 +122,13 @@ public class FloorManager : MonoBehaviour
     {
         GameObject roomInstance = Instantiate(roomTemplate, position, Quaternion.identity, transform);
 
-        Instantiate(topOuterWall, new Vector2(0, 6) + position, Quaternion.identity, roomInstance.transform)
-            .GetComponent<StandardOuterWallBuilder>()
-            .SetPartsEmptiness(roomOuterWalls.Top);
+        Instantiate(topOuterWall, new Vector2(-3.5f, 7) + position, Quaternion.identity, roomInstance.transform);
 
-        Instantiate(bottomOuterWall, new Vector2(0, -5) + position, Quaternion.identity, roomInstance.transform)
-            .GetComponent<StandardOuterWallBuilder>()
-            .SetPartsEmptiness(roomOuterWalls.Bottom);
+        Instantiate(bottomOuterWall, new Vector2(0, -6.5f) + position, Quaternion.identity, roomInstance.transform);
 
-        Instantiate(leftOuterWall, new Vector2(-8.5f, 0) + position, Quaternion.identity, roomInstance.transform)
-            .GetComponent<StandardOuterWallBuilder>()
-            .SetPartsEmptiness(roomOuterWalls.Left);
+        Instantiate(leftOuterWall, new Vector2(-9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
 
-        Instantiate(rightOuterWall, new Vector2(8.5f, 0) + position, Quaternion.identity, roomInstance.transform)
-            .GetComponent<StandardOuterWallBuilder>()
-            .SetPartsEmptiness(roomOuterWalls.Right);
-
-        Instantiate(rightBottomCorner, new Vector2(-8.5f, 5) + position, Quaternion.identity, roomInstance.transform);
-        Instantiate(leftBottomCorner, new Vector2(8.5f, 5) + position, Quaternion.identity, roomInstance.transform);
-        Instantiate(rightTopCorner, new Vector2(-8.5f, -5) + position, Quaternion.identity, roomInstance.transform);
-        Instantiate(leftTopCorner, new Vector2(8.5f, -5) + position, Quaternion.identity, roomInstance.transform);
-
-        Instantiate(standardRoomGround, position, Quaternion.identity, roomInstance.transform);
+        Instantiate(rightOuterWall, new Vector2(9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
 
         roomGrid[gridPosition] = new(roomInstance, roomOuterWalls);
         CreateHallwaysGround(position, roomOuterWalls, roomInstance.transform);
