@@ -53,22 +53,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 35fc8a0ba3c5f8e4e9bb7b554f4c0d0e, type: 2}
   - {fileID: 11400000, guid: 52e7cd92d65139a48bd74b9679c7641c, type: 2}
   - {fileID: 11400000, guid: e117b76159557a84da52228a9c4f868a, type: 2}
-  availableStartRooms:
-  - {fileID: 11400000, guid: abec2181e947a42469c0ae15f3b630f4, type: 2}
-  - {fileID: 11400000, guid: 1a1ff50219be2ae49a96e5f523675acd, type: 2}
-  - {fileID: 11400000, guid: 45cb214f7a2d0ea42bc84cf2274f585d, type: 2}
-  - {fileID: 11400000, guid: 74bc239905271614b997299540f5f296, type: 2}
-  minRoomsCount: 5
-  maxRoomsCount: 7
   roomTemplate: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
-  topOuterWall: {fileID: 1487069661727597505, guid: 2009d4db0f3e7cf448f7ae29b11aa326, type: 3}
-  bottomOuterWall: {fileID: 1487069661727597505, guid: 2068aa762030f3e47b223bdbf339e11c, type: 3}
-  leftOuterWall: {fileID: 1487069661727597505, guid: 018db5c29ae890244a4a0d14f5d3aaea, type: 3}
-  rightOuterWall: {fileID: 1487069661727597505, guid: 7d3a8f8ca2fbebf4b9b0c25f3ca4183d, type: 3}
-  leftTopCorner: {fileID: 8252421113222450477, guid: 6d5661e06434bcb4ca35ce3fcf17dfda, type: 3}
-  rightTopCorner: {fileID: 8252421113222450477, guid: 2b224560a8dd45d4f8d2d67532b0ab95, type: 3}
-  leftBottomCorner: {fileID: 8252421113222450477, guid: e94fbb85d02b7a8478ca7b3c4aabf00b, type: 3}
-  rightBottomCorner: {fileID: 8252421113222450477, guid: fd3af196d0a490f4d8db77d7da1671d6, type: 3}
-  standardRoomGround: {fileID: 1792376874662093916, guid: 230fe3ed227c91d43b8f34accdf2ba61, type: 3}
+  horizontalHallway: {fileID: 2304853461992813493, guid: b8868f478deacbe439a935e42ab463ba, type: 3}
+  verticalHallway: {fileID: 2465557068196796512, guid: f8f9e77105216544a8cecc789c38b17c, type: 3}
+  topOuterWall: {fileID: 2219194514067704102, guid: 8d00cb1859acb574f8af8e8aa28868e8, type: 3}
+  bottomOuterWall: {fileID: 718568134208821154, guid: 6433715f63432204083991f17439317a, type: 3}
+  leftOuterWall: {fileID: 769235998188001086, guid: fbb987720555729498e66222d0a9e3f2, type: 3}
+  rightOuterWall: {fileID: 7543573792874096438, guid: a2c82c55342ec3546a24fd6f5bad356f, type: 3}
   enemySpawner: {fileID: 5488166656052903477, guid: 8b2af04592ee649a787baf3bc80914ff, type: 3}
   rock: {fileID: 2050524529450626461, guid: e33b0bdc5bc09464196908222d570a57, type: 3}

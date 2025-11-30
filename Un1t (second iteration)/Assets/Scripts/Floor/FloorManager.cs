@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 //TODO: class should be divided according to SRP.
 
@@ -14,14 +15,13 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private FloorEnemiesList spawnableEnemies;
 
     [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
-    [SerializeField] private TemplateRoomInfo[] availableStartRooms;
-
-    [SerializeField] private int minRoomsCount = 5;    //Validate these numbers.
-    [SerializeField] private int maxRoomsCount = 7;
 
     //TODO: next serilize fields should be moved to a separate class.
     [Header("Room types dynamic generation")]
     [SerializeField] private GameObject roomTemplate;
+
+    [SerializeField] private GameObject horizontalHallway;
+    [SerializeField] private GameObject verticalHallway;
 
     [SerializeField] private GameObject topOuterWall;
     [SerializeField] private GameObject bottomOuterWall;
@@ -29,13 +29,12 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject rightOuterWall;
 
 
-    [SerializeField] private GroundBuilder standardRoomGround;
-
     [SerializeField] private RoomEnemySpawner enemySpawner;
     [SerializeField] private Rock rock;
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
+    private IEnumerable<DungeonFactory.Room> allRooms;
 
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
@@ -56,15 +55,23 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     public void GenerateFloor()
     {
-        List<DungeonFactory.Room> rooms = dungeonFactory.CreateDungeon();
+        allRooms = dungeonFactory.CreateDungeon();
 
-        foreach (DungeonFactory.Room room in rooms)
+        foreach (DungeonFactory.Room room in allRooms)
         {
+            GameObject roomInstance;
             Vector2 roomPosition = (Vector2)((Vector2Int)room.GridPosition * RoomInfo.Size);
             if (TryChooseTemplateRoom(room.OuterWalls, out RoomInfo roomInfo))
-                GenerateRoom(roomInfo, room.GridPosition, roomPosition);
+                roomInstance = GenerateRoom(roomInfo, room.GridPosition, roomPosition);
             else
-                ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
+                roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
+
+            CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
+            Debug.Log($"({room.GridPosition.X}, {room.GridPosition.Y}) - " +
+                $"TOP - {room.OuterWalls.Top.Middle.IsEmpty} " +
+                $"BOTTOM - {room.OuterWalls.Bottom.Middle.IsEmpty} " +
+                $"LEFT - {room.OuterWalls.Left.Middle.IsEmpty} " +
+                $"RIGHT - {room.OuterWalls.Right.Middle.IsEmpty} ");
         }
 
         transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
@@ -76,17 +83,16 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     /// <param name="room">Room to instantiate</param>
     /// <param name="gridPosition">Position to place the room</param>
-    private void GenerateRoom(RoomInfo room, in FloorGridPosition gridPosition, Vector2 position)
+    private GameObject GenerateRoom(RoomInfo room, in FloorGridPosition gridPosition, Vector2 position)
     {
         GameObject roomInstance = Instantiate(room.RoomPrefab, position,
             Quaternion.identity, transform);
 
         roomGrid[gridPosition] = room;
 
-        CreateHallwaysGround(position, room.OuterWalls, roomInstance.transform);
-
         CreateRoomContent(roomInstance);
 
+        return roomInstance;
     }
 
     /// <summary>
@@ -118,42 +124,42 @@ public class FloorManager : MonoBehaviour
     //Remove "magic numbers",
     //Caching room types.
 
-    private void ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition gridPosition, Vector2 position)
+    private GameObject ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition gridPosition, Vector2 position)
     {
         GameObject roomInstance = Instantiate(roomTemplate, position, Quaternion.identity, transform);
 
-        Instantiate(topOuterWall, new Vector2(-3.5f, 7) + position, Quaternion.identity, roomInstance.transform);
+        if (!roomOuterWalls.Top.Middle.IsEmpty)
+            Instantiate(topOuterWall, new Vector2(-3.5f, 7) + position, Quaternion.identity, roomInstance.transform);
 
-        Instantiate(bottomOuterWall, new Vector2(0, -6.5f) + position, Quaternion.identity, roomInstance.transform);
+        if (!roomOuterWalls.Bottom.Middle.IsEmpty)
+            Instantiate(bottomOuterWall, new Vector2(0, -6.5f) + position, Quaternion.identity, roomInstance.transform);
 
-        Instantiate(leftOuterWall, new Vector2(-9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
+        if (!roomOuterWalls.Left.Middle.IsEmpty)
+            Instantiate(leftOuterWall, new Vector2(-9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
 
-        Instantiate(rightOuterWall, new Vector2(9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
+        if (!roomOuterWalls.Right.Middle.IsEmpty)
+            Instantiate(rightOuterWall, new Vector2(9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
 
         roomGrid[gridPosition] = new(roomInstance, roomOuterWalls);
-        CreateHallwaysGround(position, roomOuterWalls, roomInstance.transform);
 
         CreateRoomContent(roomInstance);
+
+        return roomInstance;
     }
 
-    //TODO: universalize this method.
-    private void CreateHallwaysGround(Vector2 roomPosition, RoomOuterWalls roomOuterWalls, Transform parent)
+    private void CreateHallways(Vector2 roomPosition, RoomOuterWalls roomOuterWalls, Transform parent)
     {
         if (roomOuterWalls.Top.Middle.IsEmpty)
-            Instantiate(standardRoomGround, roomPosition + new Vector2(0, 6), Quaternion.identity, parent)
-            .SetSize(new(6, 3));
+            Instantiate(verticalHallway, roomPosition + new Vector2(0, 7), Quaternion.identity, parent);
 
         if (roomOuterWalls.Bottom.Middle.IsEmpty)
-            Instantiate(standardRoomGround, roomPosition + new Vector2(0, -5), Quaternion.identity, parent)
-            .SetSize(new(6, 1));
+            Instantiate(verticalHallway, roomPosition + new Vector2(0, -7), Quaternion.identity, parent);
 
         if (roomOuterWalls.Left.Middle.IsEmpty)
-            Instantiate(standardRoomGround, roomPosition + new Vector2(-8.5f, 0), Quaternion.identity, parent)
-            .SetSize(new(1, 3));
+            Instantiate(horizontalHallway, roomPosition + new Vector2(-9.5f, 0), Quaternion.identity, parent);
 
         if (roomOuterWalls.Right.Middle.IsEmpty)
-            Instantiate(standardRoomGround, roomPosition + new Vector2(8.5f, 0), Quaternion.identity, parent)
-            .SetSize(new(1, 3));
+            Instantiate(horizontalHallway, roomPosition + new Vector2(9.5f, 0), Quaternion.identity, parent);
     }
 
 }
