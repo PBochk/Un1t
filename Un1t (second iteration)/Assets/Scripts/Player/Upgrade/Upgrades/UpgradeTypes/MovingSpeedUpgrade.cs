@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovingSpeedUpgrade : PlayerUpgrade
 {
-    public MovingSpeedUpgrade(PlayerUpgradeManager man, UpgradeTiers tier) : base(man, tier)
+    public MovingSpeedUpgrade(PlayerUpgradeController man, UpgradeTiers tier) : base(man, tier)
     {
     }
 

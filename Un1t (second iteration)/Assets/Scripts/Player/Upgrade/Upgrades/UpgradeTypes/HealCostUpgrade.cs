@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HealCostUpgrade : PlayerUpgrade
 {
-    public HealCostUpgrade(PlayerUpgradeManager man, UpgradeTiers tier) : base(man, tier)
+    public HealCostUpgrade(PlayerUpgradeController man, UpgradeTiers tier) : base(man, tier)
     {
     }
 

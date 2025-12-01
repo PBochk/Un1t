@@ -12,7 +12,7 @@ public class PlayerModel : IInstanceModel
         
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
-    //private PlayerUpgradeModel upgradeModel;
+    private PlayerUpgradeModel upgradeModel;
 
     //sufficient for saving and loading
     private float maxHealth;
@@ -34,7 +34,7 @@ public class PlayerModel : IInstanceModel
 
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
-    //public PlayerUpgradeModel UpgradeModel => upgradeModel;
+    public PlayerUpgradeModel UpgradeModel => upgradeModel;
 
     public float MaxHealth
     { 
@@ -102,10 +102,11 @@ public class PlayerModel : IInstanceModel
         dashCooldown = config.BaseDashCooldown;
     }
     
-    public void BindModels(PlayerMeleeWeaponModel meleeModel, PlayerRangeWeaponModel rangeModel)
+    public void BindModels(PlayerMeleeWeaponModel meleeModel, PlayerRangeWeaponModel rangeModel, PlayerUpgradeModel upgradeModel)
     {
         this.meleeModel = meleeModel;
         this.rangeModel = rangeModel;
+        this.upgradeModel = upgradeModel;
     }
 
     public IActor CreateInstance()

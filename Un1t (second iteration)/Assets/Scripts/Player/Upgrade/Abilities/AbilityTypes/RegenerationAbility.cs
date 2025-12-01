@@ -1,6 +1,6 @@
 public class RegenerationAbility : PlayerAbility
 {
-    public RegenerationAbility(PlayerUpgradeManager man) : base(man)
+    public RegenerationAbility(PlayerUpgradeController man) : base(man)
     {
     }
 

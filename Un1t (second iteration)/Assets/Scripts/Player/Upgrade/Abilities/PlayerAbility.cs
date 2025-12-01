@@ -7,7 +7,7 @@ public abstract class PlayerAbility : PlayerUpgrade
     /// Upgrade manager should subscribe on this and remove ability after apply
     /// </summary>
     public event Action AbilityApplied;
-    public PlayerAbility(PlayerUpgradeManager man) : base(man)
+    public PlayerAbility(PlayerUpgradeController man) : base(man)
     {
     }
     public override void Apply()

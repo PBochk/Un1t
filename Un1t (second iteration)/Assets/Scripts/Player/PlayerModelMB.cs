@@ -22,9 +22,8 @@ public class PlayerModelMB: MonoBehaviour, IActor
     private void Start()
     {
         PlayerModel.BindModels(GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel as PlayerMeleeWeaponModel,
-                               GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel);
-        Debug.Log(PlayerModel.MeleeModel is null);
-        Debug.Log(PlayerModel.RangeModel is null);
+                               GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel,
+                               GetComponent<PlayerUpgradeModelMB>().PlayerUpgradeModel);
     }
 
     public void Initialize(IInstanceModel model)

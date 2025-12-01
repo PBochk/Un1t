@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 public static class UpgradeFactory
 {
-    public static PlayerUpgradeManager Manager;
+    public static PlayerUpgradeController Manager;
     private static Dictionary<PlayerUpgradeTypes, Func<PlayerUpgrade>> UpgradeFactories = new()
     {
         { PlayerUpgradeTypes.MaxHealth, () => new MaxHealthUpgrade(Manager, GetRandomTier()) },
