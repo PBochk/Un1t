@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,9 +8,9 @@ public abstract class PlayerUpgrade
     public readonly PlayerUpgradeManager UpgradeManager;
     public string Description { get; protected set; }
     public float UpgradeValue { get; protected set; }
-    public UpgradeTiers Tier { get; protected set; }
+    public UpgradeTiers Tier { get; protected set; } // should it be public?
 
-    protected PlayerUpgrade(PlayerUpgradeManager man, UpgradeTiers tier)
+    protected PlayerUpgrade(PlayerUpgradeManager man, UpgradeTiers tier = UpgradeTiers.x1)
     {
         UpgradeManager = man;
         Tier = tier;

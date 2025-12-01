@@ -13,6 +13,7 @@ public class PlayerModel : IInstanceModel
     //sufficient for saving and loading
     private float maxHealth;
     private float currentHealth;
+    private float regenPerSecond = 0;
     private int level = 1;
     private float currentXP = 0;
     private float healCostCoefficient = 0.5f;
@@ -46,6 +47,7 @@ public class PlayerModel : IInstanceModel
             HealthChanged?.Invoke();
         }
     }
+    public float RegenPerSecond => regenPerSecond;
     public int Level => level;
     public float CurrentXP
     {
@@ -70,7 +72,6 @@ public class PlayerModel : IInstanceModel
     public event Action<bool> PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
-
 
     static PlayerModel()
     {
@@ -158,6 +159,12 @@ public class PlayerModel : IInstanceModel
     {
         MaxHealth += increment;
     }
+
+    public void UpgradeRegeneration(float increment)
+    {
+        regenPerSecond += increment;
+    }
+
     public void UpgradeHealCost(float decrement)
     {
         healCostCoefficient = healCostCoefficient - decrement < 0 ? 0 : healCostCoefficient - decrement;

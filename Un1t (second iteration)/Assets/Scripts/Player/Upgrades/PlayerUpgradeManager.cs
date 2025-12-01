@@ -8,11 +8,12 @@ using Random = UnityEngine.Random;
 public class PlayerUpgradeManager : MonoBehaviour
 {
 
-    [SerializeField] private List<PlayerUpgradeTypes> unlockedUpgrades;
+    [SerializeField] private List<PlayerUpgradeTypes> availableUpgrades;
+    [SerializeField] private List<PlayerAbilityTypes> availableAbilities;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
-    private List<PlayerUpgrade> currentChoiceUps = new();
+    private List<PlayerUpgrade> currentChoiceUpgrades = new();
     public PlayerModel PlayerModel => playerModel;
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
@@ -28,13 +29,26 @@ public class PlayerUpgradeManager : MonoBehaviour
         playerModel.LevelChanged += SetUpgradeChoice;
     }
 
+    public void SetLevelUpReward()
+    {
+        if (playerModel.Level % 5 != 0)
+        {
+            SetUpgradeChoice();
+        }
+        else
+        {
+            SetAbilityChoice();
+        }
+    }
+
     public void SetUpgradeChoice()
     {
-        currentChoiceUps.Clear();
+        currentChoiceUpgrades.Clear();
         for (var i = 0; i < 3; i++)
         {
-            var upgradeName = unlockedUpgrades[Random.Range(0, unlockedUpgrades.Count)];
+            var upgradeName = availableUpgrades[Random.Range(0, availableUpgrades.Count)];
             PlayerUpgrade upgrade = null;
+            // TODO: rework with dictionary
             switch (upgradeName)
             {
                 case PlayerUpgradeTypes.MaxHealth:
@@ -73,10 +87,32 @@ public class PlayerUpgradeManager : MonoBehaviour
                     break;
                 }
             }
-            currentChoiceUps.Add(upgrade);
+            currentChoiceUpgrades.Add(upgrade);
         }
-        UpgradesChoiceSet.Invoke(currentChoiceUps);
+        UpgradesChoiceSet.Invoke(currentChoiceUpgrades);
         
+    }
+
+    public void SetAbilityChoice()
+    {
+        currentChoiceUpgrades.Clear();
+        for (var i = 0; i < 3; i++)
+        {
+            var abilityName = availableAbilities[Random.Range(0, availableAbilities.Count)];
+            PlayerAbility ability = null;
+            // TODO: rework with dictionary
+            switch (abilityName)
+            {
+                case PlayerAbilityTypes.Regeneration:
+                {
+                    ability = new RegenerationAbility(this);
+                    break;
+                }
+
+            }
+            currentChoiceUpgrades.Add(ability);
+        }
+        UpgradesChoiceSet.Invoke(currentChoiceUpgrades);
     }
 
     private UpgradeTiers GetRandomTier()
