@@ -47,7 +47,6 @@ public class PlayerModel : IInstanceModel
             HealthChanged?.Invoke();
         }
     }
-    public float RegenPerSecond => regenPerSecond;
     public int Level => level;
     public float CurrentXP
     {
@@ -113,6 +112,8 @@ public class PlayerModel : IInstanceModel
         CurrentHealth += heal;
         CurrentXP -= xpCost;
     }
+
+    public void Regenerate() => TakeHeal(regenPerSecond);
 
     public void TakeDamage(float decrement)
     {
