@@ -145,10 +145,10 @@ TextureImporter:
       name: Player Run Forward_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 55
-        width: 57
-        height: 10
+        x: 0
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,10 +167,10 @@ TextureImporter:
       name: Player Run Forward_1
       rect:
         serializedVersion: 2
-        x: 13
-        y: 1
-        width: 19
-        height: 54
+        x: 48
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +189,10 @@ TextureImporter:
       name: Player Run Forward_2
       rect:
         serializedVersion: 2
-        x: 56
-        y: 8
-        width: 25
-        height: 47
+        x: 96
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,10 +211,10 @@ TextureImporter:
       name: Player Run Forward_3
       rect:
         serializedVersion: 2
-        x: 104
-        y: 8
-        width: 29
-        height: 47
+        x: 144
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,10 +233,10 @@ TextureImporter:
       name: Player Run Forward_4
       rect:
         serializedVersion: 2
-        x: 153
-        y: 8
-        width: 24
-        height: 47
+        x: 192
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,231 +251,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_5
-      rect:
-        serializedVersion: 2
-        x: 199
-        y: 8
-        width: 28
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3dfc29221fa92bb10800000000000000
-      internalID: 1995827945336393683
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_6
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 0
-        width: 19
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6e90a1222963e1c90800000000000000
-      internalID: -7197255153226216986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_7
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 1
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: edbae278fe3ccccf0800000000000000
-      internalID: -230594047370155042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_8
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 0
-        width: 18
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 81b96e2c25cd1b560800000000000000
-      internalID: 7327880316723829528
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_9
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 1
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 589915d557b2b5f90800000000000000
-      internalID: -6963924615721543291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_10
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 0
-        width: 18
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b284130cc4fb541a0800000000000000
-      internalID: -6825839323847243733
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_11
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 1
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 386ae0d7b15bf2b90800000000000000
-      internalID: -7264388544258464125
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_12
-      rect:
-        serializedVersion: 2
-        x: 162
-        y: 0
-        width: 18
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 490c53c0753134260800000000000000
-      internalID: 7080524303744483476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_13
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 1
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 258c47e9fad2f3380800000000000000
-      internalID: -8989416098907240366
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Run Forward_14
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 0
-        width: 18
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 840269e787816cb50800000000000000
-      internalID: 6613000008639062088
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bd41609f9a56c434d928070922a3c617
     internalID: 0
     vertices: []
     indices: 
@@ -483,23 +263,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Player Run Forward_0: -781208197273261947
       Player Run Forward_1: -1434562133685799764
-      Player Run Forward_10: -6825839323847243733
-      Player Run Forward_11: -7264388544258464125
-      Player Run Forward_12: 7080524303744483476
-      Player Run Forward_13: -8989416098907240366
-      Player Run Forward_14: 6613000008639062088
       Player Run Forward_2: -8612303872944164559
       Player Run Forward_3: 2615710407637500762
       Player Run Forward_4: 4760281917972740921
-      Player Run Forward_5: 1995827945336393683
-      Player Run Forward_6: -7197255153226216986
-      Player Run Forward_7: -230594047370155042
-      Player Run Forward_8: 7327880316723829528
-      Player Run Forward_9: -6963924615721543291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
