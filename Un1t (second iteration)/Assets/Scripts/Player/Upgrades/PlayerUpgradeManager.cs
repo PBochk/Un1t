@@ -27,6 +27,7 @@ public class PlayerUpgradeManager : MonoBehaviour
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
         rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
         playerModel.LevelChanged += SetUpgradeChoice;
+        UpgradeFactory.Manager = this;
     }
 
     public void SetLevelUpReward()
@@ -46,47 +47,8 @@ public class PlayerUpgradeManager : MonoBehaviour
         currentChoiceUpgrades.Clear();
         for (var i = 0; i < 3; i++)
         {
-            var upgradeName = availableUpgrades[Random.Range(0, availableUpgrades.Count)];
-            PlayerUpgrade upgrade = null;
-            // TODO: rework with dictionary
-            switch (upgradeName)
-            {
-                case PlayerUpgradeTypes.MaxHealth:
-                {
-                    upgrade = new MaxHealthUpgrade(this, GetRandomTier());
-                    break;
-                };
-                case PlayerUpgradeTypes.HealCost:
-                {
-                    upgrade = new HealCostUpgrade(this, GetRandomTier());
-                    break;
-                }
-                case PlayerUpgradeTypes.XPGain:
-                {
-                    upgrade = new XPGainUpgrade(this, GetRandomTier());
-                    break;
-                }
-                case PlayerUpgradeTypes.MovingSpeed:
-                {
-                    upgrade = new MovingSpeedUpgrade(this, GetRandomTier());
-                    break;
-                }
-                case PlayerUpgradeTypes.MeleeSpeed:
-                {
-                    upgrade = new MeleeAttackSpeedUpgrade(this, GetRandomTier());
-                    break;
-                }
-                case PlayerUpgradeTypes.MeleeDamage:
-                {
-                    upgrade = new MeleeDamageUpgrade(this, GetRandomTier());
-                    break;
-                }
-                case PlayerUpgradeTypes.RangeDamage:
-                {
-                    upgrade = new RangeDamageUpgrade(this, GetRandomTier());
-                    break;
-                }
-            }
+            var upgradeType = availableUpgrades[Random.Range(0, availableUpgrades.Count)];
+            var upgrade = UpgradeFactory.GetUpgrade(upgradeType);
             currentChoiceUpgrades.Add(upgrade);
         }
         UpgradesChoiceSet.Invoke(currentChoiceUpgrades);
@@ -115,12 +77,5 @@ public class PlayerUpgradeManager : MonoBehaviour
         UpgradesChoiceSet.Invoke(currentChoiceUpgrades);
     }
 
-    private UpgradeTiers GetRandomTier()
-    {
-        // TODO: replace magic numbers with serialized variables
-        var rand = Random.Range(1, 11);
-        if (rand <= 6) return UpgradeTiers.x1;
-        else if (rand <= 9) return UpgradeTiers.x2;
-        else return UpgradeTiers.x3;
-    }
+
 }
