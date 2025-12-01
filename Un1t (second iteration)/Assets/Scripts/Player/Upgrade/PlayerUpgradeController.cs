@@ -6,14 +6,14 @@ using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(PlayerModelMB))]
-public class PlayerUpgradeManager : MonoBehaviour
+[RequireComponent(typeof(PlayerUpgradeModelMB))]
+public class PlayerUpgradeController : MonoBehaviour
 {
 
-    [SerializeField] private List<PlayerUpgradeTypes> availableUpgrades;
-    [SerializeField] private List<PlayerAbilityTypes> availableAbilities;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
+    private PlayerUpgradeModel upgradeModel;
     private List<PlayerUpgrade> rewardChoice = new();
     public PlayerModel PlayerModel => playerModel;
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
@@ -22,11 +22,13 @@ public class PlayerUpgradeManager : MonoBehaviour
 
     public UnityEvent<List<PlayerUpgrade>> UpgradesChoiceSet;
 
+
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
-        rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
+        rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel;
+        upgradeModel = GetComponent<PlayerUpgradeModelMB>().PlayerUpgradeModel;
         playerModel.LevelChanged += SetRewardChoice;
         UpgradeFactory.Manager = this;
         AbilityFactory.Manager = this;
@@ -35,7 +37,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     private void SetRewardChoice()
     {
         ClearPreviousChoice();
-        if (playerModel.Level % 5 == 0 && availableAbilities.Count > 0)
+        if (playerModel.Level % 5 == 0 && upgradeModel.AvailableAbilities.Count > 0)
         {
             SetAbilityChoice();
         }
@@ -61,7 +63,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     {
         for (var i = 0; i < 3; i++)
         {
-            var upgradeType = availableUpgrades[Random.Range(0, availableUpgrades.Count)];
+            var upgradeType = upgradeModel.AvailableUpgrades[Random.Range(0, upgradeModel.AvailableUpgrades.Count)];
             var upgrade = UpgradeFactory.GetUpgrade(upgradeType);
             rewardChoice.Add(upgrade);
         }
@@ -71,11 +73,10 @@ public class PlayerUpgradeManager : MonoBehaviour
     {
         for (var i = 0; i < 3; i++)
         {
-            var abilityType = availableAbilities[Random.Range(0, availableAbilities.Count)];
+            var abilityType = upgradeModel.AvailableAbilities[Random.Range(0, upgradeModel.AvailableAbilities.Count)];
             var ability = AbilityFactory.GetAbility(abilityType);
             rewardChoice.Add(ability);
-            ability.AbilityApplied += () => availableAbilities.Remove(abilityType);
+            ability.AbilityApplied += () => upgradeModel.RemoveAbility(abilityType);
         }
     }
-
 }

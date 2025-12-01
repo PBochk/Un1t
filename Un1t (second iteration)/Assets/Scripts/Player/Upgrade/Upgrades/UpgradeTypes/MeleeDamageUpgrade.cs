@@ -1,6 +1,6 @@
 public class MeleeDamageUpgrade : PlayerUpgrade
 {
-    public MeleeDamageUpgrade(PlayerUpgradeManager man, UpgradeTiers tier) : base(man, tier)
+    public MeleeDamageUpgrade(PlayerUpgradeController man, UpgradeTiers tier) : base(man, tier)
     {
     }
 

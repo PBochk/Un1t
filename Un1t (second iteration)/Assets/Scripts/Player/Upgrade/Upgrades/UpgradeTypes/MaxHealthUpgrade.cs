@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MaxHealthUpgrade : PlayerUpgrade
 {
-    public MaxHealthUpgrade(PlayerUpgradeManager man, UpgradeTiers tier) : base(man, tier)
+    public MaxHealthUpgrade(PlayerUpgradeController man, UpgradeTiers tier) : base(man, tier)
     {
     }
 

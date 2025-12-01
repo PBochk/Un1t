@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1941794300054987042, guid: 0c12d5e8acefeba429e03ec9e156f01a, type: 3}
   playerTransform: {fileID: 0}
+  initialForce: 1000
   StartRangeAnimation:
     m_PersistentCalls:
       m_Calls: []
@@ -62,10 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a80af139d8bd2488fc61f7c0266bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileModelMB: {fileID: 0}
+  damage: 0
+  lifetime: 0
   attackCooldown: 0.5
   ammo: 10
-  initialForce: 500
-  solid:
-    serializedVersion: 2
-    m_Bits: 72

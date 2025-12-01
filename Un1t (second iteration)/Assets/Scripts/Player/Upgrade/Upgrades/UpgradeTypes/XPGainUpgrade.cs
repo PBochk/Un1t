@@ -1,6 +1,6 @@
 public class XPGainUpgrade : PlayerUpgrade
 {
-    public XPGainUpgrade(PlayerUpgradeManager man, UpgradeTiers tier) : base(man, tier)
+    public XPGainUpgrade(PlayerUpgradeController man, UpgradeTiers tier) : base(man, tier)
     {
     }
 

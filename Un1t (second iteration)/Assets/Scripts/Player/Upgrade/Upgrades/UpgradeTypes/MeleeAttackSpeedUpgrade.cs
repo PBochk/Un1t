@@ -1,6 +1,6 @@
 public class MeleeAttackSpeedUpgrade : PlayerUpgrade
 {
-    public MeleeAttackSpeedUpgrade(PlayerUpgradeManager man, UpgradeTiers tier) : base(man, tier)
+    public MeleeAttackSpeedUpgrade(PlayerUpgradeController man, UpgradeTiers tier) : base(man, tier)
     {
     }
 

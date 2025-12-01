@@ -13,7 +13,7 @@ public class PlayerToolsUI : MonoBehaviour
     private void Start()
     {
         var playerUI = GetComponentInParent<PlayerUI>();
-        rangeModel = playerUI.PlayerRangeWeaponModelMB.PlayerRangeWeaponModel;
+        rangeModel = playerUI.PlayerRangeWeaponModelMB.RangeWeaponModel;
         rangeModel.AmmoChanged += OnAmmoChanged;
         Initialize();
     }

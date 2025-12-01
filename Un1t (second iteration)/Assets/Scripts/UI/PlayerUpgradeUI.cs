@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerUpgradeUI : MonoBehaviour
 {
-    [SerializeField] private PlayerUpgradeManager upgradeManager;
+    [SerializeField] private PlayerUpgradeController upgradeManager;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button[] buttons;
     [SerializeField] private TMP_Text[] buttonTexts;
