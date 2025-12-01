@@ -26,7 +26,7 @@ public class RoomManager : MonoBehaviour
     public static int EnemiesCount { get; set; } = 0; //This field is for demo only.
 
     // TODO: make full room's content generation. This solution is for demonstration purpose only.
-    public void CreateContent()
+    public void CreateContent(Transform parent)
     {
 
         CreateOuterWalls();
@@ -39,11 +39,11 @@ public class RoomManager : MonoBehaviour
         if (UnityEngine.Random.Range(0, 2) == 0)
         {
             EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
-            spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
+            spawnersManager.SetSpawners(enemy, parent.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
         }
         else
         {
-            Instantiate(rock, transform.position, Quaternion.identity);
+            Instantiate(rock, transform.position, Quaternion.identity, parent);
         }
         CreateEntities();
     }

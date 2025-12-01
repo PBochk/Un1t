@@ -81,7 +81,7 @@ public class DungeonFactory
 
             int worldX = firstRoomOffset.X + (gridPos.X - dungeon.EntrancePosition.X);
             int worldY = firstRoomOffset.Y + (gridPos.Y - dungeon.EntrancePosition.Y);
-            FloorGridPosition worldPosition = new FloorGridPosition(worldX, worldY);
+            FloorGridPosition worldPosition = new (worldX, worldY);
 
             UpdateOuterWalls(room);
 

@@ -66,6 +66,7 @@ public class FloorManager : MonoBehaviour
                 roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
 
             CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
+            CreateRoomContent(roomInstance);
         }
 
         transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
@@ -83,8 +84,6 @@ public class FloorManager : MonoBehaviour
             Quaternion.identity, transform);
 
         roomGrid[gridPosition] = room;
-
-        CreateRoomContent(roomInstance);
 
         return roomInstance;
     }
@@ -110,7 +109,7 @@ public class FloorManager : MonoBehaviour
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
         roomManager.SetContent(spawnableEnemies.Enemies, enemySpawner, rock);
-        roomManager.CreateContent();
+        roomManager.CreateContent(transform);
     }
 
 
@@ -134,8 +133,6 @@ public class FloorManager : MonoBehaviour
             Instantiate(rightOuterWall, new Vector2(9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
 
         roomGrid[gridPosition] = new(roomInstance, roomOuterWalls);
-
-        CreateRoomContent(roomInstance);
 
         return roomInstance;
     }
