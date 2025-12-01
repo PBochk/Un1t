@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SpawnersManager
 {
@@ -16,9 +14,9 @@ public class SpawnersManager
 
     //TODO: implement fully
     //This version is for demonstration purpose only.
-    public void SetSpawners(EnemyController enemy, Vector2 position, EnemyTargetComponent enemyTarget, RoomEnemySpawner spawner)
+    public void SetSpawners(EnemyController enemy, Vector2 position, EnemyTargetComponent enemyTarget, RoomEnemySpawner spawner, Transform parent)
     {
-        enemySpawners.Add(RoomEnemySpawner.Instantiate(spawner));
+        enemySpawners.Add(RoomEnemySpawner.Instantiate(spawner, parent));
         enemySpawners[0].SetCreationEnemy(enemy, position, enemyTarget);
         EnemyController createdEnemy = enemySpawners[0].CreateEnemy();
 

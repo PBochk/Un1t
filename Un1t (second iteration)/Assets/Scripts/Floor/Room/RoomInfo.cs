@@ -10,9 +10,8 @@ public class RoomInfo
 
     public GameObject RoomPrefab { get; }
     public RoomOuterWalls OuterWalls { get; }
-    public RoomExits RoomExits { get; }
 
-    private static readonly Vector2Int innerSize = new(16, 9);
+    private static readonly Vector2Int innerSize = new(18, 12);
     private static readonly Vector2Int size = innerSize + new Vector2Int(2, 4);
 
     public RoomInfo(GameObject roomPrefab,
@@ -44,30 +43,11 @@ public class RoomInfo
             new RoomOuterWalls.Wall.WallPart(middleRightIsEmpty),
             new RoomOuterWalls.Wall.WallPart(bottomRightIsEmpty)
         ));
-
-        RoomExits = CalculateRoomExits(OuterWalls);
     }
 
     public RoomInfo(GameObject roomPrefab, RoomOuterWalls outerWalls)
     {
         RoomPrefab = roomPrefab;
         OuterWalls = outerWalls;
-    }
-
-
-
-    /// <summary>
-    /// Calculates room exits based on the outer walls configuration
-    /// Used in previous version of the generation algorithm
-    /// </summary>
-    /// <param name="roomOuterWalls">Outer walls configuration to analyze</param>
-    /// <returns>Calculated room exits</returns>
-    private static RoomExits CalculateRoomExits(RoomOuterWalls roomOuterWalls)
-    {
-        static bool CheckWallExit(RoomOuterWalls.Wall wall) =>
-            wall.First.IsEmpty || wall.Middle.IsEmpty || wall.Last.IsEmpty;
-
-        return new(CheckWallExit(roomOuterWalls.Top), CheckWallExit(roomOuterWalls.Bottom),
-            CheckWallExit(roomOuterWalls.Left), CheckWallExit(roomOuterWalls.Right));
     }
 }
