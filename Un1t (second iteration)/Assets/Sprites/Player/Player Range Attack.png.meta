@@ -1,34 +1,37 @@
 fileFormatVersion: 2
-guid: d9a1310cc1a9a564eb9a747b02cbdb08
+guid: 2874b76498631c84bbc57d91e7a13e30
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5540042324398986191
-    second: PlayerRange_0
+      213: 2394007341795708731
+    second: Player Range Attack_0
   - first:
-      213: -1082616594236823419
-    second: PlayerRange_1
+      213: 7884110839728529221
+    second: Player Range Attack_1
   - first:
-      213: 6918024583534162509
-    second: PlayerRange_2
+      213: -882417674369162754
+    second: Player Range Attack_2
   - first:
-      213: 2303608967165369806
-    second: PlayerRange_3
+      213: 8476837544000383906
+    second: Player Range Attack_3
   - first:
-      213: -9179993575659977245
-    second: PlayerRange_4
+      213: 7757039178039615622
+    second: Player Range Attack_4
   - first:
-      213: -904728562775992763
-    second: PlayerRange_5
+      213: 7199227267823431417
+    second: Player Range Attack_5
   - first:
-      213: 943689610298387228
-    second: PlayerRange_6
+      213: -6598737452210782499
+    second: Player Range Attack_6
   - first:
-      213: -4249794950213894354
-    second: PlayerRange_7
+      213: -145931936612535069
+    second: Player Range Attack_7
   - first:
-      213: -2713417299243092737
-    second: PlayerRange_8
+      213: 5374352994674838534
+    second: Player Range Attack_8
+  - first:
+      213: -4075220176186695282
+    second: Player Range Attack_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -124,199 +127,221 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerRange_0
+      name: Player Range Attack_0
       rect:
         serializedVersion: 2
-        x: 13
+        x: 0
         y: 0
-        width: 19
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc35e62442f22ec40800000000000000
-      internalID: 5540042324398986191
+      spriteID: b3f096d4ef8393120800000000000000
+      internalID: 2394007341795708731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_1
+      name: Player Range Attack_1
       rect:
         serializedVersion: 2
-        x: 61
+        x: 48
         y: 0
-        width: 19
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 588229881f5c9f0f0800000000000000
-      internalID: -1082616594236823419
+      spriteID: 54f53d3790df96d60800000000000000
+      internalID: 7884110839728529221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_2
+      name: Player Range Attack_2
       rect:
         serializedVersion: 2
-        x: 109
+        x: 96
         y: 0
-        width: 19
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4239f894b2c10060800000000000000
-      internalID: 6918024583534162509
+      spriteID: ef123b7ecc501c3f0800000000000000
+      internalID: -882417674369162754
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_3
+      name: Player Range Attack_3
       rect:
         serializedVersion: 2
-        x: 156
+        x: 144
         y: 0
-        width: 20
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ecddb4d862018ff10800000000000000
-      internalID: 2303608967165369806
+      spriteID: 2ab66d485d6c3a570800000000000000
+      internalID: 8476837544000383906
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_4
+      name: Player Range Attack_4
       rect:
         serializedVersion: 2
-        x: 201
+        x: 192
         y: 0
-        width: 23
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e54b6a0b7c1a9080800000000000000
-      internalID: -9179993575659977245
+      spriteID: 680e6dba80a86ab60800000000000000
+      internalID: 7757039178039615622
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_5
+      name: Player Range Attack_5
       rect:
         serializedVersion: 2
-        x: 251
+        x: 240
         y: 0
-        width: 29
-        height: 43
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 54656956a22c173f0800000000000000
-      internalID: -904728562775992763
+      spriteID: 9feebe39e0bc8e360800000000000000
+      internalID: 7199227267823431417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_6
+      name: Player Range Attack_6
       rect:
         serializedVersion: 2
-        x: 299
+        x: 288
         y: 0
-        width: 28
-        height: 43
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1bef0063b8a81d00800000000000000
-      internalID: 943689610298387228
+      spriteID: ddef8e2bf339c64a0800000000000000
+      internalID: -6598737452210782499
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_7
+      name: Player Range Attack_7
       rect:
         serializedVersion: 2
-        x: 349
+        x: 336
         y: 0
-        width: 25
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2f70485202b505c0800000000000000
-      internalID: -4249794950213894354
+      spriteID: 3e433d44dab89fdf0800000000000000
+      internalID: -145931936612535069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRange_8
+      name: Player Range Attack_8
       rect:
         serializedVersion: 2
-        x: 397
+        x: 384
         y: 0
-        width: 19
-        height: 44
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ff43737b751085ad0800000000000000
-      internalID: -2713417299243092737
+      spriteID: 60c8629f299859a40800000000000000
+      internalID: 5374352994674838534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Range Attack_9
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 17
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8123e857d8e177c0800000000000000
+      internalID: -4075220176186695282
       vertices: []
       indices: 
       edges: []
@@ -325,7 +350,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9ab9fdd7aa64b064d925001177d467ce
     internalID: 0
     vertices: []
     indices: 
@@ -333,17 +358,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PlayerRange_0: 5540042324398986191
-      PlayerRange_1: -1082616594236823419
-      PlayerRange_2: 6918024583534162509
-      PlayerRange_3: 2303608967165369806
-      PlayerRange_4: -9179993575659977245
-      PlayerRange_5: -904728562775992763
-      PlayerRange_6: 943689610298387228
-      PlayerRange_7: -4249794950213894354
-      PlayerRange_8: -2713417299243092737
+      Player Range Attack_0: 2394007341795708731
+      Player Range Attack_1: 7884110839728529221
+      Player Range Attack_2: -882417674369162754
+      Player Range Attack_3: 8476837544000383906
+      Player Range Attack_4: 7757039178039615622
+      Player Range Attack_5: 7199227267823431417
+      Player Range Attack_6: -6598737452210782499
+      Player Range Attack_7: -145931936612535069
+      Player Range Attack_8: 5374352994674838534
+      Player Range Attack_9: -4075220176186695282
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
