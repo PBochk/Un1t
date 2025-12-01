@@ -10,7 +10,9 @@ public class PlayerModelMB: MonoBehaviour, IActor
     [SerializeField] private PlayerConfig playerConfig;
     public PlayerModel PlayerModel { get; private set; }
     private const float REGEN_COOLDOWN = 5f;
-    private bool isRegenReady = false;
+    //private const float DODGE_COOLDOWN = 5f;
+    private bool isRegenOnCooldown = false;
+    //private bool isDodgeOnCooldown = false;
     private void Awake()
     {
         PlayerModel = new(playerConfig.BaseMaxHealth, 
@@ -23,7 +25,7 @@ public class PlayerModelMB: MonoBehaviour, IActor
                           playerConfig.BaseDashDuration,
                           playerConfig.BaseDashCooldown
                           );
-        isRegenReady = true;
+        isRegenOnCooldown = true;
     }
 
     public void Initialize(IInstanceModel model)
@@ -33,15 +35,28 @@ public class PlayerModelMB: MonoBehaviour, IActor
 
     private void Update()
     {
-        if (!isRegenReady) return;
-        PlayerModel.Regenerate();
-        StartCoroutine(WaitForRegeration());
+        if (!isRegenOnCooldown)
+        {
+            PlayerModel.Regenerate();
+            StartCoroutine(WaitForRegenerationCooldown());
+        }
+        //if (!isDodgeOnCooldown)
+        //{
+
+        //}
     }
 
-    private IEnumerator WaitForRegeration()
+    private IEnumerator WaitForRegenerationCooldown()
     {
-        isRegenReady = false;
+        isRegenOnCooldown = true;
         yield return new WaitForSeconds(REGEN_COOLDOWN);
-        isRegenReady = true;
+        isRegenOnCooldown = false;
     }
+
+    //private IEnumerator WaitForDodgeCooldown()
+    //{
+    //    isDodgeOnCooldown = true;
+    //    yield return new WaitForSeconds(PlayerModel.DodgeCooldown);
+    //    isDodgeOnCooldown = false;
+    //}
 }

@@ -22,6 +22,7 @@ public class PlayerModel : IInstanceModel
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
+    private float dodgeCooldown;
     
     //not sufficient for saving and loading
     [XmlIgnore] private readonly List<float> XPToNextLevel;
@@ -63,7 +64,8 @@ public class PlayerModel : IInstanceModel
     public float MovingSpeed => movingSpeed;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
-    public float DashCooldown => dashCooldown;   
+    public float DashCooldown => dashCooldown;
+    //public float DodgeCooldown => dodgeCooldown;
 
     public event Action HealthChanged;
     public event Action DamageTaken;
@@ -71,7 +73,7 @@ public class PlayerModel : IInstanceModel
     public event Action<bool> PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
-
+    public event Action DodgeUnlocked;
     static PlayerModel()
     {
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
@@ -177,5 +179,10 @@ public class PlayerModel : IInstanceModel
     public void UpgradeMovingSpeed(float increment)
     {
         movingSpeed += increment;
+    }
+    public void UnlockDodge(float dodgeCooldown)
+    {
+        this.dodgeCooldown = dodgeCooldown;
+        DodgeUnlocked?.Invoke();
     }
 }
