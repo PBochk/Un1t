@@ -10,6 +10,10 @@ public class PlayerModel : IInstanceModel
     [XmlIgnore] private const string PREFAB_NAME = "PlayerWithGun";
     [XmlIgnore] private static readonly PlayerModelMB playerPrefab;
         
+    private PlayerMeleeWeaponModel meleeModel;
+    private PlayerRangeWeaponModel rangeModel;
+    //private PlayerUpgradeModel upgradeModel;
+
     //sufficient for saving and loading
     private float maxHealth;
     private float currentHealth;
@@ -26,6 +30,11 @@ public class PlayerModel : IInstanceModel
     
     //not sufficient for saving and loading
     [XmlIgnore] private readonly List<float> XPToNextLevel;
+
+
+    public PlayerMeleeWeaponModel MeleeModel => meleeModel;
+    public PlayerRangeWeaponModel RangeModel => rangeModel;
+    //public PlayerUpgradeModel UpgradeModel => upgradeModel;
 
     public float MaxHealth
     { 
@@ -79,28 +88,26 @@ public class PlayerModel : IInstanceModel
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
     }
     
-    public PlayerModel(float maxHealth, 
-                       int level, 
-                       List<float> XPToNextLevel,
-                       float healCostCoefficient,
-                       float xpGainCoefficient,
-                       float movingSpeed, 
-                       float dashSpeed, 
-                       float dashDuration,
-                       float dashCooldown)
+    public PlayerModel(PlayerConfig config)
     {
-        this.maxHealth = maxHealth;
+        maxHealth = config.BaseMaxHealth;
         currentHealth = maxHealth;
-        this.level = level;
-        this.XPToNextLevel = XPToNextLevel;
-        this.healCostCoefficient = healCostCoefficient;
-        this.xpGainCoefficient = xpGainCoefficient;
-        this.movingSpeed = movingSpeed;
-        this.dashSpeed = dashSpeed;
-        this.dashDuration = dashDuration;
-        this.dashCooldown = dashCooldown;
+        level = config.Level;
+        XPToNextLevel = config.XPToNextLevel;
+        healCostCoefficient = config.BaseHealCostCoefficient;
+        xpGainCoefficient = config.BaseXPGainCoefficient;
+        movingSpeed = config.BaseMovingSpeed;
+        dashSpeed = config.BaseDashSpeed;
+        dashDuration = config.BaseDashDuration;
+        dashCooldown = config.BaseDashCooldown;
     }
     
+    public void BindModels(PlayerMeleeWeaponModel meleeModel, PlayerRangeWeaponModel rangeModel)
+    {
+        this.meleeModel = meleeModel;
+        this.rangeModel = rangeModel;
+    }
+
     public IActor CreateInstance()
     {
         var player = Object.Instantiate(playerPrefab);

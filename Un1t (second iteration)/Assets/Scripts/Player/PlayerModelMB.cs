@@ -15,17 +15,16 @@ public class PlayerModelMB: MonoBehaviour, IActor
     //private bool isDodgeOnCooldown = false;
     private void Awake()
     {
-        PlayerModel = new(playerConfig.BaseMaxHealth, 
-                          playerConfig.Level, 
-                          playerConfig.XPToNextLevel,
-                          playerConfig.BaseHealCostCoefficient,
-                          playerConfig.BaseXPGainCoefficient,
-                          playerConfig.BaseMovingSpeed, 
-                          playerConfig.BaseDashSpeed,
-                          playerConfig.BaseDashDuration,
-                          playerConfig.BaseDashCooldown
-                          );
+        PlayerModel = new(playerConfig);
         isRegenOnCooldown = true;
+    }
+
+    private void Start()
+    {
+        PlayerModel.BindModels(GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel as PlayerMeleeWeaponModel,
+                               GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel);
+        Debug.Log(PlayerModel.MeleeModel is null);
+        Debug.Log(PlayerModel.RangeModel is null);
     }
 
     public void Initialize(IInstanceModel model)

@@ -23,7 +23,7 @@ public class PlayerRangeWeaponController : MonoBehaviour
 
     private void Start()
     {
-        model = modelMB.PlayerRangeWeaponModel;
+        model = modelMB.RangeWeaponModel;
     }
 
     private void StartRange()

@@ -26,7 +26,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
-        rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
+        rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel;
         playerModel.LevelChanged += SetRewardChoice;
         UpgradeFactory.Manager = this;
         AbilityFactory.Manager = this;

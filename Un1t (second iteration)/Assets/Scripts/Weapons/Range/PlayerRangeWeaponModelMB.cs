@@ -9,14 +9,14 @@ public class PlayerRangeWeaponModelMB : MonoBehaviour
     [SerializeField] private float lifetime;
     [SerializeField] private float attackCooldown;
     [SerializeField] private int ammo;
-    private PlayerRangeWeaponModel playerRangeWeaponModel;
+    private PlayerRangeWeaponModel rangeWeaponModel;
     private bool isAttackReady = true;
-    public PlayerRangeWeaponModel PlayerRangeWeaponModel => playerRangeWeaponModel;
+    public PlayerRangeWeaponModel RangeWeaponModel => rangeWeaponModel;
     public bool IsAttackReady => isAttackReady;
 
     private void Awake()
     {
-        playerRangeWeaponModel = new PlayerRangeWeaponModel(damage, lifetime, attackCooldown, ammo);
+        rangeWeaponModel = new PlayerRangeWeaponModel(damage, lifetime, attackCooldown, ammo);
     }
 
     public IEnumerator WaitForAttackCooldown()
