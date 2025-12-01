@@ -73,7 +73,7 @@ public class RoomManager : MonoBehaviour
             {
                 tilesBuilder.SetConfiguration();
                 if (tilesBuilder is OuterWallBuilder wallBuilder
-                    && wallBuilder.CanCreateShurf && wallBuilder.Length > 5)
+                    && wallBuilder.CanCreateShurf && wallBuilder.Length > 4)
                 {
                     int start = wallBuilder.Length / 2;
                     int end = start + 1;

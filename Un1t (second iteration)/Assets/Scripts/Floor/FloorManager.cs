@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 //TODO: class should be divided according to SRP.
 
@@ -67,11 +66,6 @@ public class FloorManager : MonoBehaviour
                 roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
 
             CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
-            Debug.Log($"({room.GridPosition.X}, {room.GridPosition.Y}) - " +
-                $"TOP - {room.OuterWalls.Top.Middle.IsEmpty} " +
-                $"BOTTOM - {room.OuterWalls.Bottom.Middle.IsEmpty} " +
-                $"LEFT - {room.OuterWalls.Left.Middle.IsEmpty} " +
-                $"RIGHT - {room.OuterWalls.Right.Middle.IsEmpty} ");
         }
 
         transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
@@ -122,7 +116,6 @@ public class FloorManager : MonoBehaviour
 
     //TODO: next methods should be refactored and moved to a separate class,
     //Remove "magic numbers",
-    //Caching room types.
 
     private GameObject ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition gridPosition, Vector2 position)
     {

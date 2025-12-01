@@ -53,9 +53,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 35fc8a0ba3c5f8e4e9bb7b554f4c0d0e, type: 2}
   - {fileID: 11400000, guid: 52e7cd92d65139a48bd74b9679c7641c, type: 2}
   - {fileID: 11400000, guid: e117b76159557a84da52228a9c4f868a, type: 2}
-  roomTemplate: {fileID: 1113455052223227379, guid: 444315e9a3ec3b34c8c3c2b024d20d23, type: 3}
+  roomTemplate: {fileID: 5287173037463610027, guid: 761509eb19082cb4299f34b4c25b94fc, type: 3}
   horizontalHallway: {fileID: 2304853461992813493, guid: b8868f478deacbe439a935e42ab463ba, type: 3}
-  verticalHallway: {fileID: 2465557068196796512, guid: f8f9e77105216544a8cecc789c38b17c, type: 3}
+  verticalHallway: {fileID: 449473305715974270, guid: 2cb4c9903d53611409c6d1c535ee83d3, type: 3}
   topOuterWall: {fileID: 2219194514067704102, guid: 8d00cb1859acb574f8af8e8aa28868e8, type: 3}
   bottomOuterWall: {fileID: 718568134208821154, guid: 6433715f63432204083991f17439317a, type: 3}
   leftOuterWall: {fileID: 769235998188001086, guid: fbb987720555729498e66222d0a9e3f2, type: 3}
