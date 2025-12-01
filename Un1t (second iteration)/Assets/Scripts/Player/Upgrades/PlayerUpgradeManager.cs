@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -13,7 +14,7 @@ public class PlayerUpgradeManager : MonoBehaviour
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
-    private List<PlayerUpgrade> currentChoiceUpgrades = new();
+    private List<PlayerUpgrade> rewardChoice = new();
     public PlayerModel PlayerModel => playerModel;
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
@@ -26,56 +27,55 @@ public class PlayerUpgradeManager : MonoBehaviour
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         meleeModel = (PlayerMeleeWeaponModel) GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel;
         rangeModel = GetComponentInChildren<PlayerRangeWeaponModelMB>().PlayerRangeWeaponModel;
-        playerModel.LevelChanged += SetUpgradeChoice;
+        playerModel.LevelChanged += SetRewardChoice;
         UpgradeFactory.Manager = this;
+        AbilityFactory.Manager = this;
     }
 
-    public void SetLevelUpReward()
+    private void SetRewardChoice()
     {
-        if (playerModel.Level % 5 != 0)
-        {
-            SetUpgradeChoice();
-        }
-        else
+        ClearPreviousChoice();
+        if (playerModel.Level % 5 == 0 && availableAbilities.Count > 0)
         {
             SetAbilityChoice();
         }
+        else
+        {
+            SetUpgradeChoice();
+        }
+        UpgradesChoiceSet.Invoke(rewardChoice);
+    }
+    private void ClearPreviousChoice()
+    {
+        if((playerModel.Level - 1) % 5 == 0)
+        {
+            foreach (PlayerAbility ability in rewardChoice.Cast<PlayerAbility>())
+            {
+                ability.RemoveListeners();
+            }
+        }
+        rewardChoice.Clear();
     }
 
-    public void SetUpgradeChoice()
+    private void SetUpgradeChoice()
     {
-        currentChoiceUpgrades.Clear();
         for (var i = 0; i < 3; i++)
         {
             var upgradeType = availableUpgrades[Random.Range(0, availableUpgrades.Count)];
             var upgrade = UpgradeFactory.GetUpgrade(upgradeType);
-            currentChoiceUpgrades.Add(upgrade);
+            rewardChoice.Add(upgrade);
         }
-        UpgradesChoiceSet.Invoke(currentChoiceUpgrades);
-        
     }
 
-    public void SetAbilityChoice()
+    private void SetAbilityChoice()
     {
-        currentChoiceUpgrades.Clear();
         for (var i = 0; i < 3; i++)
         {
-            var abilityName = availableAbilities[Random.Range(0, availableAbilities.Count)];
-            PlayerAbility ability = null;
-            // TODO: rework with dictionary
-            switch (abilityName)
-            {
-                case PlayerAbilityTypes.Regeneration:
-                {
-                    ability = new RegenerationAbility(this);
-                    break;
-                }
-
-            }
-            currentChoiceUpgrades.Add(ability);
+            var abilityType = availableAbilities[Random.Range(0, availableAbilities.Count)];
+            var ability = AbilityFactory.GetAbility(abilityType);
+            rewardChoice.Add(ability);
+            ability.AbilityApplied += () => availableAbilities.Remove(abilityType);
         }
-        UpgradesChoiceSet.Invoke(currentChoiceUpgrades);
     }
-
 
 }
