@@ -10,6 +10,10 @@ public class Hitable : MonoBehaviour
     [SerializeField] private float invulTime;
     private bool isVulnerable = true;
     /// <summary>
+    /// Is entity has dodge it ingores next hit
+    /// </summary>
+    private bool hasDodge = false;
+    /// <summary>
     /// Invoked when gameobject takes hit from weapon or projectile
     /// </summary>
     /// <remarks>
@@ -24,8 +28,13 @@ public class Hitable : MonoBehaviour
     public void TakeHit(AttackData attackData)
     {
         if (!isVulnerable) return;
-        HitTaken?.Invoke(attackData);
         StartCoroutine(WaitForInvulnerability(invulTime));
+        if (hasDodge)
+        {
+            hasDodge = false;
+            return;
+        }
+        HitTaken?.Invoke(attackData);
     }
 
     /// <summary>
@@ -42,5 +51,13 @@ public class Hitable : MonoBehaviour
         isVulnerable = false;
         yield return new WaitForSeconds(invulTime);
         isVulnerable = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void SetDodgeActive()
+    {
+        hasDodge = true;
     }
 }

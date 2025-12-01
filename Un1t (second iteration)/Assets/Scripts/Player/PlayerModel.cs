@@ -13,6 +13,7 @@ public class PlayerModel : IInstanceModel
     //sufficient for saving and loading
     private float maxHealth;
     private float currentHealth;
+    private float regenPerSecond = 0;
     private int level = 1;
     private float currentXP = 0;
     private float healCostCoefficient = 0.5f;
@@ -21,6 +22,7 @@ public class PlayerModel : IInstanceModel
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
+    private float dodgeCooldown;
     
     //not sufficient for saving and loading
     [XmlIgnore] private readonly List<float> XPToNextLevel;
@@ -62,7 +64,8 @@ public class PlayerModel : IInstanceModel
     public float MovingSpeed => movingSpeed;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
-    public float DashCooldown => dashCooldown;   
+    public float DashCooldown => dashCooldown;
+    //public float DodgeCooldown => dodgeCooldown;
 
     public event Action HealthChanged;
     public event Action DamageTaken;
@@ -70,8 +73,7 @@ public class PlayerModel : IInstanceModel
     public event Action<bool> PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
-
-
+    public event Action DodgeUnlocked;
     static PlayerModel()
     {
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
@@ -112,6 +114,8 @@ public class PlayerModel : IInstanceModel
         CurrentHealth += heal;
         CurrentXP -= xpCost;
     }
+
+    public void Regenerate() => TakeHeal(regenPerSecond);
 
     public void TakeDamage(float decrement)
     {
@@ -158,6 +162,12 @@ public class PlayerModel : IInstanceModel
     {
         MaxHealth += increment;
     }
+
+    public void UpgradeRegeneration(float increment)
+    {
+        regenPerSecond += increment;
+    }
+
     public void UpgradeHealCost(float decrement)
     {
         healCostCoefficient = healCostCoefficient - decrement < 0 ? 0 : healCostCoefficient - decrement;
@@ -169,5 +179,10 @@ public class PlayerModel : IInstanceModel
     public void UpgradeMovingSpeed(float increment)
     {
         movingSpeed += increment;
+    }
+    public void UnlockDodge(float dodgeCooldown)
+    {
+        this.dodgeCooldown = dodgeCooldown;
+        DodgeUnlocked?.Invoke();
     }
 }

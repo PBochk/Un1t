@@ -12,7 +12,6 @@ public class TestDamager : MonoBehaviour
     }
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
-        Debug.Log("OnTriggerEnter");
         if (collision.gameObject.TryGetComponent<Hitable>(out Hitable hittable))
         {
             hittable.TakeHit(attackData);
