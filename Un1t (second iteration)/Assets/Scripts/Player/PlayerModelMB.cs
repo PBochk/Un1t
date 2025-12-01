@@ -10,13 +10,10 @@ public class PlayerModelMB: MonoBehaviour, IActor
     [SerializeField] private PlayerConfig playerConfig;
     public PlayerModel PlayerModel { get; private set; }
     private const float REGEN_COOLDOWN = 5f;
-    //private const float DODGE_COOLDOWN = 5f;
     private bool isRegenOnCooldown = false;
-    //private bool isDodgeOnCooldown = false;
     private void Awake()
     {
         PlayerModel = new(playerConfig);
-        isRegenOnCooldown = true;
     }
 
     private void Start()
@@ -38,10 +35,6 @@ public class PlayerModelMB: MonoBehaviour, IActor
             PlayerModel.Regenerate();
             StartCoroutine(WaitForRegenerationCooldown());
         }
-        //if (!isDodgeOnCooldown)
-        //{
-
-        //}
     }
 
     private IEnumerator WaitForRegenerationCooldown()
@@ -50,11 +43,4 @@ public class PlayerModelMB: MonoBehaviour, IActor
         yield return new WaitForSeconds(REGEN_COOLDOWN);
         isRegenOnCooldown = false;
     }
-
-    //private IEnumerator WaitForDodgeCooldown()
-    //{
-    //    isDodgeOnCooldown = true;
-    //    yield return new WaitForSeconds(PlayerModel.DodgeCooldown);
-    //    isDodgeOnCooldown = false;
-    //}
 }
