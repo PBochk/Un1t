@@ -487,6 +487,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+--- !u!4 &733374037 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 560221877772887277, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+  m_PrefabInstance: {fileID: 93159338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105347663
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +585,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 733374037}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:

@@ -299,8 +299,8 @@ public class OuterWallBuilder : TilesBuilder
 
         if (thickness != 1 && direction == Direction.Horizontal)
         {
-            collider.size = new Vector2(tileSize.x, 1f);
-            collider.offset = new Vector2(0, 1f);
+            collider.size = new Vector2(tileSize.x, tileSize.y - 0.2f);
+            collider.offset = new Vector2(0, 0.1f);
         }
         else
         {
