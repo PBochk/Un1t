@@ -33,7 +33,7 @@ public class FloorManager : MonoBehaviour
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
-    private IEnumerable<DungeonFactory.Room> allRooms;
+    private IEnumerable<GameObject> allRooms;
 
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
@@ -47,6 +47,7 @@ public class FloorManager : MonoBehaviour
         );
 
         GenerateFloor();
+        GenerateRoomsContent();
     }
 
     /// <summary>
@@ -54,9 +55,8 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     public void GenerateFloor()
     {
-        allRooms = dungeonFactory.CreateDungeon();
-
-        foreach (DungeonFactory.Room room in allRooms)
+        List<GameObject> roomInstances = new();
+        foreach (DungeonFactory.Room room in dungeonFactory.CreateDungeon())
         {
             GameObject roomInstance;
             Vector2 roomPosition = (Vector2)((Vector2Int)room.GridPosition * RoomInfo.Size);
@@ -66,10 +66,16 @@ public class FloorManager : MonoBehaviour
                 roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
 
             CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
-            CreateRoomContent(roomInstance);
+            roomInstances.Add(roomInstance);
         }
-
+        allRooms = roomInstances;
         transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
+    }
+
+    public void GenerateRoomsContent()
+    {
+        foreach (GameObject room in allRooms)
+            CreateRoomContent(room);
     }
 
 

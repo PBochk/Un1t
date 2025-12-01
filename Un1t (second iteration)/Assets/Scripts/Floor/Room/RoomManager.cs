@@ -39,7 +39,7 @@ public class RoomManager : MonoBehaviour
         if (UnityEngine.Random.Range(0, 2) == 0)
         {
             EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
-            spawnersManager.SetSpawners(enemy, parent.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
+            spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner, parent);
         }
         else
         {
