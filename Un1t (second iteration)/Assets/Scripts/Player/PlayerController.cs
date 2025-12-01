@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
     public UnityEvent RangeShot;
+    public UnityEvent StartDash;
 
     private void Awake()
     {
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canDash)
         {
+            StartDash?.Invoke();
             StartCoroutine(WaitForDashDuration());
             playerHitable.SetInvulForSeconds(playerModel.DashDuration);
             StartCoroutine(WaitForDashCooldown());

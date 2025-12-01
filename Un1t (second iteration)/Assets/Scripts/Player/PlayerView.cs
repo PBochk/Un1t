@@ -24,10 +24,10 @@ public class PlayerView : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
-        meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         playerController.StartMelee.AddListener(OnMelee);
+        playerController.StartDash.AddListener(OnStartDash);
+        meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         rangeController.StartRangeAnimation.AddListener(RangeAnimationStart);
-        
     }
 
     private void Start()
@@ -59,6 +59,12 @@ public class PlayerView : MonoBehaviour
         }
         animator.SetBool("IsRunningForward", moveDirection != Vector2.zero);
     }    
+
+    private void OnStartDash()
+    {
+        animator.SetTrigger("Dash");
+    }
+
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
