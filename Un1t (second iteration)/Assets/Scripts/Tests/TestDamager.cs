@@ -8,7 +8,7 @@ public class TestDamager : MonoBehaviour
     private AttackData attackData;
     private void Awake()
     {
-        attackData = new AttackData(damage, DamageType.Physical, xpDamage);
+        attackData = new AttackData(damage, DamageType.Physical, xpDamage, transform, 10f);
     }
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
