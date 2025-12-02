@@ -7,18 +7,20 @@ using UnityEngine.UI;
 
 public class PlayerUpgradeUI : MonoBehaviour
 {
-    [SerializeField] private PlayerUpgradeController upgradeManager;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button[] buttons;
     [SerializeField] private TMP_Text[] buttonTexts;
+    private MainUI mainUI;
     private PlayerModel playerModel;
+    private PlayerUpgradeController upgradeController;
 
     private void Start()
     {
-        var playerUI = GetComponentInParent<PlayerUI>();
-        playerModel = playerUI.PlayerModelMB.PlayerModel;
+        mainUI = GetComponentInParent<MainUI>();
+        playerModel = mainUI.PlayerModelMB.PlayerModel;
+        upgradeController = mainUI.UpgradeController;
+        upgradeController.UpgradesChoiceSet.AddListener(OnLevelUp);
         canvas.gameObject.SetActive(false);
-        upgradeManager.UpgradesChoiceSet.AddListener(OnLevelUp);
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn

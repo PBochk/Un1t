@@ -4,21 +4,25 @@ using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
 {
-    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button unpause;
     [SerializeField] private Button reload;
     [SerializeField] private Button quit;
+    private MainUI mainUI;
+    private PauseManager pauseManager;
 
     private void Awake()
     {
+        canvas.worldCamera = Camera.current;
         unpause.onClick.AddListener(UnpauseScene);
         reload.onClick.AddListener(ReloadScene);
-        quit.onClick.AddListener(pauseManager.QuitGame);
     }
 
     private void Start()
     {
+        mainUI = GetComponentInParent<MainUI>();
+        pauseManager = mainUI.PauseManager;
+        quit.onClick.AddListener(pauseManager.QuitGame);
         canvas.enabled = false;
     }
 
