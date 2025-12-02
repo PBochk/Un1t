@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 MousePosition { get; private set; }
 
     private Vector2 moveDirection;
-    private Vector2 dashDirection = Vector2.right;
+    private Vector2 lastMoveDirection = Vector2.right;
     private bool isDashing;
     private bool canDash = true;
 
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 pushDirection;
     private bool isPushed = false;
 
+    public UnityEvent<int> DirectionChanged;
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDashing)
         {
-            MovePlayer(dashDirection, playerModel.DashSpeed);
+            MovePlayer(lastMoveDirection, playerModel.DashSpeed);
         }
         else if (isPushed)
         {
@@ -94,9 +95,17 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
+        if (Mathf.Abs(moveDirection.x) > Mathf.Abs(lastMoveDirection.x))
+        {
+            DirectionChanged?.Invoke(0);
+        }
+        else if (moveDirection.y != 0 && Mathf.Abs(moveDirection.y) >= Mathf.Abs(lastMoveDirection.y))
+        {
+            DirectionChanged?.Invoke((int)Mathf.Sign(moveDirection.y));
+        }
         if (moveDirection != Vector2.zero && !isDashing)
         {
-            dashDirection = moveDirection;
+            lastMoveDirection = moveDirection;
         }
     }
 

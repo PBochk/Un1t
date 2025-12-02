@@ -2608,6 +2608,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2214619805156671631, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: upgradeModelMB
       value: 
