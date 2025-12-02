@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;
     private bool canDash = true;
 
+    private const float PUSH_TIME = 0.3f;
+    private float pushSpeed;
+    private Vector2 pushDirection;
+    private bool isPushed = false;
+
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
@@ -70,6 +75,10 @@ public class PlayerController : MonoBehaviour
         if (isDashing)
         {
             MovePlayer(dashDirection, playerModel.DashSpeed);
+        }
+        else if (isPushed)
+        {
+            MovePlayer(pushDirection, pushSpeed);
         }
         else
         {
@@ -156,6 +165,20 @@ public class PlayerController : MonoBehaviour
         playerModel.TakeDamage(attackData.Damage);
         playerModel.DecreaseXP(attackData.XPDamage);
         Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
+        if (attackData.AttackerTransform != null && !isPushed)
+        {
+            pushDirection = (transform.position - attackData.AttackerTransform.position).normalized;
+            pushSpeed = attackData.PushSpeed;
+            StartCoroutine(WaitForPush());
+            Debug.Log("start pushing");
+        }
+    }
+
+    private IEnumerator WaitForPush()
+    {
+        isPushed = true;
+        yield return new WaitForSeconds(PUSH_TIME);
+        isPushed = false;
     }
 
     public void OnLevelUp()
