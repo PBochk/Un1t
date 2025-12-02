@@ -81,6 +81,8 @@ public class OuterWallBuilder : TilesBuilder
         int currentFragmentSize = 0;
         int segmentStartIndex = 0;
 
+        int cornerTileSize = direction == Direction.Horizontal ? 1 : 3;
+
         for (var i = 0; i <= tilesAreEmpty.Length; i++)
         {
             bool isCurrentFilled = (i < tilesAreEmpty.Length) && !tilesAreEmpty[i];
@@ -103,33 +105,77 @@ public class OuterWallBuilder : TilesBuilder
                 if (currentFragmentSize == 1)
                 {
                     GameObject tilePrefab;
-                    if (hasLeftHole && hasRightHole)
-                        tilePrefab = wallTile.BasicWallTile;
-                    else if (hasLeftHole)
-                        tilePrefab = wallTile.PreviousCornerWallTile;
-                    else if (hasRightHole)
-                        tilePrefab = wallTile.NextCornerWallTile;
-                    else
-                        tilePrefab = wallTile.BasicWallTile;
+                    int fragmentSizeForTile = 1;
 
-                    CreateFragment(tilePrefab, 1, thickness, direction,
-                        CalculateWallFragmentPosition(segmentStartIndex, 1, basePosition));
+                    if (hasLeftHole && hasRightHole)
+                    {
+                        tilePrefab = wallTile.BasicWallTile;
+                    }
+                    else if (hasLeftHole)
+                    {
+                        tilePrefab = wallTile.PreviousCornerWallTile;
+                    }
+                    else if (hasRightHole)
+                    {
+                        tilePrefab = wallTile.NextCornerWallTile;
+                        fragmentSizeForTile = cornerTileSize;
+                    }
+                    else
+                    {
+                        tilePrefab = wallTile.BasicWallTile;
+                    }
+
+                    CreateFragment(tilePrefab, fragmentSizeForTile, thickness, direction,
+                        CalculateWallFragmentPosition(segmentStartIndex, fragmentSizeForTile, basePosition));
+                }
+                else if (currentFragmentSize == 2)
+                {
+                    GameObject firstTilePrefab = hasLeftHole ? wallTile.PreviousCornerWallTile : wallTile.BasicWallTile;
+                    int firstFragmentSize = 1; 
+                    CreateFragment(firstTilePrefab, firstFragmentSize, thickness, direction,
+                        CalculateWallFragmentPosition(segmentStartIndex, firstFragmentSize, basePosition));
+
+                    GameObject secondTilePrefab = hasRightHole ? wallTile.NextCornerWallTile : wallTile.BasicWallTile;
+                    int secondFragmentSize = hasRightHole ? cornerTileSize : 1; 
+                    int secondStartIndex = segmentStartIndex + firstFragmentSize;
+
+                    if (hasRightHole)
+                    {
+                        CreateFragment(secondTilePrefab, secondFragmentSize, thickness, direction,
+                            CalculateWallFragmentPosition(secondStartIndex, secondFragmentSize, basePosition));
+                    }
+                    else
+                    {
+                        CreateFragment(secondTilePrefab, secondFragmentSize, thickness, direction,
+                            CalculateWallFragmentPosition(secondStartIndex, secondFragmentSize, basePosition));
+                    }
                 }
                 else
                 {
                     GameObject firstTilePrefab = hasLeftHole ? wallTile.PreviousCornerWallTile : wallTile.BasicWallTile;
-                    CreateFragment(firstTilePrefab, 1, thickness, direction,
-                        CalculateWallFragmentPosition(segmentStartIndex, 1, basePosition));
+                    int firstFragmentSize = 1; 
+                    CreateFragment(firstTilePrefab, firstFragmentSize, thickness, direction,
+                        CalculateWallFragmentPosition(segmentStartIndex, firstFragmentSize, basePosition));
 
-                    if (currentFragmentSize > 2)
+                    int middleSize = currentFragmentSize - 1 - (hasRightHole ? cornerTileSize : 1);
+                    if (middleSize > 0)
                     {
-                        CreateFragment(wallTile.BasicWallTile, currentFragmentSize - 2, thickness, direction,
-                            CalculateWallFragmentPosition(segmentStartIndex + 1, currentFragmentSize - 2, basePosition));
+                        int middleStartIndex = segmentStartIndex + 1;
+                        CreateFragment(wallTile.BasicWallTile, middleSize, thickness, direction,
+                            CalculateWallFragmentPosition(middleStartIndex, middleSize, basePosition));
                     }
-
-                    GameObject lastTilePrefab = hasRightHole ? wallTile.NextCornerWallTile : wallTile.BasicWallTile;
-                    CreateFragment(lastTilePrefab, 1, thickness, direction,
-                        CalculateWallFragmentPosition(segmentStartIndex + currentFragmentSize - 1, 1, basePosition));
+                    if (hasRightHole)
+                    {
+                        int lastStartIndex = segmentStartIndex + currentFragmentSize - cornerTileSize;
+                        CreateFragment(wallTile.NextCornerWallTile, cornerTileSize, thickness, direction,
+                            CalculateWallFragmentPosition(lastStartIndex, cornerTileSize, basePosition));
+                    }
+                    else
+                    {
+                        int lastStartIndex = segmentStartIndex + currentFragmentSize - 1;
+                        CreateFragment(wallTile.BasicWallTile, 1, thickness, direction,
+                            CalculateWallFragmentPosition(lastStartIndex, 1, basePosition));
+                    }
                 }
 
                 currentFragmentSize = 0;
@@ -158,7 +204,7 @@ public class OuterWallBuilder : TilesBuilder
         Vector2 invisibleWallSize;
         Vector2 darknessSize;
 
-        float invisibleWallOffset = (SHURF_DEPTHS / 2f + 0.5f);
+        float invisibleWallOffset = SHURF_DEPTHS / 2f + 0.5f;
 
         if (direction == Direction.Horizontal)
         {
@@ -186,7 +232,7 @@ public class OuterWallBuilder : TilesBuilder
             shurfFirstSideThickness = (int)shurfFirstSideSize.y;
             shurfSecondSideThickness = (int)shurfSecondSideSize.y;
 
-            invisibleWallSize = new Vector2(1f, (SHURF_WIDTH + +shurfFirstSideThickness + shurfSecondSideThickness));
+            invisibleWallSize = new Vector2(1f, (SHURF_WIDTH + shurfFirstSideThickness + shurfSecondSideThickness));
 
             darknessSize = new(invisibleWallSize.x * 2, invisibleWallSize.y);
 

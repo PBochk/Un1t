@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicWallTile: {fileID: 8252421113222450477, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
   previousCornerWallTile: {fileID: 8252421113222450477, guid: 86986bad925537c4c90a0cdcf83a5337, type: 3}
-  nextCornerWallTile: {fileID: 8252421113222450477, guid: 7ceaf828f1c22ff42b8017040e276644, type: 3}
+  nextCornerWallTile: {fileID: 8252421113222450477, guid: 4bb541af36346e545b14b171939f36f1, type: 3}
