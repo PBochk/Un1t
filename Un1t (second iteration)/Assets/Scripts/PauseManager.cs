@@ -18,7 +18,7 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         playerModel = playerModelMB.PlayerModel;
-        PauseScene(); // It is called beacause of hints
+        //PauseScene(); // It is called beacause of hints
                       // TODO: remove this call
     }
 

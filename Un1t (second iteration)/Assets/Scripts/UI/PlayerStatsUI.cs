@@ -11,6 +11,7 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] private Image levelUpIcon;
     [SerializeField] private Sprite[] hpSprites;
     [SerializeField] private Sprite[] xpSprites;
+    private MainUI mainUI;
     private PlayerModel playerModel;
     private int hpTilesCount;
     private int xpTilesCount;
@@ -20,11 +21,14 @@ public class PlayerStatsUI : MonoBehaviour
     {
         hpTilesCount = hpSprites.Length - 1;
         xpTilesCount = xpSprites.Length - 1;
+        var canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.current;
     }
 
     private void Start()
     {
-        playerModel = GetComponentInParent<PlayerUI>().PlayerModelMB.PlayerModel;
+        mainUI = GetComponentInParent<MainUI>();
+        playerModel = mainUI.PlayerModelMB.PlayerModel;
         playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
         playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
         Initialize();
