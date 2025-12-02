@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,6 +25,7 @@ public class PlayerView : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        playerController.DirectionChanged.AddListener(OnDirectionChanged);
         playerController.StartMelee.AddListener(OnMelee);
         playerController.StartDash.AddListener(OnStartDash);
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
@@ -53,12 +55,14 @@ public class PlayerView : MonoBehaviour
             playerTransform.localScale = new Vector3(playerTransform.localScale.x * (-1),
                                                      playerTransform.localScale.y,
                                                      playerTransform.localScale.z);
-
-            // Line below changes player's facing direction more correctly, but breaks camera
-            // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
         animator.SetBool("IsRunningForward", moveDirection != Vector2.zero);
-    }    
+    }
+
+    private void OnDirectionChanged(int newDirection)
+    {
+        animator.SetInteger("Direction", newDirection);
+    }
 
     private void OnStartDash()
     {
