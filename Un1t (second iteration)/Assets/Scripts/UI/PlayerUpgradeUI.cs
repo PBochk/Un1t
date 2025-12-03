@@ -9,7 +9,7 @@ public class PlayerUpgradeUI : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button[] buttons;
-    [SerializeField] private TMP_Text[] buttonTexts;
+    [SerializeField] private TMP_Text[] upgradeDescriptions;
     private MainUI mainUI;
     private PlayerModel playerModel;
     private PlayerController playerController;
@@ -45,7 +45,7 @@ public class PlayerUpgradeUI : MonoBehaviour
         for (var i = 0; i < 3; i++)
         {
             BindButton(buttons[i], upgrades[i]);
-            buttonTexts[i].text = upgrades[i].Description;
+            upgradeDescriptions[i].text = upgrades[i].Description;
         }
     }
 
