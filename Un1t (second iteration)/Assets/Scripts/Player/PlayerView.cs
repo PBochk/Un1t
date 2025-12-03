@@ -26,7 +26,6 @@ public class PlayerView : MonoBehaviour
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
         playerController.DirectionChanged.AddListener(OnDirectionChanged);
-        playerController.StartMelee.AddListener(OnMelee);
         playerController.StartDash.AddListener(OnStartDash);
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
         rangeController.StartRangeAnimation.AddListener(RangeAnimationStart);
@@ -72,10 +71,6 @@ public class PlayerView : MonoBehaviour
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
-    }
-
-    private void OnMelee()
-    {
         //attackSound.Play();
     }
 

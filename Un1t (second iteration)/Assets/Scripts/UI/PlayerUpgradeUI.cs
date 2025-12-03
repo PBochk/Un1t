@@ -12,12 +12,14 @@ public class PlayerUpgradeUI : MonoBehaviour
     [SerializeField] private TMP_Text[] buttonTexts;
     private MainUI mainUI;
     private PlayerModel playerModel;
+    private PlayerController playerController;
     private PlayerUpgradeController upgradeController;
 
     private void Start()
     {
         mainUI = GetComponentInParent<MainUI>();
         playerModel = mainUI.PlayerModelMB.PlayerModel;
+        playerController = mainUI.PlayerController;
         upgradeController = mainUI.UpgradeController;
         upgradeController.UpgradesChoiceSet.AddListener(OnLevelUp);
         canvas.gameObject.SetActive(false);
@@ -39,7 +41,7 @@ public class PlayerUpgradeUI : MonoBehaviour
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
-        playerModel.SetPlayerRestrained(true);
+        playerController.SetPlayerRestrained(true);
         for (var i = 0; i < 3; i++)
         {
             BindButton(buttons[i], upgrades[i]);
@@ -64,6 +66,6 @@ public class PlayerUpgradeUI : MonoBehaviour
             button.onClick.RemoveAllListeners();
         }
         canvas.gameObject.SetActive(false);
-        playerModel.SetPlayerRestrained(false);
+        playerController.SetPlayerRestrained(false);
     }
 }
