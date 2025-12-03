@@ -5,27 +5,29 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    public IReadOnlyList<GameObject> Entities => entities;
-    public IReadOnlyList<GameObject> OuterWalls => outerWalls;
-
     private RoomEnemySpawner enemySpawner;
-    private Rock rock;
+    private GameObject rock;
 
     private SpawnersManager spawnersManager;
     private RoomManager roomManager;
 
-    private List<GameObject> entities;
+    private IEnumerable<RoomEntity> entities;
     private List<GameObject> outerWalls;
     private IReadOnlyList<EnemyController> spawnableEnemies;
 
-    private readonly static Range shurfesCountRange = new(2, 5);
+    private Tile[,] tileGrid;
+
+    private static readonly Vector3 gridOffset = new Vector3(RoomInfo.Size.x, RoomInfo.Size.y) / 2f;
 
     public static int EnemiesCount { get; set; } = 0;
 
     public void CreateContent(Transform parent)
     {
-        CreateOuterWalls(transform.position);
+        BuildTiles();
 
+        RoomContentCreator contentCreator = new ();
+        entities = contentCreator.GenerateContent(tileGrid, rock);
+        /*
         spawnersManager = new();
 
         GameObject player = GameObject.FindWithTag("Player");
@@ -38,11 +40,12 @@ public class RoomManager : MonoBehaviour
         else
         {
             Instantiate(rock, transform.position, Quaternion.identity, parent);
-        }
+        }*/
+
         CreateEntities();
     }
 
-    public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner, Rock rock)
+    public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner, GameObject rock)
     {
         spawnableEnemies = enemies;
         this.enemySpawner = enemySpawner;
@@ -51,9 +54,15 @@ public class RoomManager : MonoBehaviour
 
     private void CreateEntities()
     {
+        foreach (RoomEntity roomEntity in entities)
+        {
+            Instantiate(roomEntity.GameObject, 
+                (Vector3Int)roomEntity.StartPosition + transform.position - gridOffset + (Vector3)Vector2.one/2, 
+                Quaternion.identity, transform);
+        }
     }
 
-    private void CreateOuterWalls(Vector3 roomPosition)
+    private void BuildTiles()
     {
         List<OuterWallBuilder> shurfableWalls = new();
         List<GroundBuilder> groundBuilders = new();
@@ -73,7 +82,7 @@ public class RoomManager : MonoBehaviour
                     {
                         int start = wallBuilder.Length / 2;
                         int end = start + 1;
-                        //wallBuilder.SetShurfesLocation((start, end));
+                        wallBuilder.SetShurfesLocation((start, end));
                     }
                 }
                 else if (tilesBuilder is GroundBuilder groundBuilder)
@@ -87,15 +96,13 @@ public class RoomManager : MonoBehaviour
             outerWalls.Add(outerWall);
         }
 
-        Tile[,] tileGrid = GetTileGrid(groundBuilders, outerWallBuilders, roomPosition);
-        DrawTileMap(tileGrid);
+        tileGrid = GetTileGrid(groundBuilders, outerWallBuilders, transform.position);
+        //DrawTileMap(tileGrid);
     }
 
     private static Tile[,] GetTileGrid(IEnumerable<GroundBuilder> groundBuilders, IEnumerable<OuterWallBuilder> outerWallBuilders, Vector3 roomPosition)
     {
         Tile[,] allTiles = new Tile[RoomInfo.Size.y, RoomInfo.Size.x];
-
-        Vector3 gridOffset = new Vector3(RoomInfo.Size.x, RoomInfo.Size.y) / 2f;
 
         foreach (GroundBuilder groundBuilder in groundBuilders)
         {

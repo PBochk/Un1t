@@ -29,8 +29,8 @@ public class DungeonFactory
     /// <returns>A list of fully generated Room instances</returns>
     public List<Room> CreateDungeon(
         int floorNumber = 0,
-        int minDistance = 5,
-        int maxDistance = 7,
+        int minDistance = 50,
+        int maxDistance = 70,
         double bonusProbability = 0.15,
         int? seed = null,
         double entropy = 0.2,

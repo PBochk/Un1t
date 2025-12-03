@@ -29,7 +29,7 @@ public class FloorManager : MonoBehaviour
 
 
     [SerializeField] private RoomEnemySpawner enemySpawner;
-    [SerializeField] private Rock rock;
+    [SerializeField] private GameObject rock;
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
