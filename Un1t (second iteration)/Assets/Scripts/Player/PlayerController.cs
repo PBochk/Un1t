@@ -51,18 +51,18 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
-        // TODO: move subscription in OnEnable after model initialization rework
-        playerModel.PlayerRestrained += SetInputDisabled;
+        // TODO: move subscription to OnEnable after initialization rework
+        playerModel.PlayerDeath += () => SetPlayerRestrained(true);
     }
 
     private void OnDisable()
     {
-        playerModel.PlayerRestrained -= SetInputDisabled;
+        playerModel.PlayerDeath -= () => SetPlayerRestrained(true);
     }
 
-    public void SetInputDisabled(bool isDisabled)
+    public void SetPlayerRestrained(bool isRestrained)
     {
-        playerInput.enabled = !isDisabled;
+        playerInput.enabled = !isRestrained;
     }
 
     public void OnMouseMove(InputValue value)
@@ -129,9 +129,9 @@ public class PlayerController : MonoBehaviour
     private IEnumerator WaitForDashDuration()
     {
         isDashing = true;
-        playerModel.SetPlayerRestrained(true);
+        SetPlayerRestrained(true);
         yield return new WaitForSeconds(playerModel.DashDuration);
-        playerModel.SetPlayerRestrained(false);
+        SetPlayerRestrained(false);
         isDashing = false;
     }
 

@@ -137,14 +137,8 @@ public class PlayerModel : IInstanceModel
     {
         if (CurrentHealth <= 0)
         {
-            SetPlayerRestrained(true);
             PlayerDeath?.Invoke();
         }
-    }
-
-    public void SetPlayerRestrained(bool isRestrained)
-    {
-        PlayerRestrained?.Invoke(isRestrained);
     }
 
     public void IncreaseXP(int increment)

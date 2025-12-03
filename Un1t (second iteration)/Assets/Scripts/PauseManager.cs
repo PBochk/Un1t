@@ -10,17 +10,9 @@ using UnityEngine.SceneManagement;
 // TODO: make a better name for class
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private PlayerModelMB playerModelMB;
-    private PlayerModel playerModel;
+    [SerializeField] private PlayerController playerController;
     private bool isPaused;
     public bool IsPaused => isPaused;
-
-    private void Start()
-    {
-        playerModel = playerModelMB.PlayerModel;
-        //PauseScene(); // It is called beacause of hints
-                      // TODO: remove this call
-    }
 
     public void PauseScene()
     {
@@ -46,7 +38,7 @@ public class PauseManager : MonoBehaviour
     private IEnumerator WaitForSetRestrained(bool isRestrained)
     {
         yield return null;
-        playerModel.SetPlayerRestrained(isRestrained);
+        playerController.SetPlayerRestrained(isRestrained);
     }
 
     public void ReloadScene()
