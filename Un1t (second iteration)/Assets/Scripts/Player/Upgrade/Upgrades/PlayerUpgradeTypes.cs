@@ -4,6 +4,7 @@
     MaxHealth,
     HealCost,
     XPGain,
+    Resist,
     MovingSpeed,
     MeleeSpeed,
     MeleeDamage,
