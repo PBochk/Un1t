@@ -65,6 +65,15 @@ public class PlayerController : MonoBehaviour
         playerInput.enabled = !isRestrained;
     }
 
+    /// <summary>
+    /// Allows using <see cref="SetPlayerRestrained">SetPlayerRestrained(true)</see> from animator
+    /// </summary>
+    public void EnablePlayerRestrain() => SetPlayerRestrained(true);
+    /// <summary>
+    /// Allows using <see cref="SetPlayerRestrained">SetPlayerRestrained(false)</see> from animator
+    /// </summary>
+    public void DisablePlayerRestrain() => SetPlayerRestrained(false);
+
     public void OnMouseMove(InputValue value)
     {
         var screenPosition = value.Get<Vector2>();
