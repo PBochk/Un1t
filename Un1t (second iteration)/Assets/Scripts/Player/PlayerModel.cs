@@ -145,12 +145,12 @@ public class PlayerModel : IInstanceModel
         }
     }
 
-    public void IncreaseXP(int increment)
+    public void IncreaseXP(float increment)
     {
         CurrentXP += increment * xpGainCoefficient;
     }
 
-    public void DecreaseXP(int decrement)
+    public void DecreaseXP(float decrement)
     {
         CurrentXP -= decrement;
     }

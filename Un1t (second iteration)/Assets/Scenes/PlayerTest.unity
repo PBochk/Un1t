@@ -599,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4917425855745854776, guid: 9df8efa13d79c5748802f2bf369fce0e, type: 3}
       propertyPath: health
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6488073171171416264, guid: 9df8efa13d79c5748802f2bf369fce0e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2627,6 +2627,10 @@ PrefabInstance:
     - target: {fileID: 1695857501953679923, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: critChance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: attackSpeed
