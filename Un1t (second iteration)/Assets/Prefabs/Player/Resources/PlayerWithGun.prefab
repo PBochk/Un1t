@@ -479,8 +479,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64625ebbc6d0cd4fabfa9a409d1a35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableUpgrades: 010000000200000004000000050000000600000007000000
-  availableAbilities: 0000000001000000
+  availableUpgrades: 0100000004000000050000000600000007000000
+  availableAbilities: 000000000100000002000000
 --- !u!114 &1262979691790353634
 MonoBehaviour:
   m_ObjectHideFlags: 0

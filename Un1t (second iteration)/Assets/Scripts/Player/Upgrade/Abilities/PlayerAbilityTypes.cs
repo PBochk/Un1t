@@ -1,5 +1,6 @@
 public enum PlayerAbilityTypes
 {
     Regeneration,
-    XPGain
+    HealCost,
+    XPGain,
 }
