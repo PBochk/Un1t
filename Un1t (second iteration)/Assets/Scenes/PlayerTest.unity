@@ -2578,11 +2578,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: availableUpgrades.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: availableAbilities.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: 'availableUpgrades.Array.data[1]'
@@ -2615,6 +2615,10 @@ PrefabInstance:
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: 'availableAbilities.Array.data[4]'
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: 'availableAbilities.Array.data[5]'
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1217057890759837180, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_Name
