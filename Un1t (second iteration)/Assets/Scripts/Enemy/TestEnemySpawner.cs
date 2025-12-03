@@ -4,9 +4,6 @@ using UnityEngine.Events;
 public class TestEnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyController enemyPrefab;
-    [SerializeField] private EnemyDummyTarget dummyTargetPrefab;
-    private EnemyDummyTarget dummyTarget;
-    private IEnemyTarget target;
     private EnemyTargetComponent targetComponent;
 
     public UnityEvent<EnemyController> EnemySpawned;
@@ -15,7 +12,6 @@ public class TestEnemySpawner : MonoBehaviour
     //TODO: Subscribe experience component on enemy death
     private void Awake()
     {
-        dummyTarget = Instantiate(dummyTargetPrefab);
     }
 
     public void SetTarget(EnemyTargetComponent targetComponent)
