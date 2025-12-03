@@ -5,6 +5,7 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
     private float attackSpeed;
     private readonly float attackSpeedCap;
     private float attackCooldown;
+    private float doubleHitChance;
     public float AttackSpeed
     {
         get => attackSpeed; 
@@ -15,11 +16,12 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
         }
     }
     public float AttackCooldown => attackCooldown;
-
-    public PlayerMeleeWeaponModel(float damage, DamageType damageType, float attackSpeed) : base(damage, damageType)
+    public float DoubleHitChance => doubleHitChance;
+    public PlayerMeleeWeaponModel(float damage, DamageType damageType, float attackSpeed, float doubleHitChance) : base(damage, damageType)
     {
         AttackSpeed = attackSpeed;
         attackSpeedCap = attackSpeed * 2;
+        this.doubleHitChance = doubleHitChance;
     }
 
     public void UpgradeAttackSpeed(float increment)
@@ -31,5 +33,9 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
     {
         Damage += increment;
     }
-
+    
+    public void UpgradeDoubleHitChance(float increment)
+    {
+        doubleHitChance += increment;
+    }
 }

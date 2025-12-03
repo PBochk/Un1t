@@ -5,4 +5,5 @@ public enum PlayerAbilityTypes
     XPGain,
     Resist,
     HealPerHit,
+    DoubleHitChance
 }

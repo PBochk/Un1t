@@ -15,7 +15,8 @@ public static class UpgradeFactory
         { PlayerUpgradeTypes.MovingSpeed, (tier) => new MovingSpeedUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.MeleeSpeed, (tier) => new MeleeAttackSpeedUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.MeleeDamage, (tier) => new MeleeDamageUpgrade(Manager, tier) },
-        { PlayerUpgradeTypes.RangeDamage, (tier) => new RangeDamageUpgrade(Manager, tier) }
+        { PlayerUpgradeTypes.RangeDamage, (tier) => new RangeDamageUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.DoubleHitChance, (tier) => new DoubleHitChanceUpgrade(Manager, tier) },
     };
 
     public static PlayerUpgrade GetUpgrade(PlayerUpgradeTypes type, UpgradeTiers tier = UpgradeTiers.Random)

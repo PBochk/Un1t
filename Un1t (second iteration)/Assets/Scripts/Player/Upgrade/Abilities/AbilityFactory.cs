@@ -10,6 +10,7 @@ public static class AbilityFactory
         { PlayerAbilityTypes.XPGain, () => new XPGainAbility(Manager) },
         { PlayerAbilityTypes.Resist, () => new ResistAbility(Manager) },
         { PlayerAbilityTypes.HealPerHit, () => new HealPerHitAbility(Manager) },
+        { PlayerAbilityTypes.DoubleHitChance, () => new DoubleHitChanceAbility(Manager) },
     };
 
     public static PlayerAbility GetAbility(PlayerAbilityTypes type)

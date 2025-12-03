@@ -49,7 +49,18 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     {
         if (damagedTargets.Count > 0)
         {
-            playerModel.HealByHit();
+            // vampiric upgrade
+            playerModel.HealByHit(); 
+
+            // double hit upgrade
+            if(((PlayerMeleeWeaponModel)modelMB.MeleeWeaponModel).DoubleHitChance >= Random.Range(0, 1f))
+            {
+                foreach (var target in damagedTargets)
+                {
+                    if (target == null) continue;
+                    target.GetComponent<Hitable>().TakeHit(modelMB.MeleeWeaponModel.AttackData);
+                }
+            }
         }
         base.EndMeleeActive();
     }
