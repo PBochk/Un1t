@@ -22,6 +22,7 @@ public class PlayerModel : IInstanceModel
     private float currentXP = 0;
     private float healCostCoefficient = 0.5f;
     private float xpGainCoefficient = 1f;
+    private float resistCoefficient = 1f;
     private float movingSpeed;
     private float dashSpeed;
     private float dashDuration;
@@ -95,6 +96,7 @@ public class PlayerModel : IInstanceModel
         XPToNextLevel = config.XPToNextLevel;
         healCostCoefficient = config.BaseHealCostCoefficient;
         xpGainCoefficient = config.BaseXPGainCoefficient;
+        resistCoefficient = config.BaseResistCoefficient;
         movingSpeed = config.BaseMovingSpeed;
         dashSpeed = config.BaseDashSpeed;
         dashDuration = config.BaseDashDuration;
@@ -127,7 +129,7 @@ public class PlayerModel : IInstanceModel
     public void TakeDamage(float decrement)
     {
         if (CurrentHealth <= 0) return;
-        CurrentHealth -= decrement;
+        CurrentHealth -= decrement / resistCoefficient;
         CheckHealth();
         DamageTaken?.Invoke();
     }
@@ -176,6 +178,10 @@ public class PlayerModel : IInstanceModel
     public void UpgradeXPGain(float increment)
     {
         xpGainCoefficient += increment;
+    }
+    public void UpgradeResist(float increment)
+    {
+        resistCoefficient += increment;
     }
     public void UpgradeMovingSpeed(float increment)
     {
