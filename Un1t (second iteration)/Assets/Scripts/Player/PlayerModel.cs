@@ -20,6 +20,7 @@ public class PlayerModel : IInstanceModel
     private float regenPerSecond = 0;
     private int level = 1;
     private float currentXP = 0;
+    private float healPerHit = 0;
     private float healCostCoefficient = 0.5f;
     private float xpGainCoefficient = 1f;
     private float resistCoefficient = 1f;
@@ -94,6 +95,7 @@ public class PlayerModel : IInstanceModel
         currentHealth = maxHealth;
         level = config.Level;
         XPToNextLevel = config.XPToNextLevel;
+        healPerHit = config.BaseHealPerHit;
         healCostCoefficient = config.BaseHealCostCoefficient;
         xpGainCoefficient = config.BaseXPGainCoefficient;
         resistCoefficient = config.BaseResistCoefficient;
@@ -125,6 +127,7 @@ public class PlayerModel : IInstanceModel
     }
 
     public void Regenerate() => TakeHeal(regenPerSecond);
+    public void HealByHit() => TakeHeal(healPerHit);
 
     public void TakeDamage(float decrement)
     {
@@ -169,6 +172,11 @@ public class PlayerModel : IInstanceModel
     public void UpgradeRegeneration(float increment)
     {
         regenPerSecond += increment;
+    }
+
+    public void UpgradeHealPerHit(float increment)
+    {
+        healPerHit += increment;
     }
 
     public void UpgradeHealCost(float decrement)

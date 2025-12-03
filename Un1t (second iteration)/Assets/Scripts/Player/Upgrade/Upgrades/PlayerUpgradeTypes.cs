@@ -3,6 +3,7 @@
     None,
     MaxHealth,
     HealCost,
+    HealPerHit,
     XPGain,
     Resist,
     MovingSpeed,

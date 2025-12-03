@@ -9,6 +9,7 @@ public static class UpgradeFactory
     {
         { PlayerUpgradeTypes.MaxHealth, (tier) => new MaxHealthUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.HealCost, (tier) => new HealCostUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.HealPerHit, (tier) => new HealPerHitUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.XPGain, (tier) => new XPGainUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.Resist, (tier) => new ResistUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.MovingSpeed, (tier) => new MovingSpeedUpgrade(Manager, tier) },

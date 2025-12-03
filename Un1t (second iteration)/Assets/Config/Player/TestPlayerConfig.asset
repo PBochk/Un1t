@@ -33,6 +33,7 @@ MonoBehaviour:
   - 15
   - 16
   - 17
+  baseHealPerHit: 0
   baseHealCostCoefficient: 0.5
   baseXPGainCoefficient: 1
   baseResistCoefficient: 1
