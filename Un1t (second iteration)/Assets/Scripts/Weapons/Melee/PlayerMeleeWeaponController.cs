@@ -44,4 +44,13 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
             StartCoroutine(((PlayerMeleeWeaponModelMB)modelMB).WaitForAttackCooldown());
         }
     }
+
+    protected override void EndMeleeActive()
+    {
+        if (damagedTargets.Count > 0)
+        {
+            playerModel.HealByHit();
+        }
+        base.EndMeleeActive();
+    }
 }

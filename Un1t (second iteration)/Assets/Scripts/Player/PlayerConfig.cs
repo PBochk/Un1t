@@ -9,6 +9,7 @@ public class PlayerConfig : ScriptableObject
     [SerializeField] private int level;
     [Tooltip("How much XP player needs to get level")]
     [SerializeField] private List<float> xpToNextLevel; // can't use IReadOnlyList because it doesn't support serialization
+    [SerializeField] private float baseHealPerHit;
     [Tooltip("What part of NextLevelXP will be spent on healing")]
     [SerializeField, Range(0.1f, 1f)] private float baseHealCostCoefficient;
     [Tooltip("Multiplies all gained XP")]
@@ -21,6 +22,7 @@ public class PlayerConfig : ScriptableObject
     public float BaseMaxHealth => baseMaxHealth;
     public int Level => level;
     public List<float> XPToNextLevel => xpToNextLevel;
+    public float BaseHealPerHit => baseHealPerHit;
     public float BaseHealCostCoefficient => baseHealCostCoefficient;
     public float BaseXPGainCoefficient => baseXPGainCoefficient;
     public float BaseResistCoefficient => baseResistCoefficient;
