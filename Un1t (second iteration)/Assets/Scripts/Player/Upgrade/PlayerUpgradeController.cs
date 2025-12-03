@@ -18,8 +18,7 @@ public class PlayerUpgradeController : MonoBehaviour
     public PlayerModel PlayerModel => playerModel;
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
-    public Stack<PlayerUpgrade> ReceivedUpgrades { get; private set; }
-
+    public PlayerUpgradeModel UpgradeModel => upgradeModel;
     public UnityEvent<List<PlayerUpgrade>> UpgradesChoiceSet;
 
 
@@ -63,7 +62,7 @@ public class PlayerUpgradeController : MonoBehaviour
     {
         for (var i = 0; i < 3; i++)
         {
-            var upgradeType = upgradeModel.AvailableUpgrades[Random.Range(0, upgradeModel.AvailableUpgrades.Count)];
+            var upgradeType = upgradeModel.UnlockedUpgrades[Random.Range(0, upgradeModel.UnlockedUpgrades.Count)];
             var upgrade = UpgradeFactory.GetUpgrade(upgradeType);
             rewardChoice.Add(upgrade);
         }

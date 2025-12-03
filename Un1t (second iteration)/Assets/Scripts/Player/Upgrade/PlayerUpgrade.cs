@@ -18,11 +18,17 @@ public abstract class PlayerUpgrade
         UpgradeManager = man;
         Tier = tier;
         var config = Resources.Load<PlayerUpgradeConfig>(GetType().ToString());
-        UpgradeValue = config.UpgradeValues[(int)tier];
+        if (config.UpgradeValues.Length != 0)
+        {
+            UpgradeValue = config.UpgradeValues[(int)tier];
+        }
         Icon = config.Icon;
         Name = config.Name;
-        Description = config.Description + $" {UpgradeValue}";
-
+        Description = config.Description;
+        if (UpgradeValue != 0)
+        {
+            Description += UpgradeValue;
+        }
     }
 
     public abstract void Apply();
