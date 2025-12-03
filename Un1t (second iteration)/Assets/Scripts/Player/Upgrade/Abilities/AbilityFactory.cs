@@ -6,6 +6,8 @@ public static class AbilityFactory
     private static Dictionary<PlayerAbilityTypes, Func<PlayerAbility>> AbilityFactories = new()
     {
         { PlayerAbilityTypes.Regeneration, () => new RegenerationAbility(Manager) },
+        { PlayerAbilityTypes.HealCost, () => new HealCostAbility(Manager) },
+        { PlayerAbilityTypes.XPGain, () => new XPGainAbility(Manager) },
     };
 
     public static PlayerAbility GetAbility(PlayerAbilityTypes type)

@@ -14,8 +14,18 @@ public abstract class PlayerAbility : PlayerUpgrade
     {
         AbilityApplied.Invoke();
     }
+        
     public void RemoveListeners()
     {
         AbilityApplied = null;
+    }
+
+    protected void UnlockUpgrade(PlayerUpgradeTypes upgrade)
+    {
+        if (upgrade is PlayerUpgradeTypes.None)
+        {
+            throw new NullReferenceException("This ability doesn't have unlockable upgrade");
+        }
+        UpgradeManager.UpgradeModel.UnlockUpgrade(upgrade);
     }
 }

@@ -1,23 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Random = UnityEngine.Random;
 public static class UpgradeFactory
 {
     public static PlayerUpgradeController Manager;
-    private static Dictionary<PlayerUpgradeTypes, Func<PlayerUpgrade>> UpgradeFactories = new()
+    private static Dictionary<PlayerUpgradeTypes, Func<UpgradeTiers, PlayerUpgrade>> UpgradeFactories = new()
     {
-        { PlayerUpgradeTypes.MaxHealth, () => new MaxHealthUpgrade(Manager, GetRandomTier()) },
-        { PlayerUpgradeTypes.HealCost, () => new HealCostUpgrade(Manager, GetRandomTier()) },
-        { PlayerUpgradeTypes.XPGain, () => new XPGainUpgrade(Manager, GetRandomTier()) },
-        { PlayerUpgradeTypes.MovingSpeed, () => new MovingSpeedUpgrade(Manager, GetRandomTier()) },
-        { PlayerUpgradeTypes.MeleeSpeed, () => new MeleeAttackSpeedUpgrade(Manager, GetRandomTier()) },
-        { PlayerUpgradeTypes.MeleeDamage, () => new MeleeDamageUpgrade(Manager, GetRandomTier()) },
-        { PlayerUpgradeTypes.RangeDamage, () => new RangeDamageUpgrade(Manager, GetRandomTier()) }
+        { PlayerUpgradeTypes.MaxHealth, (tier) => new MaxHealthUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.HealCost, (tier) => new HealCostUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.XPGain, (tier) => new XPGainUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.MovingSpeed, (tier) => new MovingSpeedUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.MeleeSpeed, (tier) => new MeleeAttackSpeedUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.MeleeDamage, (tier) => new MeleeDamageUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.RangeDamage, (tier) => new RangeDamageUpgrade(Manager, tier) }
     };
 
-    public static PlayerUpgrade GetUpgrade(PlayerUpgradeTypes type)
+    public static PlayerUpgrade GetUpgrade(PlayerUpgradeTypes type, UpgradeTiers tier = UpgradeTiers.Random)
     {
-        return UpgradeFactories[type]();
+        if (tier == UpgradeTiers.Random)
+        {
+            tier = GetRandomTier();
+        }
+        return UpgradeFactories[type](tier);
     }
     private static UpgradeTiers GetRandomTier()
     {

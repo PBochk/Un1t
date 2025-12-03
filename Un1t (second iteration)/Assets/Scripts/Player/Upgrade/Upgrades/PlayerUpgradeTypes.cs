@@ -1,5 +1,6 @@
 ﻿public enum PlayerUpgradeTypes
 {
+    None,
     MaxHealth,
     HealCost,
     XPGain,
