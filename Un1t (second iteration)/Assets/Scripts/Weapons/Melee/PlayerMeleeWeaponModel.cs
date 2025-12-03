@@ -33,5 +33,9 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
     {
         Damage += increment;
     }
-
+    
+    public void UpgradeDoubleHitChance(float increment)
+    {
+        doubleHitChance += increment;
+    }
 }

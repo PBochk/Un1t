@@ -599,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4917425855745854776, guid: 9df8efa13d79c5748802f2bf369fce0e, type: 3}
       propertyPath: health
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6488073171171416264, guid: 9df8efa13d79c5748802f2bf369fce0e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2578,7 +2578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: availableUpgrades.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: availableAbilities.Array.size
@@ -2602,7 +2602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: 'availableUpgrades.Array.data[5]'
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: 'availableUpgrades.Array.data[6]'
@@ -2630,7 +2630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: critChance
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: attackSpeed

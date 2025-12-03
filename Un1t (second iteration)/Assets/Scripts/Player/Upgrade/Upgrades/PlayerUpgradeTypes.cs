@@ -9,5 +9,6 @@
     MovingSpeed,
     MeleeSpeed,
     MeleeDamage,
-    RangeDamage
+    RangeDamage,
+    DoubleHitChance
 }
