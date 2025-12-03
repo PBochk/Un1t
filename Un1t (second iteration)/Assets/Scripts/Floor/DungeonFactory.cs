@@ -172,7 +172,7 @@ public class DungeonFactory
 
         if (mainPath != null && mainPath.Count > 0)
         {
-            for (int i = 0; i < mainPath.Count - 1; i++)
+            for (var i = 0; i < mainPath.Count - 1; i++)
             {
                 AddPassage(dungeon, mainPath[i], mainPath[i + 1]);
             }
@@ -187,7 +187,7 @@ public class DungeonFactory
 
         while (unconnected.Count > 0)
         {
-            bool foundConnection = false;
+            var foundConnection = false;
 
             foreach (FloorGridPosition uncon in unconnected.ToList())
             {

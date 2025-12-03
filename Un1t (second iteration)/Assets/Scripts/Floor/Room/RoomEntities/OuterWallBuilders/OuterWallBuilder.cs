@@ -78,8 +78,8 @@ public class OuterWallBuilder : TilesBuilder
 
     private void PlaceFragments(in Vector3 basePosition)
     {
-        int currentFragmentSize = 0;
-        int segmentStartIndex = 0;
+        var currentFragmentSize = 0;
+        var segmentStartIndex = 0;
 
         int cornerTileSize = direction == Direction.Horizontal ? 1 : 3;
 
@@ -105,7 +105,7 @@ public class OuterWallBuilder : TilesBuilder
                 if (currentFragmentSize == 1)
                 {
                     GameObject tilePrefab;
-                    int fragmentSizeForTile = 1;
+                    var fragmentSizeForTile = 1;
 
                     if (hasLeftHole && hasRightHole)
                     {
@@ -153,7 +153,7 @@ public class OuterWallBuilder : TilesBuilder
                 else
                 {
                     GameObject firstTilePrefab = hasLeftHole ? wallTile.PreviousCornerWallTile : wallTile.BasicWallTile;
-                    int firstFragmentSize = 1; 
+                    var firstFragmentSize = 1; 
                     CreateFragment(firstTilePrefab, firstFragmentSize, thickness, direction,
                         CalculateWallFragmentPosition(segmentStartIndex, firstFragmentSize, basePosition));
 
@@ -194,8 +194,8 @@ public class OuterWallBuilder : TilesBuilder
         Direction shurfDirection;
         int directionMultiplier;
 
-        float verticalPosition = 0f;
-        float horizontalPosition = 0f;
+        var verticalPosition = 0f;
+        var horizontalPosition = 0f;
 
         int shurfFirstSideThickness;
         int shurfSecondSideThickness;
@@ -216,7 +216,7 @@ public class OuterWallBuilder : TilesBuilder
             shurfFirstSideThickness = (int)shurfFirstSideSize.x;
             shurfSecondSideThickness = (int)shurfSecondSideSize.x;
 
-            invisibleWallSize = new Vector2((SHURF_WIDTH + shurfFirstSideThickness + shurfSecondSideThickness), 1f);
+            invisibleWallSize = new Vector2(SHURF_WIDTH + shurfFirstSideThickness + shurfSecondSideThickness, 1f);
 
             darknessSize = new(invisibleWallSize.x, invisibleWallSize.y * 2);
 

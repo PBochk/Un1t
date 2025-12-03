@@ -45,6 +45,8 @@ public class FloorManager : MonoBehaviour
                 group => group.Key,
                 group => group.Select(template => template.Info).ToImmutableList()
         );
+        GenerateFloor();
+        GenerateRoomsContent();
     }
 
     /// <summary>
