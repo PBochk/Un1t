@@ -11,13 +11,15 @@ public class PlayerRangeWeaponController : MonoBehaviour
     private PlayerRangeWeaponModelMB modelMB;
     private PlayerController playerController;
 
+    private Vector2 targetPosition;
+
     public UnityEvent StartRangeAnimation;
 
     private void Awake()
     {
         modelMB = GetComponent<PlayerRangeWeaponModelMB>();
         playerController = GetComponentInParent<PlayerController>();
-        playerController.StartRange.AddListener(StartRange);
+        playerController.StartRange.AddListener(OnStartRange);
         playerController.RangeShot.AddListener(ShootProjectile);
     }
 
@@ -26,18 +28,19 @@ public class PlayerRangeWeaponController : MonoBehaviour
         model = modelMB.RangeWeaponModel;
     }
 
-    private void StartRange()
+    private void OnStartRange()
     {
         if (model.Ammo > 0 && modelMB.IsAttackReady)
         {
             StartRangeAnimation?.Invoke();
             StartCoroutine(modelMB.WaitForAttackCooldown());
+            targetPosition = playerController.MousePosition;
         }
     }
 
     private void ShootProjectile()
     {
-        var shotDirection = (playerController.MousePosition - (Vector2)transform.position).normalized;
+        var shotDirection = (targetPosition - (Vector2)transform.position).normalized;
         var spawnedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.FromToRotation(playerTransform.position, shotDirection));
         spawnedProjectile.GetComponent<ProjectileController>().Initialize(model.ProjectileModel); // TODO: rework
         spawnedProjectile.GetComponent<Rigidbody2D>().AddForce(shotDirection * initialForce);

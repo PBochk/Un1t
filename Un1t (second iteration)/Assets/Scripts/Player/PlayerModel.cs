@@ -79,7 +79,6 @@ public class PlayerModel : IInstanceModel
     public event Action HealthChanged;
     public event Action DamageTaken;
     public event Action PlayerDeath;
-    public event Action<bool> PlayerRestrained;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
     public event Action DodgeUnlocked;
