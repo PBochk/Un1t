@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392b75b9e592843408efae68d3e7e393, type: 3}
   m_Name: MeleeAttackSpeedUpgrade
   m_EditorClassIdentifier: 
+  icon: {fileID: 3345787891517124981, guid: ce0e926a46868444ca0ed890a61d429b, type: 3}
+  upgradeName: "\u0423\u0441\u043A\u043E\u0440\u0435\u043D\u0438\u0435"
   description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
     \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0430\u0442\u0430\u043A\u0438
     \u043D\u0430"

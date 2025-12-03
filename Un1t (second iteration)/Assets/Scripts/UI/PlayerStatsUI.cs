@@ -9,6 +9,7 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private Image xpBar;
     [SerializeField] private Image levelUpIcon;
+    [SerializeField] private Animator levelUpIconAnimator;
     [SerializeField] private Sprite[] hpSprites;
     [SerializeField] private Sprite[] xpSprites;
     private MainUI mainUI;
@@ -56,6 +57,7 @@ public class PlayerStatsUI : MonoBehaviour
     private void OnExperienceChanged()
     {
         levelUpIcon.gameObject.SetActive(playerModel.IsLevelUpAvailable);
+        //levelUpIconAnimator.SetBool("Ready", playerModel.IsLevelUpAvailable);
         xpText.text = playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
         var number = playerModel.CurrentXP >= playerModel.NextLevelXP ? 0 : Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpTilesCount);
         xpBar.sprite = xpSprites[number];

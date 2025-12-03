@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392b75b9e592843408efae68d3e7e393, type: 3}
   m_Name: MaxHealthUpgrade
   m_EditorClassIdentifier: 
+  icon: {fileID: -823299373766337907, guid: e0c6a8912645bd64d82a031d4a6d2971, type: 3}
+  upgradeName: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
   description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
     \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435 \u043D\u0430"
   upgradeValues:
