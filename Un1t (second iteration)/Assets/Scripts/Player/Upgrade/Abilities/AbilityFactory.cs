@@ -9,6 +9,7 @@ public static class AbilityFactory
         { PlayerAbilityTypes.HealCost, () => new HealCostAbility(Manager) },
         { PlayerAbilityTypes.XPGain, () => new XPGainAbility(Manager) },
         { PlayerAbilityTypes.Resist, () => new ResistAbility(Manager) },
+        { PlayerAbilityTypes.HealPerHit, () => new HealPerHitAbility(Manager) },
     };
 
     public static PlayerAbility GetAbility(PlayerAbilityTypes type)

@@ -4,4 +4,5 @@ public enum PlayerAbilityTypes
     HealCost,
     XPGain,
     Resist,
+    HealPerHit,
 }
