@@ -129,7 +129,7 @@ public class PlayerModel : IInstanceModel
     public void TakeDamage(float decrement)
     {
         if (CurrentHealth <= 0) return;
-        CurrentHealth -= decrement / resistCoefficient;
+        CurrentHealth -= decrement * resistCoefficient;
         CheckHealth();
         DamageTaken?.Invoke();
     }
@@ -179,9 +179,9 @@ public class PlayerModel : IInstanceModel
     {
         xpGainCoefficient += increment;
     }
-    public void UpgradeResist(float increment)
+    public void UpgradeResist(float decrement)
     {
-        resistCoefficient += increment;
+        resistCoefficient -= decrement;
     }
     public void UpgradeMovingSpeed(float increment)
     {
