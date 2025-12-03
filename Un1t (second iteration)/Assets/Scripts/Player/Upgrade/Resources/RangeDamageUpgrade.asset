@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392b75b9e592843408efae68d3e7e393, type: 3}
   m_Name: RangeDamageUpgrade
   m_EditorClassIdentifier: 
+  icon: {fileID: -3467752051088001807, guid: 2a2193620265e7b4c86990e9b3dc5396, type: 3}
+  upgradeName: "\u0414\u0430\u043B\u044C\u043D\u0438\u0439 \u0431\u043E\u0439"
   description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
     \u0443\u0440\u043E\u043D \u0431\u0440\u043E\u0441\u043A\u0430 \u043D\u0430"
   upgradeValues:

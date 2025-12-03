@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class PlayerUpgrade
 {
     public readonly PlayerUpgradeController UpgradeManager;
+    public Sprite Icon { get; protected set; }
+    public string Name { get; protected set; }
     public string Description { get; protected set; }
     public float UpgradeValue { get; protected set; }
     protected UpgradeTiers Tier { get; set; }
@@ -16,7 +19,10 @@ public abstract class PlayerUpgrade
         Tier = tier;
         var config = Resources.Load<PlayerUpgradeConfig>(GetType().ToString());
         UpgradeValue = config.UpgradeValues[(int)tier];
+        Icon = config.Icon;
+        Name = config.Name;
         Description = config.Description + $" {UpgradeValue}";
+
     }
 
     public abstract void Apply();

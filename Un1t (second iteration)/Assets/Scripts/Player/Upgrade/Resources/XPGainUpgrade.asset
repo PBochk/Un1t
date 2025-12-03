@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392b75b9e592843408efae68d3e7e393, type: 3}
   m_Name: XPGainUpgrade
   m_EditorClassIdentifier: 
+  icon: {fileID: -823299373766337907, guid: e0c6a8912645bd64d82a031d4a6d2971, type: 3}
+  upgradeName: "\u041E\u0448\u0438\u0431\u043A\u0430 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u044F"
   description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
     \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u043C\u044B\u0439 \u043E\u043F\u044B\u0442"
   upgradeValues:

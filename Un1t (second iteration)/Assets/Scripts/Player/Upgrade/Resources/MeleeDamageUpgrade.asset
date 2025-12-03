@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392b75b9e592843408efae68d3e7e393, type: 3}
   m_Name: MeleeDamageUpgrade
   m_EditorClassIdentifier: 
+  icon: {fileID: 3345787891517124981, guid: ce0e926a46868444ca0ed890a61d429b, type: 3}
+  upgradeName: "\u0411\u043B\u0438\u0436\u043D\u0438\u0439 \u0431\u043E\u0439"
   description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
     \u0443\u0440\u043E\u043D \u0430\u0442\u0430\u043A\u0438 \u043D\u0430"
   upgradeValues:
