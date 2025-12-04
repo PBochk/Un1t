@@ -125,24 +125,49 @@ public class RoomManager : MonoBehaviour
             bool[] wallTilesAreEmpty = new bool[wall.Length];
 
             shurfsPositions[wall] = new List<(int start, int end)>();
-            int availableSlots = (wall.Length - OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR) 
-                / OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR + 1;
-            int possiblePairs = math.min(shurfesCount, availableSlots);
 
-            var placedPairs = 0;
-            for (var i = 1; i < wall.Length-1 && placedPairs < possiblePairs; i += OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR)
+            if (wall.WallDirection == OuterWallBuilder.Direction.Vertical)
             {
-                if (i + OuterWallBuilder.SHURF_WIDTH <= wall.Length)
+                if (shurfesCount > 0)
                 {
-                    wallTilesAreEmpty[i] = true;
-                    wallTilesAreEmpty[i + 1] = true;
+                    int minPosition = math.max(0, wall.Length / 2 - 2);
+                    int maxPosition = math.min(wall.Length - OuterWallBuilder.SHURF_WIDTH, wall.Length / 2 + 1);
 
-                    shurfsPositions[wall].Add((i, i+1));
-                    Debug.Log($"({i}, {i+1})");
-                    placedPairs++;
-                    shurfesCount--;
+                    if (minPosition <= maxPosition)
+                    {
+                        int startPosition = UnityEngine.Random.Range(minPosition, maxPosition + 1);
 
-                    if (shurfesCount == 0) break;
+                        if (startPosition + OuterWallBuilder.SHURF_WIDTH <= wall.Length)
+                        {
+                            wallTilesAreEmpty[startPosition] = true;
+                            wallTilesAreEmpty[startPosition + 1] = true;
+
+                            shurfsPositions[wall].Add((startPosition, startPosition + 1));
+                            shurfesCount--;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                int availableSlots = (wall.Length - OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR)
+                    / OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR + 1;
+                int possiblePairs = math.min(shurfesCount, availableSlots);
+
+                var placedPairs = 0;
+                for (var i = 1; i < wall.Length - 1 && placedPairs < possiblePairs; i += OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR)
+                {
+                    if (i + OuterWallBuilder.SHURF_WIDTH <= wall.Length)
+                    {
+                        wallTilesAreEmpty[i] = true;
+                        wallTilesAreEmpty[i + 1] = true;
+
+                        shurfsPositions[wall].Add((i, i + 1));
+                        placedPairs++;
+                        shurfesCount--;
+
+                        if (shurfesCount == 0) break;
+                    }
                 }
             }
 
