@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e527596971c8f9679772c03ea78b016, type: 3}
   m_Name: GlitchConfig
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 50
   initialSpeedCoefficient: 1
   xpGain: 0
   baseMoveSpeed: 5
