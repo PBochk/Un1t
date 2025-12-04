@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput;
     private PlayerModel playerModel;
-    private Hitable playerHitable;
+    private PlayerHitable playerHitable;
 
     public Vector2 MousePosition { get; private set; }
 
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        playerHitable = GetComponent<Hitable>();
+        playerHitable = GetComponent<Hitable>() as PlayerHitable;
         playerHitable.HitTaken.AddListener(OnHitTaken);
     }
 
