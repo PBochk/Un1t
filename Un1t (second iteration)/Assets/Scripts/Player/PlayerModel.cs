@@ -13,7 +13,6 @@ public class PlayerModel : IInstanceModel
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
     private PlayerUpgradeModel upgradeModel;
-
     //sufficient for saving and loading
     private float maxHealth;
     private float currentHealth;
@@ -85,6 +84,7 @@ public class PlayerModel : IInstanceModel
     public event Action PlayerDeath;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
+    public event Action ShieldUnlocked;
 
     static PlayerModel()
     {
@@ -200,9 +200,9 @@ public class PlayerModel : IInstanceModel
     {
         movingSpeed += increment;
     }
-    //public void UnlockDodge(float dodgeCooldown)
-    //{
-    //    this.dodgeCooldown = dodgeCooldown;
-    //    DodgeUnlocked?.Invoke();
-    //}
+    public void UnlockShield(float shieldCooldown)
+    {
+        this.shieldCooldown = shieldCooldown;
+        ShieldUnlocked?.Invoke();
+    }
 }

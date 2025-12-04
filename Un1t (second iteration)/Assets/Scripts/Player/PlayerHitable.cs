@@ -16,9 +16,15 @@ public class PlayerHitable : Hitable
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
-        hasShield = playerModel.ShieldCooldown != 0; // TODO: move to OnEnable after initialization rework
+        // TODO: move lines below to OnEnable after initialization rework
+        playerModel.ShieldUnlocked += () => hasShield = true; // activate shield after unlock
+        hasShield = playerModel.ShieldCooldown != 0; // activate shield after loading if it was unlocked before 
     }
 
+    private void OnDisable()
+    {
+        playerModel.ShieldUnlocked -= () => hasShield = true;
+    }
 
     public override void TakeHit(AttackData attackData)
     {
@@ -48,14 +54,6 @@ public class PlayerHitable : Hitable
         isVulnerable = false;
         yield return new WaitForSeconds(invulTime);
         isVulnerable = true;
-    }
-
-    /// <summary>
-    /// Activate shield after unlock
-    /// </summary>
-    public void SetShieldActive()
-    {
-        hasShield = true;
     }
 
     /// <summary>

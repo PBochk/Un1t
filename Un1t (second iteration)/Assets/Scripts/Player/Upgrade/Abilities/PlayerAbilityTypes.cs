@@ -6,5 +6,6 @@ public enum PlayerAbilityTypes
     Resist,
     HealPerHit,
     DoubleHitChance,
-    DodgeChance
+    DodgeChance,
+    Shield
 }

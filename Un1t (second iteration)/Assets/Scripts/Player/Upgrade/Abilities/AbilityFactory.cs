@@ -12,6 +12,7 @@ public static class AbilityFactory
         { PlayerAbilityTypes.HealPerHit, () => new HealPerHitAbility(Manager) },
         { PlayerAbilityTypes.DoubleHitChance, () => new DoubleHitChanceAbility(Manager) },
         { PlayerAbilityTypes.DodgeChance, () => new DodgeChanceAbility(Manager) },
+        { PlayerAbilityTypes.Shield, () => new ShieldAbility(Manager) },
     };
 
     public static PlayerAbility GetAbility(PlayerAbilityTypes type)
