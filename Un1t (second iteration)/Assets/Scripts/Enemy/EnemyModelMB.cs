@@ -37,7 +37,7 @@ public class EnemyModelMB : MonoBehaviour
         //TODO: There could be damage calculation logic
         NativeModel.Damage(data);
         OnDamageTaken.Invoke();
-        Debug.Log($"Current HP: {NativeModel.Hp}");
+        //Debug.Log($"Current HP: {NativeModel.Hp}");
         CheckHp();
     }
 
