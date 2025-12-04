@@ -9,13 +9,21 @@ public class PlayerHitable : Hitable
     private PlayerModel playerModel;
     private bool isVulnerable = true;
     /// <summary>
-    /// If entity has dodge it ingores next hit
+    /// Player ingores next hit if has shield
     /// </summary>
-    //private bool hasDodge = false;
+    private bool hasShield = false;
 
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
+        // TODO: move lines below to OnEnable after initialization rework
+        playerModel.ShieldUnlocked += () => hasShield = true; // activate shield after unlock
+        hasShield = playerModel.ShieldCooldown != 0; // activate shield after loading if it was unlocked before 
+    }
+
+    private void OnDisable()
+    {
+        playerModel.ShieldUnlocked -= () => hasShield = true;
     }
 
     public override void TakeHit(AttackData attackData)
@@ -23,14 +31,14 @@ public class PlayerHitable : Hitable
         if (!isVulnerable) return;
         if (playerModel.DodgeChance >= Random.Range(0, 1f)) return;
         StartCoroutine(WaitForInvulnerability(invulTime));
-        //if (hasDodge)
-        //{
-        //    hasDodge = false;
-        //    return;
-        //}
+        if (hasShield)
+        {
+            Debug.Log("Shield");
+            StartCoroutine(WaitForShieldCooldown());
+            return;
+        }
         base.TakeHit(attackData);
     }
-
 
     /// <summary>
     /// Method for starting player's invulnerability from external classes
@@ -49,10 +57,12 @@ public class PlayerHitable : Hitable
     }
 
     /// <summary>
-    /// 
+    /// Set shield on cooldown
     /// </summary>
-    //public void SetDodgeActive()
-    //{
-    //    hasDodge = true;
-    //}
+    private IEnumerator WaitForShieldCooldown()
+    {
+        hasShield = false;
+        yield return new WaitForSeconds(playerModel.ShieldCooldown);
+        hasShield = true;
+    }
 }

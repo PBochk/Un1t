@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableUpgrades: 010000000700000008000000090000000a000000
-  availableAbilities: 00000000010000000200000003000000040000000500000006000000
+  availableAbilities: 0000000001000000020000000300000004000000050000000600000007000000
 --- !u!114 &1262979691790353634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +495,7 @@ MonoBehaviour:
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
-  invulTime: 1
+  invulTime: 0.25
 --- !u!1001 &5340491274210201089
 PrefabInstance:
   m_ObjectHideFlags: 0

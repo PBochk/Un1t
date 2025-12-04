@@ -13,7 +13,6 @@ public class PlayerModel : IInstanceModel
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
     private PlayerUpgradeModel upgradeModel;
-
     //sufficient for saving and loading
     private float maxHealth;
     private float currentHealth;
@@ -25,15 +24,14 @@ public class PlayerModel : IInstanceModel
     private float xpGainCoefficient = 1f;
     private float resistCoefficient = 1f;
     private float dodgeChance = 0;
+    private float shieldCooldown = 0;
     private float movingSpeed;
     private float dashSpeed;
     private float dashDuration;
     private float dashCooldown;
-    private float dodgeCooldown;
     
     //not sufficient for saving and loading
     [XmlIgnore] private readonly List<float> XPToNextLevel;
-
 
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
@@ -74,6 +72,7 @@ public class PlayerModel : IInstanceModel
     public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
     public float HealCostInXP => NextLevelXP * healCostCoefficient;
     public float DodgeChance => dodgeChance;
+    public float ShieldCooldown => shieldCooldown;
     public float MovingSpeed => movingSpeed;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
@@ -85,7 +84,8 @@ public class PlayerModel : IInstanceModel
     public event Action PlayerDeath;
     public event Action ExperienceChanged;
     public event Action LevelChanged;
-    public event Action DodgeUnlocked;
+    public event Action ShieldUnlocked;
+
     static PlayerModel()
     {
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
@@ -102,6 +102,7 @@ public class PlayerModel : IInstanceModel
         xpGainCoefficient = config.BaseXPGainCoefficient;
         resistCoefficient = config.BaseResistCoefficient;
         dodgeChance = config.BaseDodgeChance;
+        shieldCooldown = config.BaseShieldCooldown;
         movingSpeed = config.BaseMovingSpeed;
         dashSpeed = config.BaseDashSpeed;
         dashDuration = config.BaseDashDuration;
@@ -199,9 +200,9 @@ public class PlayerModel : IInstanceModel
     {
         movingSpeed += increment;
     }
-    //public void UnlockDodge(float dodgeCooldown)
-    //{
-    //    this.dodgeCooldown = dodgeCooldown;
-    //    DodgeUnlocked?.Invoke();
-    //}
+    public void UnlockShield(float shieldCooldown)
+    {
+        this.shieldCooldown = shieldCooldown;
+        ShieldUnlocked?.Invoke();
+    }
 }

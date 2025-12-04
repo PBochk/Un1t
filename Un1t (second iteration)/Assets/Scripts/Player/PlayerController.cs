@@ -188,7 +188,6 @@ public class PlayerController : MonoBehaviour
             pushDirection = (transform.position - attackData.AttackerTransform.position).normalized;
             pushSpeed = attackData.PushSpeed;
             StartCoroutine(WaitForPush());
-            Debug.Log("start pushing");
         }
     }
 
