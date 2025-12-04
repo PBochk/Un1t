@@ -1,37 +1,45 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerModelMB))]
 public class PlayerHitable : Hitable
 {
     [SerializeField] private float invulTime;
+    private PlayerModel playerModel;
     private bool isVulnerable = true;
     /// <summary>
-    /// Is entity has dodge it ingores next hit
+    /// If entity has dodge it ingores next hit
     /// </summary>
-    private bool hasDodge = false;
+    //private bool hasDodge = false;
 
+    private void Start()
+    {
+        playerModel = GetComponent<PlayerModelMB>().PlayerModel;
+    }
 
     public override void TakeHit(AttackData attackData)
     {
         if (!isVulnerable) return;
+        if (playerModel.DodgeChance >= Random.Range(0, 1f)) return;
         StartCoroutine(WaitForInvulnerability(invulTime));
-        if (hasDodge)
-        {
-            hasDodge = false;
-            return;
-        }
+        //if (hasDodge)
+        //{
+        //    hasDodge = false;
+        //    return;
+        //}
         base.TakeHit(attackData);
     }
 
 
     /// <summary>
-    /// Method for starting entity's invulnerability from external classes
+    /// Method for starting player's invulnerability from external classes
     /// </summary>
     /// <param name="invulTime"></param>
     public void SetInvulForSeconds(float invulTime) => StartCoroutine(WaitForInvulnerability(invulTime));
 
     /// <summary>
-    /// Makes entity temporarily invulnerable
+    /// Makes player temporarily invulnerable
     /// </summary>
     private IEnumerator WaitForInvulnerability(float invulTime)
     {
@@ -43,8 +51,8 @@ public class PlayerHitable : Hitable
     /// <summary>
     /// 
     /// </summary>
-    public void SetDodgeActive()
-    {
-        hasDodge = true;
-    }
+    //public void SetDodgeActive()
+    //{
+    //    hasDodge = true;
+    //}
 }

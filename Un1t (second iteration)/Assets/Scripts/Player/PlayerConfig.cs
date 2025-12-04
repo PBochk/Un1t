@@ -15,6 +15,7 @@ public class PlayerConfig : ScriptableObject
     [Tooltip("Multiplies all gained XP")]
     [SerializeField, Range(1f, 5f)] private float baseXPGainCoefficient;
     [SerializeField, Range(1f, 5f)] private float baseResistCoefficient;
+    [SerializeField, Range(0, 1f)] private float baseDodgeChance;
     [SerializeField] private float baseMovingSpeed;
     [SerializeField] private float baseDashSpeed;
     [SerializeField] private float baseDashDuration;
@@ -26,6 +27,7 @@ public class PlayerConfig : ScriptableObject
     public float BaseHealCostCoefficient => baseHealCostCoefficient;
     public float BaseXPGainCoefficient => baseXPGainCoefficient;
     public float BaseResistCoefficient => baseResistCoefficient;
+    public float BaseDodgeChance => baseDodgeChance;
     public float BaseMovingSpeed => baseMovingSpeed;
     public float BaseDashSpeed => baseDashSpeed;
     public float BaseDashDuration => baseDashDuration;

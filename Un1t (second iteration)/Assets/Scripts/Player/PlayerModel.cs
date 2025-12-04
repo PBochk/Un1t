@@ -24,6 +24,7 @@ public class PlayerModel : IInstanceModel
     private float healCostCoefficient = 0.5f;
     private float xpGainCoefficient = 1f;
     private float resistCoefficient = 1f;
+    private float dodgeChance = 0;
     private float movingSpeed;
     private float dashSpeed;
     private float dashDuration;
@@ -72,6 +73,7 @@ public class PlayerModel : IInstanceModel
     public float NextLevelXP => XPToNextLevel[level];
     public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
     public float HealCostInXP => NextLevelXP * healCostCoefficient;
+    public float DodgeChance => dodgeChance;
     public float MovingSpeed => movingSpeed;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
@@ -99,6 +101,7 @@ public class PlayerModel : IInstanceModel
         healCostCoefficient = config.BaseHealCostCoefficient;
         xpGainCoefficient = config.BaseXPGainCoefficient;
         resistCoefficient = config.BaseResistCoefficient;
+        dodgeChance = config.BaseDodgeChance;
         movingSpeed = config.BaseMovingSpeed;
         dashSpeed = config.BaseDashSpeed;
         dashDuration = config.BaseDashDuration;

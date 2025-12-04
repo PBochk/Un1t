@@ -37,6 +37,7 @@ MonoBehaviour:
   baseHealCostCoefficient: 0.5
   baseXPGainCoefficient: 1
   baseResistCoefficient: 1
+  baseDodgeChance: 0
   baseMovingSpeed: 7
   baseDashSpeed: 25
   baseDashDuration: 0.25
