@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -345,7 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -569,7 +567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -672,7 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -775,7 +771,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -878,7 +873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1197,7 +1191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -2016,7 +2009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -2193,7 +2185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -2296,7 +2287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -2399,7 +2389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -2578,7 +2567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: 'availableUpgrades.Array.data[5]'
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 650786396382510355, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: 'availableUpgrades.Array.data[6]'
@@ -2713,9 +2702,9 @@ PrefabInstance:
       value: 192
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-    - {fileID: 7771967822136418215, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-    - {fileID: 2214619805156671631, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2906,7 +2895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulTime: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []

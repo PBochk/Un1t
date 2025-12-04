@@ -15,7 +15,6 @@ public class TestDamager : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Hitable>(out Hitable hittable))
         {
             hittable.TakeHit(attackData);
-            Debug.Log(collision.gameObject.name + "took damage: " + damage);
         }
     }
 }

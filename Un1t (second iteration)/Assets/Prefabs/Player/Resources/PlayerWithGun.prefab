@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 956851122708948023}
   - component: {fileID: 8564208846730262985}
   - component: {fileID: 3230494579449482461}
-  - component: {fileID: 4399124830697755736}
   - component: {fileID: 6555124608399606011}
   - component: {fileID: 4697431313275488480}
   - component: {fileID: 7790997573628290336}
@@ -24,6 +23,7 @@ GameObject:
   - component: {fileID: 9121096697557502566}
   - component: {fileID: 650786396382510355}
   - component: {fileID: 1262979691790353634}
+  - component: {fileID: 5936582550716618050}
   m_Layer: 8
   m_Name: PlayerWithGun
   m_TagString: Player
@@ -353,22 +353,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4399124830697755736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217057890759837180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invulTime: 0.25
-  HitTaken:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6555124608399606011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,8 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64625ebbc6d0cd4fabfa9a409d1a35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableUpgrades: 0100000006000000070000000800000009000000
-  availableAbilities: 000000000100000002000000030000000400000005000000
+  availableUpgrades: 010000000700000008000000090000000a000000
+  availableAbilities: 00000000010000000200000003000000040000000500000006000000
 --- !u!114 &1262979691790353634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,6 +480,22 @@ MonoBehaviour:
   UpgradesChoiceSet:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5936582550716618050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c123892208b760429d498c193b4df69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitTaken:
+    m_PersistentCalls:
+      m_Calls: []
+  invulTime: 1
 --- !u!1001 &5340491274210201089
 PrefabInstance:
   m_ObjectHideFlags: 0
