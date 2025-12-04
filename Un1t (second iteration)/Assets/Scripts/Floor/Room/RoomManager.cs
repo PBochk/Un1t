@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class RoomManager : MonoBehaviour
     private IEnumerable<RoomEntity> entities;
     private List<GameObject> outerWalls;
     private IReadOnlyList<EnemyController> spawnableEnemies;
+    private IEnumerable<TilesBuilder> tilesBuilders;
 
     private Tile[,] tileGrid;
 
@@ -23,9 +25,9 @@ public class RoomManager : MonoBehaviour
 
     public void CreateContent(Transform parent)
     {
-        BuildTiles();
+        ReadTilesBuilders();
 
-        RoomContentCreator contentCreator = new ();
+        RoomContentCreator contentCreator = new();
         entities = contentCreator.GenerateContent(tileGrid, rock);
         /*
         spawnersManager = new();
@@ -41,7 +43,6 @@ public class RoomManager : MonoBehaviour
         {
             Instantiate(rock, transform.position, Quaternion.identity, parent);
         }*/
-
         CreateEntities();
     }
 
@@ -54,6 +55,9 @@ public class RoomManager : MonoBehaviour
 
     private void CreateEntities()
     {
+        foreach (TilesBuilder tilesBuilder in tilesBuilders)
+            tilesBuilder.Create();
+
         foreach (RoomEntity roomEntity in entities)
         {
             Instantiate(roomEntity.GameObject, 
@@ -62,44 +66,93 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void BuildTiles()
+    private void ReadTilesBuilders()
     {
         List<OuterWallBuilder> shurfableWalls = new();
         List<GroundBuilder> groundBuilders = new();
         List<OuterWallBuilder> outerWallBuilders = new();
+        List<TilesBuilder> tilesBuilders = new();
 
-        List<GameObject> outerWalls = new();
         for (var i = 0; i < transform.childCount; i++)
         {
-            GameObject outerWall = transform.GetChild(i).gameObject;
-            if (outerWall.TryGetComponent(out TilesBuilder tilesBuilder))
+            GameObject child = transform.GetChild(i).gameObject;
+            if (child.TryGetComponent(out TilesBuilder tilesBuilder))
             {
                 tilesBuilder.SetConfiguration();
                 if (tilesBuilder is OuterWallBuilder wallBuilder)
                 {
                     outerWallBuilders.Add(wallBuilder);
-                    if (wallBuilder.CanCreateShurf && wallBuilder.Length > 4)
+                    if (wallBuilder.CanCreateShurf)
                     {
-                        int start = wallBuilder.Length / 2;
-                        int end = start + 1;
-                        wallBuilder.SetShurfesLocation((start, end));
+                        shurfableWalls.Add(wallBuilder);
                     }
                 }
                 else if (tilesBuilder is GroundBuilder groundBuilder)
                 {
                     groundBuilders.Add(groundBuilder);
                 }
-
-                tilesBuilder.Create();
-            }
-
-            outerWalls.Add(outerWall);
+                tilesBuilders.Add(tilesBuilder);
+            }           
         }
 
+        this.tilesBuilders = tilesBuilders;
         tileGrid = GetTileGrid(groundBuilders, outerWallBuilders, transform.position);
+
+        Dictionary<OuterWallBuilder, List<(int start, int end)>> generatingShurfes =
+            SelectShurfesPositions(shurfableWalls, math.clamp(UnityEngine.Random.Range(0, 3), 0, shurfableWalls.Count));
+
+        foreach(OuterWallBuilder wall in generatingShurfes.Keys)
+        {
+            wall.SetShurfesLocation(generatingShurfes[wall]);
+        }
         //DrawTileMap(tileGrid);
     }
 
+    private Dictionary<OuterWallBuilder, List<(int start, int end)>> SelectShurfesPositions
+        (List<OuterWallBuilder> shurfableWalls, int shurfesCount)
+    {
+        var shuffledShurfableWalls =
+            from shurfableWall in shurfableWalls
+            orderby UnityEngine.Random.value
+            select shurfableWall;
+
+        Dictionary<OuterWallBuilder, List<(int start, int end)>> shurfsPositions = new();
+
+        foreach (OuterWallBuilder wall in shuffledShurfableWalls)
+        {
+            if (wall.Length / OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR == 0) continue;
+
+            bool[] wallTilesAreEmpty = new bool[wall.Length];
+
+            shurfsPositions[wall] = new List<(int start, int end)>();
+            int availableSlots = (wall.Length - OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR) 
+                / OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR + 1;
+            int possiblePairs = math.min(shurfesCount, availableSlots);
+
+            var placedPairs = 0;
+            for (var i = 1; i < wall.Length-1 && placedPairs < possiblePairs; i += OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR)
+            {
+                if (i + OuterWallBuilder.SHURF_WIDTH <= wall.Length)
+                {
+                    wallTilesAreEmpty[i] = true;
+                    wallTilesAreEmpty[i + 1] = true;
+
+                    shurfsPositions[wall].Add((i, i+1));
+                    Debug.Log($"({i}, {i+1})");
+                    placedPairs++;
+                    shurfesCount--;
+
+                    if (shurfesCount == 0) break;
+                }
+            }
+
+            if (shurfesCount == 0) break;
+        }
+
+        return shurfsPositions;
+    }
+
+    #region TileConvertion
     private static Tile[,] GetTileGrid(IEnumerable<GroundBuilder> groundBuilders, IEnumerable<OuterWallBuilder> outerWallBuilders, Vector3 roomPosition)
     {
         Tile[,] allTiles = new Tile[RoomInfo.Size.y, RoomInfo.Size.x];
@@ -143,15 +196,14 @@ public class RoomManager : MonoBehaviour
                 {
                     tiles[y, x] = tileType;
                 }
-                else
-                {
-                    Debug.LogWarning($"({x}, {y}) is out of tile grid");
-                }
             }
         }
     }
 
-    private void DrawTileMap(Tile[,] tiles)
+    /// <summary>
+    /// For debug purpose only
+    /// </summary>
+    private static void DrawTileMap(Tile[,] tiles)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -181,4 +233,5 @@ public class RoomManager : MonoBehaviour
 
         Debug.Log(sb.ToString());
     }
+    #endregion
 }

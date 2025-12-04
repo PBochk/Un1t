@@ -1,9 +1,15 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallBuilder : TilesBuilder
 {
+    public const int SHURF_WIDTH_WITH_NEIGHBOUR  = SHURF_WIDTH + 2;
+    public const int SHURF_WIDTH = 2;
+    public const int SHURF_DEPTHS = 3;
+
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
     public Vector2 Position => transform.position;
@@ -26,12 +32,9 @@ public class OuterWallBuilder : TilesBuilder
 
     protected bool[] tilesAreEmpty;
 
-    private const int SHURF_WIDTH = 2;
-    private const int SHURF_DEPTHS = 3;
-
     private int thickness;
     private int length;
-    private (int start, int end)[] emptyTilesForShurfesNumbersCouples;
+    private IEnumerable<(int start, int end)> emptyTilesForShurfesNumbersCouples;
     private bool wasShurfesCreated;
 
     public override void Create()
@@ -189,7 +192,8 @@ public class OuterWallBuilder : TilesBuilder
     }
 
     //TODO: refactor this method.
-    private void PlaceShurfes((int start, int end)[] emptyTilesForShurfesNumbers, Vector3 basePosition, Vector2 shurfFirstSideSize, Vector2 shurfSecondSideSize)
+    private void PlaceShurfes(IEnumerable<(int start, int end)> emptyTilesForShurfesNumbers, 
+        Vector3 basePosition, Vector2 shurfFirstSideSize, Vector2 shurfSecondSideSize)
     {
         Direction shurfDirection;
         int directionMultiplier;
@@ -318,7 +322,7 @@ public class OuterWallBuilder : TilesBuilder
     }
 
 
-    public void SetShurfesLocation(params (int start, int end)[] emptyTilesForShurfesNumbersCouples)
+    public void SetShurfesLocation(IEnumerable<(int start, int end)> emptyTilesForShurfesNumbersCouples)
     {
         this.emptyTilesForShurfesNumbersCouples = emptyTilesForShurfesNumbersCouples;
         foreach ((int start, int end) in emptyTilesForShurfesNumbersCouples)

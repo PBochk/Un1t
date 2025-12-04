@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class RoomContentCreator
 {
+    private const int MIN_ROCKS_COUNT = 0;
+    private const int MAX_ROCKS_COUNT = 10;
 
-    private readonly int minRocksCount = 0;
-    private readonly int maxRocksCount = 10;
+    private const int MIN_SHURFES_COUNT = 0;
+    private const int MAX_SHURFES_COUNT = 3;
 
-    private  IEnumerable<Vector2Int>
+    private IEnumerable<Vector2Int>
         unacceptableRockPositions = null;
 
     private static readonly int roomCenterX = RoomInfo.Size.x / 2;
@@ -19,12 +21,12 @@ public class RoomContentCreator
         List<RoomEntity> roomEntities = new();
 
         unacceptableRockPositions = FillUnacceptableRockPositions(tiles);
-        List<Vector2Int> acceptableRockPositions = FillAcceptableRockPositions(tiles);
+        List<Vector2Int> acceptableRockPositions = FillAcceptableEntityPositions(tiles);
 
         if (acceptableRockPositions.Count == 0) return null;
 
-        int rocksCount = math.clamp(UnityEngine.Random.Range(minRocksCount, maxRocksCount), 
-            minRocksCount, maxRocksCount);
+        int rocksCount = math.clamp(UnityEngine.Random.Range(MIN_ROCKS_COUNT, MAX_ROCKS_COUNT), 
+            0, acceptableRockPositions.Count);
 
         for (var i = 0; i < rocksCount; i++)
         {
@@ -38,7 +40,7 @@ public class RoomContentCreator
         return roomEntities;
     }
 
-    private List<Vector2Int> FillAcceptableRockPositions(Tile[,] tiles)
+    private List<Vector2Int> FillAcceptableEntityPositions(Tile[,] tiles)
     {
         List<Vector2Int> acceptableRockPositions = new();
 
@@ -46,8 +48,16 @@ public class RoomContentCreator
         {
             for (var x = 0; x < RoomInfo.Size.x; x++)
             {
-                if (tiles[y, x] == Tile.Ground)
-                    acceptableRockPositions.Add(new(x, y));
+                switch (tiles[y, x])
+                {
+                    case Tile.Ground:
+                        acceptableRockPositions.Add(new(x, y));
+                        break;
+
+                    case Tile.ShurfableWall:
+                        //acceptableRockPositions.Add(new(x, y));
+                        break;
+                }
             }
         }
 
