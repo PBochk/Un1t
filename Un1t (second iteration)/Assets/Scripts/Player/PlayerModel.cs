@@ -9,7 +9,7 @@ public class PlayerModel : IInstanceModel
 {
     [XmlIgnore] private const string PREFAB_NAME = "PlayerWithGun";
     [XmlIgnore] private static readonly PlayerModelMB playerPrefab;
-        
+    [XmlIgnore] private PlayerConfig config;
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
     private PlayerUpgradeModel upgradeModel;
@@ -93,6 +93,7 @@ public class PlayerModel : IInstanceModel
     
     public PlayerModel(PlayerConfig config)
     {
+        this.config = config;
         maxHealth = config.BaseMaxHealth;
         currentHealth = maxHealth;
         level = config.Level;
@@ -196,9 +197,9 @@ public class PlayerModel : IInstanceModel
     {
         dodgeChance += increment;
     }
-    public void UpgradeMovingSpeed(float increment)
+    public void UpgradeMovingSpeed(float multiplier)
     {
-        movingSpeed += increment;
+        movingSpeed += config.BaseMovingSpeed * multiplier;
     }
     public void UnlockShield(float shieldCooldown)
     {

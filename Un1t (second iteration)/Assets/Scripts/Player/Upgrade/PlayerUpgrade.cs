@@ -33,10 +33,7 @@ public abstract class PlayerUpgrade
 
     protected void ParseDescription(string valueToPaste = null)
     {
-        if (valueToPaste == null)
-        {
-            valueToPaste = (UpgradeValue > 1) ? UpgradeValue.ToString() : UpgradeValue * 100 + "%";
-        }
+        valueToPaste ??= (UpgradeValue > 1) ? UpgradeValue.ToString() : UpgradeValue * 100 + "%";
         Description = Description.Replace("{UpgradeValue}", valueToPaste);
     }
 
