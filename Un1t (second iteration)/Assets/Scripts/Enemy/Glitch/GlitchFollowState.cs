@@ -10,25 +10,25 @@ public class GlitchFollowState : EnemyState
     private const float TestSpeed = 5f;
     private const float TestRangeSqr = TestRange * TestRange;
     
-    private bool isActive;
+    private bool isFollowActive;
     private Rigidbody2D rb;
     
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
-        isActive = true;
+        isFollowActive = true;
     }
 
     protected override void Awake()
     {
         base.Awake();
-        OnStateExit.AddListener(() => { isActive = false; });
+        OnStateExit.AddListener(() => { isFollowActive = false; });
         rb = GetComponent<Rigidbody2D>();
     }
     
     private void FixedUpdate()
     {
-        if (!isActive) return;
+        if (!isFollowActive) return;
         var delta = (Vector2)target.transform.position - rb.position;
         if (delta.sqrMagnitude < TestRangeSqr)
         {

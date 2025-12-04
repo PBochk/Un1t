@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,10 +15,12 @@ public abstract class EnemyState : MonoBehaviour
 
     private EnemyStateTransition transition;
 
-    private bool isActive = false;
+    private bool _isActive = false;
     private bool isExited = false;
 
     public abstract float MotionTime { get; }
+    
+    private List<Coroutine> runningCoroutines = new();
 
     protected virtual void Awake()
     {
@@ -39,13 +44,13 @@ public abstract class EnemyState : MonoBehaviour
     /// </summary>
     public virtual void EnterState(EnemyTargetComponent target)
     {
-        if (isActive)
+        if (_isActive)
         {
             Debug.LogWarning($"{this} — attempted to enter state twice!");
             return;
         }
 
-        isActive = true;
+        _isActive = true;
         isExited = false;
 
         this.target = target;
@@ -58,7 +63,7 @@ public abstract class EnemyState : MonoBehaviour
     /// </summary>
     public void ExitState()
     {
-        if (!isActive)
+        if (!_isActive)
         {
             Debug.LogWarning($"{this} — ExitState called while state is not active!");
             return;
@@ -66,7 +71,7 @@ public abstract class EnemyState : MonoBehaviour
 
         if (isExited) return;
         isExited = true;
-        isActive = false;
+        _isActive = false;
 
         OnStateExit?.Invoke();
 
@@ -77,9 +82,20 @@ public abstract class EnemyState : MonoBehaviour
         }
 
         transition.PerformTransition();
+    }
+    
+    protected Coroutine RunStateCoroutine(IEnumerator routine)
+    {
+        var c = StartCoroutine(routine);
+        runningCoroutines.Add(c);
+        return c;
+    }
 
-        // Cleanup
-        target = null;
-        transition = null;
+    protected void StopAllStateCoroutines()
+    {
+        foreach (var c in runningCoroutines.Where(c => c != null))
+            StopCoroutine(c);
+
+        runningCoroutines.Clear();
     }
 }
