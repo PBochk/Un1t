@@ -63,7 +63,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a80af139d8bd2488fc61f7c0266bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  lifetime: 0
-  attackCooldown: 0.5
-  ammo: 10
+  config: {fileID: 11400000, guid: 688cc5dc49878314293a816634df086c, type: 2}

@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class PlayerRangeWeaponModelMB : MonoBehaviour
 {
-    // TODO: remade with scriptable object
-    [SerializeField] private float damage;
-    [SerializeField] private float lifetime;
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private int ammo;
+    [SerializeField] private PlayerRangeWeaponConfig config;
     private PlayerRangeWeaponModel rangeWeaponModel;
     private bool isAttackReady = true;
     public PlayerRangeWeaponModel RangeWeaponModel => rangeWeaponModel;
@@ -16,13 +12,13 @@ public class PlayerRangeWeaponModelMB : MonoBehaviour
 
     private void Awake()
     {
-        rangeWeaponModel = new PlayerRangeWeaponModel(damage, lifetime, attackCooldown, ammo);
+        rangeWeaponModel = new PlayerRangeWeaponModel(config.Damage, config.Lifetime, config.AttackCooldown, config.Ammo);
     }
 
     public IEnumerator WaitForAttackCooldown()
     {
         isAttackReady = false;
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(config.AttackCooldown);
         isAttackReady = true;
     }
 }
