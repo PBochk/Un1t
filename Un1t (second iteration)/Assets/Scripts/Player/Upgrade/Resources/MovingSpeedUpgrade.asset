@@ -19,6 +19,6 @@ MonoBehaviour:
     \u043F\u043E\u043B\u0443\u0447\u0438\u043B\u0430 \u0443\u0441\u043A\u043E\u0440\u0435\u043D\u0438\u0435
     \u043D\u0430 {UpgradeValue}. \u041D\u0430\u043A\u043E\u043D\u0435\u0446-\u0442\u043E."
   upgradeValues:
-  - 1
-  - 2
-  - 3
+  - 0.1
+  - 0.2
+  - 0.3
