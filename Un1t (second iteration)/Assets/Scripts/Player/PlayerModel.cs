@@ -171,17 +171,14 @@ public class PlayerModel : IInstanceModel
     {
         MaxHealth += increment;
     }
-
     public void UpgradeRegeneration(float increment)
     {
         regenPerSecond += increment;
     }
-
     public void UpgradeHealPerHit(float increment)
     {
         healPerHit += increment;
     }
-
     public void UpgradeHealCost(float decrement)
     {
         healCostCoefficient = healCostCoefficient - decrement < 0 ? 0 : healCostCoefficient - decrement;
@@ -194,13 +191,17 @@ public class PlayerModel : IInstanceModel
     {
         resistCoefficient -= decrement;
     }
+    public void UpgradeDodgeChance(float increment)
+    {
+        dodgeChance += increment;
+    }
     public void UpgradeMovingSpeed(float increment)
     {
         movingSpeed += increment;
     }
-    public void UnlockDodge(float dodgeCooldown)
-    {
-        this.dodgeCooldown = dodgeCooldown;
-        DodgeUnlocked?.Invoke();
-    }
+    //public void UnlockDodge(float dodgeCooldown)
+    //{
+    //    this.dodgeCooldown = dodgeCooldown;
+    //    DodgeUnlocked?.Invoke();
+    //}
 }

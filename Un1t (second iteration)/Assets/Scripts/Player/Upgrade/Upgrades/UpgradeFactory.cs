@@ -12,6 +12,7 @@ public static class UpgradeFactory
         { PlayerUpgradeTypes.HealPerHit, (tier) => new HealPerHitUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.XPGain, (tier) => new XPGainUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.Resist, (tier) => new ResistUpgrade(Manager, tier) },
+        { PlayerUpgradeTypes.DodgeChance, (tier) => new DodgeChanceUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.MovingSpeed, (tier) => new MovingSpeedUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.MeleeSpeed, (tier) => new MeleeAttackSpeedUpgrade(Manager, tier) },
         { PlayerUpgradeTypes.MeleeDamage, (tier) => new MeleeDamageUpgrade(Manager, tier) },
