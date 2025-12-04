@@ -12,10 +12,10 @@ public class RoomManager : MonoBehaviour
     private SpawnersManager spawnersManager;
     private RoomManager roomManager;
 
-    private IEnumerable<RoomEntity> entities;
-    private List<GameObject> outerWalls;
     private IReadOnlyList<EnemyController> spawnableEnemies;
-    private IEnumerable<TilesBuilder> tilesBuilders;
+    private IReadOnlyList<TilesBuilder> tilesBuilders;
+
+    private RoomContentCreator.AllEntities allEntities;
 
     private Tile[,] tileGrid;
 
@@ -26,24 +26,12 @@ public class RoomManager : MonoBehaviour
     public void CreateContent(Transform parent)
     {
         ReadTilesBuilders();
-
-        RoomContentCreator contentCreator = new();
-        entities = contentCreator.GenerateContent(tileGrid, rock);
-        /*
-        spawnersManager = new();
-
+        EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
         GameObject player = GameObject.FindWithTag("Player");
-
-        if (UnityEngine.Random.Range(0, 2) == 0)
-        {
-            EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
-            spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner, parent);
-        }
-        else
-        {
-            Instantiate(rock, transform.position, Quaternion.identity, parent);
-        }*/
-        CreateEntities();
+        allEntities = RoomContentCreator.GenerateContent(tileGrid, rock, enemy);
+        //spawnersManager = new();
+           // spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner, parent);
+        CreateEntities(player.GetComponent<EnemyTargetComponent>());
     }
 
     public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner, GameObject rock)
@@ -53,16 +41,23 @@ public class RoomManager : MonoBehaviour
         this.rock = rock;
     }
 
-    private void CreateEntities()
+    private void CreateEntities(EnemyTargetComponent player)
     {
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
 
-        foreach (RoomEntity roomEntity in entities)
+        foreach ((GameObject entity, Vector2 startPosition) in allEntities.Rocks)
         {
-            Instantiate(roomEntity.GameObject, 
-                (Vector3Int)roomEntity.StartPosition + transform.position - gridOffset + (Vector3)Vector2.one/2, 
+            Instantiate(entity, 
+                (Vector3)startPosition + transform.position - gridOffset + (Vector3)Vector2.one/2, 
                 Quaternion.identity, transform);
+        }
+
+        foreach ((EnemyController entity, Vector2 startPosition) in allEntities.Enemies)
+        {
+            EnemyController enemy = Instantiate(entity, 
+                (Vector3)startPosition + transform.position - gridOffset + (Vector3)Vector2.one / 2, Quaternion.identity);
+            enemy.SetTarget(player);
         }
     }
 
@@ -105,6 +100,7 @@ public class RoomManager : MonoBehaviour
         {
             wall.SetShurfesLocation(generatingShurfes[wall]);
         }
+
         //DrawTileMap(tileGrid);
     }
 
@@ -230,7 +226,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     private static void DrawTileMap(Tile[,] tiles)
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
 
         for (int y = 0; y < tiles.GetLength(1); y++)
         {

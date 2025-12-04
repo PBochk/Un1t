@@ -1,48 +1,107 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
+using UnityEditor.Overlays;
 using UnityEngine;
 
-public class RoomContentCreator
+public static class RoomContentCreator
 {
-    private const int MIN_ROCKS_COUNT = 0;
-    private const int MAX_ROCKS_COUNT = 10;
+    private const float MIN_ROCKS_FREQUENCY = 0f;
+    private const float MAX_ROCKS_FREQUENCY = 1f/12f;
 
-    private const int MIN_SHURFES_COUNT = 0;
-    private const int MAX_SHURFES_COUNT = 3;
+    private const float MIN_ENEMIES_FREQUENCY = 1f/24f;
+    private const float MAX_ENEMIES_FREQUENCY = 7f/120f;
 
-    private IEnumerable<Vector2Int>
-        unacceptableRockPositions = null;
+    private static List<Vector2Int> UnacceptableRocksPositions =>
+        unacceptableRocksPositions ??= FillUnacceptableRocksPositions();
+    private static List<Vector2Int> UnacceptableEnemiesPositions =>
+    unacceptableEnemiesPositions ??= FillUnacceptableEnemiesPositions();
+
+
+    private static List<Vector2Int>
+        unacceptableRocksPositions = null;
+    private static List<Vector2Int>
+         unacceptableEnemiesPositions = null;
 
     private static readonly int roomCenterX = RoomInfo.Size.x / 2;
     private static readonly int roomCenterY = RoomInfo.Size.y / 2;
 
-    public IEnumerable<RoomEntity> GenerateContent(Tile[,] tiles, GameObject rock)
+    public static AllEntities GenerateContent(Tile[,] tiles, GameObject rock, EnemyController enemy)
     {
-        List<RoomEntity> roomEntities = new();
+            
+        List<Vector2Int> acceptablePositions = FillAcceptableEntityPositions(tiles);
 
-        unacceptableRockPositions = FillUnacceptableRockPositions(tiles);
-        List<Vector2Int> acceptableRockPositions = FillAcceptableEntityPositions(tiles);
+        if (acceptablePositions.Count == 0) return null;
 
-        if (acceptableRockPositions.Count == 0) return null;
+        int coins = acceptablePositions.Count;
 
-        int rocksCount = math.clamp(UnityEngine.Random.Range(MIN_ROCKS_COUNT, MAX_ROCKS_COUNT), 
-            0, acceptableRockPositions.Count);
+        List<Vector2Int> acceptableRocksPositions = acceptablePositions.ToList();
+        List<Vector2Int> acceptableEnemiesPositions = acceptablePositions.ToList();
+
+        foreach (Vector2Int position in UnacceptableRocksPositions)
+            acceptableRocksPositions.Remove(position);
+
+        IEnumerable<(GameObject entity, Vector2 startPosition)> rocks = 
+            GenerateRocks(coins, acceptablePositions, rock, acceptableEnemiesPositions);
+
+        foreach (Vector2Int position in UnacceptableEnemiesPositions)
+            acceptableEnemiesPositions.Remove(position);
+
+        IEnumerable<(EnemyController entity, Vector2 startPosition)> enemies =
+           GenerateEnemies(coins, acceptableEnemiesPositions, enemy);
+
+        return new(rocks, enemies);
+    }
+
+    private static IEnumerable<(GameObject entity, Vector2 startPosition)> GenerateRocks(int coins, List<Vector2Int> acceptablePositions, 
+        GameObject rock, List<Vector2Int> acceptableEnemyPositions)
+    {
+        List<(GameObject entity, Vector2 startPosition)> rocks = new();
+
+        int rocksCount = Mathf.RoundToInt(math.clamp(
+            UnityEngine.Random.Range(MIN_ROCKS_FREQUENCY * coins, MAX_ROCKS_FREQUENCY * coins),
+            0, acceptablePositions.Count));
 
         for (var i = 0; i < rocksCount; i++)
         {
-            int rockPositionNumber = UnityEngine.Random.Range(0, acceptableRockPositions.Count);
-            Vector2Int rockPosition = acceptableRockPositions[rockPositionNumber];
-            acceptableRockPositions.RemoveAt(rockPositionNumber);
+            int rockPositionNumber = UnityEngine.Random.Range(0, acceptablePositions.Count);
+            Vector2Int rockPosition = acceptablePositions[rockPositionNumber];
+            acceptablePositions.RemoveAt(rockPositionNumber);
 
-            roomEntities.Add(new(rock, rockPosition));
+            rocks.Add(new(rock, rockPosition));
         }
 
-        return roomEntities;
+        return rocks;
     }
 
-    private List<Vector2Int> FillAcceptableEntityPositions(Tile[,] tiles)
+    private static IEnumerable<(EnemyController entity, Vector2 startPosition)> GenerateEnemies(int coins, List<Vector2Int> acceptablePositions, 
+        EnemyController enemy)
     {
-        List<Vector2Int> acceptableRockPositions = new();
+        List<(EnemyController entity, Vector2 startPosition)> enemies = new();
+
+        int enemiesWithinShurfesCount = Mathf.RoundToInt(
+            math.clamp(UnityEngine.Random.Range(MIN_ENEMIES_FREQUENCY * coins, MAX_ENEMIES_FREQUENCY * coins),
+            0, acceptablePositions.Count));
+
+        for (var i = 0; i < enemiesWithinShurfesCount; i++)
+        {
+            int enemyPositionNumber = UnityEngine.Random.Range(0, acceptablePositions.Count);
+            Vector2Int enemyPosition = acceptablePositions[enemyPositionNumber];
+            acceptablePositions.RemoveAt(enemyPositionNumber);
+
+            UnacceptNearPositions(acceptablePositions, enemyPosition);
+
+            enemies.Add(new(enemy, enemyPosition));
+
+            if (acceptablePositions.Count == 0) break;
+        }
+
+        return enemies;
+    }
+
+    private static List<Vector2Int> FillAcceptableEntityPositions(Tile[,] tiles)
+    {
+        List<Vector2Int> acceptableEntitiesPositions = new();
 
         for (var y = 0; y < RoomInfo.Size.y; y++)
         {
@@ -51,47 +110,96 @@ public class RoomContentCreator
                 switch (tiles[y, x])
                 {
                     case Tile.Ground:
-                        acceptableRockPositions.Add(new(x, y));
-                        break;
-
-                    case Tile.ShurfableWall:
-                        //acceptableRockPositions.Add(new(x, y));
+                        acceptableEntitiesPositions.Add(new(x, y));
                         break;
                 }
             }
         }
 
-        foreach (Vector2Int position in unacceptableRockPositions)
-            acceptableRockPositions.Remove(position);
-
-        return acceptableRockPositions;
+        return acceptableEntitiesPositions;
 
 
     }
 
-    private IEnumerable<Vector2Int> FillUnacceptableRockPositions(Tile[,] tiles)
+    private static List<Vector2Int> UnacceptNearPositions(List<Vector2Int> acceptablePositions, 
+        Vector2Int occupiedPosition)
     {
-        List<Vector2Int> unacceptableRockPositions = new();
+        for (var y = -1 + occupiedPosition.y; y < 2 + occupiedPosition.y; y++)
+            for (var x = -1 + occupiedPosition.x; x < 2 + occupiedPosition.x; x++)
+                acceptablePositions.Remove(new(x, y));
+
+        return acceptablePositions;
+    }
+
+    #region UnacceptablePositionsFilling
+    private static List<Vector2Int> FillUnacceptableRocksPositions()
+    {
+        List<Vector2Int> unacceptableRocksPositions = new();
 
         for (var y = 0; y < RoomInfo.Size.y; y++)
         {
-            unacceptableRockPositions.Add(new(roomCenterX - 1, y));
-            unacceptableRockPositions.Add(new(roomCenterX, y));
+            unacceptableRocksPositions.Add(new(roomCenterX - 1, y));
+            unacceptableRocksPositions.Add(new(roomCenterX, y));
         }
         for (var x = 0; x < roomCenterX; x++)
         {
-            unacceptableRockPositions.Add(new(x, roomCenterY-1));
-            unacceptableRockPositions.Add(new(x, roomCenterY));
-            unacceptableRockPositions.Add(new(x, roomCenterY+1));
+            unacceptableRocksPositions.Add(new(x, roomCenterY-1));
+            unacceptableRocksPositions.Add(new(x, roomCenterY));
+            unacceptableRocksPositions.Add(new(x, roomCenterY+1));
         }
         for (var x = roomCenterX + 1; x < RoomInfo.Size.x; x++)
         {
-            unacceptableRockPositions.Add(new(x, roomCenterY - 1));
-            unacceptableRockPositions.Add(new(x, roomCenterY));
-            unacceptableRockPositions.Add(new(x, roomCenterY + 1));
+            unacceptableRocksPositions.Add(new(x, roomCenterY - 1));
+            unacceptableRocksPositions.Add(new(x, roomCenterY));
+            unacceptableRocksPositions.Add(new(x, roomCenterY + 1));
         }
 
-        return unacceptableRockPositions;
+        return unacceptableRocksPositions;
     }
+
+    private static List<Vector2Int> FillUnacceptableEnemiesPositions()
+    {
+        List<Vector2Int> unacceptableEnemiesPositions = new();
+
+        for (var y = 0; y < RoomInfo.Size.y; y++)
+        {
+            unacceptableEnemiesPositions.Add(new(0, y));
+            unacceptableEnemiesPositions.Add(new(1, y));
+            unacceptableEnemiesPositions.Add(new(2, y));
+
+            unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x, y));
+            unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x-1, y));
+            unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x-2, y));
+        }
+        for (var x = 2; x < roomCenterX-2; x++)
+        {
+            unacceptableEnemiesPositions.Add(new(x, 0));
+            unacceptableEnemiesPositions.Add(new(x, 1));
+            unacceptableEnemiesPositions.Add(new(x, 2));
+
+            unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y));
+            unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y - 1));
+            unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y - 2));
+        }
+
+        return unacceptableEnemiesPositions;
+    }
+    #endregion
+
+    #region AllEntities
+    public class AllEntities
+    {
+        public IEnumerable<(GameObject entity, Vector2 startPosition)> Rocks { get; }
+        public IEnumerable<(EnemyController entity, Vector2 startPosition)> Enemies { get; }
+
+        public AllEntities(IEnumerable<(GameObject entity, Vector2 startPosition)> rocks,
+            IEnumerable<(EnemyController entity, Vector2 startPosition)> enemies) 
+        { 
+            Rocks = rocks;
+            Enemies = enemies;
+        }
+    }
+    #endregion
+
 
 }

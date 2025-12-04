@@ -361,7 +361,7 @@ public class DungeonFactory
     {
         int x = pos.X;
         int y = pos.Y;
-        List<FloorGridPosition> adjacent = new List<FloorGridPosition>();
+        List<FloorGridPosition> adjacent = new();
 
         (int dx, int dy)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
         foreach ((int dx, int dy) in directions)
