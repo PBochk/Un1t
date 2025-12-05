@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallBuilder : TilesBuilder
@@ -223,6 +221,9 @@ public class OuterWallBuilder : TilesBuilder
         Vector2 invisibleWallSize;
         Vector2 darknessSize;
 
+        float enemyHorizontalPosition = 0f;
+        float enemyVerticalPosition = 0f;
+
         float invisibleWallOffset = SHURF_DEPTHS / 2f + 0.5f;
 
         if (direction == Direction.Horizontal)
@@ -240,6 +241,8 @@ public class OuterWallBuilder : TilesBuilder
             darknessSize = new(invisibleWallSize.x, invisibleWallSize.y * 2);
 
             shurfGroundSize = new Vector2Int(SHURF_WIDTH, SHURF_DEPTHS + sizeTiles.y);
+
+            enemyVerticalPosition = verticalPosition;
         }
         else
         {
@@ -257,6 +260,7 @@ public class OuterWallBuilder : TilesBuilder
 
             shurfGroundSize = new Vector2Int(SHURF_DEPTHS + sizeTiles.x, SHURF_WIDTH);
 
+            enemyHorizontalPosition = horizontalPosition;
         }
 
         foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.start + 0.5f))
@@ -290,6 +294,8 @@ public class OuterWallBuilder : TilesBuilder
                     basePosition.x + shurfCenter,
                     verticalPosition - sizeTiles.y * directionMultiplier / 2f
                 );
+
+                enemyHorizontalPosition = darknessPosition.x;
             }
             else
             {
@@ -305,7 +311,6 @@ public class OuterWallBuilder : TilesBuilder
                     basePosition.y - (shurfCenter - 1)
                 );
 
-
                 darknessPosition = invisibleWallPosition - new Vector3(directionMultiplier * 1.5f, 0);
 
                 if (shurfFirstSideThickness != 1)
@@ -315,10 +320,12 @@ public class OuterWallBuilder : TilesBuilder
                     horizontalPosition - sizeTiles.x * directionMultiplier / 2f,
                     basePosition.y - shurfCenter
                 );
+
+                enemyVerticalPosition = darknessPosition.y;
             }
 
-            enemiesInShurfesPositions.Add(invisibleWallPosition);
-            //Debug.Log($"pos({invisibleWallPosition.x}, {invisibleWallPosition.y})");
+            Vector2 enemyPosition = new(enemyHorizontalPosition, enemyVerticalPosition);
+            enemiesInShurfesPositions.Add(enemyPosition);
 
             CreateFragment(shurfFirstSideTile, SHURF_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
             CreateFragment(shurfSecondSideTile, SHURF_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
@@ -334,14 +341,11 @@ public class OuterWallBuilder : TilesBuilder
             groundInstance.Create();
 
             GameObject darkness = Instantiate(shurfDarkness, transform);
-            //Instantiate(enemyController,
-            //    darknessPosition,
-             //   Quaternion.identity, transform);
+            
             darkness.GetComponent<SpriteRenderer>().size = darknessSize;
             darkness.transform.position = darknessPosition;
         }
         this.enemiesInShurfesPositions = enemiesInShurfesPositions;
-        Debug.Log("//" + enemiesInShurfesPositions.Count);
     }
 
 

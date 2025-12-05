@@ -21,7 +21,6 @@ public class RoomManager : MonoBehaviour
     private Tile[,] tileGrid;
 
     private static readonly Vector3 gridOffset = new Vector3(RoomInfo.Size.x, RoomInfo.Size.y) / 2f;
-    private static readonly Vector3 shurfEnemyOffset = new(9, 7);
 
     public static int EnemiesCount { get; set; } = 0;
 
@@ -31,8 +30,7 @@ public class RoomManager : MonoBehaviour
         EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
         GameObject player = GameObject.FindWithTag("Player");
         allEntities = RoomContentCreator.GenerateContent(tileGrid, rock, enemy, createdShurfesCount);
-        //spawnersManager = new();
-        // spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner, parent);
+
         CreateEntities(player.GetComponent<EnemyTargetComponent>());
     }
 
@@ -49,18 +47,6 @@ public class RoomManager : MonoBehaviour
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
 
-
-        /*
-         *         EnemyController enemyInShurf = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
-        List<(EnemyController entity, Vector2 startPosition)> enemiesInShurfes = new();
-        foreach (OuterWallBuilder wallWithShurf in wallsWithShurfes)
-        {
-            foreach (Vector2 enemyInShurfPosition in wallWithShurf.EnemiesInShurfesPositions)
-            enemiesInShurfes.Add(new(enemyInShurf, enemyInShurfPosition));
-        }
-
-        allEntities.AddEnemiesInShurfes(enemiesInShurfes);
-        */
         foreach ((GameObject entity, Vector2 startPosition) in allEntities.Rocks)
         {
             Instantiate(entity,
@@ -121,49 +107,14 @@ public class RoomManager : MonoBehaviour
         Dictionary<OuterWallBuilder, List<(int start, int end)>> generatingShurfes =
             SelectShurfesPositions(shurfableWalls, math.clamp(UnityEngine.Random.Range(0, 3), 0, shurfableWalls.Count));
 
-        //shurfesPositions = new List<Vector2>();
         createdShurfesCount = 0;
         foreach (OuterWallBuilder wall in generatingShurfes.Keys)
         {
             wall.SetShurfesLocation(generatingShurfes[wall]);
             wallsWithShurfes.Add(wall);
             createdShurfesCount += generatingShurfes[wall].Count;
-            Debug.Log(generatingShurfes[wall].Count);
-            /*
-  Vector3 shurfDirectionVector =
-      wall.WallDirection == OuterWallBuilder.Direction.Horizontal
-      ? Vector2.right : Vector2.up;
-
-
-  Vector3 enemyShift;
-  switch (wall.ShurfsDirection)
-  {
-      case OuterWallBuilder.ShurfsSpawnDirection.Top:
-          enemyShift = Vector3.up;
-          break;
-      case OuterWallBuilder.ShurfsSpawnDirection.Bottom:
-          enemyShift = Vector3.down;
-          break;
-      case OuterWallBuilder.ShurfsSpawnDirection.Left:
-          enemyShift = Vector3.left;
-          break;
-      case OuterWallBuilder.ShurfsSpawnDirection.Right:
-          enemyShift = Vector3.right;
-          break;
-      default:
-          continue;
-  }
-
-  foreach (float shurfLocation in generatingShurfes[wall].Select(shurf => (shurf.start + shurf.end) / 2f))
-  {
-      Vector2 shurfPosition = wall.transform.position - transform.position
-          + shurfDirectionVector * (wall.Length / 2 - shurfLocation);
-
-      shurfesPositions.Add(shurfPosition);
-  }*/
         }
         this.wallsWithShurfes = wallsWithShurfes;
-        //DrawTileMap(tileGrid);
     }
 
     private Dictionary<OuterWallBuilder, List<(int start, int end)>> SelectShurfesPositions
