@@ -112,7 +112,7 @@ public class FloorManager : MonoBehaviour
     private void CreateRoomContent(GameObject room)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
-        roomManager.Initialize(spawnableEnemies.Enemies, rock);
+        roomManager.Initialize(spawnableEnemies, rock);
         roomManager.CreateContent();
     }
 

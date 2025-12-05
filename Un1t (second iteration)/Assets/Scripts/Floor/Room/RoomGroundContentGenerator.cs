@@ -22,7 +22,7 @@ public static class RoomGroundContentGenerator
     private static List<Vector2Int>
          unacceptableEnemiesPositions = null;
 
-    public static AllGroundEntities GenerateContent(Tile[,] tiles, GameObject rock, EnemyController enemy, int enemiesInShurfesCount)
+    public static AllGroundEntities GenerateContent(Tile[,] tiles, GameObject rock, FloorEnemiesList enemies, int enemiesInShurfesCount)
     {
         List<Vector2Int> acceptablePositions = FillAcceptableEntityPositions(tiles);
 
@@ -42,7 +42,7 @@ public static class RoomGroundContentGenerator
 
         (IEnumerable<(EnemyController entity, Vector2 startPosition)> enemiesOutsideShurfes,
             IReadOnlyList<EnemyController> enemiesInShurfes) =
-           GenerateEnemies(coins, acceptableEnemiesPositions, enemy, enemiesInShurfesCount);
+           GenerateEnemies(coins, acceptableEnemiesPositions, enemies, enemiesInShurfesCount);
 
         return new(rocks, enemiesOutsideShurfes, enemiesInShurfes);
     }
@@ -72,7 +72,7 @@ public static class RoomGroundContentGenerator
     private static (IEnumerable<(EnemyController entity, Vector2 startPosition)> enemiesOutsideShurfes,
         IReadOnlyList<EnemyController> enemiesInShurfes)
         GenerateEnemies(int coins, List<Vector2Int> acceptablePositions, 
-        EnemyController enemy, int enemiesInShurfesCount)
+        FloorEnemiesList enemies, int enemiesInShurfesCount)
 
     {
 
@@ -80,7 +80,7 @@ public static class RoomGroundContentGenerator
 
         for (var i = 0; i < enemiesInShurfesCount; i++)
         {
-            enemiesInShurfes[i] = enemy;
+            enemiesInShurfes[i] = EnemySelector.SelectEnemy(enemies);
         }
 
         List<(EnemyController entity, Vector2 startPosition)> enemiesOutsideShurfes = new();
@@ -98,7 +98,7 @@ public static class RoomGroundContentGenerator
 
             UnacceptNearPositions(acceptablePositions, enemyPosition);
 
-            enemiesOutsideShurfes.Add((enemy, enemyPosition));
+            enemiesOutsideShurfes.Add((EnemySelector.SelectEnemy(enemies), enemyPosition));
 
             if (acceptablePositions.Count == 0) break;
         }

@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
 
     private readonly List<EnemyController> allEnemies = new();
 
-    private IReadOnlyList<EnemyController> spawnableEnemies;
+    private FloorEnemiesList spawnableEnemies;
     private IReadOnlyList<TilesBuilder> tilesBuilders;
     private IReadOnlyList<OuterWallBuilder> shurfableWalls;
     private IEnumerable<OuterWallBuilder> wallsWithShurfes;
@@ -18,8 +18,7 @@ public class RoomManager : MonoBehaviour
 
     private Tile[,] tileGrid;
 
-
-    public void Initialize(IReadOnlyList<EnemyController> enemies, GameObject rock)
+    public void Initialize(FloorEnemiesList enemies, GameObject rock)
     {
         spawnableEnemies = enemies;
         this.rock = rock;
@@ -27,14 +26,15 @@ public class RoomManager : MonoBehaviour
 
     public void CreateContent()
     {
+
+
         ReadTilesBuilders();
 
         int generatedShurfesCount =
             GenerateShurfes(shurfableWalls);
 
-        EnemyController enemy = spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
         GameObject player = GameObject.FindWithTag("Player");
-        allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, enemy, generatedShurfesCount);
+        allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, spawnableEnemies, generatedShurfesCount);
 
         CreateEntities(player.GetComponent<EnemyTargetComponent>());
     }
@@ -43,6 +43,7 @@ public class RoomManager : MonoBehaviour
     {
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
+
         foreach ((GameObject entity, Vector2 startPosition) in allGroundEntities.Rocks)
         {
             Instantiate(entity,
