@@ -4,4 +4,5 @@ public enum HitableEntityType
     Rock,
     Player,
     Slime,
+    Glitch
 }

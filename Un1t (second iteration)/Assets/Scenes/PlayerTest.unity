@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityType: 0
+  entityType: 4
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityType: 0
+  entityType: 3
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1338,7 +1338,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29340768, y: 0.05070889, z: -10}
+  m_LocalPosition: {x: 0.295604, y: 0.05073893, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1411,6 +1411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StoneHitSound: {fileID: 8300000, guid: 017cf1ad870a5cd44938df7e05cadcd8, type: 3}
+  SlimeHitSound: {fileID: 8300000, guid: e6161da0252de0343b35c232d485d712, type: 3}
+  GlitchHitSound: {fileID: 8300000, guid: ff8d53891d4f93a4bb051fb5c16e369a, type: 3}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2519,17 +2521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a80af139d8bd2488fc61f7c0266bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1782802318 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3966181562768119467, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-  m_PrefabInstance: {fileID: 1791303685}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88336663cc730c643b64f9bf9b6d3064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1791303685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2640,11 +2631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5936582550716618050, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: entityType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965787015759184982, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: m_Mass
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6544344185619818183, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: lifetime
@@ -2671,37 +2658,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: dashSound
-      value: 
-      objectReference: {fileID: 8300000, guid: f8b24e7518cfdc0478815f77241b0543, type: 3}
-    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: deathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: df3d2e2c5abc9074f8ccf5609a1162c7, type: 3}
-    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: attackSound
       value: 
       objectReference: {fileID: 393965744}
     - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 2117207714}
-    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: rangeController
-      value: 
-      objectReference: {fileID: 1782802318}
-    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: meleeAttackSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b990348928027ff42987d46240fd28e6, type: 3}
-    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: weaponController
       value: 
       objectReference: {fileID: 606516055}
-    - target: {fileID: 7691705762184161645, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 3629217275716142144, guid: 512f90c3962015f45969db14be803129, type: 3}
     - target: {fileID: 7771967822136418215, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: canvas
       value: 
@@ -2741,10 +2704,6 @@ PrefabInstance:
     - target: {fileID: 8030387712029037602, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564208846730262985, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-      propertyPath: m_Resource
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8962328353527562126, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_IsActive
@@ -2988,11 +2947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cfd6a1d99b1904b9e507e317793845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &2117207714 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 8564208846730262985, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
-  m_PrefabInstance: {fileID: 1791303685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1211825177146227403
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMeleeWeaponAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip StoneHitSound;
+    [SerializeField] private AudioClip SlimeHitSound;
+    [SerializeField] private AudioClip GlitchHitSound;
     private AudioSource audioSource;
     private MeleeWeaponController controller;
     private Dictionary<HitableEntityType, AudioClip> entityTypeToSound;
@@ -16,7 +18,9 @@ public class PlayerMeleeWeaponAudio : MonoBehaviour
         // TODO: import serializable dictionary asset already
         entityTypeToSound = new()
         {
-            {HitableEntityType.Rock, StoneHitSound}
+            {HitableEntityType.Rock, StoneHitSound},
+            {HitableEntityType.Slime, SlimeHitSound},
+            {HitableEntityType.Glitch, GlitchHitSound},
         };
     }
 

@@ -200,8 +200,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5e469ae697afc254791e1eb94b29e5f4, type: 3}
-  m_Resource: {fileID: 8300000, guid: 5e469ae697afc254791e1eb94b29e5f4, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -369,6 +369,10 @@ MonoBehaviour:
   meleeController: {fileID: 8975838670633704521}
   rangeController: {fileID: 3966181562768119467}
   damageParticles: {fileID: 3846532317888361131}
+  audioSource: {fileID: 8564208846730262985}
+  dashSound: {fileID: 8300000, guid: f8b24e7518cfdc0478815f77241b0543, type: 3}
+  deathSound: {fileID: 8300000, guid: df3d2e2c5abc9074f8ccf5609a1162c7, type: 3}
+  meleeAttackSound: {fileID: 8300000, guid: b990348928027ff42987d46240fd28e6, type: 3}
 --- !u!114 &4697431313275488480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c123892208b760429d498c193b4df69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityType: 0
   HitTaken:
     m_PersistentCalls:
       m_Calls: []
