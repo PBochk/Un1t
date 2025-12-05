@@ -1326,7 +1326,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29122758, y: 0.050588846, z: -10}
+  m_LocalPosition: {x: 0.2956164, y: 0.050698876, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2641,6 +2641,10 @@ PrefabInstance:
       propertyPath: dashSound
       value: 
       objectReference: {fileID: 8300000, guid: f8b24e7518cfdc0478815f77241b0543, type: 3}
+    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: df3d2e2c5abc9074f8ccf5609a1162c7, type: 3}
     - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: attackSound
       value: 

@@ -18,6 +18,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private ParticleSystem damageParticles;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip deathSound;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -85,6 +86,7 @@ public class PlayerView : MonoBehaviour
     private void OnDeath()
     {
         animator.SetTrigger("PlayerDeath");
+        audioSource.PlayOneShot(deathSound);
     }
 
     private void OnDamageTaken()
