@@ -7,6 +7,8 @@ using UnityEngine.Events;
 /// </summary>
 public class Hitable : MonoBehaviour
 {
+    [SerializeField] private HitableEntityType entityType;
+    public HitableEntityType EntityType => entityType;
     /// <summary>
     /// Invoked when gameobject takes hit from weapon or projectile
     /// </summary>
