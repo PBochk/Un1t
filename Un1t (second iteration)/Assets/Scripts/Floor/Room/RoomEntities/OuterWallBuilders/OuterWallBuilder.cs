@@ -54,10 +54,10 @@ public class OuterWallBuilder : TilesBuilder
         }
     }
 
-    public IEnumerable<EnemyController> CreateEnemiesInShurfes(IEnumerable<EnemyController> enemyControllers)
+    public IEnumerable<GameObject> CreateEnemiesInShurfes(IEnumerable<GameObject> enemyControllers)
     {
         var positionsIndex = 0;
-        foreach (EnemyController enemyController in enemyControllers)
+        foreach (GameObject enemyController in enemyControllers)
         {
             yield return Instantiate(enemyController, enemiesInShurfesPositions[positionsIndex++],
                Quaternion.identity, transform);

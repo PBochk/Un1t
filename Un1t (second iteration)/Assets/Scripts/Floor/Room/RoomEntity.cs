@@ -3,9 +3,9 @@ public class RoomEntity
 {
     public GameObject GameObject { get; }
 
-    public Vector2Int StartPosition { get; }
+    public Vector2 StartPosition { get; }
 
-    public RoomEntity(GameObject gameObject, Vector2Int startPosition)
+    public RoomEntity(GameObject gameObject, Vector2 startPosition)
     {
         GameObject = gameObject;
         StartPosition = startPosition;

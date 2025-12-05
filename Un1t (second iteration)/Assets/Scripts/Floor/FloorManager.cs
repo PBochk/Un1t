@@ -36,7 +36,7 @@ public class FloorManager : MonoBehaviour
 
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
-    private EnemyTargetComponent enemyTarget;
+    private GameObject player;
 
     private void Awake()
     {
@@ -46,6 +46,11 @@ public class FloorManager : MonoBehaviour
                 group => group.Key,
                 group => group.Select(template => template.Info).ToImmutableList()
         );
+        GenerateFloor();
+        GameObject s = GameObject.FindWithTag("Player");
+        Debug.Log(s is null);
+        SetEnemyTarget(s);
+        GenerateRoomsContent();
     }
 
     /// <summary>
@@ -78,7 +83,7 @@ public class FloorManager : MonoBehaviour
 
     public void SetEnemyTarget(GameObject enemyTarget)
     {
-        this.enemyTarget = enemyTarget.GetComponent<EnemyTargetComponent>();
+        player = enemyTarget;
     }
 
 
@@ -117,7 +122,7 @@ public class FloorManager : MonoBehaviour
     private void CreateRoomContent(GameObject room, DungeonFactory.Room.RoomType roomType)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
-        roomManager.Initialize(spawnableEnemies, rock, enemyTarget);
+        roomManager.Initialize(spawnableEnemies, rock, player.GetComponent<EnemyTargetComponent>());
         roomManager.CreateContent(roomType);
     }
 

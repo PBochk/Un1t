@@ -3,13 +3,14 @@ using UnityEngine;
 //TODO: use dictionaries, this solution is temporary
 public static class EnemySelector
 {
-    public static EnemyController SelectEnemy(FloorEnemiesList enemiesList)
+    public static GameObject SelectEnemy(FloorEnemiesList enemiesList)
     {
         int greenWeight = FloorEnemiesList.GREEN_SLIME_FREQUENCY; 
         int redWeight = FloorEnemiesList.RED_SLIME_FREQUENCY; 
         int blueWeight = FloorEnemiesList.BLUE_SLIME_FREQUENCY;
+        int glitchWeight = FloorEnemiesList.GLITCH_FREQUENCY;
 
-        int totalWeight = greenWeight + redWeight + blueWeight;
+        int totalWeight = greenWeight + redWeight + blueWeight + glitchWeight;
 
 
         int randomValue = Random.Range(0, totalWeight);
