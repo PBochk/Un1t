@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMeleeWeaponAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip StoneHitSound;
@@ -12,7 +13,7 @@ public class PlayerMeleeWeaponAudio : MonoBehaviour
     private Dictionary<HitableEntityType, AudioClip> entityTypeToSound;
     private void Start()
     {
-        audioSource = GetComponentInParent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         controller = GetComponent<MeleeWeaponController>();
         controller.EntityHit.AddListener(PlayHitSound);
         // TODO: import serializable dictionary asset already

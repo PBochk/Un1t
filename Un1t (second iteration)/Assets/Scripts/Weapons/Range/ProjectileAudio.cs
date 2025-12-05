@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(ProjectileController))]
 public class ProjectileAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip enemyHit;
