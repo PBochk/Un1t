@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Random = System.Random;
 
 public class DungeonFactory
@@ -173,7 +172,7 @@ public class DungeonFactory
 
         if (mainPath != null && mainPath.Count > 0)
         {
-            for (int i = 0; i < mainPath.Count - 1; i++)
+            for (var i = 0; i < mainPath.Count - 1; i++)
             {
                 AddPassage(dungeon, mainPath[i], mainPath[i + 1]);
             }
@@ -188,7 +187,7 @@ public class DungeonFactory
 
         while (unconnected.Count > 0)
         {
-            bool foundConnection = false;
+            var foundConnection = false;
 
             foreach (FloorGridPosition uncon in unconnected.ToList())
             {
@@ -362,7 +361,7 @@ public class DungeonFactory
     {
         int x = pos.X;
         int y = pos.Y;
-        List<FloorGridPosition> adjacent = new List<FloorGridPosition>();
+        List<FloorGridPosition> adjacent = new();
 
         (int dx, int dy)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
         foreach ((int dx, int dy) in directions)

@@ -61,4 +61,4 @@ MonoBehaviour:
   leftOuterWall: {fileID: 769235998188001086, guid: fbb987720555729498e66222d0a9e3f2, type: 3}
   rightOuterWall: {fileID: 7543573792874096438, guid: a2c82c55342ec3546a24fd6f5bad356f, type: 3}
   enemySpawner: {fileID: 5488166656052903477, guid: 8b2af04592ee649a787baf3bc80914ff, type: 3}
-  rock: {fileID: 2050524529450626461, guid: e33b0bdc5bc09464196908222d570a57, type: 3}
+  rock: {fileID: 6904496536194747905, guid: e33b0bdc5bc09464196908222d570a57, type: 3}
