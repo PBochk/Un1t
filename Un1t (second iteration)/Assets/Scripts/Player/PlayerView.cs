@@ -60,12 +60,13 @@ public class PlayerView : MonoBehaviour
                                                      playerTransform.localScale.y,
                                                      playerTransform.localScale.z);
         }
-        animator.SetBool("IsRunningForward", moveDirection != Vector2.zero);
+        animator.SetBool("IsRunning", moveDirection != Vector2.zero);
     }
 
     private void OnDirectionChanged(int newDirection)
     {
         animator.SetInteger("Direction", newDirection);
+        animator.SetTrigger("DirectionChanged");
     }
 
     private void OnStartDash()
