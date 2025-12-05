@@ -47,9 +47,7 @@ public class FloorManager : MonoBehaviour
                 group => group.Select(template => template.Info).ToImmutableList()
         );
         GenerateFloor();
-        GameObject s = GameObject.FindWithTag("Player");
-        Debug.Log(s is null);
-        SetEnemyTarget(s);
+        SetEnemyTarget(GameObject.FindWithTag("Player"));
         GenerateRoomsContent();
     }
 

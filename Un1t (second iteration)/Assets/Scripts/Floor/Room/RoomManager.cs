@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+
 public class RoomManager : MonoBehaviour
 {
     public List<GameObject> AllEnemies => allEnemies;
@@ -27,7 +27,7 @@ public class RoomManager : MonoBehaviour
     {
         spawnableEnemies = enemies;
         this.rock = rock;
-        this.player = enemyTarget;
+        player = enemyTarget;
     }
 
     public void CreateContent(DungeonFactory.Room.RoomType roomType)
