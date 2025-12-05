@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallBuilder : TilesBuilder
@@ -11,7 +13,7 @@ public class OuterWallBuilder : TilesBuilder
 
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
-    public Vector2 Position => transform.position;
+    public ShurfsSpawnDirection ShurfsDirection  => shurfsSpawnDirection;
 
     public int Thickness => thickness;
     public int Length => length;
@@ -34,7 +36,9 @@ public class OuterWallBuilder : TilesBuilder
     private int thickness;
     private int length;
     private IEnumerable<(int start, int end)> emptyTilesForShurfesNumbersCouples;
+    private IReadOnlyList<Vector2> enemiesInShurfesPositions;
     private bool wasShurfesCreated;
+
 
     public override void Create()
     {
@@ -43,7 +47,6 @@ public class OuterWallBuilder : TilesBuilder
             : new Vector3(0, -(sizeTiles.y - 1) / 2f));
 
         PlaceFragments(basePosition);
-
         if (wasShurfesCreated)
         {
             SpriteRenderer shurfFirstSideRenderer = shurfFirstSideTile.GetComponent<SpriteRenderer>();
@@ -52,6 +55,17 @@ public class OuterWallBuilder : TilesBuilder
             PlaceShurfes(emptyTilesForShurfesNumbersCouples, basePosition, shurfFirstSideRenderer.size, shurfSecondSideRenderer.size);
         }
     }
+
+    public IEnumerable<EnemyController> CreateEnemiesInShurfes(IEnumerable<EnemyController> enemyControllers)
+    {
+        var positionsIndex = 0;
+        foreach (EnemyController enemyController in enemyControllers)
+        {
+            yield return Instantiate(enemyController, enemiesInShurfesPositions[positionsIndex++],
+               Quaternion.identity, transform);
+            if (positionsIndex == enemiesInShurfesPositions.Count) yield break;
+        }
+    } 
 
     public override void SetConfiguration()
     {
@@ -194,6 +208,8 @@ public class OuterWallBuilder : TilesBuilder
     private void PlaceShurfes(IEnumerable<(int start, int end)> emptyTilesForShurfesNumbers, 
         Vector3 basePosition, Vector2 shurfFirstSideSize, Vector2 shurfSecondSideSize)
     {
+        List<Vector2> enemiesInShurfesPositions = new();
+
         Direction shurfDirection;
         int directionMultiplier;
 
@@ -301,6 +317,9 @@ public class OuterWallBuilder : TilesBuilder
                 );
             }
 
+            enemiesInShurfesPositions.Add(invisibleWallPosition);
+            //Debug.Log($"pos({invisibleWallPosition.x}, {invisibleWallPosition.y})");
+
             CreateFragment(shurfFirstSideTile, SHURF_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
             CreateFragment(shurfSecondSideTile, SHURF_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
 
@@ -315,9 +334,14 @@ public class OuterWallBuilder : TilesBuilder
             groundInstance.Create();
 
             GameObject darkness = Instantiate(shurfDarkness, transform);
+            //Instantiate(enemyController,
+            //    darknessPosition,
+             //   Quaternion.identity, transform);
             darkness.GetComponent<SpriteRenderer>().size = darknessSize;
             darkness.transform.position = darknessPosition;
         }
+        this.enemiesInShurfesPositions = enemiesInShurfesPositions;
+        Debug.Log("//" + enemiesInShurfesPositions.Count);
     }
 
 
@@ -368,9 +392,6 @@ public class OuterWallBuilder : TilesBuilder
             : new Vector3(basePosition.x, basePosition.y + centerOffset);
     }
 
-    public enum Direction : sbyte { Vertical, Horizontal }
-    protected enum ShurfsSpawnDirection : sbyte { Unidentified, Top, Bottom, Left, Right }
-
     protected override void CheckSize(SpriteRenderer renderer)
     {
         base.CheckSize(renderer);
@@ -388,4 +409,7 @@ public class OuterWallBuilder : TilesBuilder
         if (incorrectHorizontalSpawn || incorrectVerticalSpawn)
             Debug.LogWarning($"{direction} outer wall shurfs spawn direction is {shurfsSpawnDirection}");
     }
+
+    public enum Direction : sbyte { Vertical, Horizontal }
+    public enum ShurfsSpawnDirection : sbyte { Unidentified, Top, Bottom, Left, Right }
 }
