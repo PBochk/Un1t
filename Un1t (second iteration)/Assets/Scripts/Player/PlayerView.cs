@@ -17,6 +17,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private ParticleSystem damageParticles;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip damageTakenSound;
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip meleeAttackSound;
     [SerializeField] private AudioClip rangeAttackSound;
@@ -94,5 +95,6 @@ public class PlayerView : MonoBehaviour
     private void OnDamageTaken()
     {
         damageParticles.Play();
+        audioSource.PlayOneShot(damageTakenSound);
     }
 }
