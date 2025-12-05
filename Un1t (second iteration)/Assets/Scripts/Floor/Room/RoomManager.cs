@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 public class RoomManager : MonoBehaviour
 {
     public List<EnemyController> AllEnemies => allEnemies;
@@ -18,31 +17,38 @@ public class RoomManager : MonoBehaviour
 
     private Tile[,] tileGrid;
 
-    public void Initialize(FloorEnemiesList enemies, GameObject rock)
+    //TODO: refactor room typing according to OCP
+    private DungeonFactory.Room.RoomType type;
+
+    private EnemyTargetComponent enemyTarget;
+
+    public void Initialize(FloorEnemiesList enemies, GameObject rock, EnemyTargetComponent enemyTarget)
     {
         spawnableEnemies = enemies;
         this.rock = rock;
+        this.enemyTarget = enemyTarget;
     }
 
     public void CreateContent(DungeonFactory.Room.RoomType roomType)
     {
-        //TODO: refactor room typing according to OCP
-        if (roomType != DungeonFactory.Room.RoomType.Regular) return;
+        type = roomType;
+
         ReadTilesBuilders();
 
-        int generatedShurfesCount =
-            GenerateShurfes(shurfableWalls);
+        int generatedShurfesCount = roomType == DungeonFactory.Room.RoomType.Regular
+        ? GenerateShurfes(shurfableWalls) : 0;
 
-        GameObject player = GameObject.FindWithTag("Player");
         allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, spawnableEnemies, generatedShurfesCount);
 
-        CreateEntities(player.GetComponent<EnemyTargetComponent>());
+        CreateEntities(enemyTarget);
     }
 
     private void CreateEntities(EnemyTargetComponent player)
     {
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
+
+        if (type != DungeonFactory.Room.RoomType.Regular) return;
 
         foreach ((GameObject entity, Vector2 startPosition) in allGroundEntities.Rocks)
         {

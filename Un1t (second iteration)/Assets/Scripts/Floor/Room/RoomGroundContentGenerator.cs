@@ -35,7 +35,7 @@ public static class RoomGroundContentGenerator
             acceptableRocksPositions.Remove(position);
 
         IEnumerable<(GameObject entity, Vector2 startPosition)> rocks = 
-            GenerateRocks(coins, acceptablePositions, rock, acceptableEnemiesPositions);
+            GenerateRocks(coins, acceptableRocksPositions, rock, acceptableEnemiesPositions);
 
         foreach (Vector2Int position in UnacceptableEnemiesPositions)
             acceptableEnemiesPositions.Remove(position);
@@ -128,16 +128,6 @@ public static class RoomGroundContentGenerator
 
     }
 
-    private static List<Vector2Int> UnacceptNearPositions(List<Vector2Int> acceptablePositions, 
-        Vector2Int occupiedPosition)
-    {
-        for (var y = -1 + occupiedPosition.y; y < 2 + occupiedPosition.y; y++)
-            for (var x = -1 + occupiedPosition.x; x < 2 + occupiedPosition.x; x++)
-                acceptablePositions.Remove(new(x, y));
-
-        return acceptablePositions;
-    }
-
     #region UnacceptablePositionsFilling
     private static List<Vector2Int> FillUnacceptableRocksPositions()
     {
@@ -190,6 +180,16 @@ public static class RoomGroundContentGenerator
         }
 
         return unacceptableEnemiesPositions;
+    }
+
+    private static List<Vector2Int> UnacceptNearPositions(List<Vector2Int> acceptablePositions,
+    Vector2Int occupiedPosition)
+    {
+        for (var y = -1 + occupiedPosition.y; y < 2 + occupiedPosition.y; y++)
+            for (var x = -1 + occupiedPosition.x; x < 2 + occupiedPosition.x; x++)
+                acceptablePositions.Remove(new(x, y));
+
+        return acceptablePositions;
     }
     #endregion
 
