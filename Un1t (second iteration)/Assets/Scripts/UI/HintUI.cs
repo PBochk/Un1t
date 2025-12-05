@@ -20,6 +20,7 @@ public class HintUI : MonoBehaviour
     private void Start()
     {
         mainUI = GetComponentInParent<MainUI>();
+        button.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         pauseManager = mainUI.PauseManager;
         pauseManager.PauseScene();
         NextHint();

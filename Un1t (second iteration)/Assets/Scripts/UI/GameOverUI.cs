@@ -35,6 +35,8 @@ public class GameOverUI : MonoBehaviour
         playerModel.PlayerDeath += OnPlayerDeath;
         //parent.LevelEnded.AddListener(OnLevelEnd); // <---- subscribe method on event
         canvas.enabled = false;
+        reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
     }
 
     //private void OnEnable()
