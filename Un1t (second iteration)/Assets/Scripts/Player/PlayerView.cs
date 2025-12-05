@@ -16,6 +16,8 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dashSound;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -66,6 +68,7 @@ public class PlayerView : MonoBehaviour
     private void OnStartDash()
     {
         animator.SetTrigger("Dash");
+        audioSource.PlayOneShot(dashSound);
     }
 
     private void MeleeAttackAnimationStart()
