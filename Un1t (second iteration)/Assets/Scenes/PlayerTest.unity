@@ -2658,6 +2658,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1782802318}
     - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: meleeAttackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b990348928027ff42987d46240fd28e6, type: 3}
+    - target: {fileID: 6555124608399606011, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: weaponController
       value: 
       objectReference: {fileID: 606516055}

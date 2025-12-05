@@ -12,13 +12,13 @@ using UnityEngine.InputSystem;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
     [SerializeField] private ParticleSystem damageParticles;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip dashSound;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip meleeAttackSound;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -75,7 +75,7 @@ public class PlayerView : MonoBehaviour
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
-        //attackSound.Play();
+        audioSource.PlayOneShot(meleeAttackSound);
     }
 
     private void RangeAnimationStart()
