@@ -53,6 +53,7 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
             playerModel.HealByHit(); 
 
             // double hit upgrade
+            // TODO: rework to follow DRY
             if(((PlayerMeleeWeaponModel)modelMB.MeleeWeaponModel).DoubleHitChance >= Random.Range(0, 1f))
             {
                 foreach (var target in damagedTargets)

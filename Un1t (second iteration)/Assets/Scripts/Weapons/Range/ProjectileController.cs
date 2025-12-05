@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(ProjectileModelMB))]
 public class ProjectileController : MonoBehaviour
 {
@@ -11,7 +13,8 @@ public class ProjectileController : MonoBehaviour
     private ProjectileModel model;
     private Collider2D projectileCollider;
     private ContactFilter2D contactFilter;
-
+    public UnityEvent EnemyHit;
+    public UnityEvent WallHit;
     private void Awake()
     {
         projectileCollider = GetComponent<Collider2D>();
@@ -44,13 +47,28 @@ public class ProjectileController : MonoBehaviour
         var targets = new List<Collider2D>();
         Physics2D.OverlapCollider(projectileCollider, contactFilter, targets);
         if (targets.Count == 0) return;
+        StartCoroutine(WaitForDestroy());
         foreach (var target in targets)
         {
             if (target.TryGetComponent<Hitable>(out var hittable))
             {
                 hittable.HitTaken?.Invoke(model.AttackData);
+                EnemyHit?.Invoke();
+                return;
             }
         }
-       Destroy(gameObject);
+        WallHit?.Invoke();
+    }
+
+    // Temporary solution of delaying destruction for sound to play
+    // TODO: rework with animation
+    private IEnumerator WaitForDestroy()
+    {
+        yield return null;
+        projectileCollider.enabled = false;
+        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 }

@@ -12,10 +12,15 @@ using UnityEngine.InputSystem;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip damageTakenSound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip meleeAttackSound;
+    [SerializeField] private AudioClip rangeAttackSound;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -66,26 +71,30 @@ public class PlayerView : MonoBehaviour
     private void OnStartDash()
     {
         animator.SetTrigger("Dash");
+        audioSource.PlayOneShot(dashSound);
     }
 
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
-        //attackSound.Play();
+        audioSource.PlayOneShot(meleeAttackSound);
     }
 
     private void RangeAnimationStart()
     {
         animator.SetTrigger("RangeAttack");
+        audioSource.PlayOneShot(rangeAttackSound);
     }
 
     private void OnDeath()
     {
         animator.SetTrigger("PlayerDeath");
+        audioSource.PlayOneShot(deathSound);
     }
 
     private void OnDamageTaken()
     {
         damageParticles.Play();
+        audioSource.PlayOneShot(damageTakenSound);
     }
 }

@@ -58,6 +58,7 @@ public class PlayerUpgradeUI : MonoBehaviour
     {
         button.onClick.AddListener(() =>
         {
+            mainUI.UIAudio.PlayButtonClickSound();
             upgrade.Apply();
             DeactivateCanvas();
         });
