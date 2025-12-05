@@ -24,10 +24,10 @@ public class RoomManager : MonoBehaviour
         this.rock = rock;
     }
 
-    public void CreateContent()
+    public void CreateContent(DungeonFactory.Room.RoomType roomType)
     {
-
-
+        //TODO: refactor room typing according to OCP
+        if (roomType != DungeonFactory.Room.RoomType.Regular) return;
         ReadTilesBuilders();
 
         int generatedShurfesCount =

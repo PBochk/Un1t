@@ -32,7 +32,7 @@ public class FloorManager : MonoBehaviour
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
-    private IEnumerable<GameObject> allRooms;
+    private IEnumerable<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType)> allRooms;
 
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
@@ -53,7 +53,7 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     public void GenerateFloor()
     {
-        List<GameObject> roomInstances = new();
+        List<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType)> roomInstances = new();
         foreach (DungeonFactory.Room room in dungeonFactory.CreateDungeon())
         {
             GameObject roomInstance;
@@ -64,7 +64,7 @@ public class FloorManager : MonoBehaviour
                 roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
 
             CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
-            roomInstances.Add(roomInstance);
+            roomInstances.Add((roomInstance, room.Type));
         }
         allRooms = roomInstances;
         transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
@@ -72,8 +72,8 @@ public class FloorManager : MonoBehaviour
 
     public void GenerateRoomsContent()
     {
-        foreach (GameObject room in allRooms)
-            CreateRoomContent(room);
+        foreach ((GameObject roomInstance, DungeonFactory.Room.RoomType roomType)  in allRooms)
+            CreateRoomContent(roomInstance, roomType);
     }
 
 
@@ -109,11 +109,11 @@ public class FloorManager : MonoBehaviour
         return false;
     }
 
-    private void CreateRoomContent(GameObject room)
+    private void CreateRoomContent(GameObject room, DungeonFactory.Room.RoomType roomType)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
         roomManager.Initialize(spawnableEnemies, rock);
-        roomManager.CreateContent();
+        roomManager.CreateContent(roomType);
     }
 
 
