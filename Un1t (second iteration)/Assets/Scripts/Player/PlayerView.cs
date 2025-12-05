@@ -19,6 +19,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private AudioClip dashSound;
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip meleeAttackSound;
+    [SerializeField] private AudioClip rangeAttackSound;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -81,6 +82,7 @@ public class PlayerView : MonoBehaviour
     private void RangeAnimationStart()
     {
         animator.SetTrigger("RangeAttack");
+        audioSource.PlayOneShot(rangeAttackSound);
     }
 
     private void OnDeath()
