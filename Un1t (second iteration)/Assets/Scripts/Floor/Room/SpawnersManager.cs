@@ -21,12 +21,12 @@ public class SpawnersManager
         EnemyController createdEnemy = enemySpawners[0].CreateEnemy();
 
         //Next functional is for demo only.
-        RoomManager.EnemiesCount++;
+        //RoomManager.EnemiesCount++;
         createdEnemy.Model.OnDeath.AddListener(EnemyDead);
 
         void EnemyDead()
         {
-            if (--RoomManager.EnemiesCount == 0)
+            if (true/*--RoomManager.EnemiesCount == 0*/)
             {
                 GameObject.FindWithTag("LevelEnder").GetComponent<EventParent>().NotifyLevelEnded();
             }          

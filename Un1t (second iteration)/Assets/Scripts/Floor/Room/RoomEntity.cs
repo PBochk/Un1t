@@ -5,7 +5,6 @@ public class RoomEntity
 
     public Vector2Int StartPosition { get; }
 
-
     public RoomEntity(GameObject gameObject, Vector2Int startPosition)
     {
         GameObject = gameObject;

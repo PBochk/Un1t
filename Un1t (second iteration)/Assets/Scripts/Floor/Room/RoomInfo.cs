@@ -7,13 +7,14 @@ public class RoomInfo
 {
     public static Vector2Int Size => size;
     public static Vector2Int InnerSize => innerSize;
+    public static Vector2Int Center => center;
 
     public GameObject RoomPrefab { get; }
     public RoomOuterWalls OuterWalls { get; }
 
     private static readonly Vector2Int innerSize = new(18, 12);
     private static readonly Vector2Int size = innerSize + new Vector2Int(2, 4);
-
+    private static readonly Vector2Int center = size / 2;
     public RoomInfo(GameObject roomPrefab,
         bool leftTopIsEmpty, bool middleTopIsEmpty, bool rightTopIsEmpty,
         bool leftBottomIsEmpty, bool middleBottomIsEmpty, bool rightBottomIsEmpty,

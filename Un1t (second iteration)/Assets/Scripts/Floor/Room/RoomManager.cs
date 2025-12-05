@@ -1,81 +1,80 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    private RoomEnemySpawner enemySpawner;
+    public List<EnemyController> AllEnemies => allEnemies;
+
     private GameObject rock;
 
-    private SpawnersManager spawnersManager;
-    private RoomManager roomManager;
+    private readonly List<EnemyController> allEnemies = new();
 
     private IReadOnlyList<EnemyController> spawnableEnemies;
     private IReadOnlyList<TilesBuilder> tilesBuilders;
+    private IReadOnlyList<OuterWallBuilder> shurfableWalls;
     private IEnumerable<OuterWallBuilder> wallsWithShurfes;
 
-    private RoomContentCreator.AllEntities allEntities;
+    private RoomGroundContentGenerator.AllGroundEntities allGroundEntities;
 
     private Tile[,] tileGrid;
 
-    private static readonly Vector3 gridOffset = new Vector3(RoomInfo.Size.x, RoomInfo.Size.y) / 2f;
 
-    public static int EnemiesCount { get; set; } = 0;
-
-    public void CreateContent(Transform parent)
+    public void Initialize(IReadOnlyList<EnemyController> enemies, GameObject rock)
     {
-        ReadTilesBuilders(out int createdShurfesCount);
-        EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
+        spawnableEnemies = enemies;
+        this.rock = rock;
+    }
+
+    public void CreateContent()
+    {
+        ReadTilesBuilders();
+
+        int generatedShurfesCount =
+            GenerateShurfes(shurfableWalls);
+
+        EnemyController enemy = spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
         GameObject player = GameObject.FindWithTag("Player");
-        allEntities = RoomContentCreator.GenerateContent(tileGrid, rock, enemy, createdShurfesCount);
+        allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, enemy, generatedShurfesCount);
 
         CreateEntities(player.GetComponent<EnemyTargetComponent>());
     }
 
-    public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner, GameObject rock)
-    {
-        spawnableEnemies = enemies;
-        this.enemySpawner = enemySpawner;
-        this.rock = rock;
-    }
-
     private void CreateEntities(EnemyTargetComponent player)
     {
-
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
-
-        foreach ((GameObject entity, Vector2 startPosition) in allEntities.Rocks)
+        foreach ((GameObject entity, Vector2 startPosition) in allGroundEntities.Rocks)
         {
             Instantiate(entity,
-                (Vector3)startPosition + transform.position - gridOffset + (Vector3)Vector2.one / 2,
+                (Vector3)startPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
                 Quaternion.identity, transform);
         }
 
-        foreach ((EnemyController entity, Vector2 startPosition) in allEntities.EnemiesOutsideShurfes)
+        foreach ((EnemyController entity, Vector2 startPosition) in allGroundEntities.EnemiesOutsideShurfes)
         {
             EnemyController enemy = Instantiate(entity,
-                (Vector3)startPosition + transform.position - gridOffset + (Vector3)Vector2.one / 2,
+                (Vector3)startPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
                 Quaternion.identity, transform);
             enemy.SetTarget(player);
+
+            allEnemies.Add(enemy);
         }
 
-        if (allEntities.EnemiesInShurfes.Count == 0) return;
+        if (allGroundEntities.EnemiesInShurfes.Count == 0) return;
+
         foreach (OuterWallBuilder wallWithShurf in wallsWithShurfes)
         {
-            foreach (EnemyController enemy in wallWithShurf.CreateEnemiesInShurfes(allEntities.EnemiesInShurfes))
+            foreach (EnemyController enemy in wallWithShurf.CreateEnemiesInShurfes(allGroundEntities.EnemiesInShurfes))
             {
                 enemy.SetTarget(player);
+                allEnemies.Add(enemy);
             }
         }
     }
 
-    private void ReadTilesBuilders(out int createdShurfesCount)
+    private void ReadTilesBuilders()
     {
         List<OuterWallBuilder> shurfableWalls = new();
-        List<OuterWallBuilder> wallsWithShurfes = new();
         List<GroundBuilder> groundBuilders = new();
         List<OuterWallBuilder> outerWallBuilders = new();
         List<TilesBuilder> tilesBuilders = new();
@@ -103,169 +102,27 @@ public class RoomManager : MonoBehaviour
         }
 
         this.tilesBuilders = tilesBuilders;
-        tileGrid = GetTileGrid(groundBuilders, outerWallBuilders, transform.position);
-        Dictionary<OuterWallBuilder, List<(int start, int end)>> generatingShurfes =
-            SelectShurfesPositions(shurfableWalls, math.clamp(UnityEngine.Random.Range(0, 3), 0, shurfableWalls.Count));
+        this.shurfableWalls = shurfableWalls;
+        tileGrid = TileConverter.GetTileGrid(groundBuilders, outerWallBuilders, transform.position - (Vector3Int)RoomInfo.Center);
+    }
 
-        createdShurfesCount = 0;
+    private int GenerateShurfes(IReadOnlyList<OuterWallBuilder> shurfableWalls)
+    {
+        List<OuterWallBuilder> wallsWithShurfes = new();
+
+        IReadOnlyDictionary<OuterWallBuilder, List<ShurfEmptyTilesPair>> generatingShurfes =
+            ShurfesGenerator.SelectShurfesPositions(shurfableWalls);
+
+        int generatedShurfesCount = 0;
         foreach (OuterWallBuilder wall in generatingShurfes.Keys)
         {
             wall.SetShurfesLocation(generatingShurfes[wall]);
             wallsWithShurfes.Add(wall);
-            createdShurfesCount += generatingShurfes[wall].Count;
+            generatedShurfesCount += generatingShurfes[wall].Count;
         }
         this.wallsWithShurfes = wallsWithShurfes;
+
+        return generatedShurfesCount;
     }
 
-    private Dictionary<OuterWallBuilder, List<(int start, int end)>> SelectShurfesPositions
-        (List<OuterWallBuilder> shurfableWalls, int shurfesCount)
-    {
-        var shuffledShurfableWalls =
-            from shurfableWall in shurfableWalls
-            orderby UnityEngine.Random.value
-            select shurfableWall;
-
-        Dictionary<OuterWallBuilder, List<(int start, int end)>> shurfsPositions = new();
-
-        foreach (OuterWallBuilder wall in shuffledShurfableWalls)
-        {
-            if (wall.Length / OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR == 0) continue;
-
-            bool[] wallTilesAreEmpty = new bool[wall.Length];
-
-            shurfsPositions[wall] = new List<(int start, int end)>();
-
-            if (wall.WallDirection == OuterWallBuilder.Direction.Vertical)
-            {
-                if (shurfesCount > 0)
-                {
-                    int minPosition = math.max(0, wall.Length / 2 - 2);
-                    int maxPosition = math.min(wall.Length - OuterWallBuilder.SHURF_WIDTH, wall.Length / 2 + 1);
-
-                    if (minPosition <= maxPosition)
-                    {
-                        int startPosition = UnityEngine.Random.Range(minPosition, maxPosition + 1);
-
-                        if (startPosition + OuterWallBuilder.SHURF_WIDTH <= wall.Length)
-                        {
-                            wallTilesAreEmpty[startPosition] = true;
-                            wallTilesAreEmpty[startPosition + 1] = true;
-
-                            shurfsPositions[wall].Add((startPosition, startPosition + 1));
-                            shurfesCount--;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                int availableSlots = (wall.Length - OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR)
-                    / OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR + 1;
-                int possiblePairs = math.min(shurfesCount, availableSlots);
-
-                var placedPairs = 0;
-                for (var i = 1; i < wall.Length - 1 && placedPairs < possiblePairs; i += OuterWallBuilder.SHURF_WIDTH_WITH_NEIGHBOUR)
-                {
-                    if (i + OuterWallBuilder.SHURF_WIDTH <= wall.Length)
-                    {
-                        wallTilesAreEmpty[i] = true;
-                        wallTilesAreEmpty[i + 1] = true;
-
-                        shurfsPositions[wall].Add((i, i + 1));
-                        placedPairs++;
-                        shurfesCount--;
-
-                        if (shurfesCount == 0) break;
-                    }
-                }
-            }
-
-            if (shurfesCount == 0) break;
-        }
-
-        return shurfsPositions;
-    }
-
-    #region TileConvertion
-    private static Tile[,] GetTileGrid(IEnumerable<GroundBuilder> groundBuilders, IEnumerable<OuterWallBuilder> outerWallBuilders, Vector3 roomPosition)
-    {
-        Tile[,] allTiles = new Tile[RoomInfo.Size.y, RoomInfo.Size.x];
-
-        foreach (GroundBuilder groundBuilder in groundBuilders)
-        {
-            Vector3 center = groundBuilder.transform.position - roomPosition + gridOffset;
-            Vector2Int size = groundBuilder.SizeTiles;
-
-            FillTileArea(allTiles, center, size, Tile.Ground);
-        }
-
-        foreach (OuterWallBuilder wallBuilder in outerWallBuilders)
-        {
-            wallBuilder.SetConfiguration();
-
-            Vector3 center = wallBuilder.transform.position - roomPosition + gridOffset;
-            Vector2Int size = wallBuilder.SizeTiles;
-
-            Tile wallTileType = wallBuilder.CanCreateShurf ? Tile.ShurfableWall : Tile.UnshurfableWall;
-
-            FillTileArea(allTiles, center, size, wallTileType);
-        }
-
-        return allTiles;
-    }
-
-    private static void FillTileArea(Tile[,] tiles, Vector3 center, Vector2Int size, Tile tileType)
-    {
-        int startX = Mathf.FloorToInt(center.x - size.x / 2f);
-        int endX = startX + size.x - 1;
-
-        int startY = Mathf.FloorToInt(center.y - size.y / 2f);
-        int endY = startY + size.y - 1;
-
-        for (var y = startY; y <= endY; y++)
-        {
-            for (var x = startX; x <= endX; x++)
-            {
-                if (x >= 0 && x < tiles.GetLength(1) && y >= 0 && y < tiles.GetLength(0))
-                {
-                    tiles[y, x] = tileType;
-                }
-            }
-        }
-    }
-
-    /// <summary>
-    /// For debug purpose only
-    /// </summary>
-    private static void DrawTileMap(Tile[,] tiles)
-    {
-        StringBuilder sb = new();
-
-        for (int y = 0; y < tiles.GetLength(1); y++)
-        {
-            for (int x = 0; x < tiles.GetLength(0); x++)
-            {
-                Tile tileType = tiles[x, y];
-                switch (tileType)
-                {
-                    case Tile.Ground:
-                        sb.Append('G');
-                        break;
-                    case Tile.ShurfableWall:
-                        sb.Append('B');
-                        break;
-                    case Tile.UnshurfableWall:
-                        sb.Append('D');
-                        break;
-                    default:
-                        sb.Append('O');
-                        break;
-                }
-            }
-            sb.AppendLine();
-        }
-
-        Debug.Log(sb.ToString());
-    }
-    #endregion
 }

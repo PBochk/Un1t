@@ -27,7 +27,6 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject leftOuterWall;
     [SerializeField] private GameObject rightOuterWall;
 
-
     [SerializeField] private RoomEnemySpawner enemySpawner;
     [SerializeField] private GameObject rock;
 
@@ -113,8 +112,8 @@ public class FloorManager : MonoBehaviour
     private void CreateRoomContent(GameObject room)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
-        roomManager.SetContent(spawnableEnemies.Enemies, enemySpawner, rock);
-        roomManager.CreateContent(transform);
+        roomManager.Initialize(spawnableEnemies.Enemies, rock);
+        roomManager.CreateContent();
     }
 
 

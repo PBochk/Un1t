@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//TODO: refactor it according to SRP
 [RequireComponent(typeof(SpriteRenderer))]
 public class OuterWallBuilder : TilesBuilder
 {
-    public const int SHURF_WIDTH_WITH_NEIGHBOUR  = SHURF_WIDTH + 2;
+    public const int SHURF_WIDTH_WITH_NEIGHBOUR = SHURF_WIDTH + 2;
     public const int SHURF_WIDTH = 2;
     public const int SHURF_DEPTHS = 3;
-
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
-    public ShurfsSpawnDirection ShurfsDirection  => shurfsSpawnDirection;
+    public ShurfsSpawnDirection ShurfsDirection => shurfsSpawnDirection;
 
     public int Thickness => thickness;
     public int Length => length;
@@ -33,7 +33,7 @@ public class OuterWallBuilder : TilesBuilder
 
     private int thickness;
     private int length;
-    private IEnumerable<(int start, int end)> emptyTilesForShurfesNumbersCouples;
+    private IEnumerable<ShurfEmptyTilesPair> emptyTilesForShurfesNumbersCouples;
     private IReadOnlyList<Vector2> enemiesInShurfesPositions;
     private bool wasShurfesCreated;
 
@@ -63,7 +63,7 @@ public class OuterWallBuilder : TilesBuilder
                Quaternion.identity, transform);
             if (positionsIndex == enemiesInShurfesPositions.Count) yield break;
         }
-    } 
+    }
 
     public override void SetConfiguration()
     {
@@ -145,12 +145,12 @@ public class OuterWallBuilder : TilesBuilder
                 else if (currentFragmentSize == 2)
                 {
                     GameObject firstTilePrefab = hasLeftHole ? wallTile.PreviousCornerWallTile : wallTile.BasicWallTile;
-                    int firstFragmentSize = 1; 
+                    int firstFragmentSize = 1;
                     CreateFragment(firstTilePrefab, firstFragmentSize, thickness, direction,
                         CalculateWallFragmentPosition(segmentStartIndex, firstFragmentSize, basePosition));
 
                     GameObject secondTilePrefab = hasRightHole ? wallTile.NextCornerWallTile : wallTile.BasicWallTile;
-                    int secondFragmentSize = hasRightHole ? cornerTileSize : 1; 
+                    int secondFragmentSize = hasRightHole ? cornerTileSize : 1;
                     int secondStartIndex = segmentStartIndex + firstFragmentSize;
 
                     if (hasRightHole)
@@ -167,7 +167,7 @@ public class OuterWallBuilder : TilesBuilder
                 else
                 {
                     GameObject firstTilePrefab = hasLeftHole ? wallTile.PreviousCornerWallTile : wallTile.BasicWallTile;
-                    var firstFragmentSize = 1; 
+                    var firstFragmentSize = 1;
                     CreateFragment(firstTilePrefab, firstFragmentSize, thickness, direction,
                         CalculateWallFragmentPosition(segmentStartIndex, firstFragmentSize, basePosition));
 
@@ -203,7 +203,7 @@ public class OuterWallBuilder : TilesBuilder
     }
 
     //TODO: refactor this method.
-    private void PlaceShurfes(IEnumerable<(int start, int end)> emptyTilesForShurfesNumbers, 
+    private void PlaceShurfes(IEnumerable<ShurfEmptyTilesPair> emptyTilesForShurfesNumbers,
         Vector3 basePosition, Vector2 shurfFirstSideSize, Vector2 shurfSecondSideSize)
     {
         List<Vector2> enemiesInShurfesPositions = new();
@@ -263,7 +263,7 @@ public class OuterWallBuilder : TilesBuilder
             enemyHorizontalPosition = horizontalPosition;
         }
 
-        foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.start + 0.5f))
+        foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.FirstTile + 0.5f))
         {
             Vector3 firstSidePosition;
             Vector3 secondSidePosition;
@@ -341,7 +341,7 @@ public class OuterWallBuilder : TilesBuilder
             groundInstance.Create();
 
             GameObject darkness = Instantiate(shurfDarkness, transform);
-            
+
             darkness.GetComponent<SpriteRenderer>().size = darknessSize;
             darkness.transform.position = darknessPosition;
         }
@@ -349,13 +349,13 @@ public class OuterWallBuilder : TilesBuilder
     }
 
 
-    public void SetShurfesLocation(IEnumerable<(int start, int end)> emptyTilesForShurfesNumbersCouples)
+    public void SetShurfesLocation(IEnumerable<ShurfEmptyTilesPair> emptyTilesForShurfesNumbersCouples)
     {
         this.emptyTilesForShurfesNumbersCouples = emptyTilesForShurfesNumbersCouples;
-        foreach ((int start, int end) in emptyTilesForShurfesNumbersCouples)
+        foreach (ShurfEmptyTilesPair pair in emptyTilesForShurfesNumbersCouples)
         {
-            tilesAreEmpty[start] = true;
-            tilesAreEmpty[end] = true;
+            tilesAreEmpty[pair.FirstTile] = true;
+            tilesAreEmpty[pair.SecondTile] = true;
         }
         wasShurfesCreated = true;
     }

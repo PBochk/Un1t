@@ -3,7 +3,7 @@ using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
-public static class RoomContentCreator
+public static class RoomGroundContentGenerator
 {
     private const float MIN_ROCKS_FREQUENCY = 0f;
     private const float MAX_ROCKS_FREQUENCY = 1f/12f;
@@ -22,14 +22,9 @@ public static class RoomContentCreator
     private static List<Vector2Int>
          unacceptableEnemiesPositions = null;
 
-    private static readonly int roomCenterX = RoomInfo.Size.x / 2;
-    private static readonly int roomCenterY = RoomInfo.Size.y / 2;
-
-    public static AllEntities GenerateContent(Tile[,] tiles, GameObject rock, EnemyController enemy, int enemiesInShurfesCount)
+    public static AllGroundEntities GenerateContent(Tile[,] tiles, GameObject rock, EnemyController enemy, int enemiesInShurfesCount)
     {
         List<Vector2Int> acceptablePositions = FillAcceptableEntityPositions(tiles);
-
-        if (acceptablePositions.Count == 0) return null;
 
         int coins = acceptablePositions.Count;
 
@@ -150,20 +145,20 @@ public static class RoomContentCreator
 
         for (var y = 0; y < RoomInfo.Size.y; y++)
         {
-            unacceptableRocksPositions.Add(new(roomCenterX - 1, y));
-            unacceptableRocksPositions.Add(new(roomCenterX, y));
+            unacceptableRocksPositions.Add(new(RoomInfo.Center.x - 1, y));
+            unacceptableRocksPositions.Add(new(RoomInfo.Center.x, y));
         }
-        for (var x = 0; x < roomCenterX; x++)
+        for (var x = 0; x < RoomInfo.Center.x; x++)
         {
-            unacceptableRocksPositions.Add(new(x, roomCenterY-1));
-            unacceptableRocksPositions.Add(new(x, roomCenterY));
-            unacceptableRocksPositions.Add(new(x, roomCenterY+1));
+            unacceptableRocksPositions.Add(new(x, RoomInfo.Center.y - 1));
+            unacceptableRocksPositions.Add(new(x, RoomInfo.Center.y));
+            unacceptableRocksPositions.Add(new(x, RoomInfo.Center.y + 1));
         }
-        for (var x = roomCenterX + 1; x < RoomInfo.Size.x; x++)
+        for (var x = RoomInfo.Center.x + 1; x < RoomInfo.Size.x; x++)
         {
-            unacceptableRocksPositions.Add(new(x, roomCenterY - 1));
-            unacceptableRocksPositions.Add(new(x, roomCenterY));
-            unacceptableRocksPositions.Add(new(x, roomCenterY + 1));
+            unacceptableRocksPositions.Add(new(x, RoomInfo.Center.y - 1));
+            unacceptableRocksPositions.Add(new(x, RoomInfo.Center.y));
+            unacceptableRocksPositions.Add(new(x, RoomInfo.Center.y + 1));
         }
 
         return unacceptableRocksPositions;
@@ -183,7 +178,7 @@ public static class RoomContentCreator
             unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x-1, y));
             unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x-2, y));
         }
-        for (var x = 2; x < roomCenterX-2; x++)
+        for (var x = 2; x < RoomInfo.Size.x - 2; x++)
         {
             unacceptableEnemiesPositions.Add(new(x, 0));
             unacceptableEnemiesPositions.Add(new(x, 1));
@@ -199,7 +194,7 @@ public static class RoomContentCreator
     #endregion
 
     #region AllEntities
-    public class AllEntities
+    public class AllGroundEntities
     {
         public IEnumerable<(EnemyController entity, Vector2 startPosition)> EnemiesOutsideShurfes
             => enemiesOutsideShurfes;
@@ -214,7 +209,7 @@ public static class RoomContentCreator
         private readonly IEnumerable<(EnemyController entity, Vector2 startPosition)> enemiesOutsideShurfes;
         private readonly IReadOnlyList<EnemyController> enemiesInShurfes;
 
-        public AllEntities(IEnumerable<(GameObject entity, Vector2 startPosition)> rocks,
+        public AllGroundEntities(IEnumerable<(GameObject entity, Vector2 startPosition)> rocks,
             IEnumerable<(EnemyController entity, Vector2 startPosition)> enemiesOutsideShurfes,
             IReadOnlyList<EnemyController> enemiesInShurfes) 
         { 
