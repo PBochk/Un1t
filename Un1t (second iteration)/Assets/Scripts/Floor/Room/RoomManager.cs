@@ -6,6 +6,7 @@ public class RoomManager : MonoBehaviour
     public List<GameObject> AllEnemies => allEnemies;
 
     private GameObject rock;
+    private GameObject descent;
 
     private readonly List<GameObject> allEnemies = new();
 
@@ -23,10 +24,11 @@ public class RoomManager : MonoBehaviour
 
     private EnemyTargetComponent player;
 
-    public void Initialize(FloorEnemiesList enemies, GameObject rock, EnemyTargetComponent enemyTarget)
+    public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent, EnemyTargetComponent enemyTarget)
     {
         spawnableEnemies = enemies;
         this.rock = rock;
+        this.descent = descent;
         player = enemyTarget;
     }
 
@@ -48,6 +50,9 @@ public class RoomManager : MonoBehaviour
     {
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
+
+        if (type == DungeonFactory.Room.RoomType.Exit)
+            Instantiate(descent, transform);
 
         if (type != DungeonFactory.Room.RoomType.Regular) return;
 
@@ -78,6 +83,7 @@ public class RoomManager : MonoBehaviour
                 allEnemies.Add(enemy);
             }
         }
+
     }
 
     private void ReadTilesBuilders()

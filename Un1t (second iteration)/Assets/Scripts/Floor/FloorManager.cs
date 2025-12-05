@@ -29,6 +29,7 @@ public class FloorManager : MonoBehaviour
 
     [SerializeField] private RoomEnemySpawner enemySpawner;
     [SerializeField] private GameObject rock;
+    [SerializeField] private GameObject descent;
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
@@ -120,7 +121,7 @@ public class FloorManager : MonoBehaviour
     private void CreateRoomContent(GameObject room, DungeonFactory.Room.RoomType roomType)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
-        roomManager.Initialize(spawnableEnemies, rock, player.GetComponent<EnemyTargetComponent>());
+        roomManager.Initialize(spawnableEnemies, rock, descent, player.GetComponent<EnemyTargetComponent>());
         roomManager.CreateContent(roomType);
     }
 
