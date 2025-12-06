@@ -34,20 +34,20 @@ public static class RoomGroundContentGenerator
         foreach (Vector2Int position in UnacceptableRocksPositions)
             acceptableRocksPositions.Remove(position);
 
-        IEnumerable<RoomEntity> rocks = 
+        IReadOnlyList<RoomEntity> rocks = 
             GenerateRocks(coins, acceptableRocksPositions, rock, acceptableEnemiesPositions);
 
         foreach (Vector2Int position in UnacceptableEnemiesPositions)
             acceptableEnemiesPositions.Remove(position);
 
-        (IEnumerable<RoomEntity> enemiesOutsideShurfes,
+        (IReadOnlyList<RoomEntity> enemiesOutsideShurfes,
             IReadOnlyList<GameObject> enemiesInShurfes) =
            GenerateEnemies(coins, acceptableEnemiesPositions, enemies, enemiesInShurfesCount);
 
         return new(rocks, enemiesOutsideShurfes, enemiesInShurfes);
     }
 
-    private static IEnumerable<RoomEntity> GenerateRocks(int coins, List<Vector2Int> acceptablePositions, 
+    private static IReadOnlyList<RoomEntity> GenerateRocks(int coins, List<Vector2Int> acceptablePositions, 
         GameObject rock, List<Vector2Int> acceptableEnemyPositions)
     {
         List<RoomEntity> rocks = new();
@@ -69,7 +69,7 @@ public static class RoomGroundContentGenerator
         return rocks;
     }
 
-    private static (IEnumerable<RoomEntity> enemiesOutsideShurfes, IReadOnlyList<GameObject> enemiesInShurfes) 
+    private static (IReadOnlyList<RoomEntity> enemiesOutsideShurfes, IReadOnlyList<GameObject> enemiesInShurfes) 
         GenerateEnemies(int coins, List<Vector2Int> acceptablePositions, 
         FloorEnemiesList enemies, int enemiesInShurfesCount)
 
@@ -195,21 +195,21 @@ public static class RoomGroundContentGenerator
     #region AllEntities
     public class AllGroundEntities
     {
-        public IEnumerable<RoomEntity> EnemiesOutsideShurfes
+        public IReadOnlyList<RoomEntity> EnemiesOutsideShurfes
             => enemiesOutsideShurfes;
 
         public IReadOnlyList<GameObject> EnemiesInShurfes
             => enemiesInShurfes;
 
-        public IEnumerable<RoomEntity> Rocks
+        public IReadOnlyList<RoomEntity> Rocks
             => rocks;
 
-        private readonly IEnumerable<RoomEntity> rocks;
-        private readonly IEnumerable<RoomEntity> enemiesOutsideShurfes;
+        private readonly IReadOnlyList<RoomEntity> rocks;
+        private readonly IReadOnlyList<RoomEntity> enemiesOutsideShurfes;
         private readonly IReadOnlyList<GameObject> enemiesInShurfes;
 
-        public AllGroundEntities(IEnumerable<RoomEntity> rocks,
-            IEnumerable<RoomEntity> enemiesOutsideShurfes,
+        public AllGroundEntities(IReadOnlyList<RoomEntity> rocks,
+            IReadOnlyList<RoomEntity> enemiesOutsideShurfes,
             IReadOnlyList<GameObject> enemiesInShurfes) 
         { 
             this.rocks = rocks;

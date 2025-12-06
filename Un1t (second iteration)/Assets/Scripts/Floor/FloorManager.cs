@@ -27,13 +27,16 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject leftOuterWall;
     [SerializeField] private GameObject rightOuterWall;
 
-    [SerializeField] private RoomEnemySpawner enemySpawner;
     [SerializeField] private GameObject rock;
     [SerializeField] private GameObject descent;
 
+    //It's temporary implementation for demo only
+    [SerializeField] private GameObject doorWall;
+
+
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
-    private IEnumerable<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType)> allRooms;
+    private IEnumerable<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)> allRooms;
 
     private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
 
@@ -47,6 +50,10 @@ public class FloorManager : MonoBehaviour
                 group => group.Key,
                 group => group.Select(template => template.Info).ToImmutableList()
         );
+
+        GenerateFloor();
+        SetPlayer(GameObject.FindWithTag("Player"));
+        GenerateRoomsContent();
     }
 
     /// <summary>
@@ -54,7 +61,7 @@ public class FloorManager : MonoBehaviour
     /// </summary>
     public void GenerateFloor()
     {
-        List<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType)> roomInstances = new();
+        List<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)> roomInstances = new();     //It's temporary implementation for demo only
         foreach (DungeonFactory.Room room in dungeonFactory.CreateDungeon())
         {
             GameObject roomInstance;
@@ -65,7 +72,7 @@ public class FloorManager : MonoBehaviour
                 roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
 
             CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
-            roomInstances.Add((roomInstance, room.Type));
+            roomInstances.Add((roomInstance, room.Type, room.OuterWalls));
         }
         allRooms = roomInstances;
         transform.position -= (Vector3Int)RoomInfo.Size * RoomGrid.FLOOR_SIZE / 2;
@@ -73,8 +80,8 @@ public class FloorManager : MonoBehaviour
 
     public void GenerateRoomsContent()
     {
-        foreach ((GameObject roomInstance, DungeonFactory.Room.RoomType roomType) in allRooms)
-            CreateRoomContent(roomInstance, roomType);
+        foreach ((GameObject roomInstance, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls) in allRooms)
+            CreateRoomContent(roomInstance, roomType, outerWalls);
     }
 
     public void SetPlayer(GameObject enemyTarget)
@@ -115,10 +122,10 @@ public class FloorManager : MonoBehaviour
         return false;
     }
 
-    private void CreateRoomContent(GameObject room, DungeonFactory.Room.RoomType roomType)
+    private void CreateRoomContent(GameObject room, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
-        roomManager.Initialize(spawnableEnemies, rock, descent, player.GetComponent<EnemyTargetComponent>());
+        roomManager.Initialize(spawnableEnemies, rock, descent, player.GetComponent<EnemyTargetComponent>(), doorWall, outerWalls);
         roomManager.CreateContent(roomType);
     }
 
