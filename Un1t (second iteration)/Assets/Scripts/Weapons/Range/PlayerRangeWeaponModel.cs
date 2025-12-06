@@ -47,4 +47,22 @@ public class PlayerRangeWeaponModel
         damage += increment;
         ProjectileModel = new(damage, lifetime);
     }
+
+    public RangedWeaponSaveData ToSaveData()
+    {
+        var data = new RangedWeaponSaveData();
+        data.Damage = damage;
+        data.Lifetime = lifetime;
+        data.AttackCooldown = AttackCooldown;
+        data.Ammo = ammo;
+        return data;
+    }
+
+    public void FromSaveData(RangedWeaponSaveData data)
+    {
+        damage = data.Damage;
+        lifetime = data.Lifetime;
+        attackCooldown = data.AttackCooldown;
+        ammo = data.Ammo;
+    }
 }

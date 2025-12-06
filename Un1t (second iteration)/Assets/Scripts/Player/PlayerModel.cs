@@ -210,4 +210,53 @@ public class PlayerModel : IInstanceModel
         this.shieldCooldown = shieldCooldown;
         ShieldUnlocked?.Invoke();
     }
+
+    public PlayerSaveData ToSaveData()
+    {
+        var data = new PlayerSaveData();
+        var rangedData = rangeModel.ToSaveData();
+        var meleeData = meleeModel.ToSaveData();
+        data.currentHealth =  currentHealth;
+        data.maxHealth = maxHealth;
+        data.regenPerSecond = regenPerSecond;
+        data.level = level;
+        data.currentXP = currentXP;
+        data.healPerHit = healPerHit;
+        data.healCostCoefficient = healCostCoefficient;
+        data.xpGainCoefficient = xpGainCoefficient;
+        data.resistCoefficient = resistCoefficient;
+        data.dodgeChance = dodgeChance;
+        data.shieldCooldown = shieldCooldown;
+        data.movingSpeed = movingSpeed;
+        data.dashSpeed = dashSpeed;
+        data.dashDuration = dashDuration;
+        data.dashCooldown  = dashCooldown;
+        data.ranged = rangedData;
+        data.melee = meleeData;
+
+        return data;
+    }
+
+    public void FromSaveData(PlayerSaveData data)
+    {
+        
+        currentHealth = data.currentHealth;
+        maxHealth = data.maxHealth;
+        regenPerSecond = data.regenPerSecond;
+        level = data.level;
+        currentXP = data.currentXP;
+        healPerHit = data.healPerHit;
+        healCostCoefficient = data.healCostCoefficient;
+        xpGainCoefficient = data.xpGainCoefficient;
+        resistCoefficient = data.resistCoefficient;
+        dodgeChance = data.dodgeChance;
+        shieldCooldown = data.shieldCooldown;
+        movingSpeed = data.movingSpeed;
+        dashSpeed = data.dashSpeed;
+        dashDuration = data.dashDuration;
+        dashCooldown  = data.dashCooldown;
+        
+        rangeModel.FromSaveData(data.ranged);
+        meleeModel.FromSaveData(data.melee);
+    }
 }

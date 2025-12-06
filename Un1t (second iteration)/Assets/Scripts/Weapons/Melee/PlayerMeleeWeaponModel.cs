@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 
 public class PlayerMeleeWeaponModel : MeleeWeaponModel
 {
@@ -37,5 +38,26 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
     public void UpgradeDoubleHitChance(float increment)
     {
         doubleHitChance += increment;
+    }
+
+    public MeleeWeaponSaveData ToSaveData()
+    {
+        var data = new MeleeWeaponSaveData();
+        data.Damage = Damage;
+        data.DamageType = DamageType;
+        data.AttackCooldown = AttackCooldown;
+        data.AttackSpeed = AttackSpeed;
+        data.DoubleHitChance = DoubleHitChance;
+
+        return data;
+    }
+
+    public void FromSaveData(MeleeWeaponSaveData data)
+    {
+        damage = data.Damage;
+        damageType = data.DamageType;
+        attackCooldown = data.AttackCooldown;
+        attackSpeed = data.AttackSpeed;
+        doubleHitChance = data.DoubleHitChance;
     }
 }

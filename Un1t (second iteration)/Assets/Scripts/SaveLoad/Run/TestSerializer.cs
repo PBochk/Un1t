@@ -2,24 +2,25 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TestSerializer : MonoBehaviour
 {
+    [SerializeField] private PlayerModelMB player;
     private XmlSerializer serializer;
-    private GameRunState runState;
 
     private void Start()
     {
-        var player = FindFirstObjectByType<PlayerModelMB>();
-        var runState = new GameRunState(player.PlayerModel);
-        serializer = new XmlSerializer(typeof(GameRunState));
+        serializer = new XmlSerializer(typeof(PlayerSaveData));
     }
 
-    public void SerializeAndPrint()
+    public void SerializeAndPrint(InputAction.CallbackContext context)
     {
+        if (!context.performed) return;
+        var playerSaveData = player.PlayerModel.ToSaveData();
         Debug.Log("Serializing...");
         StringWriter writer = new();
-        serializer.Serialize(writer, runState);
+        serializer.Serialize(writer, playerSaveData);
         Debug.Log(writer.ToString());
         writer.Close();
     }

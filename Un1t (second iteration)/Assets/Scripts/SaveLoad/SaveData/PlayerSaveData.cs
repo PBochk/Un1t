@@ -15,4 +15,10 @@ public class PlayerSaveData
     public float dashSpeed;
     public float dashDuration;
     public float dashCooldown;
+    public MeleeWeaponSaveData melee;
+    public RangedWeaponSaveData ranged;
+
+    public PlayerSaveData()
+    {
+    }
 }
