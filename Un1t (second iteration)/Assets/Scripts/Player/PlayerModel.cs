@@ -90,6 +90,10 @@ public class PlayerModel : IInstanceModel
     {
         playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
     }
+
+    public PlayerModel()
+    {
+    }
     
     public PlayerModel(PlayerConfig config)
     {
