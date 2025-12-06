@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1700014690703559074}
   - component: {fileID: 4917425855745854776}
   - component: {fileID: 2975473916789522386}
+  - component: {fileID: 8945694377858962355}
   m_Layer: 6
   m_Name: Dummy
   m_TagString: Untagged
@@ -163,6 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  Death:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2975473916789522386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +179,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3d377e07d47de4d9a6a40b4bc767f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
+  xpDamage: 1
+--- !u!114 &8945694377858962355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152266689765866904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ef2758085a6484c904ed8481d32636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityType: 0
+  HitTaken:
+    m_PersistentCalls:
+      m_Calls: []
