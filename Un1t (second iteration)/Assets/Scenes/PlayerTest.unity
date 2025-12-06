@@ -621,7 +621,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29780507, y: 0.050998926, z: -10}
+  m_LocalPosition: {x: 0.29013276, y: 0.051128864, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1692,6 +1692,10 @@ PrefabInstance:
       propertyPath: meleeModelMB
       value: 
       objectReference: {fileID: 606516056}
+    - target: {fileID: 7790997573628290336, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
+      propertyPath: playerConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b3b811491f1c6f4dbd1d82517fb49d2, type: 2}
     - target: {fileID: 8030387712029037602, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
       propertyPath: m_IsActive
       value: 0
