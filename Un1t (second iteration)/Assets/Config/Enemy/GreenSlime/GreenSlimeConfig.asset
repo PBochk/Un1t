@@ -16,4 +16,4 @@ MonoBehaviour:
   initialSpeedCoefficient: 1.25
   xpGain: 1
   baseMoveSpeed: 1.8
-  aggroRange: 12
+  aggroRange: 8

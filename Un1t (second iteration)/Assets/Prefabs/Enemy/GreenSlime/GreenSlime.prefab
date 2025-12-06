@@ -581,7 +581,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   label: Attack cd
-  cooldown: 1
+  cooldown: 2
 --- !u!114 &2609521758479921794
 MonoBehaviour:
   m_ObjectHideFlags: 0

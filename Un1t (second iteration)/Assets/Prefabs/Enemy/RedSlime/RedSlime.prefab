@@ -448,8 +448,8 @@ MonoBehaviour:
   boxCollider2D: {fileID: 71176228068317267}
   meleeWeapon: {fileID: 4987674022880246976}
   weapon: {fileID: 1202135567377446006}
-  rangedRange: 12
-  tooCloseRange: 6
+  rangedRange: 8
+  tooCloseRange: 4
 --- !u!114 &2689443160242506967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   label: Ranged cooldown
-  cooldown: 1
+  cooldown: 2
 --- !u!114 &1435143145588068324
 MonoBehaviour:
   m_ObjectHideFlags: 0
