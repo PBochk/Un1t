@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class RoomManager : MonoBehaviour
 {
-    public List<EnemyController> AllEnemies => allEnemies;
+    public List<GameObject> AllEnemies => allEnemies;
 
     private GameObject rock;
+    private GameObject descent;
 
-    private readonly List<EnemyController> allEnemies = new();
+    private readonly List<GameObject> allEnemies = new();
 
     private FloorEnemiesList spawnableEnemies;
     private IReadOnlyList<TilesBuilder> tilesBuilders;
@@ -20,13 +22,14 @@ public class RoomManager : MonoBehaviour
     //TODO: refactor room typing according to OCP
     private DungeonFactory.Room.RoomType type;
 
-    private EnemyTargetComponent enemyTarget;
+    private EnemyTargetComponent player;
 
-    public void Initialize(FloorEnemiesList enemies, GameObject rock, EnemyTargetComponent enemyTarget)
+    public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent, EnemyTargetComponent enemyTarget)
     {
         spawnableEnemies = enemies;
         this.rock = rock;
-        this.enemyTarget = enemyTarget;
+        this.descent = descent;
+        player = enemyTarget;
     }
 
     public void CreateContent(DungeonFactory.Room.RoomType roomType)
@@ -40,7 +43,7 @@ public class RoomManager : MonoBehaviour
 
         allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, spawnableEnemies, generatedShurfesCount);
 
-        CreateEntities(enemyTarget);
+        CreateEntities(player);
     }
 
     private void CreateEntities(EnemyTargetComponent player)
@@ -48,35 +51,39 @@ public class RoomManager : MonoBehaviour
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
 
+        if (type == DungeonFactory.Room.RoomType.Exit)
+            Instantiate(descent, transform);
+
         if (type != DungeonFactory.Room.RoomType.Regular) return;
 
-        foreach ((GameObject entity, Vector2 startPosition) in allGroundEntities.Rocks)
+        foreach (RoomEntity rock in allGroundEntities.Rocks)
         {
-            Instantiate(entity,
-                (Vector3)startPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
+            Instantiate(rock.GameObject,
+                (Vector3)rock.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
                 Quaternion.identity, transform);
         }
 
-        foreach ((EnemyController entity, Vector2 startPosition) in allGroundEntities.EnemiesOutsideShurfes)
+        foreach (RoomEntity enemy in allGroundEntities.EnemiesOutsideShurfes)
         {
-            EnemyController enemy = Instantiate(entity,
-                (Vector3)startPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
-                Quaternion.identity, transform);
-            enemy.SetTarget(player);
+            EnemyController enemyController = Instantiate(enemy.GameObject,
+                (Vector3)enemy.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
+                Quaternion.identity, transform).GetComponent<EnemyController>();
+            enemyController.SetTarget(player);
 
-            allEnemies.Add(enemy);
+            allEnemies.Add(enemy.GameObject);
         }
 
         if (allGroundEntities.EnemiesInShurfes.Count == 0) return;
 
         foreach (OuterWallBuilder wallWithShurf in wallsWithShurfes)
         {
-            foreach (EnemyController enemy in wallWithShurf.CreateEnemiesInShurfes(allGroundEntities.EnemiesInShurfes))
+            foreach (GameObject enemy in wallWithShurf.CreateEnemiesInShurfes(allGroundEntities.EnemiesInShurfes))
             {
-                enemy.SetTarget(player);
+                enemy.GetComponent<EnemyController>().SetTarget(player);
                 allEnemies.Add(enemy);
             }
         }
+
     }
 
     private void ReadTilesBuilders()
