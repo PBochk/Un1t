@@ -81,6 +81,11 @@ public class FloorManager : MonoBehaviour
         this.enemyTarget = enemyTarget.GetComponent<EnemyTargetComponent>();
     }
 
+    public void SetEnemyTarget(EnemyTargetComponent target)
+    {
+        this.enemyTarget = target;
+    }
+
 
     /// <summary>
     /// Instantiates a room prefab at the specified position
