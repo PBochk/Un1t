@@ -29,6 +29,9 @@ public class RoomManager : MonoBehaviour
     private RoomOuterWalls outerWalls;
     private List<GameObject> doorWalls = new();
     private bool isCompleted = false;
+
+    private static readonly Vector2 horizontalDoorSize = new Vector2(2, 4);
+    private static readonly Vector2 verticalDoorSize = new Vector2(6, 2);
     #endregion
 
     public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent, 
@@ -184,30 +187,32 @@ public class RoomManager : MonoBehaviour
         Debug.Log("1");
         CreateEnemies();
         if (outerWalls.Top.Middle.IsEmpty)
-            doorWalls.Add(CreateVerticalDoor(new(0, 7)));
+            doorWalls.Add(CreateVerticalDoor(new(0, 9)));
 
         if (outerWalls.Bottom.Middle.IsEmpty)
-            doorWalls.Add(CreateVerticalDoor(new(0, -7)));
+            doorWalls.Add(CreateVerticalDoor(new(0, -9)));
 
         if (outerWalls.Left.Middle.IsEmpty)
-            doorWalls.Add(CreateHorizontalDoor(new(-9.5f, 0)));
+            doorWalls.Add(CreateHorizontalDoor(new(-10, 0)));
 
         if (outerWalls.Right.Middle.IsEmpty)
-            doorWalls.Add(CreateHorizontalDoor(new(9.5f, 0)));
+            doorWalls.Add(CreateHorizontalDoor(new(10, 0)));
     }
 
     private GameObject CreateHorizontalDoor(Vector3 position)
     {
         Debug.Log("2");
         GameObject horizontalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
-        horizontalDoor.GetComponent<SpriteRenderer>().size = new Vector2(2, 4);
+        horizontalDoor.GetComponent<SpriteRenderer>().size = horizontalDoorSize;
+        horizontalDoor.GetComponent<BoxCollider2D>().size = horizontalDoorSize;
         return horizontalDoor;
     }
 
     private GameObject CreateVerticalDoor(Vector3 position)
     {
         GameObject verticalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
-        verticalDoor.GetComponent<SpriteRenderer>().size = new Vector2(4, 2);
+        verticalDoor.GetComponent<SpriteRenderer>().size = verticalDoorSize;
+        verticalDoor.GetComponent<BoxCollider2D>().size = verticalDoorSize;
         return verticalDoor;
     }
     #endregion
