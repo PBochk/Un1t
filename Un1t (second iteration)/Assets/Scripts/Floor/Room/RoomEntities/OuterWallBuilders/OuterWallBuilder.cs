@@ -321,7 +321,7 @@ public class OuterWallBuilder : TilesBuilder
                     basePosition.y - shurfCenter
                 );
 
-                enemyVerticalPosition = darknessPosition.y;
+                enemyVerticalPosition = darknessPosition.y + directionMultiplier;
             }
 
             Vector2 enemyPosition = new(enemyHorizontalPosition, enemyVerticalPosition);

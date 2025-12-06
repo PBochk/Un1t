@@ -5,8 +5,8 @@ using UnityEngine;
 //TODO: Serialize Dictionaries, this solution is temporary
 public class FloorEnemiesList : ScriptableObject
 {
-    public const int BLUE_SLIME_FREQUENCY = 2;
-    public const int GREEN_SLIME_FREQUENCY = 4;
+    public const int BLUE_SLIME_FREQUENCY = 4;
+    public const int GREEN_SLIME_FREQUENCY = 2;
     public const int RED_SLIME_FREQUENCY = 6;
     public const int GLITCH_FREQUENCY = 1;
 
