@@ -77,7 +77,7 @@ public abstract class EnemyState : MonoBehaviour
 
         if (transition == null)
         {
-            Debug.LogWarning($"{this} has no transition set.");
+            //Debug.LogWarning($"{this} has no transition set.");
             return;
         }
 
