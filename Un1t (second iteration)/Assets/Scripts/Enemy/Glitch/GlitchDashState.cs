@@ -45,7 +45,10 @@ public class GlitchDashState : EnemyState
         var curveT = dashCurve.Evaluate(t);
         rb.MovePosition(startPos + curveT * distance * direction);
         timer += Time.fixedDeltaTime;
-        if(timer > duration)
+        if (timer > duration)
+        {
             isDashing = false;
+            ExitState();
+        }
     }
 }
