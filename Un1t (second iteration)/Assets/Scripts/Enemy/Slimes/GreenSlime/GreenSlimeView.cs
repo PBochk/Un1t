@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 
 [RequireComponent(typeof(SlimeAnimator))]
+[RequireComponent(typeof(EnemySoundPlayer))]
 public class GreenSlimeView : EnemyView
 {
     [SerializeField] private IdleState idleState;
@@ -56,7 +57,23 @@ public class GreenSlimeView : EnemyView
 
     protected override void BindSoundPlayer()
     {
-        //throw new System.NotImplementedException();
+        soundPlayer = GetComponent<EnemySoundPlayer>();
+        followState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlayMoveSound();
+        });
+        runawayState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlayMoveSound();
+        });
+        deadState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlaydDeathSound();
+        });
+        rangedAttackState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlayAttackSound();
+        });
     }
 
     public override void ResetAllAnimations()

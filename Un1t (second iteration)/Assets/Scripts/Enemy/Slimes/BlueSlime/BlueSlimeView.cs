@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemySoundPlayer))]
 public class BlueSlimeView : EnemyView
 {
     [SerializeField] private SlimeFollowState followState;
@@ -43,6 +44,19 @@ public class BlueSlimeView : EnemyView
 
     protected override void BindSoundPlayer()
     {
+        soundPlayer = GetComponent<EnemySoundPlayer>();
+        followState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlayMoveSound();
+        });
+        deadState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlaydDeathSound();
+        });
+        meleeState.OnStateEnter.AddListener(() =>
+        {
+            soundPlayer.PlayAttackSound();
+        });
     }
 
     public override void ResetAllAnimations()
