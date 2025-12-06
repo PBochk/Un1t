@@ -204,6 +204,142 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a80af139d8bd2488fc61f7c0266bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &161052023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 161052026}
+  - component: {fileID: 161052025}
+  - component: {fileID: 161052024}
+  m_Layer: 0
+  m_Name: TestSerializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &161052024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161052023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3dba2921fd41f7ba6325f4c633c242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2093994559}
+--- !u!114 &161052025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161052023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: d0510a6ce5c25f144b7dc5d884306185, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0a94e49-f078-4b92-963d-06d8e39579e3
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3c6acd8-7fd5-479a-b465-bc259c614599
+    m_ActionName: 'Player/Dash[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b712890-a6b4-47f0-8012-16a1724c31b1
+    m_ActionName: 'Player/MeleeAttack[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4e66bab0-8e6d-4b7b-8cb2-0b76e1a19222
+    m_ActionName: 'Player/RangeAttack[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4929c92-25bf-4b85-8129-9c8361155f10
+    m_ActionName: 'Player/MouseMove[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0cf0e86c-8e7d-4799-b6ed-595563886713
+    m_ActionName: 'Player/EquipPreviousTool[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1c9eb178-509f-4854-b2ce-13fcbbb09ad0
+    m_ActionName: 'Player/EquipMelee[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3a21b00d-b633-405a-93af-1e4d0b5febdb
+    m_ActionName: 'Player/EquipRange[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ba8bdef2-28ba-43f4-aec1-94c52629217e
+    m_ActionName: 'Player/EquipPickaxe[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 161052024}
+        m_TargetAssemblyTypeName: TestSerializer, Assembly-CSharp
+        m_MethodName: SerializeAndPrint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 73ffcb12-43d7-4bee-ae88-3d712ea13024
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a703f55-be7d-4949-92b6-3adf957c5d82
+    m_ActionName: 'Player/LevelUp[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 506a8650-0bec-4aca-8449-7fd5f3017153
+    m_ActionName: 'Player/Heal[/Keyboard/g]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &161052026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161052023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.53377, y: -2.97562, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &509026552 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2184810924830865795, guid: 38dafb8006e60e44d95d08582e7d9420, type: 3}
@@ -857,3 +993,4 @@ SceneRoots:
   - {fileID: 58855607}
   - {fileID: 1225661981}
   - {fileID: 731994935}
+  - {fileID: 161052026}

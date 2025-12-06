@@ -39,7 +39,7 @@ public class RedSlimeView : EnemyView
             animator.PlayJumpAnimation();
         });
 
-        runawayCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        runawayCooldownState.OnStateExit.AddListener(animator.PlayIdleAnimation);
         
         meleeState.OnStateEnter.AddListener(() =>
         {
