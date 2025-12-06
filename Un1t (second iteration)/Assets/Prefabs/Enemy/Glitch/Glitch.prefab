@@ -775,7 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  pushSpeed: 15
+  pushSpeed: 0
   xpDamage: 5
 --- !u!82 &5060428827671819504
 AudioSource:
