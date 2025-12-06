@@ -162,20 +162,24 @@ public static class RoomGroundContentGenerator
             unacceptableEnemiesPositions.Add(new(0, y));
             unacceptableEnemiesPositions.Add(new(1, y));
             unacceptableEnemiesPositions.Add(new(2, y));
+            unacceptableEnemiesPositions.Add(new(3, y));
 
             unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x, y));
             unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x-1, y));
             unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x-2, y));
+            unacceptableEnemiesPositions.Add(new(RoomInfo.Size.x - 3, y));
         }
-        for (var x = 2; x < RoomInfo.Size.x - 2; x++)
+        for (var x = 3; x < RoomInfo.Size.x - 3; x++)
         {
             unacceptableEnemiesPositions.Add(new(x, 0));
             unacceptableEnemiesPositions.Add(new(x, 1));
             unacceptableEnemiesPositions.Add(new(x, 2));
+            unacceptableEnemiesPositions.Add(new(x, 3));
 
             unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y));
             unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y - 1));
             unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y - 2));
+            unacceptableEnemiesPositions.Add(new(x, RoomInfo.Size.y - 3));
         }
 
         return unacceptableEnemiesPositions;

@@ -27,11 +27,11 @@ public class RoomManager : MonoBehaviour
     #region TemporaryRoomComletionImplementationForDemoOnlyFields
     private GameObject doorTile;
     private RoomOuterWalls outerWalls;
-    private List<GameObject> doorWalls = new();
+    private readonly List<GameObject> doorWalls = new();
     private bool isCompleted = false;
 
-    private static readonly Vector2 horizontalDoorSize = new Vector2(2, 4);
-    private static readonly Vector2 verticalDoorSize = new Vector2(6, 2);
+    private static readonly Vector2 horizontalDoorSize = new (2, 4);
+    private static readonly Vector2 verticalDoorSize = new (6, 2);
     #endregion
 
     public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent, 
@@ -184,7 +184,6 @@ public class RoomManager : MonoBehaviour
     {
         if (!collision.TryGetComponent(out PlayerController _)) return;
         if (doorWalls.Count != 0 || isCompleted || type != DungeonFactory.Room.RoomType.Regular) return;
-        Debug.Log("1");
         CreateEnemies();
         if (outerWalls.Top.Middle.IsEmpty)
             doorWalls.Add(CreateVerticalDoor(new(0, 9)));
@@ -201,7 +200,6 @@ public class RoomManager : MonoBehaviour
 
     private GameObject CreateHorizontalDoor(Vector3 position)
     {
-        Debug.Log("2");
         GameObject horizontalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
         horizontalDoor.GetComponent<SpriteRenderer>().size = horizontalDoorSize;
         horizontalDoor.GetComponent<BoxCollider2D>().size = horizontalDoorSize;

@@ -50,10 +50,12 @@ public class FloorManager : MonoBehaviour
                 group => group.Key,
                 group => group.Select(template => template.Info).ToImmutableList()
         );
-
+        /*
         GenerateFloor();
         SetPlayer(GameObject.FindWithTag("Player"));
         GenerateRoomsContent();
+        */
+        
     }
 
     /// <summary>
