@@ -15,6 +15,7 @@ public class PlayerUpgradeController : MonoBehaviour
     private PlayerRangeWeaponModel rangeModel;
     private PlayerUpgradeModel upgradeModel;
     private List<PlayerUpgrade> rewardChoice = new();
+    private List<PlayerUpgradeTypes> chosenTypes = new();
     public PlayerModel PlayerModel => playerModel;
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
@@ -55,15 +56,18 @@ public class PlayerUpgradeController : MonoBehaviour
                 ability.RemoveListeners();
             }
         }
+        chosenTypes.Clear();
         rewardChoice.Clear();
     }
 
     private void SetUpgradeChoice()
     {
-        for (var i = 0; i < 3; i++)
+        while(rewardChoice.Count < 3)
         {
             var upgradeType = upgradeModel.UnlockedUpgrades[Random.Range(0, upgradeModel.UnlockedUpgrades.Count)];
+            if (chosenTypes.Contains(upgradeType)) continue;
             var upgrade = UpgradeFactory.GetUpgrade(upgradeType);
+            chosenTypes.Add(upgradeType);
             rewardChoice.Add(upgrade);
         }
     }
