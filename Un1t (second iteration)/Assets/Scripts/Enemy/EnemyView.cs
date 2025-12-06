@@ -11,6 +11,7 @@ using UnityEngine;
 public abstract class EnemyView : MonoBehaviour
 {
     protected EnemyModelMB model;
+    protected EnemySoundPlayer soundPlayer;
     
     private void Awake()
     {
