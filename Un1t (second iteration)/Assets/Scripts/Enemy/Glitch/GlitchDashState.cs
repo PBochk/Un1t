@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class GlitchDashState : EnemyState
 {
     [Header("Dash Settings")]
-    public float distance = 7.5f;
-    public float duration = 0.4f;
+    public float distance = 5.5f;
+    public float duration = 0.7f;
 
     public override float MotionTime => duration;
 

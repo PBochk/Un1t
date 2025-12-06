@@ -8,7 +8,7 @@ public class ContactDamageComponent : MonoBehaviour
     [SerializeField] private float pushSpeed;
     [SerializeField] private int xpDamage;
     private bool isContactDamageReady = true;
-    private const float contactDamageCooldown = 0.1f;
+    private const float contactDamageCooldown = 0.75f;
     private AttackData attackData;
 
     private void Awake()
