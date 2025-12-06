@@ -8,7 +8,7 @@ using static SpawnersManager;
 
 public class GameOverUI : MonoBehaviour
 {
-    //[SerializeField] private EventParent parent;
+    [SerializeField] private EventParent parent;
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text gameoverText;
     [SerializeField] private string winText;
@@ -33,7 +33,7 @@ public class GameOverUI : MonoBehaviour
         playerModel = mainUI.PlayerModelMB.PlayerModel;
         // TODO: move subscription in OnEnable after model initialization rework
         playerModel.PlayerDeath += OnPlayerDeath;
-        //parent.LevelEnded.AddListener(OnLevelEnd); // <---- subscribe method on event
+        parent.LevelEnded.AddListener(OnLevelEnd); // <---- subscribe method on event
         canvas.enabled = false;
         reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
