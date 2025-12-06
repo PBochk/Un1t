@@ -15,6 +15,10 @@ public class GlitchDashState : EnemyState
 
     private Rigidbody2D rb;
     private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
+    private bool isDashing = false;
+    private float timer = 0;
+    private Vector2 startPos;
+    private Vector2 direction;
 
     protected override void Awake()
     {
@@ -28,34 +32,20 @@ public class GlitchDashState : EnemyState
 
         if (target == null) return;
 
-        Vector2 startPos = rb.position;
-        Vector2 direction = (target.Position - rb.position).normalized;
-
-        // Запуск корутины через безопасный RunStateCoroutine
-        RunStateCoroutine(DashRoutine(startPos, direction));
+        startPos = rb.position;
+        direction = (target.Position - rb.position).normalized;
+        timer = 0;
+        isDashing = true;
     }
 
-    private IEnumerator DashRoutine(Vector2 startPos, Vector2 direction)
+    private void FixedUpdate()
     {
-        float timer = 0f;
-
-        while (timer < duration)
-        {
-            float t = timer / duration;
-
-            // Применяем кривую
-            float curveT = dashCurve.Evaluate(t);
-
-            rb.MovePosition(startPos + curveT * distance * direction);
-
-            timer += Time.fixedDeltaTime;
-            yield return physicsUpdate;
-        }
-
-        // Финальная позиция (на случай неточного t)
-        rb.MovePosition(startPos + direction * distance);
-
-        // Завершаем состояние
-        ExitState();
+        if (!isDashing || duration < timer) return;
+        var t = timer / duration;
+        var curveT = dashCurve.Evaluate(t);
+        rb.MovePosition(startPos + curveT * distance * direction);
+        timer += Time.fixedDeltaTime;
+        if(timer > duration)
+            isDashing = false;
     }
 }
