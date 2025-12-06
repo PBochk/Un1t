@@ -9,7 +9,7 @@ public class GameInitiator : MonoBehaviour
     {
         floorManager.GenerateFloor();
         var target = playerController.GetComponent<EnemyTargetComponent>();
-        floorManager.SetEnemyTarget(target);
+        floorManager.SetPlayer(playerController.gameObject);
         floorManager.GenerateRoomsContent();
     }
 }
