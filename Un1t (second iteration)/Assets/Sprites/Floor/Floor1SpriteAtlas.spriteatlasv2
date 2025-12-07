@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!612988286 &1
+SpriteAtlasAsset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 2
+  m_MasterAtlas: {fileID: 0}
+  m_ImporterData:
+    packables:
+    - {fileID: 2800000, guid: d0e968efdc29fd84db152f4e2c2cc8cd, type: 3}
+    - {fileID: 2800000, guid: c8210d3dc81930948826a18591026861, type: 3}
+    - {fileID: 2800000, guid: 7317dd6048b18f3459c1c5c7edf282c5, type: 3}
+    - {fileID: 2800000, guid: 1677da96eed9b3744908b0de6616bb73, type: 3}
+    - {fileID: 2800000, guid: 4b6ef103cbc29094293621739432b9ae, type: 3}
+    - {fileID: 2800000, guid: 694a0e26764c4c745bb85b23813a455e, type: 3}
+    - {fileID: 2800000, guid: 972485be228e9754eac2e15c6be119e1, type: 3}
+    - {fileID: 2800000, guid: 25d51c6ccfe8ff84ba7d5ffb33acc0f9, type: 3}
+    - {fileID: 2800000, guid: 7075d38fe504ee844bc7619249379e08, type: 3}
+    - {fileID: 2800000, guid: 3d2c8306d2623a247b4d0941a633b487, type: 3}
+    - {fileID: 2800000, guid: ea1ef6232dc4e1c4a8115843b075e53e, type: 3}
+    - {fileID: 2800000, guid: 0f855b22231809b4389275b1d11134c4, type: 3}
+    - {fileID: 2800000, guid: dd75931ba0240ed4a85fc4ecba27a26a, type: 3}
+    - {fileID: 2800000, guid: d5bff92efdf9efe4eab2b98615a716e2, type: 3}
+    - {fileID: 2800000, guid: e4b351c045dd6ac4290c241d56b213e2, type: 3}
+    - {fileID: 2800000, guid: 576c0e8a36bac664aa8ec177a9a9298b, type: 3}
+    - {fileID: 2800000, guid: 003949565531bee40ad2c41cb7ad6da7, type: 3}
+    - {fileID: 2800000, guid: cb17f5c06725e074a9a6be699663f51f, type: 3}
+    - {fileID: 2800000, guid: b4da72fe502e4cc43a633fe71ed36208, type: 3}
+    - {fileID: 2800000, guid: 09de520fb9669e54a8974d97eb214079, type: 3}
+    - {fileID: 2800000, guid: 00f24a263d464bd449f1bfdc5ae4b913, type: 3}
+    - {fileID: 2800000, guid: 146b6f11ce3caed4ab6fdbdb4a38cc0b, type: 3}
+    - {fileID: 2800000, guid: 4118236d56e9c6a42a4e2620426d4ed9, type: 3}
+  m_IsVariant: 0
+  m_ScriptablePacker: {fileID: 0}
