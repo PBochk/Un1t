@@ -115,12 +115,14 @@ public class FloorManager : MonoBehaviour
     private bool TryChooseTemplateRoom(in RoomOuterWalls roomWalls, out RoomInfo roomInfo)
     {
         roomInfo = null;
+        /*
         if (groupedRoomsByWalls.TryGetValue(roomWalls, out ImmutableList<RoomInfo> possibleRooms)
             && possibleRooms.Count > 0)
         {
             roomInfo = possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Count)];
             return true;
         }
+        */
         return false;
     }
 
