@@ -8,30 +8,35 @@ using static SpawnersManager;
 
 public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] private PlayerModelMB playerModelMB;
     [SerializeField] private EventParent parent;
-    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text gameoverText;
     [SerializeField] private string winText;
     [SerializeField] private string loseText;
     [SerializeField] private Button reload;
     [SerializeField] private Button quit;
+    private MainUI mainUI;
+    private PauseManager pauseManager;
     private PlayerModel playerModel;
 
     private void Awake()
     {
+        canvas.worldCamera = Camera.current;
         reload.onClick.AddListener(ReloadScene);
         quit.onClick.AddListener(QuitGame);
     }
 
     private void Start()
     {
-        playerModel = playerModelMB.PlayerModel;
+        mainUI = GetComponentInParent<MainUI>();
+        pauseManager = mainUI.PauseManager;
+        playerModel = mainUI.PlayerModelMB.PlayerModel;
         // TODO: move subscription in OnEnable after model initialization rework
         playerModel.PlayerDeath += OnPlayerDeath;
         parent.LevelEnded.AddListener(OnLevelEnd); // <---- subscribe method on event
         canvas.enabled = false;
+        reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
     }
 
     //private void OnEnable()

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +8,21 @@ public class HintUI : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button button;
     [SerializeField] private TMP_Text current;
-    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private List<string> texts;
+    private MainUI mainUI;
+    private PauseManager pauseManager;
     private int count = 0;
     private void Awake()
     {
+        canvas.worldCamera = Camera.current;
         button.onClick.AddListener(NextHint);
     }
-
     private void Start()
     {
+        mainUI = GetComponentInParent<MainUI>();
+        button.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        pauseManager = mainUI.PauseManager;
+        pauseManager.PauseScene();
         NextHint();
     }
 

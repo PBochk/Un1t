@@ -8,11 +8,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMeleeWeaponModelMB))]
 public class PlayerMeleeWeaponController : MeleeWeaponController
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
     private PlayerModel playerModel;
     private PlayerController playerController;
     public UnityEvent StartMeleeAnimation;
-    public UnityEvent StartPickaxeAnimation;
 
     /// <summary>
     /// Overrides abstract model on player's implementation
@@ -32,14 +30,6 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
     {
         base.Start();
         playerModel = GetComponentInParent<PlayerModelMB>().PlayerModel;
-        //TODO: remove this subscription
-        playerModel.PlayerDeath += () => SetRendererActive(false);
-    }
-
-    private void OnDisable()
-    {
-        playerModel.PlayerDeath -= () => SetRendererActive(false);
-
     }
 
     /// <summary>
@@ -50,24 +40,29 @@ public class PlayerMeleeWeaponController : MeleeWeaponController
         base.StartMelee();
         if (modelMB.IsAttackReady)
         {
-            if(playerModel.EquippedTool == PlayerTools.Melee)
-            {
-                StartMeleeAnimation?.Invoke();
-            }
-            else if (playerModel.EquippedTool == PlayerTools.Pickaxe)
-            {
-                StartPickaxeAnimation?.Invoke();
-            }
+            StartMeleeAnimation?.Invoke();
             StartCoroutine(((PlayerMeleeWeaponModelMB)modelMB).WaitForAttackCooldown());
         }
     }
 
-    /// <summary>
-    /// Temporary solution for displaying weapon's change
-    /// </summary>
-    // TODO: rework it in view when there are animations
-    public void SetRendererActive(bool isActive)
+    protected override void EndMeleeActive()
     {
-        spriteRenderer.gameObject.SetActive(isActive);
+        if (damagedTargets.Count > 0)
+        {
+            // vampiric upgrade
+            playerModel.HealByHit(); 
+
+            // double hit upgrade
+            // TODO: rework to follow DRY
+            if(((PlayerMeleeWeaponModel)modelMB.MeleeWeaponModel).DoubleHitChance >= Random.Range(0, 1f))
+            {
+                foreach (var target in damagedTargets)
+                {
+                    if (target == null) continue;
+                    target.GetComponent<Hitable>().TakeHit(modelMB.MeleeWeaponModel.AttackData);
+                }
+            }
+        }
+        base.EndMeleeActive();
     }
 }

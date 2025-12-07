@@ -21,23 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 5540042324398986191, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: 2394007341795708731, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.083333336
-      value: {fileID: -1082616594236823419, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: 7884110839728529221, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.16666667
-      value: {fileID: 6918024583534162509, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: -882417674369162754, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.25
-      value: {fileID: 2303608967165369806, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: 8476837544000383906, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.33333334
-      value: {fileID: -9179993575659977245, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: 7757039178039615622, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.41666666
-      value: {fileID: -904728562775992763, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: 7199227267823431417, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.43333334
-      value: {fileID: 943689610298387228, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: -6598737452210782499, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.5
-      value: {fileID: -4249794950213894354, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: -145931936612535069, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     - time: 0.5833333
-      value: {fileID: -2713417299243092737, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+      value: {fileID: 5374352994674838534, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -60,15 +60,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 5540042324398986191, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: -1082616594236823419, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: 6918024583534162509, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: 2303608967165369806, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: -9179993575659977245, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: -904728562775992763, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: 943689610298387228, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: -4249794950213894354, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
-    - {fileID: -2713417299243092737, guid: d9a1310cc1a9a564eb9a747b02cbdb08, type: 3}
+    - {fileID: 2394007341795708731, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: 7884110839728529221, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: -882417674369162754, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: 8476837544000383906, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: 7757039178039615622, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: 7199227267823431417, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: -6598737452210782499, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: -145931936612535069, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
+    - {fileID: 5374352994674838534, guid: 2874b76498631c84bbc57d91e7a13e30, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -94,8 +94,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: EnablePlayerRestrain
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.43333334
     functionName: OnRangeShot
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
+    functionName: DisablePlayerRestrain
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

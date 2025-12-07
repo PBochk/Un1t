@@ -1,10 +1,12 @@
 using System;
+using System.Data.Common;
 
 public class PlayerMeleeWeaponModel : MeleeWeaponModel
 {
     private float attackSpeed;
-    private float damageIncrement;
+    private readonly float attackSpeedCap;
     private float attackCooldown;
+    private float doubleHitChance;
     public float AttackSpeed
     {
         get => attackSpeed; 
@@ -15,21 +17,47 @@ public class PlayerMeleeWeaponModel : MeleeWeaponModel
         }
     }
     public float AttackCooldown => attackCooldown;
-
-    public PlayerMeleeWeaponModel(float damage, DamageType damageType, float attackSpeed, float damageIncrement) : base(damage, damageType)
+    public float DoubleHitChance => doubleHitChance;
+    public PlayerMeleeWeaponModel(float damage, DamageType damageType, float attackSpeed, float doubleHitChance) : base(damage, damageType)
     {
         AttackSpeed = attackSpeed;
-        this.damageIncrement = damageIncrement;
+        attackSpeedCap = attackSpeed * 2;
+        this.doubleHitChance = doubleHitChance;
     }
 
-    public void UpgradeAttackSpeed(int level)
+    public void UpgradeAttackSpeed(float increment)
     {
-        attackSpeed = (float)(0.9f * Math.Pow(1.1f, level));
+        AttackSpeed = AttackSpeed + increment < attackSpeed ? AttackSpeed + increment : attackSpeedCap;
     }
 
-    public void UpgradeDamage()
+    public void UpgradeDamage(float increment)
     {
-        Damage += damageIncrement;
+        Damage += increment;
+    }
+    
+    public void UpgradeDoubleHitChance(float increment)
+    {
+        doubleHitChance += increment;
     }
 
+    public MeleeWeaponSaveData ToSaveData()
+    {
+        var data = new MeleeWeaponSaveData();
+        data.Damage = Damage;
+        data.DamageType = DamageType;
+        data.AttackCooldown = AttackCooldown;
+        data.AttackSpeed = AttackSpeed;
+        data.DoubleHitChance = DoubleHitChance;
+
+        return data;
+    }
+
+    public void FromSaveData(MeleeWeaponSaveData data)
+    {
+        damage = data.Damage;
+        damageType = data.DamageType;
+        attackCooldown = data.AttackCooldown;
+        attackSpeed = data.AttackSpeed;
+        doubleHitChance = data.DoubleHitChance;
+    }
 }

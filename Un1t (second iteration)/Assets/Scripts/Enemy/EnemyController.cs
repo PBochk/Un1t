@@ -20,6 +20,10 @@ using UnityEngine.Events;
 public abstract class EnemyController : MonoBehaviour
 {
     public EnemyTargetComponent Target { get; private set; }
+    
+    //Squared Distance between center of the screen and the corner, in units
+    //TODO: Remove magic number, load from config
+    public const float SleepingRange = 149.76f;
    
     //protected EnemyView View;
     protected Rigidbody2D Rb;
@@ -27,6 +31,7 @@ public abstract class EnemyController : MonoBehaviour
     protected DeadState DeadState;
     protected EnemyModelMB ModelMB;
     protected EnemyState CurrentState;
+    protected bool isSleeping = true;
     
     //it is needed for example in Transitions
     public EnemyModelMB Model => ModelMB;
@@ -44,7 +49,24 @@ public abstract class EnemyController : MonoBehaviour
         BindStates();
         MakeTransitions();
         BindDeadState();
+        //ChangeState(IdleState);
+    }
+
+    protected void Update()
+    {
+        if (!isSleeping || ShouldSleep()) return;
+        isSleeping = false;
         ChangeState(IdleState);
+    }
+
+    private bool ShouldSleep()
+    {
+        return SleepingRange < (Target.Position - Rb.position).SqrMagnitude();
+    }
+
+    public void ExitSleep()
+    {
+        
     }
 
     protected virtual void BindModel()
@@ -89,6 +111,7 @@ public abstract class EnemyController : MonoBehaviour
             return;
         Target = target;
     }
+    
 
     //It needed to be called from EnemyStateTransition
     //That's should not be a problem since usually only the 

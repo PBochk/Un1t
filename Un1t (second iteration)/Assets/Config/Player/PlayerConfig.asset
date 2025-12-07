@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e2a478b7cbf694c870fcb91971a6a4, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: 
+  baseMaxHealth: 100
+  level: 1
+  xpToNextLevel:
+  - 0
+  - 10
+  - 10
+  - 20
+  - 30
+  - 50
+  - 80
+  - 130
+  - 210
+  - 440
+  - 650
+  - 1090
+  baseHealPerHit: 0
+  baseHealCostCoefficient: 0.5
+  baseXPGainCoefficient: 1
+  baseResistCoefficient: 1
+  baseDodgeChance: 0
+  baseShieldCooldown: 0
+  baseMovingSpeed: 7
+  baseDashSpeed: 25
+  baseDashDuration: 0.25
+  baseDashCooldown: 3

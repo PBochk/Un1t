@@ -3,14 +3,12 @@ using System;
 public class PlayerRangeWeaponModel
 {
     private float damage;
-    private float lifetime; //idk if this should be in native model
-    private float initialForce;
+    private float lifetime;
+    public ProjectileModel ProjectileModel;
+
     private float attackCooldown;
     private int ammo;
 
-    public float Damage => damage;
-    public float Lifetime => lifetime;
-    public float InitialForce => initialForce;
     public float AttackCooldown => attackCooldown;
     public event Action AmmoChanged;
     public int Ammo
@@ -23,12 +21,15 @@ public class PlayerRangeWeaponModel
         }
     }
 
+    // TODO: remade with scriptable object
     public PlayerRangeWeaponModel(float damage, float lifetime, float attackCooldown, int ammo)
     {
         this.damage = damage;
         this.lifetime = lifetime;
+        ProjectileModel = new(damage, lifetime);
         this.attackCooldown = attackCooldown;
         this.ammo = ammo;
+
     }
 
     public void AddAmmo(int increment)
@@ -39,5 +40,29 @@ public class PlayerRangeWeaponModel
     public void SpendAmmo()
     {
         Ammo--;
+    }
+
+    public void UpgradeDamage(float increment)
+    {
+        damage += increment;
+        ProjectileModel = new(damage, lifetime);
+    }
+
+    public RangedWeaponSaveData ToSaveData()
+    {
+        var data = new RangedWeaponSaveData();
+        data.Damage = damage;
+        data.Lifetime = lifetime;
+        data.AttackCooldown = AttackCooldown;
+        data.Ammo = ammo;
+        return data;
+    }
+
+    public void FromSaveData(RangedWeaponSaveData data)
+    {
+        damage = data.Damage;
+        lifetime = data.Lifetime;
+        attackCooldown = data.AttackCooldown;
+        ammo = data.Ammo;
     }
 }

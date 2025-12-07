@@ -8,22 +8,28 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] private TMP_Text xpText;
     [SerializeField] private Image hpBar;
     [SerializeField] private Image xpBar;
+    [SerializeField] private Image levelUpIcon;
+    [SerializeField] private Animator levelUpIconAnimator;
     [SerializeField] private Sprite[] hpSprites;
     [SerializeField] private Sprite[] xpSprites;
+    private MainUI mainUI;
     private PlayerModel playerModel;
-    private int hpCount;
-    private int xpCount;
+    private int hpTilesCount;
+    private int xpTilesCount;
     // TODO: move subscription in OnEnable after model initialization rework
 
     private void Awake()
     {
-        hpCount = hpSprites.Length - 1;
-        xpCount = xpSprites.Length - 1;
+        hpTilesCount = hpSprites.Length - 1;
+        xpTilesCount = xpSprites.Length - 1;
+        var canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.current;
     }
 
     private void Start()
     {
-        playerModel = GetComponentInParent<PlayerUI>().PlayerModelMB.PlayerModel;
+        mainUI = GetComponentInParent<MainUI>();
+        playerModel = mainUI.PlayerModelMB.PlayerModel;
         playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
         playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
         Initialize();
@@ -44,13 +50,16 @@ public class PlayerStatsUI : MonoBehaviour
     private void OnHealthChanged()
     {
         hpText.text = playerModel.CurrentHealth + " / " + playerModel.MaxHealth;
-        var number = playerModel.CurrentHealth <= 0 ? hpCount : Mathf.FloorToInt((1 - playerModel.CurrentHealth / playerModel.MaxHealth) * hpCount);
+        var number = playerModel.CurrentHealth <= 0 ? hpTilesCount : Mathf.FloorToInt((1 - playerModel.CurrentHealth / playerModel.MaxHealth) * hpTilesCount);
         hpBar.sprite = hpSprites[number];
     }
+
     private void OnExperienceChanged()
     {
+        levelUpIcon.gameObject.SetActive(playerModel.IsLevelUpAvailable);
+        //levelUpIconAnimator.SetBool("Ready", playerModel.IsLevelUpAvailable);
         xpText.text = playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
-        var number = playerModel.CurrentXP >= playerModel.NextLevelXP ? 0 : Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpCount);
+        var number = playerModel.CurrentXP >= playerModel.NextLevelXP ? 0 : Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpTilesCount);
         xpBar.sprite = xpSprites[number];
     }
 }

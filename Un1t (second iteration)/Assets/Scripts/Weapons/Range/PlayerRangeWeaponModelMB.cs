@@ -4,27 +4,21 @@ using UnityEngine;
 
 public class PlayerRangeWeaponModelMB : MonoBehaviour
 {
-    [SerializeField] private float damage;
-    [SerializeField] private float lifetime;
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private int ammo;
-    [SerializeField] private float initialForce;
-    [SerializeField] private LayerMask solid;
-    public LayerMask Solid => solid;
-    public float InitialForce => initialForce;
+    [SerializeField] private PlayerRangeWeaponConfig config;
+    private PlayerRangeWeaponModel rangeWeaponModel;
     private bool isAttackReady = true;
+    public PlayerRangeWeaponModel RangeWeaponModel => rangeWeaponModel;
     public bool IsAttackReady => isAttackReady;
-    public PlayerRangeWeaponModel PlayerRangeWeaponModel;
 
     private void Awake()
     {
-        PlayerRangeWeaponModel = new PlayerRangeWeaponModel(damage, lifetime, attackCooldown, ammo);
+        rangeWeaponModel = new PlayerRangeWeaponModel(config.Damage, config.Lifetime, config.AttackCooldown, config.Ammo);
     }
 
     public IEnumerator WaitForAttackCooldown()
     {
         isAttackReady = false;
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(config.AttackCooldown);
         isAttackReady = true;
     }
 }

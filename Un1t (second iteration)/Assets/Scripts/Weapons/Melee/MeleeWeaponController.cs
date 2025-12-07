@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// An abstract class made for summarizing general behaviour of melee weapon attacks.
@@ -21,7 +22,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected ContactFilter2D contactFilter = new();
     protected HashSet<Collider2D> damagedTargets = new();
     protected WaitForFixedUpdate waitForFixedUpdate = new();
-
+    public UnityEvent<HitableEntityType> EntityHit;
     /// <summary>
     /// Should be overriden with base call and modelMB assignment
     /// </summary>
@@ -73,9 +74,10 @@ public abstract class MeleeWeaponController : MonoBehaviour
                 {
                     if (!damagedTargets.Contains(target))
                     {
-                        var hittable = target.GetComponent<Hitable>();
-                        hittable.TakeHit(model.AttackData);
+                        var hitable = target.GetComponent<Hitable>();
+                        hitable.TakeHit(model.AttackData);
                         damagedTargets.Add(target);
+                        EntityHit.Invoke(hitable.EntityType);
                     }
                 }
             }

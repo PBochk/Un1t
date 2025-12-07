@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,81 +16,152 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private PlayerInput playerInput; 
+    private PlayerInput playerInput;
     private PlayerModel playerModel;
-    [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
-    [SerializeField] private PlayerRangeWeaponController rangeController;
+    private PlayerHitable playerHitable;
 
-    private Vector2 moveDirection;
-    public Vector2 Position => rb.position;
     public Vector2 MousePosition { get; private set; }
 
+    private Vector2 moveDirection;
+    private Vector2 lastMoveDirection = Vector2.right;
+    private bool isDashing;
+    private bool canDash = true;
+
+    private const float PUSH_TIME = 0.3f;
+    private float pushSpeed;
+    private Vector2 pushDirection;
+    private bool isPushed = false;
+
+    public UnityEvent<int> DirectionChanged;
     public UnityEvent StartMelee;
     public UnityEvent StartMeleeActive;
     public UnityEvent EndMeleeActive;
     public UnityEvent StartRange;
     public UnityEvent RangeShot;
-    public UnityEvent ToolChange;
-    //public UnityEvent<Vector2> MouseMove;
+    public UnityEvent StartDash;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        GetComponent<Hitable>().HitTaken.AddListener(OnHitTaken);
-        //meleeController = GetComponentInChildren<PlayerMeleeWeaponController>();
-        //rangeController = GetComponentInChildren<PlayerRangeWeaponController>();
+        playerHitable = GetComponent<Hitable>() as PlayerHitable;
+        playerHitable.HitTaken.AddListener(OnHitTaken);
     }
 
     private void Start()
     {
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
-        // TODO: move subscription in OnEnable after model initialization rework
-        playerModel.PlayerRestrained += SetInputEnabled;
+        // TODO: move subscription to OnEnable after initialization rework
+        playerModel.PlayerDeath += () => SetPlayerRestrained(true);
     }
 
     private void OnDisable()
     {
-        playerModel.PlayerRestrained -= SetInputEnabled;
+        playerModel.PlayerDeath -= () => SetPlayerRestrained(true);
+    }
+
+    public void SetPlayerRestrained(bool isRestrained)
+    {
+        playerInput.enabled = !isRestrained;
+    }
+
+    /// <summary>
+    /// Allows using <see cref="SetPlayerRestrained">SetPlayerRestrained(true)</see> from animator
+    /// </summary>
+    public void EnablePlayerRestrain() => SetPlayerRestrained(true);
+    /// <summary>
+    /// Allows using <see cref="SetPlayerRestrained">SetPlayerRestrained(false)</see> from animator
+    /// </summary>
+    public void DisablePlayerRestrain() => SetPlayerRestrained(false);
+
+    public void OnMouseMove(InputValue value)
+    {
+        var screenPosition = value.Get<Vector2>();
+        MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
 
     private void FixedUpdate()
     {
-        MovePlayer(moveDirection);
+        if (isDashing)
+        {
+            MovePlayer(lastMoveDirection, playerModel.DashSpeed);
+        }
+        else if (isPushed)
+        {
+            MovePlayer(pushDirection, pushSpeed);
+        }
+        else
+        {
+            MovePlayer(moveDirection, playerModel.MovingSpeed);
+        }
     }
 
-    public void SetInputEnabled()
+    private void MovePlayer(Vector2 direction, float speed)
     {
-        playerInput.enabled = !playerModel.IsRestrained;
+        rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * direction);
     }
 
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
-    }
-
-    private void MovePlayer(Vector2 inputVector)
-    {
-        rb.MovePosition(rb.position + playerModel.MovingSpeed * Time.fixedDeltaTime * inputVector);
-    }
-
-    public void OnHitTaken(AttackData attackData)
-    {
-        playerModel.TakeDamage(attackData.Damage);
-        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
-    }
-
-    public void OnAttack()
-    {
-        if (playerModel.EquippedTool == PlayerTools.Melee || playerModel.EquippedTool == PlayerTools.Pickaxe)
+        if (Mathf.Abs(moveDirection.x) > Mathf.Abs(lastMoveDirection.x))
         {
-            StartMelee?.Invoke();
+            DirectionChanged?.Invoke(0);
         }
-        else if (playerModel.EquippedTool == PlayerTools.Range)
+        else if (moveDirection.y != 0 && Mathf.Abs(moveDirection.y) >= Mathf.Abs(lastMoveDirection.y))
         {
-            StartRange?.Invoke();
+            DirectionChanged?.Invoke((int)Mathf.Sign(moveDirection.y));
         }
+        if (moveDirection != Vector2.zero && !isDashing)
+        {
+            lastMoveDirection = moveDirection;
+        }
+    }
+
+    public void OnDash()
+    {
+        if (canDash)
+        {
+            StartDash?.Invoke();
+            StartCoroutine(WaitForDashDuration());
+            playerHitable.SetInvulForSeconds(playerModel.DashDuration);
+            StartCoroutine(WaitForDashCooldown());
+        }
+    }
+
+    /// <summary>
+    /// Set isDashing true for dash duration
+    /// </summary>
+    /// <remarks>
+    /// Set player restrained because player shouldn't be able to attack while dashing
+    /// </remarks>
+    private IEnumerator WaitForDashDuration()
+    {
+        isDashing = true;
+        SetPlayerRestrained(true);
+        yield return new WaitForSeconds(playerModel.DashDuration);
+        SetPlayerRestrained(false);
+        isDashing = false;
+    }
+
+    /// <summary>
+    /// Set the ability to dash on cooldown
+    /// </summary>
+    public IEnumerator WaitForDashCooldown()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(playerModel.DashCooldown);
+        canDash = true;
+    }
+
+    public void OnMeleeAttack()
+    {
+        StartMelee?.Invoke();
+    }
+
+    public void OnRangeAttack()
+    {
+        StartRange?.Invoke();
     }
 
     public void OnMeleeActiveStart()
@@ -106,58 +178,36 @@ public class PlayerController : MonoBehaviour
         RangeShot?.Invoke();
     }
 
-    public void OnMouseMove(InputValue value)
+    public void OnHitTaken(AttackData attackData)
     {
-        var screenPosition = value.Get<Vector2>();
-        MousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
-    }
-
-    //Player starts with no weapon equipped
-    //Equipping keys:
-    //1 - melee
-    //2 - range
-    //q - previous weapon
-
-    public void OnEquipPreviousTool()
-    {
-        playerModel.SetPreviousEquippedTool();
-        ChangeTool();
-    }
-
-    public void OnEquipMelee()
-    {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Melee))
+        playerModel.TakeDamage(attackData.Damage);
+        playerModel.DecreaseXP(attackData.XPDamage);
+        Debug.Log("Player took damage: " + attackData.Damage + " current hp: " + playerModel.CurrentHealth);
+        if (attackData.AttackerTransform != null && !isPushed)
         {
-            playerModel.SetEquippedTool(PlayerTools.Melee);
-            ChangeTool();
+            pushDirection = (transform.position - attackData.AttackerTransform.position).normalized;
+            pushSpeed = attackData.PushSpeed;
+            StartCoroutine(WaitForPush());
         }
     }
 
-    public void OnEquipRange()
+    private IEnumerator WaitForPush()
     {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Range))
+        isPushed = true;
+        yield return new WaitForSeconds(PUSH_TIME);
+        isPushed = false;
+    }
+
+    public void OnLevelUp()
+    {
+        if (playerModel.IsLevelUpAvailable)
         {
-            playerModel.SetEquippedTool(PlayerTools.Range);
-            ChangeTool();
+            playerModel.LevelUp();
         }
     }
 
-    public void OnEquipPickaxe()
+    public void OnHeal()
     {
-        if (playerModel.AvailableTools.Contains(PlayerTools.Pickaxe))
-        {
-            playerModel.SetEquippedTool(PlayerTools.Pickaxe);
-            ChangeTool();
-        }
-    }
-
-    /// <summary>
-    /// Temporary solution for displaying weapon's change
-    /// </summary>
-    // TODO: remove when animations are finished
-    private void ChangeTool()
-    {
-        meleeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Melee);
-        pickaxeController?.SetRendererActive(playerModel.EquippedTool == PlayerTools.Pickaxe);
+        playerModel.TakeHeal(playerModel.MaxHealth, playerModel.HealCostInXP);
     }
 }

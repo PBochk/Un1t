@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,10 +12,15 @@ using UnityEngine.InputSystem;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    //[SerializeField] private AudioSource attackSound;
     [SerializeField] private PlayerMeleeWeaponController meleeController;
-    [SerializeField] private PlayerMeleeWeaponController pickaxeController;
     [SerializeField] private PlayerRangeWeaponController rangeController;
+    [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip damageTakenSound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip meleeAttackSound;
+    [SerializeField] private AudioClip rangeAttackSound;
     private PlayerModel playerModel;
     private PlayerController playerController;
     private Animator animator;
@@ -24,9 +30,9 @@ public class PlayerView : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        playerController.DirectionChanged.AddListener(OnDirectionChanged);
+        playerController.StartDash.AddListener(OnStartDash);
         meleeController.StartMeleeAnimation.AddListener(MeleeAttackAnimationStart);
-        playerController.StartMelee.AddListener(OnMelee);
-        pickaxeController.StartPickaxeAnimation.AddListener(PickaxeAnimationStart);
         rangeController.StartRangeAnimation.AddListener(RangeAnimationStart);
     }
 
@@ -35,6 +41,7 @@ public class PlayerView : MonoBehaviour
         playerModel = GetComponent<PlayerModelMB>().PlayerModel;
         // TODO: move subscription in OnEnable after model initialization rework
         playerModel.PlayerDeath += OnDeath;
+        playerModel.DamageTaken += OnDamageTaken;
     }
 
     //private void OnDisable()
@@ -52,34 +59,43 @@ public class PlayerView : MonoBehaviour
             playerTransform.localScale = new Vector3(playerTransform.localScale.x * (-1),
                                                      playerTransform.localScale.y,
                                                      playerTransform.localScale.z);
-
-            // Line below changes player's facing direction more correctly, but breaks camera
-            // playerTransform.RotateAround(playerTransform.position, Vector2.up, 180);
         }
-        animator.SetBool("IsRunningForward", moveDirection != Vector2.zero);
+        animator.SetBool("IsRunning", moveDirection != Vector2.zero);
     }
+
+    private void OnDirectionChanged(int newDirection)
+    {
+        animator.SetInteger("Direction", newDirection);
+        animator.SetTrigger("DirectionChanged");
+    }
+
+    private void OnStartDash()
+    {
+        animator.SetTrigger("Dash");
+        audioSource.PlayOneShot(dashSound);
+    }
+
     private void MeleeAttackAnimationStart()
     {
         animator.SetTrigger("MeleeAttack");
-    }
-
-    private void OnMelee()
-    {
-        //attackSound.Play();
-    }
-
-    private void PickaxeAnimationStart()
-    {
-        animator.SetTrigger("PickaxeAttack");
+        audioSource.PlayOneShot(meleeAttackSound);
     }
 
     private void RangeAnimationStart()
     {
         animator.SetTrigger("RangeAttack");
+        audioSource.PlayOneShot(rangeAttackSound);
     }
 
     private void OnDeath()
     {
         animator.SetTrigger("PlayerDeath");
+        audioSource.PlayOneShot(deathSound);
+    }
+
+    private void OnDamageTaken()
+    {
+        damageParticles.Play();
+        audioSource.PlayOneShot(damageTakenSound);
     }
 }

@@ -1,90 +1,217 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-/// <summary>
-/// Manages everything inside one room
-/// Keeps track of all RoomEntities
-/// </summary>
 public class RoomManager : MonoBehaviour
 {
-    public IReadOnlyList<GameObject> Entities => entities;
-    public IReadOnlyList<GameObject> OuterWalls => outerWalls;
+    public List<GameObject> AllEnemies => allEnemies;
 
-    private RoomEnemySpawner enemySpawner;
-    private Rock rock;
+    private GameObject rock;
+    private GameObject descent;
 
-    private SpawnersManager spawnersManager;
+    private readonly List<GameObject> allEnemies = new();
 
-    private List<GameObject> entities;
-    private List<GameObject> outerWalls;
-    private IReadOnlyList<EnemyController> spawnableEnemies;
+    private FloorEnemiesList spawnableEnemies;
+    private IReadOnlyList<TilesBuilder> tilesBuilders;
+    private IReadOnlyList<OuterWallBuilder> shurfableWalls;
+    private IEnumerable<OuterWallBuilder> wallsWithShurfes;
 
-    private readonly static Range shurfesCountRange = new(2, 5);
+    private RoomGroundContentGenerator.AllGroundEntities allGroundEntities;
 
-    public static int EnemiesCount { get; set; } = 0; //This field is for demo only.
+    private Tile[,] tileGrid;
 
-    // TODO: make full room's content generation. This solution is for demonstration purpose only.
-    public void CreateContent()
-    {
+    //TODO: refactor room typing according to OCP
+    private DungeonFactory.Room.RoomType type;
 
-        CreateOuterWalls();
+    private EnemyTargetComponent player;
 
-        spawnersManager = new();
+    #region TemporaryRoomComletionImplementationForDemoOnlyFields
+    private GameObject doorTile;
+    private RoomOuterWalls outerWalls;
+    private readonly List<GameObject> doorWalls = new();
+    private bool isCompleted = false;
 
-        //This solution for getting player's reference is for demonstration purpose only. Should be optimized.
-        GameObject player = GameObject.FindWithTag("Player");
+    private static readonly Vector2 horizontalDoorSize = new (2, 4);
+    private static readonly Vector2 verticalDoorSize = new (6, 2);
+    #endregion
 
-        if (UnityEngine.Random.Range(0, 2) == 0)
-        {
-            EnemyController enemy = spawnableEnemies[UnityEngine.Random.Range(0, spawnableEnemies.Count)];
-            spawnersManager.SetSpawners(enemy, transform.position, player.GetComponent<EnemyTargetComponent>(), enemySpawner);
-        }
-        else
-        {
-            Instantiate(rock, transform.position, Quaternion.identity);
-        }
-        CreateEntities();
-    }
-
-    public void SetContent(IReadOnlyList<EnemyController> enemies, RoomEnemySpawner enemySpawner, Rock rock)
+    public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent, 
+        EnemyTargetComponent enemyTarget, GameObject doorTile, RoomOuterWalls outerWalls)
     {
         spawnableEnemies = enemies;
-        this.enemySpawner = enemySpawner;
         this.rock = rock;
+        this.descent = descent;
+        player = enemyTarget;
+        this.doorTile = doorTile;
+        this.outerWalls = outerWalls;
     }
 
-    private void CreateEntities()
+    public void CreateContent(DungeonFactory.Room.RoomType roomType)
     {
+        type = roomType;
+
+        ReadTilesBuilders();
+
+        int generatedShurfesCount = roomType == DungeonFactory.Room.RoomType.Regular
+        ? GenerateShurfes(shurfableWalls) : 0;
+
+        allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, spawnableEnemies, generatedShurfesCount);
+
+        CreateEntities(player);
     }
 
-    //TODO: make full shurf generation, this version is only for demonstration purpose.
-
-    private void CreateOuterWalls()
+    private void CreateEntities(EnemyTargetComponent player)
     {
-        List<OuterWallBuilder> shurfableWalls = new();
+        foreach (TilesBuilder tilesBuilder in tilesBuilders)
+            tilesBuilder.Create();
 
-        List<GameObject> outerWalls = new();
-        for (var i = 0; i < transform.childCount; i++)
+        if (type == DungeonFactory.Room.RoomType.Exit)
+            Instantiate(descent, transform);
+
+        if (type != DungeonFactory.Room.RoomType.Regular) return;
+
+        if (allGroundEntities.Rocks.Count != 0)
         {
-            GameObject outerWall = transform.GetChild(i).gameObject;
-            if (outerWall.TryGetComponent(out TilesBuilder tilesBuilder))
+
+            foreach (RoomEntity rock in allGroundEntities.Rocks)
             {
-                tilesBuilder.SetConfiguration();
-                if (tilesBuilder is OuterWallBuilder wallBuilder
-                    && wallBuilder.CanCreateShurf && wallBuilder.Length > 5)
-                {
-                    int start = wallBuilder.Length / 2;
-                    int end = start + 1;
-                    wallBuilder.SetShurfesLocation((start, end));
-                }
-
-                tilesBuilder.Create();
+                Instantiate(rock.GameObject,
+                    (Vector3)rock.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
+                    Quaternion.identity, transform);
             }
-
-            outerWalls.Add(outerWall);
         }
 
     }
+
+    private void ReadTilesBuilders()
+    {
+        List<OuterWallBuilder> shurfableWalls = new();
+        List<GroundBuilder> groundBuilders = new();
+        List<OuterWallBuilder> outerWallBuilders = new();
+        List<TilesBuilder> tilesBuilders = new();
+
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
+            if (child.TryGetComponent(out TilesBuilder tilesBuilder))
+            {
+                tilesBuilder.SetConfiguration();
+                if (tilesBuilder is OuterWallBuilder wallBuilder)
+                {
+                    outerWallBuilders.Add(wallBuilder);
+                    if (wallBuilder.CanCreateShurf)
+                    {
+                        shurfableWalls.Add(wallBuilder);
+                    }
+                }
+                else if (tilesBuilder is GroundBuilder groundBuilder)
+                {
+                    groundBuilders.Add(groundBuilder);
+                }
+                tilesBuilders.Add(tilesBuilder);
+            }
+        }
+
+        this.tilesBuilders = tilesBuilders;
+        this.shurfableWalls = shurfableWalls;
+        tileGrid = TileConverter.GetTileGrid(groundBuilders, outerWallBuilders, transform.position - (Vector3Int)RoomInfo.Center);
+    }
+
+    private int GenerateShurfes(IReadOnlyList<OuterWallBuilder> shurfableWalls)
+    {
+        List<OuterWallBuilder> wallsWithShurfes = new();
+
+        IReadOnlyDictionary<OuterWallBuilder, List<ShurfEmptyTilesPair>> generatingShurfes =
+            ShurfesGenerator.SelectShurfesPositions(shurfableWalls);
+
+        int generatedShurfesCount = 0;
+        foreach (OuterWallBuilder wall in generatingShurfes.Keys)
+        {
+            wall.SetShurfesLocation(generatingShurfes[wall]);
+            wallsWithShurfes.Add(wall);
+            generatedShurfesCount += generatingShurfes[wall].Count;
+        }
+        this.wallsWithShurfes = wallsWithShurfes;
+
+        return generatedShurfesCount;
+    }
+
+    private void CreateEnemies()
+    {
+        if (allGroundEntities.EnemiesOutsideShurfes.Count != 0)
+        {
+            foreach (RoomEntity enemyEntity in allGroundEntities.EnemiesOutsideShurfes)
+            {
+                EnemyController enemyController = Instantiate(enemyEntity.GameObject,
+                    (Vector3)enemyEntity.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
+                    Quaternion.identity, transform).GetComponent<EnemyController>();
+                enemyController.SetTarget(player);
+
+                allEnemies.Add(enemyEntity.GameObject);
+
+                enemyController.Model.OnDeath.AddListener(() => EnemyDead(enemyEntity.GameObject));
+            }
+        }
+
+        if (allGroundEntities.EnemiesInShurfes.Count == 0) return;
+
+        foreach (OuterWallBuilder wallWithShurf in wallsWithShurfes)
+        {
+            foreach (GameObject enemy in wallWithShurf.CreateEnemiesInShurfes(allGroundEntities.EnemiesInShurfes))
+            {
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                enemyController.SetTarget(player);
+                allEnemies.Add(enemy);
+
+                enemyController.Model.OnDeath.AddListener(() => EnemyDead(enemy));
+            }
+        }
+    }
+
+#region TemporaryRoomComletionImplementationForDemoOnlyMethods
+
+    private void EnemyDead(GameObject enemy)
+    {
+        allEnemies.Remove(enemy);
+        if (allEnemies.Count == 0)
+        {
+            isCompleted = true;
+            foreach (GameObject door in doorWalls)
+                Destroy(door);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.TryGetComponent(out PlayerController _)) return;
+        if (doorWalls.Count != 0 || isCompleted || type != DungeonFactory.Room.RoomType.Regular) return;
+        CreateEnemies();
+        if (outerWalls.Top.Middle.IsEmpty)
+            doorWalls.Add(CreateVerticalDoor(new(0, 9)));
+
+        if (outerWalls.Bottom.Middle.IsEmpty)
+            doorWalls.Add(CreateVerticalDoor(new(0, -9)));
+
+        if (outerWalls.Left.Middle.IsEmpty)
+            doorWalls.Add(CreateHorizontalDoor(new(-10, 0)));
+
+        if (outerWalls.Right.Middle.IsEmpty)
+            doorWalls.Add(CreateHorizontalDoor(new(10, 0)));
+    }
+
+    private GameObject CreateHorizontalDoor(Vector3 position)
+    {
+        GameObject horizontalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
+        horizontalDoor.GetComponent<SpriteRenderer>().size = horizontalDoorSize;
+        horizontalDoor.GetComponent<BoxCollider2D>().size = horizontalDoorSize;
+        return horizontalDoor;
+    }
+
+    private GameObject CreateVerticalDoor(Vector3 position)
+    {
+        GameObject verticalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
+        verticalDoor.GetComponent<SpriteRenderer>().size = verticalDoorSize;
+        verticalDoor.GetComponent<BoxCollider2D>().size = verticalDoorSize;
+        return verticalDoor;
+    }
+    #endregion
 }

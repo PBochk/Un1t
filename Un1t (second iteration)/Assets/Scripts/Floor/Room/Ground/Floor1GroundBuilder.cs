@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Floor1GroundBuilder : GroundBuilder
 {
-    private const float SMALL_DECORATION_DENSITY = 0.1f;
+    private const float SMALL_DECORATION_DENSITY = 0.2f;
     private const float LARGE_DECORATION_DENSITY = 0.05f;
     private const int LARGE_DECORATION_SIZE = 4;
 
@@ -19,7 +19,7 @@ public class Floor1GroundBuilder : GroundBuilder
         bool[,] tileGrid = new bool[sizeTiles.x, sizeTiles.y];
         Vector3 topLeftPosition = transform.position - new Vector3(sizeTiles.x / 2, sizeTiles.y / 2);
 
-        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 1));
+        GenerateLargeDecorations(tileGrid, topLeftPosition + new Vector3(2, 2));
         GenerateSmallDecorations(tileGrid, topLeftPosition + new Vector3(0.5f, 0));
     }
 

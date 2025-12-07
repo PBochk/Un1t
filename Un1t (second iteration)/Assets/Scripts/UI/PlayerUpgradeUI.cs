@@ -1,30 +1,31 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
 
 public class PlayerUpgradeUI : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
-    [SerializeField] private Button health;
-    [SerializeField] private Button attackSpeed;
-    [SerializeField] private Button damage;
-    private PlayerModel playerModel;
-    private PlayerMeleeWeaponModel meleeModel;
+    [SerializeField] private Button[] buttons;
+    [SerializeField] private Image[] icons;
+    [SerializeField] private TMP_Text[] upgradeNames;
+    [SerializeField] private TMP_Text[] upgradeDescriptions;
 
-    private void Awake()
-    {
-        health.onClick.AddListener(UpgradeHealth);
-        attackSpeed.onClick.AddListener(UpgradeAttackSpeed);
-        damage.onClick.AddListener(UpgradeDamage);
-    }
+    private MainUI mainUI;
+    private PlayerModel playerModel;
+    private PlayerController playerController;
+    private PlayerUpgradeController upgradeController;
 
     private void Start()
     {
-        var playerUI = GetComponentInParent<PlayerUI>();
-        playerModel = playerUI.PlayerModelMB.PlayerModel;
-        playerModel.NextLevel += OnLevelUp;
-        meleeModel = (PlayerMeleeWeaponModel)playerUI.PlayerMeleeWeaponModelMB.MeleeWeaponModel;
+        mainUI = GetComponentInParent<MainUI>();
+        playerModel = mainUI.PlayerModelMB.PlayerModel;
+        playerController = mainUI.PlayerController;
+        upgradeController = mainUI.UpgradeController;
+        upgradeController.UpgradesChoiceSet.AddListener(OnLevelUp);
         canvas.gameObject.SetActive(false);
-
     }
 
     // Experience model intialize later than OnEnable, so can't make it work rn
@@ -39,32 +40,38 @@ public class PlayerUpgradeUI : MonoBehaviour
     //    playerModel.NextLevel -= OnLevelUp;
     //}
 
-    private void OnLevelUp()
+    private void OnLevelUp(List<PlayerUpgrade> upgrades)
     {
         Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
-        playerModel.SetPlayerRestrained(true);
+        playerController.SetPlayerRestrained(true);
+        for (var i = 0; i < 3; i++)
+        {
+            BindButton(buttons[i], upgrades[i]);
+            icons[i].sprite = upgrades[i].Icon;
+            upgradeNames[i].text = upgrades[i].Name;
+            upgradeDescriptions[i].text = upgrades[i].Description;
+        }
     }
 
-    private void UpgradeHealth()
+    private void BindButton(Button button, PlayerUpgrade upgrade)
     {
-        playerModel.UpgradeHealth();
-        DeactivateCanvas();
-    }
-    private void UpgradeAttackSpeed()
-    { 
-        meleeModel.UpgradeAttackSpeed(playerModel.Level);
-        DeactivateCanvas();
-    }
-    private void UpgradeDamage()
-    {
-        meleeModel.UpgradeDamage();
-        DeactivateCanvas();
+        button.onClick.AddListener(() =>
+        {
+            mainUI.UIAudio.PlayButtonClickSound();
+            upgrade.Apply();
+            DeactivateCanvas();
+        });
+
     }
 
     private void DeactivateCanvas()
     {
+        foreach (var button in buttons)
+        {
+            button.onClick.RemoveAllListeners();
+        }
         canvas.gameObject.SetActive(false);
-        playerModel.SetPlayerRestrained(false);
+        playerController.SetPlayerRestrained(false);
     }
 }

@@ -1,13 +1,42 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using Unity.VisualScripting;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class PlayerModel
+public class PlayerModel : IInstanceModel
 {
+    [XmlIgnore] private const string PREFAB_NAME = "PlayerWithGun";
+    [XmlIgnore] private static readonly PlayerModelMB playerPrefab;
+    [XmlIgnore] private PlayerConfig config;
+    private PlayerMeleeWeaponModel meleeModel;
+    private PlayerRangeWeaponModel rangeModel;
+    private PlayerUpgradeModel upgradeModel;
+    //sufficient for saving and loading
     private float maxHealth;
     private float currentHealth;
+    private float regenPerSecond = 0;
+    private int level = 1;
+    private float currentXP = 0;
+    private float healPerHit = 0;
+    private float healCostCoefficient = 0.5f;
+    private float xpGainCoefficient = 1f;
+    private float resistCoefficient = 1f;
+    private float dodgeChance = 0;
+    private float shieldCooldown = 0;
     private float movingSpeed;
-    private bool isRestrained;
-    private bool isDead = false;
+    private float dashSpeed;
+    private float dashDuration;
+    private float dashCooldown;
+    
+    //not sufficient for saving and loading
+    [XmlIgnore] private readonly List<float> XPToNextLevel;
+
+    public PlayerMeleeWeaponModel MeleeModel => meleeModel;
+    public PlayerRangeWeaponModel RangeModel => rangeModel;
+    public PlayerUpgradeModel UpgradeModel => upgradeModel;
+
     public float MaxHealth
     { 
         get => maxHealth;
@@ -17,151 +46,217 @@ public class PlayerModel
             HealthChanged?.Invoke();
         }
     }
-    //TODO: add value non-negative validation
+    
     public float CurrentHealth
     {
         get => currentHealth;
         private set
         {
-            currentHealth = value;
+            if(value < 0) currentHealth = 0;
+            else if (value > maxHealth) currentHealth = maxHealth;
+            else currentHealth = value;
             HealthChanged?.Invoke();
         }
     }
-    public float MovingSpeed => movingSpeed;
-    public bool IsRestrained
-    {
-        get => isRestrained;
-        private set
-        {
-            isRestrained = value;
-            PlayerRestrained?.Invoke();
-        }
-    }
-
-    private float healthUpgrade;
-
-    private int level;
-    private int xpCoefficient;
-    private int currentXP = 0;
-    private int nextLevelXP;
     public int Level => level;
-    public int CurrentXP
+    public float CurrentXP
     {
         get => currentXP;
         private set
         {
-            currentXP = value;
+            currentXP = value > 0 ? value : 0;
             ExperienceChanged?.Invoke();
         }
     }
-
-    public int NextLevelXP
-    {
-        get => nextLevelXP;
-        private set
-        {
-            nextLevelXP = value;
-            ExperienceChanged?.Invoke();
-        }
-    }
-
-    private PlayerTools previousTool = PlayerTools.None;
-    private PlayerTools equippedTool = PlayerTools.None;
-    public PlayerTools PreviousTool => previousTool;
-    public PlayerTools EquippedTool => equippedTool;
-
-    private List<PlayerTools> availableTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
-    private List<PlayerTools> unlockedTools = new() { PlayerTools.None, PlayerTools.Melee, PlayerTools.Range, PlayerTools.Pickaxe };
-    public List<PlayerTools> AvailableTools => availableTools;
-    public List<PlayerTools> UnlockedTools => unlockedTools;
+    public float NextLevelXP => XPToNextLevel[level];
+    public bool IsLevelUpAvailable => CurrentXP >= NextLevelXP && level <= XPToNextLevel.Count;
+    public float HealCostInXP => NextLevelXP * healCostCoefficient;
+    public float DodgeChance => dodgeChance;
+    public float ShieldCooldown => shieldCooldown;
+    public float MovingSpeed => movingSpeed;
+    public float DashSpeed => dashSpeed;
+    public float DashDuration => dashDuration;
+    public float DashCooldown => dashCooldown;
+    //public float DodgeCooldown => dodgeCooldown;
 
     public event Action HealthChanged;
+    public event Action DamageTaken;
     public event Action PlayerDeath;
-    public event Action PlayerRestrained;
     public event Action ExperienceChanged;
-    public event Action NextLevel;
-    public event Action<PlayerTools> ToolChanged;
+    public event Action LevelChanged;
+    public event Action ShieldUnlocked;
 
-    public PlayerModel(float maxHealth, float healthUpgrade, float movingSpeed, int level, int xpCoefficient)
+    static PlayerModel()
     {
-        this.maxHealth = maxHealth;
+        playerPrefab = Resources.Load<PlayerModelMB>(PREFAB_NAME);
+    }
+
+    public PlayerModel()
+    {
+    }
+    
+    public PlayerModel(PlayerConfig config)
+    {
+        this.config = config;
+        maxHealth = config.BaseMaxHealth;
         currentHealth = maxHealth;
-        this.healthUpgrade = healthUpgrade;
-        this.movingSpeed = movingSpeed;
-        this.level = level;
-        this.xpCoefficient = xpCoefficient;
-        nextLevelXP = GetNextLevelXP();
+        level = config.Level;
+        XPToNextLevel = config.XPToNextLevel;
+        healPerHit = config.BaseHealPerHit;
+        healCostCoefficient = config.BaseHealCostCoefficient;
+        xpGainCoefficient = config.BaseXPGainCoefficient;
+        resistCoefficient = config.BaseResistCoefficient;
+        dodgeChance = config.BaseDodgeChance;
+        shieldCooldown = config.BaseShieldCooldown;
+        movingSpeed = config.BaseMovingSpeed;
+        dashSpeed = config.BaseDashSpeed;
+        dashDuration = config.BaseDashDuration;
+        dashCooldown = config.BaseDashCooldown;
+    }
+    
+    public void BindModels(PlayerMeleeWeaponModel meleeModel, PlayerRangeWeaponModel rangeModel, PlayerUpgradeModel upgradeModel)
+    {
+        this.meleeModel = meleeModel;
+        this.rangeModel = rangeModel;
+        this.upgradeModel = upgradeModel;
     }
 
-    public void TakeHeal(float heal)
+    public IActor CreateInstance()
     {
-        if (isDead) return;
-        CurrentHealth += heal;
+        var player = Object.Instantiate(playerPrefab);
+        player.Initialize(this);
+        return player;
     }
+
+    public void TakeHeal(float heal, float xpCost = 0)
+    {
+        if (CurrentHealth <= 0 || CurrentHealth == MaxHealth || CurrentXP < xpCost) return;
+        CurrentHealth += heal;
+        CurrentXP -= xpCost;
+    }
+
+    public void Regenerate() => TakeHeal(regenPerSecond);
+    public void HealByHit() => TakeHeal(healPerHit);
 
     public void TakeDamage(float decrement)
     {
-        if(isDead) return;
-        CurrentHealth -= decrement;
+        if (CurrentHealth <= 0) return;
+        CurrentHealth -= decrement * resistCoefficient;
         CheckHealth();
+        DamageTaken?.Invoke();
     }
 
     private void CheckHealth()
     {
         if (CurrentHealth <= 0)
         {
-            isDead = true;
-            SetPlayerRestrained(true);
             PlayerDeath?.Invoke();
         }
     }
 
-    public void SetPlayerRestrained(bool isRestrained)
+    public void IncreaseXP(float increment)
     {
-        IsRestrained = isRestrained;
+        CurrentXP += increment * xpGainCoefficient;
     }
 
-    public void AddXP(int increment)
+    public void DecreaseXP(float decrement)
     {
-        CurrentXP += increment;
-        CheckXP();
+        CurrentXP -= decrement;
     }
 
-    private void CheckXP()
+    public void LevelUp()
     {
-        if (CurrentXP >= nextLevelXP)
-        {
-            LevelUp();
-        }
-    }
-
-    private void LevelUp()
-    {
+        if (level >= XPToNextLevel.Count - 1) return;
+        var diff = CurrentXP - NextLevelXP; // is needed to not trigger OnExperienceChanged too early
         level++;
-        NextLevelXP = GetNextLevelXP();
-        NextLevel?.Invoke();
+        CurrentXP = diff;
+        LevelChanged?.Invoke();
     }
 
-    // TODO: replace with scriptable object
-    private int GetNextLevelXP()
+    public void UpgradeHealth(float increment)
     {
-        return GetFibonachi(level + 1) * xpCoefficient;
+        MaxHealth += increment;
     }
-
-    public void UpgradeHealth()
+    public void UpgradeRegeneration(float increment)
     {
-        MaxHealth += healthUpgrade;
-        CurrentHealth += healthUpgrade;
+        regenPerSecond += increment;
     }
-    
-    // TODO: remove
-    private int GetFibonachi(int n) => n > 1 ? GetFibonachi(n - 1) + GetFibonachi(n - 2) : n;
-
-    public void SetEquippedTool(PlayerTools tool)
+    public void UpgradeHealPerHit(float increment)
     {
-        (previousTool, equippedTool) = (equippedTool, tool);
-        ToolChanged?.Invoke(equippedTool);
+        healPerHit += increment;
+    }
+    public void UpgradeHealCost(float decrement)
+    {
+        healCostCoefficient = healCostCoefficient - decrement < 0 ? 0 : healCostCoefficient - decrement;
+    }
+    public void UpgradeXPGain(float increment)
+    {
+        xpGainCoefficient += increment;
+    }
+    public void UpgradeResist(float decrement)
+    {
+        resistCoefficient -= decrement;
+    }
+    public void UpgradeDodgeChance(float increment)
+    {
+        dodgeChance += increment;
+    }
+    public void UpgradeMovingSpeed(float multiplier)
+    {
+        movingSpeed += config.BaseMovingSpeed * multiplier;
+    }
+    public void UnlockShield(float shieldCooldown)
+    {
+        this.shieldCooldown = shieldCooldown;
+        ShieldUnlocked?.Invoke();
     }
 
-    public void SetPreviousEquippedTool() => SetEquippedTool(previousTool);
+    public PlayerSaveData ToSaveData()
+    {
+        var data = new PlayerSaveData();
+        var rangedData = rangeModel.ToSaveData();
+        var meleeData = meleeModel.ToSaveData();
+        data.currentHealth =  currentHealth;
+        data.maxHealth = maxHealth;
+        data.regenPerSecond = regenPerSecond;
+        data.level = level;
+        data.currentXP = currentXP;
+        data.healPerHit = healPerHit;
+        data.healCostCoefficient = healCostCoefficient;
+        data.xpGainCoefficient = xpGainCoefficient;
+        data.resistCoefficient = resistCoefficient;
+        data.dodgeChance = dodgeChance;
+        data.shieldCooldown = shieldCooldown;
+        data.movingSpeed = movingSpeed;
+        data.dashSpeed = dashSpeed;
+        data.dashDuration = dashDuration;
+        data.dashCooldown  = dashCooldown;
+        data.ranged = rangedData;
+        data.melee = meleeData;
+
+        return data;
+    }
+
+    public void FromSaveData(PlayerSaveData data)
+    {
+        
+        currentHealth = data.currentHealth;
+        maxHealth = data.maxHealth;
+        regenPerSecond = data.regenPerSecond;
+        level = data.level;
+        currentXP = data.currentXP;
+        healPerHit = data.healPerHit;
+        healCostCoefficient = data.healCostCoefficient;
+        xpGainCoefficient = data.xpGainCoefficient;
+        resistCoefficient = data.resistCoefficient;
+        dodgeChance = data.dodgeChance;
+        shieldCooldown = data.shieldCooldown;
+        movingSpeed = data.movingSpeed;
+        dashSpeed = data.dashSpeed;
+        dashDuration = data.dashDuration;
+        dashCooldown  = data.dashCooldown;
+        
+        rangeModel.FromSaveData(data.ranged);
+        meleeModel.FromSaveData(data.melee);
+    }
 }
