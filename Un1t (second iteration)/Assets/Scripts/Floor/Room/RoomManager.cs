@@ -11,8 +11,10 @@ public class RoomManager : MonoBehaviour
     private readonly List<GameObject> allEnemies = new();
 
     private FloorEnemiesList spawnableEnemies;
+
     private IReadOnlyList<TilesBuilder> tilesBuilders;
     private IReadOnlyList<OuterWallBuilder> shurfableWalls;
+    private IReadOnlyList<GameObject> doorWalls;
     private IEnumerable<OuterWallBuilder> wallsWithShurfes;
 
     private RoomGroundContentGenerator.AllGroundEntities allGroundEntities;
@@ -24,25 +26,18 @@ public class RoomManager : MonoBehaviour
 
     private EnemyTargetComponent player;
 
-    #region TemporaryRoomComletionImplementationForDemoOnlyFields
-    private GameObject doorTile;
-    private RoomOuterWalls outerWalls;
-    private readonly List<GameObject> doorWalls = new();
-    private bool isCompleted = false;
+    private DoorsConstructor doorsConstructor;
 
-    private static readonly Vector2 horizontalDoorSize = new (2, 4);
-    private static readonly Vector2 verticalDoorSize = new (6, 2);
-    #endregion
+    private RoomCompletionStage completionStage = RoomCompletionStage.Uncleaned;
 
-    public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent, 
-        EnemyTargetComponent enemyTarget, GameObject doorTile, RoomOuterWalls outerWalls)
+
+    public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent,
+        EnemyTargetComponent enemyTarget, DoorsConstructor doorsConstructor)
     {
         spawnableEnemies = enemies;
         this.rock = rock;
         this.descent = descent;
-        player = enemyTarget;
-        this.doorTile = doorTile;
-        this.outerWalls = outerWalls;
+        this.doorsConstructor = doorsConstructor;
     }
 
     public void CreateContent(DungeonFactory.Room.RoomType roomType)
@@ -135,7 +130,7 @@ public class RoomManager : MonoBehaviour
         return generatedShurfesCount;
     }
 
-    private void CreateEnemies()
+    private void CreateEnemies(EnemyTargetComponent enemyTarget)
     {
         if (allGroundEntities.EnemiesOutsideShurfes.Count != 0)
         {
@@ -144,7 +139,7 @@ public class RoomManager : MonoBehaviour
                 EnemyController enemyController = Instantiate(enemyEntity.GameObject,
                     (Vector3)enemyEntity.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
                     Quaternion.identity, transform).GetComponent<EnemyController>();
-                enemyController.SetTarget(player);
+                enemyController.SetTarget(enemyTarget);
 
                 allEnemies.Add(enemyEntity.GameObject);
 
@@ -159,7 +154,7 @@ public class RoomManager : MonoBehaviour
             foreach (GameObject enemy in wallWithShurf.CreateEnemiesInShurfes(allGroundEntities.EnemiesInShurfes))
             {
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.SetTarget(player);
+                enemyController.SetTarget(enemyTarget);
                 allEnemies.Add(enemy);
 
                 enemyController.Model.OnDeath.AddListener(() => EnemyDead(enemy));
@@ -167,51 +162,28 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-#region TemporaryRoomComletionImplementationForDemoOnlyMethods
-
     private void EnemyDead(GameObject enemy)
     {
         allEnemies.Remove(enemy);
         if (allEnemies.Count == 0)
         {
-            isCompleted = true;
-            foreach (GameObject door in doorWalls)
-                Destroy(door);
+            completionStage = RoomCompletionStage.Cleaned;
+            doorsConstructor.DestroyDoors();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.TryGetComponent(out PlayerController _)) return;
-        if (doorWalls.Count != 0 || isCompleted || type != DungeonFactory.Room.RoomType.Regular) return;
-        CreateEnemies();
-        if (outerWalls.Top.Middle.IsEmpty)
-            doorWalls.Add(CreateVerticalDoor(new(0, 9)));
+        if (!collision.TryGetComponent(out PlayerController player)) return;
 
-        if (outerWalls.Bottom.Middle.IsEmpty)
-            doorWalls.Add(CreateVerticalDoor(new(0, -9)));
+        if (completionStage != RoomCompletionStage.Uncleaned || type != DungeonFactory.Room.RoomType.Regular) return;
 
-        if (outerWalls.Left.Middle.IsEmpty)
-            doorWalls.Add(CreateHorizontalDoor(new(-10, 0)));
-
-        if (outerWalls.Right.Middle.IsEmpty)
-            doorWalls.Add(CreateHorizontalDoor(new(10, 0)));
+        completionStage = RoomCompletionStage.Battle;
+        CreateEnemies(player.GetComponent<EnemyTargetComponent>());
+        doorsConstructor.ConstructDoors(transform);
+        
     }
 
-    private GameObject CreateHorizontalDoor(Vector3 position)
-    {
-        GameObject horizontalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
-        horizontalDoor.GetComponent<SpriteRenderer>().size = horizontalDoorSize;
-        horizontalDoor.GetComponent<BoxCollider2D>().size = horizontalDoorSize;
-        return horizontalDoor;
-    }
+    private enum RoomCompletionStage { Uncleaned, Battle, Cleaned }
 
-    private GameObject CreateVerticalDoor(Vector3 position)
-    {
-        GameObject verticalDoor = Instantiate(doorTile, position + transform.position, Quaternion.identity, transform);
-        verticalDoor.GetComponent<SpriteRenderer>().size = verticalDoorSize;
-        verticalDoor.GetComponent<BoxCollider2D>().size = verticalDoorSize;
-        return verticalDoor;
-    }
-    #endregion
 }

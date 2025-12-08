@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Random = System.Random;
-
+//This class and it's nested classes were transfered from Python code
 public class DungeonFactory
 {
     private Random random;

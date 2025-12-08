@@ -140,7 +140,7 @@ public class FloorManager : MonoBehaviour
     private void CreateRoomContent(GameObject room, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)
     {
         RoomManager roomManager = room.GetComponent<RoomManager>();
-        roomManager.Initialize(spawnableEnemies, rock, descent, player.GetComponent<EnemyTargetComponent>(), doorWall, outerWalls);
+        roomManager.Initialize(spawnableEnemies, rock, descent, player.GetComponent<EnemyTargetComponent>(), new(doorWall, outerWalls));
         roomManager.CreateContent(roomType);
     }
 }
