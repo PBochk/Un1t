@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class FloorManager : MonoBehaviour
 {
-    private Dictionary<RoomOuterWalls, IList<RoomInfo>> GroupedRoomsByWall => 
+    private Dictionary<RoomOuterWalls, IList<RoomInfo>> GroupedRoomsByWall =>
         groupedRoomsByWalls ??= (from room in availableCommonRooms
                                  group room by room.Info.OuterWalls)
             .ToDictionary(
@@ -43,6 +43,7 @@ public class FloorManager : MonoBehaviour
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
+    private readonly RoomConstructor roomConstructor = new();
     private IEnumerable<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)> allRooms; //It's temporary implementation for demo only
 
     private Dictionary<RoomOuterWalls, IList<RoomInfo>> groupedRoomsByWalls;
@@ -63,9 +64,29 @@ public class FloorManager : MonoBehaviour
             if (TryChooseTemplateRoom(room.OuterWalls, out RoomInfo roomInfo))
                 roomInstance = GenerateRoom(roomInfo, room.GridPosition, roomPosition);
             else
-                roomInstance = ConstructRoom(room.OuterWalls, room.GridPosition, roomPosition);
+                roomInstance = roomConstructor.ConstructRoom(
+                    roomTemplate,
 
-            CreateHallways(roomPosition, room.OuterWalls, roomInstance.transform);
+                    topOuterWall,
+                    bottomOuterWall,
+                    leftOuterWall,
+                    rightOuterWall,
+
+                    room.OuterWalls,
+                    room.GridPosition,
+                    roomPosition,
+                    transform,
+                    roomGrid
+                );
+
+            roomConstructor.CreateHallways(
+                                   verticalHallway,
+                                   horizontalHallway, 
+
+                                   roomPosition, 
+                                   room.OuterWalls, 
+                                   roomInstance.transform);
+
             roomInstances.Add((roomInstance, room.Type, room.OuterWalls));
         }
         allRooms = roomInstances;
@@ -122,45 +143,4 @@ public class FloorManager : MonoBehaviour
         roomManager.Initialize(spawnableEnemies, rock, descent, player.GetComponent<EnemyTargetComponent>(), doorWall, outerWalls);
         roomManager.CreateContent(roomType);
     }
-
-
-    //TODO: next methods should be refactored and moved to a separate class,
-    //Remove "magic numbers",
-
-    private GameObject ConstructRoom(in RoomOuterWalls roomOuterWalls, in FloorGridPosition gridPosition, Vector2 position)
-    {
-        GameObject roomInstance = Instantiate(roomTemplate, position, Quaternion.identity, transform);
-
-        if (!roomOuterWalls.Top.Middle.IsEmpty)
-            Instantiate(topOuterWall, new Vector2(-3.5f, 7) + position, Quaternion.identity, roomInstance.transform);
-
-        if (!roomOuterWalls.Bottom.Middle.IsEmpty)
-            Instantiate(bottomOuterWall, new Vector2(0, -6.5f) + position, Quaternion.identity, roomInstance.transform);
-
-        if (!roomOuterWalls.Left.Middle.IsEmpty)
-            Instantiate(leftOuterWall, new Vector2(-9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
-
-        if (!roomOuterWalls.Right.Middle.IsEmpty)
-            Instantiate(rightOuterWall, new Vector2(9.5f, 1) + position, Quaternion.identity, roomInstance.transform);
-
-        roomGrid[gridPosition] = new(roomInstance, roomOuterWalls);
-
-        return roomInstance;
-    }
-
-    private void CreateHallways(Vector2 roomPosition, RoomOuterWalls roomOuterWalls, Transform parent)
-    {
-        if (roomOuterWalls.Top.Middle.IsEmpty)
-            Instantiate(verticalHallway, roomPosition + new Vector2(0, 7), Quaternion.identity, parent);
-
-        if (roomOuterWalls.Bottom.Middle.IsEmpty)
-            Instantiate(verticalHallway, roomPosition + new Vector2(0, -7), Quaternion.identity, parent);
-
-        if (roomOuterWalls.Left.Middle.IsEmpty)
-            Instantiate(horizontalHallway, roomPosition + new Vector2(-9.5f, 0), Quaternion.identity, parent);
-
-        if (roomOuterWalls.Right.Middle.IsEmpty)
-            Instantiate(horizontalHallway, roomPosition + new Vector2(9.5f, 0), Quaternion.identity, parent);
-    }
-
 }
