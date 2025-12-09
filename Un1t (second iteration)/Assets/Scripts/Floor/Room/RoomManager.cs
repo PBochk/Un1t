@@ -18,15 +18,13 @@ public class RoomManager : MonoBehaviour
 
     private Tile[,] tileGrid;
 
-    //TODO: refactor room typing according to OCP
-    private DungeonFactory.Room.RoomType type;
+    private RoomType type;     //TODO: refactor room typing according to OCP
 
     private EnemyTargetComponent player;
 
     private DoorsConstructor doorsConstructor;
 
     private RoomCompletionStage completionStage = RoomCompletionStage.Uncleaned;
-
 
     public void Initialize(FloorEnemiesList enemies, FloorObjectsList floorObjectsList,
         EnemyTargetComponent enemyTarget, DoorsConstructor doorsConstructor)
@@ -36,13 +34,13 @@ public class RoomManager : MonoBehaviour
         this.doorsConstructor = doorsConstructor;
     }
 
-    public void CreateContent(DungeonFactory.Room.RoomType roomType)
+    public void CreateContent(RoomType roomType)
     {
         type = roomType;
 
         ReadTilesBuilders();
 
-        int generatedShurfesCount = roomType == DungeonFactory.Room.RoomType.Regular
+        int generatedShurfesCount = roomType == RoomType.Battle
         ? GenerateShurfes(shurfableWalls) : 0;
 
         allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, 
@@ -56,10 +54,10 @@ public class RoomManager : MonoBehaviour
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
 
-        if (type == DungeonFactory.Room.RoomType.Exit)
+        if (type == RoomType.Exit)
             Instantiate(floorObjectsList.Descent, transform);
 
-        if (type != DungeonFactory.Room.RoomType.Regular) return;
+        if (type != RoomType.Battle) return;
 
         if (allGroundEntities.Rocks.Count != 0)
         {
@@ -173,7 +171,7 @@ public class RoomManager : MonoBehaviour
     {
         if (!collision.TryGetComponent(out PlayerController player)) return;
 
-        if (completionStage != RoomCompletionStage.Uncleaned || type != DungeonFactory.Room.RoomType.Regular) return;
+        if (completionStage != RoomCompletionStage.Uncleaned || type != RoomType.Battle) return;
 
         completionStage = RoomCompletionStage.Battle;
         CreateEnemies(player.GetComponent<EnemyTargetComponent>());
@@ -181,6 +179,8 @@ public class RoomManager : MonoBehaviour
         
     }
 
-    private enum RoomCompletionStage { Uncleaned, Battle, Cleaned }
+    public enum RoomType : sbyte{ Battle, Entrance, Exit }
+
+    private enum RoomCompletionStage : sbyte { Uncleaned, Battle, Cleaned }
 
 }

@@ -37,7 +37,6 @@ public class OuterWallBuilder : TilesBuilder
     private IReadOnlyList<Vector2> enemiesInShurfesPositions;
     private bool wasShurfesCreated;
 
-
     public override void Create()
     {
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal

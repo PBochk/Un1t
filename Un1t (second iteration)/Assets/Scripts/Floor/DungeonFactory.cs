@@ -86,11 +86,11 @@ public class DungeonFactory
 
             if (gridPos.Equals(dungeon.EntrancePosition))
             {
-                room.Type = Room.RoomType.Entrance;
+                room.Type = RoomManager.RoomType.Entrance;
             }
             else if (gridPos.Equals(dungeon.ExitPosition))
             {
-                room.Type = Room.RoomType.Exit;
+                room.Type = RoomManager.RoomType.Exit;
             }
 
             room.GridPosition = worldPosition;
@@ -422,19 +422,19 @@ public class DungeonFactory
     /// </summary>
     private void AddBonusRooms(Dungeon dungeon, double bonusProbability)
     {
-        List<FloorGridPosition> regularRooms = dungeon.grid.Keys
+        List<FloorGridPosition> BattleRooms = dungeon.grid.Keys
             .Where(pos => !pos.Equals(dungeon.EntrancePosition) && !pos.Equals(dungeon.ExitPosition))
             .ToList();
 
-        if (regularRooms.Count == 0)
+        if (BattleRooms.Count == 0)
         {
             return;
         }
 
-        int numBonus = Math.Max(1, (int)(regularRooms.Count * bonusProbability));
-        List<FloorGridPosition> bonusPositions = regularRooms
+        int numBonus = Math.Max(1, (int)(BattleRooms.Count * bonusProbability));
+        List<FloorGridPosition> bonusPositions = BattleRooms
             .OrderBy(x => random.Next())
-            .Take(Math.Min(numBonus, regularRooms.Count))
+            .Take(Math.Min(numBonus, BattleRooms.Count))
             .ToList();
 
         foreach (FloorGridPosition pos in bonusPositions)
@@ -475,7 +475,7 @@ public class DungeonFactory
     {
         public RoomOuterWalls OuterWalls { get; set; }
         public bool IsBonus { get; set; }
-        public RoomType Type { get; set; }
+        public RoomManager.RoomType Type { get; set; }
         public FloorGridPosition GridPosition { get; set; }
 
         public bool HasNorthPassage { get; set; }
@@ -490,19 +490,13 @@ public class DungeonFactory
             HasEastPassage = false;
             HasWestPassage = false;
             IsBonus = false;
-            Type = RoomType.Regular;
+            Type = RoomManager.RoomType.Battle;
         }
 
         /// <summary>
         /// Types of rooms in the dungeon.
         /// </summary>
-        public enum RoomType
-        {
-            Regular,
-            Entrance,
-            Exit,
-            Bonus
-        }
+
     }
     #endregion
 }
