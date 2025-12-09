@@ -22,9 +22,9 @@ public class DoorsConstructor
 
     private bool wereDoorsDestroyed = false;
 
-    public DoorsConstructor(GameObject doorTile, RoomOuterWalls outerWalls)
+    public DoorsConstructor(FloorObjectsList floorObjectsList, RoomOuterWalls outerWalls)
     {
-        this.doorTile = doorTile;
+        this.doorTile = floorObjectsList.DoorWall;
 
         topDoorExists = outerWalls.Top.Middle.IsEmpty;
         bottomDoorExists = outerWalls.Bottom.Middle.IsEmpty;

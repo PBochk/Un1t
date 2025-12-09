@@ -5,16 +5,13 @@ public class RoomManager : MonoBehaviour
 {
     public List<GameObject> AllEnemies => allEnemies;
 
-    private GameObject rock;
-    private GameObject descent;
-
     private readonly List<GameObject> allEnemies = new();
 
     private FloorEnemiesList spawnableEnemies;
+    private FloorObjectsList floorObjectsList;
 
     private IReadOnlyList<TilesBuilder> tilesBuilders;
     private IReadOnlyList<OuterWallBuilder> shurfableWalls;
-    private IReadOnlyList<GameObject> doorWalls;
     private IEnumerable<OuterWallBuilder> wallsWithShurfes;
 
     private RoomGroundContentGenerator.AllGroundEntities allGroundEntities;
@@ -31,12 +28,11 @@ public class RoomManager : MonoBehaviour
     private RoomCompletionStage completionStage = RoomCompletionStage.Uncleaned;
 
 
-    public void Initialize(FloorEnemiesList enemies, GameObject rock, GameObject descent,
+    public void Initialize(FloorEnemiesList enemies, FloorObjectsList floorObjectsList,
         EnemyTargetComponent enemyTarget, DoorsConstructor doorsConstructor)
     {
         spawnableEnemies = enemies;
-        this.rock = rock;
-        this.descent = descent;
+        this.floorObjectsList = floorObjectsList;
         this.doorsConstructor = doorsConstructor;
     }
 
@@ -49,7 +45,8 @@ public class RoomManager : MonoBehaviour
         int generatedShurfesCount = roomType == DungeonFactory.Room.RoomType.Regular
         ? GenerateShurfes(shurfableWalls) : 0;
 
-        allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, rock, spawnableEnemies, generatedShurfesCount);
+        allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, 
+            floorObjectsList.Rock, spawnableEnemies, generatedShurfesCount);
 
         CreateEntities(player);
     }
@@ -60,7 +57,7 @@ public class RoomManager : MonoBehaviour
             tilesBuilder.Create();
 
         if (type == DungeonFactory.Room.RoomType.Exit)
-            Instantiate(descent, transform);
+            Instantiate(floorObjectsList.Descent, transform);
 
         if (type != DungeonFactory.Room.RoomType.Regular) return;
 
@@ -160,17 +157,17 @@ public class RoomManager : MonoBehaviour
                 enemyController.Model.OnDeath.AddListener(() => EnemyDead(enemy));
             }
         }
-    }
 
-    private void EnemyDead(GameObject enemy)
-    {
+        void EnemyDead(GameObject enemy)
+        {
         allEnemies.Remove(enemy);
         if (allEnemies.Count == 0)
         {
             completionStage = RoomCompletionStage.Cleaned;
             doorsConstructor.DestroyDoors();
         }
-    }
+        }
+}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

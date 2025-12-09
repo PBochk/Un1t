@@ -12,14 +12,31 @@ public class RoomConstructor
     private static readonly Vector2 leftHallwayOffset = new(-9.5f, 0f);
     private static readonly Vector2 rightHallwayOffset = new(9.5f, 0f);
 
+    private readonly GameObject roomTemplate;
+
+    private readonly GameObject topOuterWall;
+    private readonly GameObject bottomOuterWall;
+    private readonly GameObject leftOuterWall;
+    private readonly GameObject rightOuterWall;
+
+    private readonly GameObject verticalHallway;
+    private readonly GameObject horizontalHallway;
+
+
+    public RoomConstructor(FloorObjectsList floorObjects)
+    {
+        roomTemplate = floorObjects.RoomTemplate;
+
+        topOuterWall = floorObjects.TopOuterWall;
+        bottomOuterWall = floorObjects.BottomOuterWall;
+        leftOuterWall = floorObjects.LeftOuterWall;
+        rightOuterWall = floorObjects.RightOuterWall;
+
+        verticalHallway = floorObjects.VerticalHallway;
+        horizontalHallway = floorObjects.HorizontalHallway; 
+    }
+
     public GameObject ConstructRoom(
-        GameObject roomTemplate,
-
-        GameObject topOuterWall,
-        GameObject bottomOuterWall,
-        GameObject leftOuterWall,
-        GameObject rightOuterWall,
-
         in RoomOuterWalls roomOuterWalls,
         in FloorGridPosition gridPosition,
         Vector2 position,
@@ -46,9 +63,6 @@ public class RoomConstructor
     }
 
     public void CreateHallways(
-        GameObject verticalHallway,
-        GameObject horizontalHallway,
-
         Vector2 roomPosition,
         RoomOuterWalls roomOuterWalls,
         Transform parent)
