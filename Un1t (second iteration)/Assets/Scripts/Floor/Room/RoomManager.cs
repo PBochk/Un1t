@@ -59,15 +59,11 @@ public class RoomManager : MonoBehaviour
 
         if (type != RoomType.Battle) return;
 
-        if (allGroundEntities.Rocks.Count != 0)
+        foreach (RoomEntity rock in allGroundEntities.Rocks)
         {
-
-            foreach (RoomEntity rock in allGroundEntities.Rocks)
-            {
-                Instantiate(rock.GameObject,
-                    (Vector3)rock.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
-                    Quaternion.identity, transform);
-            }
+            Instantiate(rock.GameObject,
+                (Vector3)rock.StartPosition + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
+                Quaternion.identity, transform);
         }
 
     }
@@ -127,8 +123,6 @@ public class RoomManager : MonoBehaviour
 
     private void CreateEnemies(EnemyTargetComponent enemyTarget)
     {
-        if (allGroundEntities.EnemiesOutsideShurfes.Count != 0)
-        {
             foreach (RoomEntity enemyEntity in allGroundEntities.EnemiesOutsideShurfes)
             {
                 EnemyController enemyController = Instantiate(enemyEntity.GameObject,
@@ -140,9 +134,6 @@ public class RoomManager : MonoBehaviour
 
                 enemyController.Model.OnDeath.AddListener(() => EnemyDead(enemyEntity.GameObject));
             }
-        }
-
-        if (allGroundEntities.EnemiesInShurfes.Count == 0) return;
 
         foreach (OuterWallBuilder wallWithShurf in wallsWithShurfes)
         {
