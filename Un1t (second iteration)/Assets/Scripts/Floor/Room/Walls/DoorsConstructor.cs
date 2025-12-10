@@ -26,7 +26,7 @@ public class DoorsConstructor
 
     public DoorsConstructor(FloorObjectsList floorObjectsList, RoomOuterWalls outerWalls)
     {
-        this.doorTile = floorObjectsList.DoorWall;
+        doorTile = floorObjectsList.DoorWall;
 
         topDoorExists = outerWalls.Top.Middle.IsEmpty;
         bottomDoorExists = outerWalls.Bottom.Middle.IsEmpty;
