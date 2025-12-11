@@ -535,7 +535,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorManager: {fileID: 527370721}
-  playerController: {fileID: 2093994551}
 --- !u!1001 &1165079206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -737,6 +736,18 @@ PrefabInstance:
     - target: {fileID: 940720314302747510, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
       propertyPath: m_Name
       value: FloorManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: floorTheme
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: maxDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319719937514603190, guid: 1b21ade819c64404fb78aa01a6a3f69a, type: 3}
+      propertyPath: minDistance
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

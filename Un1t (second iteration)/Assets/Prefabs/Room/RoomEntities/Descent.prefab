@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7483494206283350556}
   - component: {fileID: -463130352400036934}
   - component: {fileID: 5838806298837610728}
+  - component: {fileID: -8723963015945303236}
   m_Layer: 0
   m_Name: Descent
   m_TagString: Untagged
@@ -147,3 +148,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1273f77f6650fc84696e3e8e66654473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8723963015945303236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558636484064302916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e2ae2554014d44aa50401e09ebe0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSprite: {fileID: 66696601741235847, guid: 4b6ef103cbc29094293621739432b9ae, type: 3}
+  darkSprite: {fileID: 5507571123592615676, guid: d05574e63501fd648af907b3f414afca, type: 3}

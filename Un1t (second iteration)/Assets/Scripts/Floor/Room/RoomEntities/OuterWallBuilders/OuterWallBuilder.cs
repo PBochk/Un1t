@@ -11,6 +11,7 @@ public class OuterWallBuilder : TilesBuilder
     public const int SHURF_DEPTHS = 3;
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
+
     public ShurfsSpawnDirection ShurfsDirection => shurfsSpawnDirection;
 
     public int Thickness => thickness;
@@ -27,6 +28,8 @@ public class OuterWallBuilder : TilesBuilder
     protected ShurfsSpawnDirection shurfsSpawnDirection =
         ShurfsSpawnDirection.Unidentified;
 
+    [SerializeField] protected DirectionForBigWalls directionForBigWalls;
+
     [SerializeField] private GameObject shurfDarkness;
 
     protected bool[] tilesAreEmpty;
@@ -36,7 +39,6 @@ public class OuterWallBuilder : TilesBuilder
     private IEnumerable<ShurfEmptyTilesPair> emptyTilesForShurfesNumbersCouples;
     private IReadOnlyList<Vector2> enemiesInShurfesPositions;
     private bool wasShurfesCreated;
-
 
     public override void Create()
     {
@@ -374,16 +376,22 @@ public class OuterWallBuilder : TilesBuilder
 
         BoxCollider2D collider = tile.GetComponent<BoxCollider2D>();
 
-        if (thickness != 1 && direction == Direction.Horizontal)
+        if (direction == Direction.Horizontal)
         {
-            collider.size = new Vector2(tileSize.x, tileSize.y - 0.2f);
-            collider.offset = new Vector2(0, 0.1f);
+            int directionMultiplier = directionForBigWalls == DirectionForBigWalls.Bottom ? -1 : 1;
+            collider.size = new(tileSize.x,
+                directionForBigWalls == DirectionForBigWalls.Bottom
+                ? 3.8f
+                : 4);
+                
+            collider.offset = new(0, 0.5f * directionMultiplier
+                + (directionForBigWalls == DirectionForBigWalls.Bottom ? -0.9f : 0.2f));
         }
         else
         {
-            collider.size = tileSize;
-            collider.offset = Vector2.zero;
+            collider.size = new(tileSize.x, tileSize.y);
         }
+
     }
 
     private Vector3 CalculateWallFragmentPosition(int startIndex, int fragmentSize, in Vector3 basePosition)
@@ -415,5 +423,7 @@ public class OuterWallBuilder : TilesBuilder
     }
 
     public enum Direction : sbyte { Vertical, Horizontal }
+    public enum DirectionForBigWalls : sbyte { Top, Bottom, Left, Right }
+
     public enum ShurfsSpawnDirection : sbyte { Unidentified, Top, Bottom, Left, Right }
 }

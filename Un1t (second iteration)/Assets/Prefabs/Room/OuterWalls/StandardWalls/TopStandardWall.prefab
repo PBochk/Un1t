@@ -71,7 +71,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 3.5, y: 0.6}
+  m_Offset: {x: 3.5, y: 1.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -81,7 +81,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 8, y: 2.8}
+  m_Size: {x: 8, y: 3.8}
   m_EdgeRadius: 0
 --- !u!1001 &463947129858632815
 PrefabInstance:
@@ -135,7 +135,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1LeftBottomCorner (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -4794775616955881187, guid: e94fbb85d02b7a8478ca7b3c4aabf00b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -153,6 +154,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6010585571069918080}
     m_Modifications:
+    - target: {fileID: -8936265360796160163, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -8936265360796160163, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
       value: 2
@@ -209,7 +214,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1RightWall (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8936265360796160163, guid: 9bab07a8496b2124581d91ef8070a0b2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -271,7 +277,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1RightBottomCorner
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -162193055077384978, guid: fd3af196d0a490f4d8db77d7da1671d6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -289,6 +296,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6010585571069918080}
     m_Modifications:
+    - target: {fileID: 16654119682834171, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 16654119682834171, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
       value: 2
@@ -345,7 +356,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1LeftWall (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 16654119682834171, guid: eba530d6aa500e44dbc39354c99427dc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
