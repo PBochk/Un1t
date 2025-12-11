@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //TODO: class should be divided according to SRP.
@@ -11,6 +10,14 @@ using UnityEngine;
 /// </summary>
 public class FloorManager : MonoBehaviour
 {
+    private Dictionary<RoomOuterWalls, IList<RoomInfo>> GroupedRoomsByWall => 
+        groupedRoomsByWalls ??= (from room in availableCommonRooms
+                                 group room by room.Info.OuterWalls)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(template => template.Info).AsReadOnlyList()
+        );
+
     [SerializeField] private FloorEnemiesList spawnableEnemies;
 
     [SerializeField] private TemplateRoomInfo[] availableCommonRooms;
@@ -36,27 +43,12 @@ public class FloorManager : MonoBehaviour
 
     private readonly RoomGrid roomGrid = new();
     private readonly DungeonFactory dungeonFactory = new();
-    private IEnumerable<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)> allRooms;
+    private IEnumerable<(GameObject roomInstance, DungeonFactory.Room.RoomType roomType, RoomOuterWalls outerWalls)> allRooms; //It's temporary implementation for demo only
 
-    private Dictionary<RoomOuterWalls, ImmutableList<RoomInfo>> groupedRoomsByWalls;
+    private Dictionary<RoomOuterWalls, IList<RoomInfo>> groupedRoomsByWalls;
 
     private GameObject player;
 
-    private void Awake()
-    {
-        groupedRoomsByWalls = availableCommonRooms
-            .GroupBy(room => room.Info.OuterWalls)
-            .ToDictionary(
-                group => group.Key,
-                group => group.Select(template => template.Info).ToImmutableList()
-        );
-        /*
-        GenerateFloor();
-        SetPlayer(GameObject.FindWithTag("Player"));
-        GenerateRoomsContent();
-        */
-        
-    }
 
     /// <summary>
     /// Creates all rooms for this floor
@@ -115,14 +107,12 @@ public class FloorManager : MonoBehaviour
     private bool TryChooseTemplateRoom(in RoomOuterWalls roomWalls, out RoomInfo roomInfo)
     {
         roomInfo = null;
-        /*
-        if (groupedRoomsByWalls.TryGetValue(roomWalls, out ImmutableList<RoomInfo> possibleRooms)
+        if (GroupedRoomsByWall.TryGetValue(roomWalls, out IList<RoomInfo> possibleRooms)
             && possibleRooms.Count > 0)
         {
-            roomInfo = possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Count)];
+            roomInfo = possibleRooms[Random.Range(0, possibleRooms.Count)];
             return true;
         }
-        */
         return false;
     }
 
