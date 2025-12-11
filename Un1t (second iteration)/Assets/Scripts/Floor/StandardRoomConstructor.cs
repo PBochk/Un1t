@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RoomConstructor
+public class StandardRoomConstructor
 {
     private static readonly Vector2 topWallOffset = new(-3.5f, 7f);
     private static readonly Vector2 bottomWallOffset = new(0f, -6.5f);
@@ -23,7 +23,7 @@ public class RoomConstructor
     private readonly GameObject horizontalHallway;
 
 
-    public RoomConstructor(FloorObjectsList floorObjects)
+    public StandardRoomConstructor(FloorObjectsList floorObjects)
     {
         roomTemplate = floorObjects.RoomTemplate;
 

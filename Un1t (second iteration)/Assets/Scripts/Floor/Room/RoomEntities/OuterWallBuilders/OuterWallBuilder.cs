@@ -42,9 +42,6 @@ public class OuterWallBuilder : TilesBuilder
 
     public override void Create()
     {
-        if (shurfsSpawnDirection ==
-        ShurfsSpawnDirection.Unidentified)
-            Debug.Log("efs");
         Vector3 basePosition = transform.position - (direction == Direction.Horizontal
             ? new Vector3((sizeTiles.x - 1) / 2f, 0)
             : new Vector3(0, -(sizeTiles.y - 1) / 2f));

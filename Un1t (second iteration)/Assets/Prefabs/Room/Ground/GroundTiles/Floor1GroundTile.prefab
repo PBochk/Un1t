@@ -75,5 +75,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4194279139780166817, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7765319069346761358}
   m_SourcePrefab: {fileID: 100100000, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+--- !u!1 &3720874285078348273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4194279139780166817, guid: 80541b8ce6f817945bc8b95ab4e6bfc1, type: 3}
+  m_PrefabInstance: {fileID: 690776793582830928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7765319069346761358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3720874285078348273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e2ae2554014d44aa50401e09ebe0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSprite: {fileID: -4952179146898214801, guid: 576c0e8a36bac664aa8ec177a9a9298b, type: 3}
+  darkSprite: {fileID: 7999365676560241326, guid: d05574e63501fd648af907b3f414afca, type: 3}

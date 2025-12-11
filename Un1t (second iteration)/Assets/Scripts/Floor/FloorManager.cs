@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FloorManager : MonoBehaviour
 {
+    [SerializeField] private FloorTheme floorTheme = FloorTheme.Light;
+
     [SerializeField, Tooltip("Maximum distance between entarance room and exit room")] 
         private int minDistance = 5;
     [SerializeField, Tooltip("Minimum distance between entarance room and exit room")]
@@ -21,15 +23,17 @@ public class FloorManager : MonoBehaviour
 
     private Dictionary<RoomOuterWalls, IList<RoomInfo>> groupedRoomsByWalls;
 
-    private GameObject player;
-
+    private void Awake()
+    {
+        FloorThemeManager.CurrentTheme = floorTheme;
+    }
 
     /// <summary>
     /// Creates all rooms for this floor
     /// </summary>
     public void GenerateFloor()
     {
-        RoomConstructor roomConstructor = new(floorObjectsList);
+        StandardRoomConstructor roomConstructor = new(floorObjectsList);
 
         groupedRoomsByWalls =
             (from room in availableCommonRooms
@@ -73,15 +77,9 @@ public class FloorManager : MonoBehaviour
         {
             RoomManager roomManager = roomData.RoomInstance.GetComponent<RoomManager>();
             roomManager.Initialize(spawnableEnemies,
-                floorObjectsList,
-                player.GetComponent<EnemyTargetComponent>(), new(floorObjectsList, roomData.OuterWalls));
+                floorObjectsList, new(floorObjectsList, roomData.OuterWalls));
             roomManager.CreateContent(roomData.RoomType);
         }
-    }
-
-    public void SetPlayer(GameObject enemyTarget)
-    {
-        player = enemyTarget;
     }
 
 

@@ -20,14 +20,11 @@ public class RoomManager : MonoBehaviour
 
     private RoomType type;     //TODO: refactor room typing according to OCP
 
-    private EnemyTargetComponent player;
-
     private DoorsConstructor doorsConstructor;
 
     private RoomCompletionStage completionStage = RoomCompletionStage.Uncleaned;
 
-    public void Initialize(FloorEnemiesList enemies, FloorObjectsList floorObjectsList,
-        EnemyTargetComponent enemyTarget, DoorsConstructor doorsConstructor)
+    public void Initialize(FloorEnemiesList enemies, FloorObjectsList floorObjectsList, DoorsConstructor doorsConstructor)
     {
         spawnableEnemies = enemies;
         this.floorObjectsList = floorObjectsList;
@@ -46,10 +43,10 @@ public class RoomManager : MonoBehaviour
         allGroundEntities = RoomGroundContentGenerator.GenerateContent(tileGrid, 
             floorObjectsList.Rock, spawnableEnemies, generatedShurfesCount);
 
-        CreateEntities(player);
+        CreateEntities();
     }
 
-    private void CreateEntities(EnemyTargetComponent player)
+    private void CreateEntities()
     {
         foreach (TilesBuilder tilesBuilder in tilesBuilders)
             tilesBuilder.Create();
