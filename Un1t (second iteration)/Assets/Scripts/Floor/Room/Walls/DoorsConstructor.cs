@@ -13,7 +13,8 @@ public class DoorsConstructor
 
     private static readonly Vector2 minimumColliderSize = new(4, 4);
 
-    private readonly GameObject doorTile;
+    private readonly GameObject horizontalDoorPrefab;
+    private readonly GameObject verticalDoorPrefab;
 
     private readonly bool topDoorExists;
     private readonly bool bottomDoorExists;
@@ -26,7 +27,8 @@ public class DoorsConstructor
 
     public DoorsConstructor(FloorObjectsList floorObjectsList, RoomOuterWalls outerWalls)
     {
-        doorTile = floorObjectsList.DoorWall;
+        horizontalDoorPrefab = floorObjectsList.HorizontalDoor;
+        verticalDoorPrefab = floorObjectsList.VerticalDoor;
 
         topDoorExists = outerWalls.Top.Middle.IsEmpty;
         bottomDoorExists = outerWalls.Bottom.Middle.IsEmpty;
@@ -67,7 +69,7 @@ public class DoorsConstructor
 
     private GameObject CreateHorizontalDoor(Transform room, Vector3 offset, Direction direction)
     {
-        GameObject horizontalDoor = GameObject.Instantiate(doorTile, offset + room.position, Quaternion.identity, room);
+        GameObject horizontalDoor = GameObject.Instantiate(verticalDoorPrefab, offset + room.position, Quaternion.identity, room);
         horizontalDoor.GetComponent<SpriteRenderer>().size = horizontalDoorSize;
 
         BoxCollider2D collider = horizontalDoor.GetComponent<BoxCollider2D>();
@@ -82,7 +84,7 @@ public class DoorsConstructor
 
     private GameObject CreateVerticalDoor(Transform room, Vector3 offset, Direction direction)
     {
-        GameObject verticalDoor = GameObject.Instantiate(doorTile, offset + room.position, Quaternion.identity, room);
+        GameObject verticalDoor = GameObject.Instantiate(horizontalDoorPrefab, offset + room.position, Quaternion.identity, room);
         verticalDoor.GetComponent<SpriteRenderer>().size = verticalDoorSize;
 
         BoxCollider2D collider = verticalDoor.GetComponent<BoxCollider2D>();
