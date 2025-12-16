@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastMoveDirection = Vector2.right;
     private bool isDashing;
     private bool canDash = true;
+    private List<int> layersToExcludeOnDash;
 
     private const float PUSH_TIME = 0.3f;
     private float pushSpeed;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         playerHitable = GetComponent<Hitable>() as PlayerHitable;
+        layersToExcludeOnDash = new() { LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Breakable") };
         playerHitable.HitTaken.AddListener(OnHitTaken);
     }
 
@@ -139,7 +141,16 @@ public class PlayerController : MonoBehaviour
     {
         isDashing = true;
         SetPlayerRestrained(true);
+        // i took this eldritch horror directly from unity documentation
+        foreach (var layer in layersToExcludeOnDash)
+        {
+            rb.excludeLayers |= (1 << layer);
+        }
         yield return new WaitForSeconds(playerModel.DashDuration);
+        foreach (var layer in layersToExcludeOnDash)
+        {
+            rb.excludeLayers &= ~(1 << layer);
+        }
         SetPlayerRestrained(false);
         isDashing = false;
     }
