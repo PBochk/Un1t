@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e2a478b7cbf694c870fcb91971a6a4, type: 3}
   m_Name: TestPlayerConfig
   m_EditorClassIdentifier: 
-  baseMaxHealth: 1
+  baseMaxHealth: 1000
   level: 1
   xpToNextLevel:
   - 0
