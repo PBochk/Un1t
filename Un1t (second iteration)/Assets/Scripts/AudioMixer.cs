@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class AudioMixer : MonoBehaviour
 {
-    [SerializeField] private AudioMixerUI audioMixerUI;
     public static AudioMixer Instance { get; private set; }
     public float GeneralVolume { get; private set; } = 1.0f;
     public float MusicVolume { get; private set; } = 1.0f;
@@ -18,24 +17,22 @@ public class AudioMixer : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        audioMixerUI.GeneralSlider.onValueChanged.AddListener(OnGeneralVolumeChanged);
-        audioMixerUI.MusicSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
-        audioMixerUI.SoundEffectsSlider.onValueChanged.AddListener(OnSoundEffectsVolumeChanged);
+
     }
 
-    private void OnGeneralVolumeChanged(float value)
+    public void OnGeneralVolumeChanged(float value)
     {
         GeneralVolume = value;
         GeneralVolumeChanged?.Invoke();
     }
 
-    private void OnMusicVolumeChanged(float value)
+    public void OnMusicVolumeChanged(float value)
     {
         MusicVolume = value;
         MusicVolumeChanged?.Invoke();
     }
 
-    private void OnSoundEffectsVolumeChanged(float value)
+    public void OnSoundEffectsVolumeChanged(float value)
     {
         SoundEffectsVolume = value;
         SoundEffectsVolumeChanged?.Invoke();

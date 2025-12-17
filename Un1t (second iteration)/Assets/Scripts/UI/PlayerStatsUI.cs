@@ -23,7 +23,7 @@ public class PlayerStatsUI : MonoBehaviour
         hpTilesCount = hpSprites.Length - 1;
         xpTilesCount = xpSprites.Length - 1;
         var canvas = GetComponent<Canvas>();
-        canvas.worldCamera = Camera.current;
+        canvas.worldCamera = Camera.main;
     }
 
     private void Start()
