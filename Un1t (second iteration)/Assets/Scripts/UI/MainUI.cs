@@ -3,6 +3,7 @@ using UnityEngine;
 public class MainUI : MonoBehaviour
 {
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerUpgradeController upgradeController;
     [SerializeField] private PlayerModelMB playerModelMB;
@@ -10,8 +11,9 @@ public class MainUI : MonoBehaviour
     [SerializeField] private PlayerRangeWeaponModelMB playerRangeModelMB;
     [SerializeField] private UIAudio uiAudio;
 
-    public PlayerController PlayerController => playerController;
     public PauseManager PauseManager => pauseManager;
+    public AudioMixer AudioMixer => audioMixer;
+    public PlayerController PlayerController => playerController;
     public PlayerUpgradeController UpgradeController => upgradeController;
     public PlayerModelMB PlayerModelMB => playerModelMB;
     public PlayerMeleeWeaponModelMB PlayerMeleeModelMB => playerMeleeModelMB;

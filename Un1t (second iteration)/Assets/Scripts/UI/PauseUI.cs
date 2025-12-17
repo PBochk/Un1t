@@ -4,16 +4,18 @@ using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
 {
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private Canvas mainCanvas;
+    [SerializeField] private Canvas optionsCanvas;
     [SerializeField] private Button unpause;
     [SerializeField] private Button reload;
+    [SerializeField] private Button options;
     [SerializeField] private Button quit;
     private MainUI mainUI;
     private PauseManager pauseManager;
 
     private void Awake()
     {
-        canvas.worldCamera = Camera.current;
+        mainCanvas.worldCamera = Camera.current;
         unpause.onClick.AddListener(UnpauseScene);
         reload.onClick.AddListener(ReloadScene);
     }
@@ -22,18 +24,20 @@ public class PauseUI : MonoBehaviour
     {
         mainUI = GetComponentInParent<MainUI>();
         pauseManager = mainUI.PauseManager;
+        options.onClick.AddListener(OnOptionsOpen);
         quit.onClick.AddListener(pauseManager.QuitGame);
         unpause.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
-        quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
-        canvas.enabled = false;
+        options.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        mainCanvas.enabled = false;
     }
 
     private void OnPause()
     {
         if (!pauseManager.IsPaused)
         {
-            canvas.enabled = true;
+            mainCanvas.enabled = true;
             pauseManager.PauseScene();
         }
     }
@@ -41,12 +45,18 @@ public class PauseUI : MonoBehaviour
     private void UnpauseScene()
     {
         pauseManager.UnpauseScene();
-        canvas.enabled = false;
+        mainCanvas.enabled = false;
     }
 
     private void ReloadScene()
     {
         pauseManager.ReloadScene();
-        canvas.enabled = false;
+        mainCanvas.enabled = false;
+    }
+
+    private void OnOptionsOpen()
+    {
+        mainCanvas.enabled = false;
+        optionsCanvas.enabled = true;
     }
 }
