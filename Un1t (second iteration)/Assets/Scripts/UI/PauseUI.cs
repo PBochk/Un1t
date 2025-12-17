@@ -28,6 +28,7 @@ public class PauseUI : MonoBehaviour
         quit.onClick.AddListener(pauseManager.QuitGame);
         unpause.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        options.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         mainCanvas.enabled = false;
     }
