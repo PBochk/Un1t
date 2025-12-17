@@ -58,7 +58,6 @@ public class RoomManager : MonoBehaviour
             Vector2Int? tentCoordinates = FindSquareCenter(Tile.Ground, 6);
 
             if (!tentCoordinates.HasValue) return;
-            Debug.Log($"{tentCoordinates.Value.x} {tentCoordinates.Value.y}");
             Instantiate(floorObjectsList.Tent,
               (Vector3Int)tentCoordinates.Value + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
             Quaternion.identity, transform);
