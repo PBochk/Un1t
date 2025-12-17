@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class DoorsConstructor
 {
-    private static readonly Vector3 topDoorOffset = new(0, 8);
-    private static readonly Vector3 bottomDoorOffset = new(0, -8);
+    private static readonly Vector3 topDoorOffset = new(0, 9);
+    private static readonly Vector3 bottomDoorOffset = new(0, -9);
     private static readonly Vector3 leftDoorOffset = new(-10, 0);
     private static readonly Vector3 rightDoorOffset = new(10, 0);
 
