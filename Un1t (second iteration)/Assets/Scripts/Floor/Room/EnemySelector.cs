@@ -1,33 +1,28 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class EnemySelector
 {
     public static GameObject SelectEnemy(FloorEnemiesList enemiesList)
     {
-        int greenWeight = FloorEnemiesList.GREEN_SLIME_FREQUENCY;
-        int blueWeight = FloorEnemiesList.BLUE_SLIME_FREQUENCY;
-        int glitchWeight = FloorEnemiesList.GLITCH_FREQUENCY;
+        IReadOnlyDictionary<GameObject, int> enemiesWithFrequencies = enemiesList.EnemiesWithFrequencies;
 
-        int totalWeight = greenWeight + blueWeight + glitchWeight;
+
+        int totalWeight = enemiesWithFrequencies.Values.Sum();
 
         int randomValue = Random.Range(0, totalWeight);
+        var currentWeight = 0;
 
-        if (randomValue < greenWeight)
+        foreach (KeyValuePair<GameObject, int> enemyWithFrequency in enemiesWithFrequencies)
         {
-            return enemiesList.Enemies[0];
-        }
-        else if (randomValue < greenWeight + blueWeight)
-        {
-            return enemiesList.Enemies[2];
-        }
-        else
-        {
-            if (enemiesList.Enemies.Count > 3)
+            currentWeight += enemyWithFrequency.Value;
+            if (randomValue < currentWeight)
             {
-                return enemiesList.Enemies[3];
+                return enemyWithFrequency.Key;
             }
-            else
-                return enemiesList.Enemies[0];
         }
+
+        throw new System.Exception("Enemy wasn't selected");
     }
 }
