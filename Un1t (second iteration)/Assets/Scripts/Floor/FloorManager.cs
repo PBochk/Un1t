@@ -106,8 +106,7 @@ public class FloorManager : MonoBehaviour
     private bool TryChooseTemplateRoom(in RoomOuterWalls roomWalls, out RoomInfo roomInfo)
     {
         roomInfo = null;
-        if (groupedRoomsByWalls.TryGetValue(roomWalls, out IList<RoomInfo> possibleRooms)
-            && possibleRooms.Count > 0)
+        if (groupedRoomsByWalls.TryGetValue(roomWalls, out IList<RoomInfo> possibleRooms))
         {
             roomInfo = possibleRooms[Random.Range(0, possibleRooms.Count)];
             return true;

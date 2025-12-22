@@ -18,9 +18,7 @@ public static class EnemySelector
         {
             currentWeight += enemyWithFrequency.Value;
             if (randomValue < currentWeight)
-            {
                 return enemyWithFrequency.Key;
-            }
         }
 
         throw new System.Exception("Enemy wasn't selected");

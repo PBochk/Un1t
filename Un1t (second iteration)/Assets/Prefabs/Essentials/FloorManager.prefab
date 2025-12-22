@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a2eae1a56b86b4d914366845956f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnableEnemies: {fileID: 11400000, guid: 23a8c71ab722f874fb624dfafc93427a, type: 2}
+  floorTheme: 0
+  minDistance: 5
+  maxDistance: 7
   floorObjectsList: {fileID: 11400000, guid: 5f5223e0282cf514dba750e4a3204e88, type: 2}
+  spawnableEnemies: {fileID: 11400000, guid: 23a8c71ab722f874fb624dfafc93427a, type: 2}
   availableCommonRooms:
   - {fileID: 11400000, guid: abad6fc821e8aea44b89ab8bd3ee55ee, type: 2}
   - {fileID: 11400000, guid: b59fbbaed61de4949b4b7a8ac798d1cf, type: 2}
@@ -54,3 +57,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 35fc8a0ba3c5f8e4e9bb7b554f4c0d0e, type: 2}
   - {fileID: 11400000, guid: 52e7cd92d65139a48bd74b9679c7641c, type: 2}
   - {fileID: 11400000, guid: e117b76159557a84da52228a9c4f868a, type: 2}
+  - {fileID: 11400000, guid: ceee1a5ba4329834c989bcca8cb7f1fb, type: 2}
+  - {fileID: 11400000, guid: d708b9808ab5a3e4da852bb266086d52, type: 2}
