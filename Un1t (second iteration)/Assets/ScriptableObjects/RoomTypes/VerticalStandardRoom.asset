@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e4e7ed997a944a459f3b55e9666a179, type: 3}
-  m_Name: VerticalHallwayRoom
+  m_Name: VerticalStandardRoom
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 7164782393490148376, guid: 2c3a1b7925312de4f94945900de4c093, type: 3}
+  roomPrefab: {fileID: 7164782393490148376, guid: 648d519028af6144193b18db4eb2b3ce, type: 3}
   leftTopIsEmpty: 0
   middleTopIsEmpty: 1
   rightTopIsEmpty: 0
