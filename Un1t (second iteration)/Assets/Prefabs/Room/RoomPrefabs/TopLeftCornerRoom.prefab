@@ -619,6 +619,10 @@ PrefabInstance:
       propertyPath: WallTile
       value: 
       objectReference: {fileID: 11400000, guid: 8a7ad5da3d170a841868205614e650d3, type: 2}
+    - target: {fileID: 1242096590687245545, guid: da373189ea739d243b5f3129b7f20cfd, type: 3}
+      propertyPath: shurfsSpawnDirection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1587562411337747525, guid: da373189ea739d243b5f3129b7f20cfd, type: 3}
       propertyPath: m_LocalScale.z
       value: 0
