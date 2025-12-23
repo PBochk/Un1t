@@ -6,7 +6,7 @@ using UnityEngine;
 public static class RoomGroundContentGenerator
 {
     private const float MIN_ROCKS_FREQUENCY = 0f;
-    private const float MAX_ROCKS_FREQUENCY = 1f/12f;
+    private const float MAX_ROCKS_FREQUENCY = 1f/36f;
 
     private const float MIN_ENEMIES_FREQUENCY = 1f/48f;
     private const float MAX_ENEMIES_FREQUENCY = 7f/240f;

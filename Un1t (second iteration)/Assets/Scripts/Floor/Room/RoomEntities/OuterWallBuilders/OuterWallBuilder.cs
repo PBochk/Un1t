@@ -8,7 +8,10 @@ public class OuterWallBuilder : TilesBuilder
 {
     public const int SHURF_WIDTH_WITH_NEIGHBOUR = SHURF_WIDTH + 2;
     public const int SHURF_WIDTH = 2;
-    public const int SHURF_DEPTHS = 3;
+    public const int SHURF_MIN_DEPTH = 2;
+    public const int SHURF_MAX_DEPTH = 3;
+
+    private int shurfDepth;
     public bool CanCreateShurf => shurfsSpawnDirection != ShurfsSpawnDirection.Unidentified;
     public Direction WallDirection => direction;
 
@@ -69,6 +72,8 @@ public class OuterWallBuilder : TilesBuilder
 
     public override void SetConfiguration()
     {
+        shurfDepth = Random.Range(SHURF_MIN_DEPTH, SHURF_MAX_DEPTH+1);
+
         SpriteRenderer wallRenderer = GetComponent<SpriteRenderer>();
 
         sizeTiles = new Vector2Int((int)wallRenderer.size.x, (int)wallRenderer.size.y);
@@ -226,14 +231,14 @@ public class OuterWallBuilder : TilesBuilder
         float enemyHorizontalPosition = 0f;
         float enemyVerticalPosition = 0f;
 
-        float invisibleWallOffset = SHURF_DEPTHS / 2f + 0.5f;
+        float invisibleWallOffset = shurfDepth / 2f + 0.5f;
 
         if (direction == Direction.Horizontal)
         {
             shurfDirection = Direction.Vertical;
             directionMultiplier = shurfsSpawnDirection == ShurfsSpawnDirection.Bottom ? -1 : 1;
 
-            verticalPosition = basePosition.y + (SHURF_DEPTHS / 2f + thickness / 2f) * directionMultiplier;
+            verticalPosition = basePosition.y + (shurfDepth / 2f + thickness / 2f) * directionMultiplier;
 
             shurfFirstSideThickness = (int)shurfFirstSideSize.x;
             shurfSecondSideThickness = (int)shurfSecondSideSize.x;
@@ -242,7 +247,7 @@ public class OuterWallBuilder : TilesBuilder
 
             darknessSize = new(invisibleWallSize.x, invisibleWallSize.y * 2);
 
-            shurfGroundSize = new Vector2Int(SHURF_WIDTH, SHURF_DEPTHS + sizeTiles.y);
+            shurfGroundSize = new Vector2Int(SHURF_WIDTH, shurfDepth + sizeTiles.y);
 
             enemyVerticalPosition = verticalPosition;
         }
@@ -251,7 +256,7 @@ public class OuterWallBuilder : TilesBuilder
             shurfDirection = Direction.Horizontal;
             directionMultiplier = shurfsSpawnDirection == ShurfsSpawnDirection.Left ? -1 : 1;
 
-            horizontalPosition = basePosition.x + (SHURF_DEPTHS / 2f + thickness / 2f) * directionMultiplier;
+            horizontalPosition = basePosition.x + (shurfDepth / 2f + thickness / 2f) * directionMultiplier;
 
             shurfFirstSideThickness = (int)shurfFirstSideSize.y;
             shurfSecondSideThickness = (int)shurfSecondSideSize.y;
@@ -260,7 +265,7 @@ public class OuterWallBuilder : TilesBuilder
 
             darknessSize = new(invisibleWallSize.x * 2, invisibleWallSize.y);
 
-            shurfGroundSize = new Vector2Int(SHURF_DEPTHS + sizeTiles.x, SHURF_WIDTH);
+            shurfGroundSize = new Vector2Int(shurfDepth + sizeTiles.x, SHURF_WIDTH);
 
             enemyHorizontalPosition = horizontalPosition;
         }
@@ -297,7 +302,7 @@ public class OuterWallBuilder : TilesBuilder
                     verticalPosition - sizeTiles.y * directionMultiplier / 2f
                 );
 
-                enemyHorizontalPosition = darknessPosition.x;
+                enemyHorizontalPosition = darknessPosition.x + directionMultiplier*(shurfDepth - 2);
             }
             else
             {
@@ -323,14 +328,14 @@ public class OuterWallBuilder : TilesBuilder
                     basePosition.y - shurfCenter
                 );
 
-                enemyVerticalPosition = darknessPosition.y + directionMultiplier;
+                enemyVerticalPosition = darknessPosition.y + directionMultiplier * (shurfDepth-2);
             }
 
             Vector2 enemyPosition = new(enemyHorizontalPosition, enemyVerticalPosition);
             enemiesInShurfesPositions.Add(enemyPosition);
 
-            CreateFragment(shurfFirstSideTile, SHURF_DEPTHS, shurfFirstSideThickness, shurfDirection, firstSidePosition);
-            CreateFragment(shurfSecondSideTile, SHURF_DEPTHS, shurfSecondSideThickness, shurfDirection, secondSidePosition);
+            CreateFragment(shurfFirstSideTile, shurfDepth, shurfFirstSideThickness, shurfDirection, firstSidePosition);
+            CreateFragment(shurfSecondSideTile, shurfDepth, shurfSecondSideThickness, shurfDirection, secondSidePosition);
 
             GameObject invisibleWall = new("InvisibleShurfWall");
             invisibleWall.transform.SetParent(transform);

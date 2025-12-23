@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2186e18ee93fe024a87886225a1331c4, type: 3}
   m_Name: Level1Enemies
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 176842301264460836, guid: de584a967c444f547b18d0409acb2110, type: 3}
-  - {fileID: 7220417952015701379, guid: 306bf8a69d92c1542835137687ee5cbe, type: 3}
-  - {fileID: 5648669179270980949, guid: 64447181db063772a9757882984b2a1a, type: 3}
-  - {fileID: 3588851153722720809, guid: a8c8fb7037cbd110fb2fd4e2a8ed18a1, type: 3}
+  enemiesWithFrequencies:
+    _serializedList:
+    - Key: {fileID: 5648669179270980949, guid: 64447181db063772a9757882984b2a1a, type: 3}
+      Value: 4
+    - Key: {fileID: 176842301264460836, guid: de584a967c444f547b18d0409acb2110, type: 3}
+      Value: 2
+    - Key: {fileID: 3588851153722720809, guid: a8c8fb7037cbd110fb2fd4e2a8ed18a1, type: 3}
+      Value: 1

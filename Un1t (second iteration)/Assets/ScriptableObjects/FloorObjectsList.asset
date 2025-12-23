@@ -21,4 +21,6 @@ MonoBehaviour:
   rightOuterWall: {fileID: 7543573792874096438, guid: a2c82c55342ec3546a24fd6f5bad356f, type: 3}
   rock: {fileID: 6904496536194747905, guid: e33b0bdc5bc09464196908222d570a57, type: 3}
   descent: {fileID: 3558636484064302916, guid: 0b1a1432607b0e34d8d5c327f4aceed5, type: 3}
-  doorWall: {fileID: 8252421113222450477, guid: 99782673fc118e44b8c89ffd9d376fbb, type: 3}
+  horizontalDoor: {fileID: 5278097429403438141, guid: 02fac3d1220dd7a49b42016f642b5b99, type: 3}
+  verticalDoor: {fileID: 1912218870932658207, guid: 8797f5f024018da4b888108155669340, type: 3}
+  tent: {fileID: 1478781126609644790, guid: 9f20dca2ca5475a4b9da8362bfeaea43, type: 3}

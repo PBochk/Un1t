@@ -12,7 +12,10 @@ public class FloorObjectsList : ScriptableObject
     public GameObject RightOuterWall => rightOuterWall;
     public GameObject Rock => rock;
     public GameObject Descent => descent;
-    public GameObject DoorWall => doorWall;
+    public GameObject HorizontalDoor => horizontalDoor;
+    public GameObject VerticalDoor => verticalDoor;
+
+    public GameObject Tent => tent;
 
     [SerializeField] private GameObject roomTemplate;
 
@@ -27,5 +30,8 @@ public class FloorObjectsList : ScriptableObject
     [SerializeField] private GameObject rock;
     [SerializeField] private GameObject descent;
 
-    [SerializeField] private GameObject doorWall;
+    [SerializeField] private GameObject horizontalDoor;
+    [SerializeField] private GameObject verticalDoor;
+
+    [SerializeField] private GameObject tent;
 }
