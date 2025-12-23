@@ -8,7 +8,6 @@ public static class EnemySelector
     {
         IReadOnlyDictionary<GameObject, int> enemiesWithFrequencies = enemiesList.EnemiesWithFrequencies;
 
-
         int totalWeight = enemiesWithFrequencies.Values.Sum();
 
         int randomValue = Random.Range(0, totalWeight);
@@ -19,6 +18,7 @@ public static class EnemySelector
             currentWeight += enemyWithFrequency.Value;
             if (randomValue < currentWeight)
                 return enemyWithFrequency.Key;
+
         }
 
         throw new System.Exception("Enemy wasn't selected");
