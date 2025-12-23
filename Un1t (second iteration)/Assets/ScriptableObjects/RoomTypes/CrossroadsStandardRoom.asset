@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4e7ed997a944a459f3b55e9666a179, type: 3}
   m_Name: CrossroadsStandardRoom
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 7164782393490148376, guid: 582ad724a5bb37c499c5b051b65899b0, type: 3}
+  roomPrefab: {fileID: 7164782393490148376, guid: 725b55d360e8cc748b185935fdb4db8c, type: 3}
   leftTopIsEmpty: 0
   middleTopIsEmpty: 1
   rightTopIsEmpty: 0

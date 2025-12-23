@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4e7ed997a944a459f3b55e9666a179, type: 3}
   m_Name: TopRightCornerRoom
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 5287173037463610027, guid: b902bcbb46c4f444299726b0aed5b2bc, type: 3}
+  roomPrefab: {fileID: 5287173037463610027, guid: eea5c407ff766fc48b54b86073b6b773, type: 3}
   leftTopIsEmpty: 0
   middleTopIsEmpty: 0
   rightTopIsEmpty: 0
@@ -20,8 +20,8 @@ MonoBehaviour:
   middleBottomIsEmpty: 1
   rightBottomIsEmpty: 0
   topLeftIsEmpty: 0
-  middleLeftIsEmpty: 0
+  middleLeftIsEmpty: 1
   bottomLeftIsEmpty: 0
   topRightIsEmpty: 0
-  middleRightIsEmpty: 1
+  middleRightIsEmpty: 0
   bottomRightIsEmpty: 0
