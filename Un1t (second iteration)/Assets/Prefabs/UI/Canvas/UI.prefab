@@ -35,10 +35,10 @@ Transform:
   m_Children:
   - {fileID: 883873931014257946}
   - {fileID: 8682551010591337762}
-  - {fileID: 7093949268138991686}
   - {fileID: 1039568604715194478}
-  - {fileID: 8273821842774940366}
+  - {fileID: 7093949268138991686}
   - {fileID: 7729638961352100438}
+  - {fileID: 8273821842774940366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4163302350024094114
@@ -791,6 +791,10 @@ PrefabInstance:
     - target: {fileID: 248406444609519938, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
       propertyPath: m_Name
       value: StatsUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201674528402504452, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8032479278380416835, guid: deab210550e0aa24f9cd06d8048e6570, type: 3}
       propertyPath: m_Pivot.x

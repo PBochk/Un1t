@@ -12,7 +12,7 @@ public class AudioMixerUI : MonoBehaviour
     public Slider GeneralSlider => generalSlider;
     public Slider MusicSlider => musicSlider;
     public Slider SoundEffectsSlider => soundEffectsSlider;
-    private void Awake()
+    private void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
         mainUI = GetComponentInParent<MainUI>();
