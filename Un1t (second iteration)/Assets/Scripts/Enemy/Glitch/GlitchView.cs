@@ -23,6 +23,10 @@ public class GlitchView : EnemyView
 
     protected override void BindAnimator()
     {
+        model.OnDamageTaken.AddListener(() =>
+        {
+            animator.SetTrigger("Hurt");
+        });
     }
 
     protected override void BindSoundPlayer()
