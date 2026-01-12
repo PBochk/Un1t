@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerToolsUI : MonoBehaviour
+public class PlayerAmmoUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text ammoText;
     private MainUI mainUI;
@@ -15,8 +15,17 @@ public class PlayerToolsUI : MonoBehaviour
     {
         mainUI = GetComponentInParent<MainUI>();
         rangeModel = mainUI.PlayerRangeModelMB.RangeWeaponModel;
-        rangeModel.AmmoChanged += OnAmmoChanged;
         Initialize();
+        rangeModel.AmmoChanged += OnAmmoChanged;
+    }
+    private void OnEnable()
+    {
+        rangeModel.AmmoChanged += OnAmmoChanged;
+    }
+
+    private void OnDisable()
+    {
+        rangeModel.AmmoChanged -= OnAmmoChanged;
     }
 
     private void Initialize()

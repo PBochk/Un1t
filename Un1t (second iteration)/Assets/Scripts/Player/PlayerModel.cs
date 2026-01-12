@@ -161,6 +161,7 @@ public class PlayerModel : IInstanceModel
 
     public void DecreaseXP(float decrement)
     {
+        if (CurrentXP <= 0) return;
         CurrentXP -= decrement;
     }
 
