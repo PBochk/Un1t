@@ -1004,6 +1004,7 @@ MonoBehaviour:
   generalSlider: {fileID: 6061169190129222070}
   musicSlider: {fileID: 7999645681027188278}
   soundEffectsSlider: {fileID: 3309969478016970670}
+  canvas: {fileID: 8491738431251104741}
 --- !u!114 &2371251373223511547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,9 +1017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca0dd32668cdf546926e5aa0d3f48cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsCanvas: {fileID: 8491738431251104741}
-  menuCanvas: {fileID: 0}
-  returnToMenu: {fileID: 7081253422082802288}
 --- !u!1 &4051783783020601728
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 /// <summary>
 /// Interactions with scene for pause buttons
@@ -10,9 +11,15 @@ using UnityEngine.SceneManagement;
 // TODO: make a better name for class
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
+    public static PauseManager Instance;
     private bool isPaused;
     public bool IsPaused => isPaused;
+    public UnityEvent<bool> PauseOn;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void PauseScene()
     {
@@ -38,7 +45,7 @@ public class PauseManager : MonoBehaviour
     private IEnumerator WaitForSetRestrained(bool isRestrained)
     {
         yield return null;
-        playerController.SetPlayerRestrained(isRestrained);
+        PauseOn.Invoke(isRestrained);
     }
 
     public void ReloadScene()

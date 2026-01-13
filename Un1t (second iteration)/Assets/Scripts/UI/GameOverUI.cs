@@ -8,16 +8,12 @@ using static SpawnersManager;
 
 public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] private EventParent parent;
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text gameoverText;
     [SerializeField] private string winText;
     [SerializeField] private string loseText;
     [SerializeField] private Button reload;
     [SerializeField] private Button quit;
-    private MainUI mainUI;
-    private PauseManager pauseManager;
-    private PlayerModel playerModel;
 
     private void Awake()
     {
@@ -28,15 +24,9 @@ public class GameOverUI : MonoBehaviour
 
     private void Start()
     {
-        mainUI = GetComponentInParent<MainUI>();
-        pauseManager = mainUI.PauseManager;
-        playerModel = mainUI.PlayerModelMB.PlayerModel;
         // TODO: move subscription in OnEnable after model initialization rework
-        playerModel.PlayerDeath += OnPlayerDeath;
-        parent.LevelEnded.AddListener(OnLevelEnd); // <---- subscribe method on event
         canvas.enabled = false;
-        reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
-        quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+
     }
 
     //private void OnEnable()
@@ -44,9 +34,16 @@ public class GameOverUI : MonoBehaviour
     //    playerModel.PlayerDeath += OnPlayerDeath;
     //}
 
-    private void OnDisable()
+    //private void OnDisable()
+    //{
+    //    playerModel.PlayerDeath -= OnPlayerDeath;
+    //}
+
+    public void BindEvents(UIAudio audio, PlayerModel playerModel)
     {
-        playerModel.PlayerDeath -= OnPlayerDeath;
+        playerModel.PlayerDeath += OnPlayerDeath;
+        reload.onClick.AddListener(audio.PlayButtonClickSound);
+        quit.onClick.AddListener(audio.PlayButtonClickSound);
     }
 
     private void OnPlayerDeath()
@@ -72,11 +69,11 @@ public class GameOverUI : MonoBehaviour
 
     private void ReloadScene()
     {
-        pauseManager.ReloadScene();
+        PauseManager.Instance.ReloadScene();
     }
 
     private void QuitGame()
     {
-        pauseManager.QuitGame();
+        PauseManager.Instance.QuitGame();
     }
 }

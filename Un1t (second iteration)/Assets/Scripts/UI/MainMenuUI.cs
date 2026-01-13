@@ -28,7 +28,6 @@ public class MainMenuUI : MonoBehaviour
     {
         buttons.interactable = false;
         optionsCanvas.gameObject.SetActive(true);
-        Debug.Log(optionsCanvas.enabled);
     }
 
     private void OnOptionsClosed()

@@ -11,7 +11,6 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Button options;
     [SerializeField] private Button quit;
     private MainUI mainUI;
-    private PauseManager pauseManager;
 
     private void Awake()
     {
@@ -23,9 +22,8 @@ public class PauseUI : MonoBehaviour
     private void Start()
     {
         mainUI = GetComponentInParent<MainUI>();
-        pauseManager = mainUI.PauseManager;
         options.onClick.AddListener(OnOptionsOpen);
-        quit.onClick.AddListener(pauseManager.QuitGame);
+        quit.onClick.AddListener(PauseManager.Instance.QuitGame);
         unpause.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         options.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
@@ -35,22 +33,22 @@ public class PauseUI : MonoBehaviour
 
     private void OnPause()
     {
-        if (!pauseManager.IsPaused)
+        if (!PauseManager.Instance.IsPaused)
         {
             mainCanvas.enabled = true;
-            pauseManager.PauseScene();
+            PauseManager.Instance.PauseScene();
         }
     }
 
     private void UnpauseScene()
     {
-        pauseManager.UnpauseScene();
+        PauseManager.Instance.UnpauseScene();
         mainCanvas.enabled = false;
     }
 
     private void ReloadScene()
     {
-        pauseManager.ReloadScene();
+        PauseManager.Instance.ReloadScene();
         mainCanvas.enabled = false;
     }
 

@@ -9,8 +9,6 @@ public class HintUI : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private TMP_Text current;
     [SerializeField] private List<string> texts;
-    private MainUI mainUI;
-    private PauseManager pauseManager;
     private int count = 0;
     private void Awake()
     {
@@ -19,10 +17,7 @@ public class HintUI : MonoBehaviour
     }
     private void Start()
     {
-        mainUI = GetComponentInParent<MainUI>();
-        button.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
-        pauseManager = mainUI.PauseManager;
-        pauseManager.PauseScene();
+        PauseManager.Instance.PauseScene();
         NextHint();
     }
 
@@ -31,7 +26,7 @@ public class HintUI : MonoBehaviour
         if (count >= texts.Count)
         {
             canvas.gameObject.SetActive(false);
-            pauseManager.UnpauseScene();
+            PauseManager.Instance.UnpauseScene();
         }
         else
         {

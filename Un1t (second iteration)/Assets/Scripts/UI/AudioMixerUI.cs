@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class AudioMixerUI : MonoBehaviour
@@ -7,18 +6,16 @@ public class AudioMixerUI : MonoBehaviour
     [SerializeField] private Slider generalSlider;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider soundEffectsSlider;
-    private MainUI mainUI;
-    private AudioMixer audioMixer;
+    [SerializeField] private Canvas canvas;
     public Slider GeneralSlider => generalSlider;
     public Slider MusicSlider => musicSlider;
     public Slider SoundEffectsSlider => soundEffectsSlider;
     private void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
-        mainUI = GetComponentInParent<MainUI>();
-        audioMixer = mainUI.AudioMixer;
-        GeneralSlider.onValueChanged.AddListener(audioMixer.OnGeneralVolumeChanged);
-        MusicSlider.onValueChanged.AddListener(audioMixer.OnMusicVolumeChanged);
-        SoundEffectsSlider.onValueChanged.AddListener(audioMixer.OnSoundEffectsVolumeChanged);
+        GeneralSlider.onValueChanged.AddListener(AudioMixer.Instance.OnGeneralVolumeChanged);
+        MusicSlider.onValueChanged.AddListener(AudioMixer.Instance.OnMusicVolumeChanged);
+        SoundEffectsSlider.onValueChanged.AddListener(AudioMixer.Instance.OnSoundEffectsVolumeChanged);
+        canvas.gameObject.SetActive(false);
     }
 }

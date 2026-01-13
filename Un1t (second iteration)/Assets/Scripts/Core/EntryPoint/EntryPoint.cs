@@ -14,6 +14,8 @@ using UnityEngine.SceneManagement;
 public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private PlayerConfig playerConfig;
+    [SerializeField] private XPConfig xpConfig;
+    [SerializeField] private MainUI mainUI;
     [SerializeField] private int menuSceneIndex = 1;
     [SerializeField] private int firstLevelSceneIndex = 2;
     private int sceneIndex;
@@ -103,10 +105,13 @@ public class EntryPoint : MonoBehaviour
         StartCoroutine(UnloadScene());
         if(!isMenuLoad)
         {
-            InitializeScene();
+            var player = gameState.PlayerModel.CreateInstance() as PlayerController;
+
             if (gameState.NextSceneIndex != -1)
                 RestoreStateFromSave();
             Save(sceneIndex);
+            Instantiate(mainUI);
+            mainUI.Initialize(gameState.PlayerModel, player);
         }
 
         BindEvents();
@@ -115,11 +120,6 @@ public class EntryPoint : MonoBehaviour
     private void InitializeState()
     {
         gameState = new GameState(new PlayerModel(playerConfig));
-    }
-
-    private void InitializeScene()
-    {
-        gameState.PlayerModel.CreateInstance();
     }
 
     private void RestoreStateFromSave()

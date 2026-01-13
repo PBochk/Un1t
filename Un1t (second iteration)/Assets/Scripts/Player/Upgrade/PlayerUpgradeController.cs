@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(PlayerUpgradeModelMB))]
 public class PlayerUpgradeController : MonoBehaviour
 {
-
+    public static PlayerUpgradeController Instance;
     private PlayerModel playerModel;
     private PlayerMeleeWeaponModel meleeModel;
     private PlayerRangeWeaponModel rangeModel;
@@ -23,6 +23,10 @@ public class PlayerUpgradeController : MonoBehaviour
     public PlayerUpgradeModel UpgradeModel => upgradeModel;
     public UnityEvent<List<PlayerUpgrade>> UpgradesChoiceSet;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
