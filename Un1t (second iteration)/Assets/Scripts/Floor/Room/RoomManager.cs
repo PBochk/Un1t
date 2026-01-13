@@ -161,19 +161,19 @@ public class RoomManager : MonoBehaviour
 
         void EnemyDead(GameObject enemy)
         {
-        allEnemies.Remove(enemy);
-        if (allEnemies.Count == 0)
-        {
-                if (--wavesCount == 0)
-                {
-                    completionStage = RoomCompletionStage.Cleaned;
-                    doorsConstructor.DestroyDoors();
-                }
-                else
-                {
-                    CreateEnemies(enemyTarget);
-                }
-        }
+            allEnemies.Remove(enemy);
+            if (allEnemies.Count == 0)
+            {
+                    if (--wavesCount > 0)
+                    {
+                        completionStage = RoomCompletionStage.Cleaned;
+                        doorsConstructor.DestroyDoors();
+                    }
+                    else
+                    {
+                        CreateEnemies(enemyTarget);
+                    }
+            }
         }
 }
 

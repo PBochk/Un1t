@@ -149,3 +149,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSprite: {fileID: -7592134062431260720, guid: 972485be228e9754eac2e15c6be119e1, type: 3}
   darkSprite: {fileID: 4441567770862226729, guid: d05574e63501fd648af907b3f414afca, type: 3}
+  glitchSprite: {fileID: -6128138965900966436, guid: c1bd8c7f25879f3498661567cf1cc980, type: 3}

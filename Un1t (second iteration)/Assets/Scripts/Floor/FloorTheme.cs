@@ -1,1 +1,1 @@
-public enum FloorTheme : sbyte { Light, Dark }
+public enum FloorTheme : sbyte { Light, Dark, Glitch }
