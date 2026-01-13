@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSprite: {fileID: 3095919260754205623, guid: 42840a93ce6f9f841b1d4317bf2bf5a0, type: 3}
   darkSprite: {fileID: -5327470446898996514, guid: 21600ccc6c5423e459ccd71701e07619, type: 3}
+  glitchSprite: {fileID: -4945755299149898100, guid: 7e5d04defd2f34246853009c9e94c33e, type: 3}
 --- !u!61 &1886920569762217530
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.11, y: 0.11}
+    oldSize: {x: 2, y: 4}
     newSize: {x: 0.11, y: 0.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

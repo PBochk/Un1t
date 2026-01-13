@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3d2c8306d2623a247b4d0941a633b487
+guid: 5e63f14a998161149bfe5f018acd3d58
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5275518093756688223
-    second: OuterWallCornerBottomRight_0
+      213: 5055605433714120522
+    second: floor3groundTile_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OuterWallCornerBottomRight_0
+      name: floor3groundTile_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a89c7f9e3899c6b0800000000000000
-      internalID: -5275518093756688223
+      spriteID: a4790113b5e192640800000000000000
+      internalID: 5055605433714120522
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OuterWallCornerBottomRight_0: -5275518093756688223
+      floor3groundTile_0: 5055605433714120522
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

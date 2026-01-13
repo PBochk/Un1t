@@ -120,7 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   rocks: 10
-  rocksSprites: {fileID: 11400000, guid: c122da1d3c6092648a4b9bfdd5fffff1, type: 2}
+  floor1RocksSprites: {fileID: 11400000, guid: c122da1d3c6092648a4b9bfdd5fffff1, type: 2}
+  floor2RocksSprites: {fileID: 11400000, guid: 526daefb89a9f4e4f80d50d6b2dbe60b, type: 2}
+  floor3RocksSprites: {fileID: 11400000, guid: 0d0c57df108722d4dbfdf93b6c27981e, type: 2}
   RockDestroyed:
     m_PersistentCalls:
       m_Calls: []

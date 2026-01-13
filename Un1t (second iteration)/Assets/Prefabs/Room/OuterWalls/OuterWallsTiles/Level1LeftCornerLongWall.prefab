@@ -123,7 +123,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.6}
+  m_Offset: {x: 0, y: 0.7}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -149,3 +149,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSprite: {fileID: -4637459888566940746, guid: 972485be228e9754eac2e15c6be119e1, type: 3}
   darkSprite: {fileID: 2629067883977848686, guid: d05574e63501fd648af907b3f414afca, type: 3}
+  glitchSprite: {fileID: -6037149877697447971, guid: c1bd8c7f25879f3498661567cf1cc980, type: 3}

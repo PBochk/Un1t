@@ -1,10 +1,12 @@
 fileFormatVersion: 2
-guid: 3d2c8306d2623a247b4d0941a633b487
+guid: 7e5d04defd2f34246853009c9e94c33e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5275518093756688223
-    second: OuterWallCornerBottomRight_0
+      213: -4945755299149898100
+    second: "\u0414\u0432\u0435\u0440\u0438 \u0434\u043B\u044F 3 \u0443\u0440\u043E\u0432\u043D\u044F
+      (\u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0435)
+      1_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +102,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OuterWallCornerBottomRight_0
+      name: "\u0414\u0432\u0435\u0440\u0438 \u0434\u043B\u044F 3 \u0443\u0440\u043E\u0432\u043D\u044F
+        (\u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0435)
+        1_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 24
-        height: 24
+        width: 48
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a89c7f9e3899c6b0800000000000000
-      internalID: -5275518093756688223
+      spriteID: c8e1a2852c52d5bb0800000000000000
+      internalID: -4945755299149898100
       vertices: []
       indices: 
       edges: []
@@ -135,7 +139,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OuterWallCornerBottomRight_0: -5275518093756688223
+      "\u0414\u0432\u0435\u0440\u0438 \u0434\u043B\u044F 3 \u0443\u0440\u043E\u0432\u043D\u044F (\u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0435) 1_0": -4945755299149898100
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

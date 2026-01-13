@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3d2c8306d2623a247b4d0941a633b487
+guid: 735f70ceaf85f7549b65907ca2197b29
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5275518093756688223
-    second: OuterWallCornerBottomRight_0
+      213: 8794254266326841416
+    second: rock (2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OuterWallCornerBottomRight_0
+      name: rock (2)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,15 +108,15 @@ TextureImporter:
         width: 24
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a89c7f9e3899c6b0800000000000000
-      internalID: -5275518093756688223
+      spriteID: 848ffd849a77b0a70800000000000000
+      internalID: 8794254266326841416
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 303346ad1bf1182478580473f9808d24
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OuterWallCornerBottomRight_0: -5275518093756688223
+      rock (2)_0: 8794254266326841416
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

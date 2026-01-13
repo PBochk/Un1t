@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    private int wavesCount = 2;
-
     public List<GameObject> AllEnemies => allEnemies;
 
     private readonly List<GameObject> allEnemies = new();
@@ -161,19 +159,12 @@ public class RoomManager : MonoBehaviour
 
         void EnemyDead(GameObject enemy)
         {
-        allEnemies.Remove(enemy);
-        if (allEnemies.Count == 0)
-        {
-                if (--wavesCount == 0)
-                {
-                    completionStage = RoomCompletionStage.Cleaned;
-                    doorsConstructor.DestroyDoors();
-                }
-                else
-                {
-                    CreateEnemies(enemyTarget);
-                }
-        }
+            allEnemies.Remove(enemy);
+            if (allEnemies.Count == 0)
+            {
+                completionStage = RoomCompletionStage.Cleaned;
+                doorsConstructor.DestroyDoors();
+            }
         }
 }
 
