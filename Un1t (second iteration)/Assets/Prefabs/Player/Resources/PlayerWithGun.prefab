@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 650786396382510355}
   - component: {fileID: 1262979691790353634}
   - component: {fileID: 5936582550716618050}
+  - component: {fileID: 1512946915251669902}
   m_Layer: 8
   m_Name: PlayerWithGun
   m_TagString: Player
@@ -517,6 +518,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invulTime: 0.25
+--- !u!114 &1512946915251669902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217057890759837180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd02624bb2afc141bd2584575763f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8810435241242017675
 GameObject:
   m_ObjectHideFlags: 0

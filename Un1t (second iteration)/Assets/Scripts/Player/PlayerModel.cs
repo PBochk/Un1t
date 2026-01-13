@@ -161,6 +161,7 @@ public class PlayerModel : IInstanceModel
 
     public void DecreaseXP(float decrement)
     {
+        if (CurrentXP <= 0) return;
         CurrentXP -= decrement;
     }
 
@@ -216,6 +217,7 @@ public class PlayerModel : IInstanceModel
         var data = new PlayerSaveData();
         var rangedData = rangeModel.ToSaveData();
         var meleeData = meleeModel.ToSaveData();
+        var upgradeData = upgradeModel.ToSaveData();
         data.currentHealth =  currentHealth;
         data.maxHealth = maxHealth;
         data.regenPerSecond = regenPerSecond;
@@ -231,15 +233,14 @@ public class PlayerModel : IInstanceModel
         data.dashSpeed = dashSpeed;
         data.dashDuration = dashDuration;
         data.dashCooldown  = dashCooldown;
-        data.ranged = rangedData;
-        data.melee = meleeData;
-
+        data.meleeData = meleeData;
+        data.rangedData = rangedData;
+        data.upgradeData = upgradeData;
         return data;
     }
 
     public void FromSaveData(PlayerSaveData data)
     {
-        
         currentHealth = data.currentHealth;
         maxHealth = data.maxHealth;
         regenPerSecond = data.regenPerSecond;
@@ -255,8 +256,7 @@ public class PlayerModel : IInstanceModel
         dashSpeed = data.dashSpeed;
         dashDuration = data.dashDuration;
         dashCooldown  = data.dashCooldown;
-        
-        rangeModel.FromSaveData(data.ranged);
-        meleeModel.FromSaveData(data.melee);
+        meleeModel.FromSaveData(data.meleeData);
+        rangeModel.FromSaveData(data.rangedData);
     }
 }

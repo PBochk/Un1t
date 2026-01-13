@@ -11,21 +11,13 @@ public class PlayerModelMB: MonoBehaviour, IActor
     public PlayerModel PlayerModel { get; private set; }
     private const float REGEN_COOLDOWN = 5f;
     private bool isRegenOnCooldown = false;
-    private void Awake()
-    {
-        PlayerModel = new(playerConfig);
-    }
-
-    private void Start()
-    {
-        PlayerModel.BindModels(GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel as PlayerMeleeWeaponModel,
-                               GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel,
-                               GetComponent<PlayerUpgradeModelMB>().PlayerUpgradeModel);
-    }
 
     public void Initialize(IInstanceModel model)
     {
         PlayerModel = model as PlayerModel;
+        PlayerModel.BindModels(GetComponentInChildren<PlayerMeleeWeaponModelMB>().MeleeWeaponModel as PlayerMeleeWeaponModel,
+                       GetComponentInChildren<PlayerRangeWeaponModelMB>().RangeWeaponModel,
+                       GetComponent<PlayerUpgradeModelMB>().PlayerUpgradeModel);
     }
 
     private void Update()

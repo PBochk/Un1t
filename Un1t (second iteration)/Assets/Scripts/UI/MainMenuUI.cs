@@ -17,25 +17,20 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        newGame.onClick.AddListener(() => StartCoroutine(OnNewGameStart()));
+        newGame.onClick.AddListener(EntryPoint.Instance.LoadNewGame);
+        continueButton.onClick.AddListener(() => EntryPoint.Instance.Load());
         options.onClick.AddListener(OnOptionsOpened);
         quit.onClick.AddListener(Application.Quit);
         closeOptions.onClick.AddListener(OnOptionsClosed);
     }
 
-    private IEnumerator OnNewGameStart()
-    {
-        var firstLevel = SceneManager.LoadSceneAsync(firstLevelSceneIndex);
-        yield return new WaitWhile(() => !firstLevel.isDone);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(firstLevelSceneIndex));
-        SceneManager.UnloadSceneAsync(mainMenuSceneIndex);
-    }
     private void OnOptionsOpened()
     {
         buttons.interactable = false;
         optionsCanvas.gameObject.SetActive(true);
         Debug.Log(optionsCanvas.enabled);
     }
+
     private void OnOptionsClosed()
     {
         buttons.interactable = true;
