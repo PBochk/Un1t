@@ -12,6 +12,7 @@ public class DescentController : MonoBehaviour
         //FindFirstObjectByType<EventParent>().NotifyLevelEnded();
 
         //OnPlayerEntered?.Invoke();
-        EntryPoint.Instance.Load(2);
+        EntryPoint.Instance.Save();
+        EntryPoint.Instance.Load(3);
     }
 }

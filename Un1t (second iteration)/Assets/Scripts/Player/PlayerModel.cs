@@ -119,6 +119,7 @@ public class PlayerModel : IInstanceModel
         this.meleeModel = meleeModel;
         this.rangeModel = rangeModel;
         this.upgradeModel = upgradeModel;
+        Debug.Log($"Models are null: {meleeModel == null}");
     }
 
     public IActor CreateInstance()
@@ -214,9 +215,12 @@ public class PlayerModel : IInstanceModel
 
     public PlayerSaveData ToSaveData()
     {
+        Debug.Log($"MeleeModel is null: {meleeModel == null}");
         var data = new PlayerSaveData();
         var rangedData = rangeModel.ToSaveData();
         var meleeData = meleeModel.ToSaveData();
+        var upgradeData = upgradeModel.ToSaveData();
+        Debug.Log($"MeleeData is null: {meleeData == null}");
         data.currentHealth =  currentHealth;
         data.maxHealth = maxHealth;
         data.regenPerSecond = regenPerSecond;
@@ -232,15 +236,14 @@ public class PlayerModel : IInstanceModel
         data.dashSpeed = dashSpeed;
         data.dashDuration = dashDuration;
         data.dashCooldown  = dashCooldown;
-        data.ranged = rangedData;
-        data.melee = meleeData;
-
+        data.meleeData = meleeData;
+        data.rangedData = rangedData;
+        data.upgradeData = upgradeData;
         return data;
     }
 
     public void FromSaveData(PlayerSaveData data)
     {
-        
         currentHealth = data.currentHealth;
         maxHealth = data.maxHealth;
         regenPerSecond = data.regenPerSecond;
@@ -256,8 +259,8 @@ public class PlayerModel : IInstanceModel
         dashSpeed = data.dashSpeed;
         dashDuration = data.dashDuration;
         dashCooldown  = data.dashCooldown;
-        
-        rangeModel.FromSaveData(data.ranged);
-        meleeModel.FromSaveData(data.melee);
+        Debug.Log($"meleeModel is null: {meleeModel == null}");
+        meleeModel.FromSaveData(data.meleeData);
+        rangeModel.FromSaveData(data.rangedData);
     }
 }

@@ -1,12 +1,13 @@
 using System.Xml.Serialization;
+using UnityEngine; 
 
 [XmlRoot("GameState")]
 public class GameState
 {
-    //[XmlElement("PlayerModel")] public PlayerModel PlayerModel;
-    [XmlElement("NextSceneIndex")] public int NextSceneIndex;
+    [XmlElement("NextSceneIndex")] public int NextSceneIndex = -1;
     [XmlElement("PlayerSaveData")] public PlayerSaveData PlayerSaveData;
     [XmlIgnore] public PlayerModel PlayerModel;
+    [XmlIgnore] public bool IsInitialized = false;
     /// <summary>
     /// A parameterless contructor that exist for the purpose of serialization
     /// </summary>
@@ -25,10 +26,11 @@ public class GameState
         PlayerModel.FromSaveData(PlayerSaveData);
     }
 
-    public void OnSave(int nextSceneIndex)
+    public void OnSave(int nextSceneIndex = -1)
     {
         PlayerSaveData = PlayerModel.ToSaveData();
-        NextSceneIndex = nextSceneIndex;
+        if(nextSceneIndex != -1)
+            NextSceneIndex = nextSceneIndex;
     }
 
     public void OnSaveDelete()

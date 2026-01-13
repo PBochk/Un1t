@@ -58,8 +58,9 @@ public class EntryPoint : MonoBehaviour
         if (nextSceneIndex != -1)
         {
             sceneIndex = nextSceneIndex;
+            gameState.OnSave(nextSceneIndex);
         }
-        gameState.OnSave(nextSceneIndex);
+        gameState.OnSave();
         saveLoader.SaveGame(serializer, gameState);
     }
 
@@ -78,7 +79,6 @@ public class EntryPoint : MonoBehaviour
         {
             sceneIndex = gameState.NextSceneIndex;
             if (gameState.NextSceneIndex == -1) throw new Exception("There is no save!");
-            RestoreStateFromSave();
             StartCoroutine(LoadScene());
         }
         else
@@ -101,7 +101,14 @@ public class EntryPoint : MonoBehaviour
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
         StartCoroutine(UnloadScene());
-        if(!isMenuLoad) InitializeScene();
+        if(!isMenuLoad)
+        {
+            InitializeScene();
+            if (gameState.NextSceneIndex != -1)
+                RestoreStateFromSave();
+            Save(sceneIndex);
+        }
+
         BindEvents();
     }
 
@@ -113,7 +120,6 @@ public class EntryPoint : MonoBehaviour
     private void InitializeScene()
     {
         gameState.PlayerModel.CreateInstance();
-        Save();
     }
 
     private void RestoreStateFromSave()

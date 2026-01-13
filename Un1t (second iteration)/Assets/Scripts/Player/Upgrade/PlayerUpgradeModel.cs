@@ -32,4 +32,19 @@ public class PlayerUpgradeModel
         }
         unlockedUpgrades.Add(type);
     }
+
+    public void FromSaveData(PlayerUpgradeSaveData data)
+    {
+        unlockedUpgrades = data.UnlockedUpgrades;
+        availableAbilities = data.AvailableAbilities;
+    }
+
+    public PlayerUpgradeSaveData ToSaveData()
+    {
+        var data = new PlayerUpgradeSaveData();
+        data.UnlockedUpgrades = unlockedUpgrades;
+        data.AvailableAbilities = availableAbilities;
+        return data;
+    }
+
 }

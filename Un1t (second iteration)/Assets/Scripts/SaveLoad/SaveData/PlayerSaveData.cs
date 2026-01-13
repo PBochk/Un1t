@@ -15,9 +15,9 @@ public class PlayerSaveData
     public float dashSpeed;
     public float dashDuration;
     public float dashCooldown;
-    public MeleeWeaponSaveData melee;
-    public RangedWeaponSaveData ranged;
-
+    public MeleeWeaponSaveData meleeData;
+    public RangedWeaponSaveData rangedData;
+    public PlayerUpgradeSaveData upgradeData;
     public PlayerSaveData()
     {
     }
