@@ -17,7 +17,6 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        //newGame.onClick.AddListener(() => StartCoroutine(OnNewGameStart()));
         newGame.onClick.AddListener(EntryPoint.Instance.LoadNewGame);
         continueButton.onClick.AddListener(() => EntryPoint.Instance.Load());
         options.onClick.AddListener(OnOptionsOpened);
@@ -25,13 +24,13 @@ public class MainMenuUI : MonoBehaviour
         closeOptions.onClick.AddListener(OnOptionsClosed);
     }
 
-
     private void OnOptionsOpened()
     {
         buttons.interactable = false;
         optionsCanvas.gameObject.SetActive(true);
         Debug.Log(optionsCanvas.enabled);
     }
+
     private void OnOptionsClosed()
     {
         buttons.interactable = true;

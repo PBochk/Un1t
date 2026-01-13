@@ -9,10 +9,6 @@ public class DescentController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.TryGetComponent<PlayerController>(out _)) return;
-        //FindFirstObjectByType<EventParent>().NotifyLevelEnded();
-
-        //OnPlayerEntered?.Invoke();
-        EntryPoint.Instance.Save();
-        EntryPoint.Instance.Load(3);
+        LevelEnder.Instance.EndLevel();
     }
 }
