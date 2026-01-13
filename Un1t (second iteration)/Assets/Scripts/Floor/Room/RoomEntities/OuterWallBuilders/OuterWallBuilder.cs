@@ -270,7 +270,7 @@ public class OuterWallBuilder : TilesBuilder
             enemyHorizontalPosition = horizontalPosition;
         }
 
-        foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.FirstTile + 0.5f))
+        foreach (float shurfCenter in emptyTilesForShurfesNumbers.Select(tileNumbersCouple => tileNumbersCouple.Center))
         {
             Vector3 firstSidePosition;
             Vector3 secondSidePosition;
@@ -381,7 +381,7 @@ public class OuterWallBuilder : TilesBuilder
 
         BoxCollider2D collider = tile.GetComponent<BoxCollider2D>();
 
-        if (direction == Direction.Horizontal)
+        if (direction == Direction.Horizontal && this.direction != Direction.Vertical)
         {
             int directionMultiplier = directionForBigWalls == DirectionForBigWalls.Bottom ? -1 : 1;
             collider.size = new(tileSize.x,
@@ -394,7 +394,13 @@ public class OuterWallBuilder : TilesBuilder
         }
         else
         {
-            collider.size = new(tileSize.x, tileSize.y);
+            if (this.direction == Direction.Vertical && tileSize.y != 1)
+            {
+                collider.size = new(tileSize.x, tileSize.y+1);
+                //collider.offset = new(0, 0.8f);
+            }
+            else
+                collider.size = new(tileSize.x, tileSize.y);
         }
 
     }
