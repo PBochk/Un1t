@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b7047f29342a04197af5fd0beb08bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConfig: {fileID: 11400000, guid: 1dc255a2c87c28c49aed01456c9fe01d, type: 2}
   menuSceneIndex: 1
   firstLevelSceneIndex: 2
 --- !u!1660057539 &9223372036854775807

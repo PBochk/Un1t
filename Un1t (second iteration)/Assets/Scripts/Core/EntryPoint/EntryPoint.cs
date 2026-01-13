@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class EntryPoint : MonoBehaviour
 {
+    [SerializeField] private PlayerConfig playerConfig;
     [SerializeField] private int menuSceneIndex = 1;
     [SerializeField] private int firstLevelSceneIndex = 2;
     private int sceneIndex;
@@ -24,7 +25,7 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private GameSerializer serializer;
     private GameSaveLoader saveLoader = new();
-    public static EntryPoint Instance; // TODO: remove with zenject
+    public static EntryPoint Instance;
 
     public void Awake()
     {
@@ -41,7 +42,7 @@ public class EntryPoint : MonoBehaviour
     {
         lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
         sceneIndex = menuSceneIndex;
-        StartCoroutine(LoadScene());
+        StartCoroutine(LoadScene(isMenuLoad: true));
     }
 
     public void LoadNewGame()
@@ -63,7 +64,7 @@ public class EntryPoint : MonoBehaviour
     }
 
     /// <summary>
-    /// loads the game (using Restore state load)
+    /// loads from outside classes the game (using Restore state load)
     /// </summary>
     public void Load(int newSceneIndex = -1)
     {
@@ -85,14 +86,13 @@ public class EntryPoint : MonoBehaviour
             sceneIndex = newSceneIndex;
             StartCoroutine(LoadScene());
         }
-        Save();
     }
 
 
     /// <summary>
     /// A general method that loads the gameplay *scene*, using SceneManager
     /// </summary>
-    private IEnumerator LoadScene()
+    private IEnumerator LoadScene(bool isMenuLoad = false)
     {
         var load = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         while (!load.isDone)
@@ -101,14 +101,20 @@ public class EntryPoint : MonoBehaviour
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
         StartCoroutine(UnloadScene());
+        if(!isMenuLoad) InitializeScene();
         BindEvents();
     }
 
     private void InitializeState()
     {
-        gameState = new GameState();
+        gameState = new GameState(new PlayerModel(playerConfig));
     }
 
+    private void InitializeScene()
+    {
+        gameState.PlayerModel.CreateInstance();
+        Save();
+    }
 
     private void RestoreStateFromSave()
     {

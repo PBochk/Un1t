@@ -8,6 +8,7 @@ public class GameSaveLoader
     {
         //gameState = null
         //It's better to also be passed as parameter, but nah
+        Debug.Log(Application.persistentDataPath + "/save.xml");
         var path = Application.persistentDataPath + "/save.xml";
         if (!File.Exists(path)) return false;
         gameState = serializer.Load();
