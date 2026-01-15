@@ -96,6 +96,7 @@ public class RedSlimeView : EnemyView
     public override void ResetAllAnimations()
     {
         animator.PlayIdleAnimation();
+        animator.ResetAllTriggers();
     }
 
     public void ShowDebugMeleeHitbox()
