@@ -7,7 +7,6 @@ public class GameState
     [XmlElement("NextSceneIndex")] public int NextSceneIndex = -1;
     [XmlElement("PlayerSaveData")] public PlayerSaveData PlayerSaveData;
     [XmlIgnore] public PlayerModel PlayerModel;
-    [XmlIgnore] public bool IsInitialized = false;
     /// <summary>
     /// A parameterless contructor that exist for the purpose of serialization
     /// </summary>
@@ -35,5 +34,6 @@ public class GameState
 
     public void OnSaveDelete()
     {
+        PlayerSaveData = null;
     }
 }

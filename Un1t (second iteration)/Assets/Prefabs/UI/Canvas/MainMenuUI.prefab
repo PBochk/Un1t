@@ -1147,14 +1147,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bb052fba511ba4796a6b41a2246c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuSceneIndex: 0
-  firstLevelSceneIndex: 0
-  newGame: {fileID: 8829750822024457679}
-  continueButton: {fileID: 7761282532460378229}
-  options: {fileID: 5386083322097192319}
-  quit: {fileID: 3331089489465169659}
+  mainMenuSceneIndex: 1
+  firstLevelSceneIndex: 2
   optionsCanvas: {fileID: 0}
   buttons: {fileID: 8456270856945566931}
+  newGame: {fileID: 8829750822024457679}
+  continueButton: {fileID: 7761282532460378229}
+  quit: {fileID: 3331089489465169659}
+  openOptions: {fileID: 0}
   closeOptions: {fileID: 0}
 --- !u!1 &8643092887978403298
 GameObject:

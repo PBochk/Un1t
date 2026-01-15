@@ -18,6 +18,7 @@ public class MainMenuUI : MonoBehaviour
     private void Awake()
     {
         newGame.onClick.AddListener(EntryPoint.Instance.LoadNewGame);
+        continueButton.interactable = EntryPoint.Instance.IsLoadAvailable();
         continueButton.onClick.AddListener(() => EntryPoint.Instance.Load());
         openOptions.onClick.AddListener(OnOptionsOpened);
         quit.onClick.AddListener(Application.Quit);

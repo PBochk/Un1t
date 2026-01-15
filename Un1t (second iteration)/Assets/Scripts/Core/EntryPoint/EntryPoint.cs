@@ -55,6 +55,12 @@ public class EntryPoint : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
+    public void ReloadScene()
+    {
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        StartCoroutine(LoadScene());
+    }
+
     public void Save(int nextSceneIndex = -1)
     {
         if (nextSceneIndex != -1)
@@ -90,7 +96,6 @@ public class EntryPoint : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// A general method that loads the gameplay *scene*, using SceneManager
     /// </summary>
@@ -113,13 +118,12 @@ public class EntryPoint : MonoBehaviour
             Instantiate(mainUI);
             mainUI.Initialize(gameState.PlayerModel, player);
         }
-
-        BindEvents();
     }
 
     private void InitializeState()
     {
         gameState = new GameState(new PlayerModel(playerConfig));
+        gameState.PlayerModel.PlayerDeath += OnPlayerDeath;
     }
 
     private void RestoreStateFromSave()
@@ -142,25 +146,20 @@ public class EntryPoint : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Classes that require events from model data subscribe to it by itself
-    /// </summary>
-    private void BindEvents()
-    {
-        //UI.Instance.BindEvents(gameState);
-    }
-
-    public bool IsContinueAvailable()
-    {
-        var testState = new GameState();
-        if (!saveLoader.TryLoadGame(serializer, ref testState)) return false;
-        return testState.NextSceneIndex > 0 && testState.NextSceneIndex != menuSceneIndex;
-    }
-
     public void OnPlayerDeath()
     {
+        Debug.Log("Death");
+        gameState.PlayerModel.PlayerDeath -= OnPlayerDeath;
         gameState.OnSaveDelete();
         Save(menuSceneIndex);
-        LoadMenu();
+        //LoadMenu();
+    }
+
+    public bool IsLoadAvailable()
+    {
+        saveLoader.TryLoadGame(serializer, ref gameState);
+        return gameState != null
+            && gameState.NextSceneIndex != -1
+            && gameState.NextSceneIndex != menuSceneIndex;
     }
 }

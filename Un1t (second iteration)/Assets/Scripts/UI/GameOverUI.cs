@@ -69,7 +69,7 @@ public class GameOverUI : MonoBehaviour
 
     private void ReloadScene()
     {
-        PauseManager.Instance.ReloadScene();
+        EntryPoint.Instance.ReloadScene();
     }
 
     private void QuitGame()
