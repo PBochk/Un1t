@@ -46,7 +46,7 @@ public abstract class EnemyState : MonoBehaviour
     {
         if (_isActive)
         {
-            Debug.LogWarning($"{this} — attempted to enter state twice!");
+            //Debug.LogWarning($"{this} — attempted to enter state twice!");
             return;
         }
 
@@ -65,7 +65,7 @@ public abstract class EnemyState : MonoBehaviour
     {
         if (!_isActive)
         {
-            Debug.LogWarning($"{this} — ExitState called while state is not active!");
+            Debug.LogWarning($"{this}:  ExitState called while state is not active!");
             return;
         }
 
