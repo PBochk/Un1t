@@ -6,10 +6,12 @@ public class PauseUI : MonoBehaviour
 {
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] private Canvas optionsCanvas;
+    [SerializeField] private CanvasGroup buttons;
     [SerializeField] private Button unpause;
     [SerializeField] private Button reload;
-    [SerializeField] private Button options;
     [SerializeField] private Button quit;
+    [SerializeField] private Button openOptions;
+    [SerializeField] private Button closeOptions;
     private MainUI mainUI;
 
     private void Awake()
@@ -22,12 +24,14 @@ public class PauseUI : MonoBehaviour
     private void Start()
     {
         mainUI = GetComponentInParent<MainUI>();
-        options.onClick.AddListener(OnOptionsOpen);
+        openOptions.onClick.AddListener(OnOptionsOpen);
+        closeOptions.onClick.AddListener(OnOptionsClosed);
         quit.onClick.AddListener(PauseManager.Instance.QuitGame);
         unpause.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         reload.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
-        options.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        openOptions.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         quit.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
+        closeOptions.onClick.AddListener(mainUI.UIAudio.PlayButtonClickSound);
         mainCanvas.enabled = false;
     }
 
@@ -54,7 +58,13 @@ public class PauseUI : MonoBehaviour
 
     private void OnOptionsOpen()
     {
-        mainCanvas.enabled = false;
+        buttons.interactable = false;
         optionsCanvas.enabled = true;
+    }
+
+    private void OnOptionsClosed()
+    {
+        optionsCanvas.enabled = false;
+        buttons.interactable = true;
     }
 }

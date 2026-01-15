@@ -895,7 +895,6 @@ GameObject:
   - component: {fileID: 6931159405058823464}
   - component: {fileID: 4356023069426815463}
   - component: {fileID: 6121949914161689298}
-  - component: {fileID: 2371251373223511547}
   m_Layer: 5
   m_Name: OptionsUI
   m_TagString: Untagged
@@ -1001,22 +1000,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd6744583e63534d9d14126a65e15aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 8491738431251104741}
+  sliders: {fileID: 0}
   generalSlider: {fileID: 6061169190129222070}
   musicSlider: {fileID: 7999645681027188278}
   soundEffectsSlider: {fileID: 3309969478016970670}
-  canvas: {fileID: 8491738431251104741}
---- !u!114 &2371251373223511547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3759811537203598964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ca0dd32668cdf546926e5aa0d3f48cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4051783783020601728
 GameObject:
   m_ObjectHideFlags: 0

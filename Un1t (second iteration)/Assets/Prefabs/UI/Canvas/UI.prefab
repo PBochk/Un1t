@@ -184,10 +184,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1558161385056499607}
     m_Modifications:
-    - target: {fileID: 2465440736234486625, guid: 9f2a3e09037262b48ac7a0fca390037f, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7437356243473493341, guid: 9f2a3e09037262b48ac7a0fca390037f, type: 3}
       propertyPath: m_Name
       value: PauseUI
@@ -273,9 +269,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8714001551628031037, guid: 9f2a3e09037262b48ac7a0fca390037f, type: 3}
-      propertyPath: mainCanvas
+      propertyPath: closeOptions
       value: 
-      objectReference: {fileID: 8706221356000400035}
+      objectReference: {fileID: 8675238423981894339}
     - target: {fileID: 8714001551628031037, guid: 9f2a3e09037262b48ac7a0fca390037f, type: 3}
       propertyPath: optionsCanvas
       value: 
@@ -466,6 +462,17 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 8491738431251104741, guid: ac80f57541dd3114e8c85c4be29181da, type: 3}
   m_PrefabInstance: {fileID: 1882796127439382707}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8675238423981894339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7081253422082802288, guid: ac80f57541dd3114e8c85c4be29181da, type: 3}
+  m_PrefabInstance: {fileID: 1882796127439382707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6923944053554583070
 PrefabInstance:
   m_ObjectHideFlags: 0
