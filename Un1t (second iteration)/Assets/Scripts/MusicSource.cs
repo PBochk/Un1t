@@ -3,24 +3,34 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class MusicSource : MonoBehaviour
 {
-    private AudioMixer mixer;
     private AudioSource source;
     private float baseVolume;
+
     private void Awake()
     {
         source = GetComponent<AudioSource>();
         baseVolume = source.volume;
     }
+
+    private void OnEnable()
+    {
+        AudioMixer.Instance.GeneralVolumeChanged.AddListener(OnVolumeChanged);
+        AudioMixer.Instance.MusicVolumeChanged.AddListener(OnVolumeChanged);
+    }
+
+    private void OnDisable()
+    {
+        AudioMixer.Instance.GeneralVolumeChanged.RemoveListener(OnVolumeChanged);
+        AudioMixer.Instance.MusicVolumeChanged.RemoveListener(OnVolumeChanged);
+    }
+
     private void Start()
     {
-        mixer = AudioMixer.Instance;
-        mixer.GeneralVolumeChanged.AddListener(OnVolumeChanged);
-        mixer.MusicVolumeChanged.AddListener(OnVolumeChanged);
         OnVolumeChanged();
     }
 
     private void OnVolumeChanged()
     {
-        source.volume = baseVolume * mixer.GeneralVolume * mixer.MusicVolume;
+        source.volume = baseVolume * AudioMixer.Instance.GeneralVolume * AudioMixer.Instance.MusicVolume;
     }
 }

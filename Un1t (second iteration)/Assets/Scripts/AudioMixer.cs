@@ -16,6 +16,7 @@ public class AudioMixer : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void OnGeneralVolumeChanged(float value)
