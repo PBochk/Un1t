@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerConfig: {fileID: 11400000, guid: 1dc255a2c87c28c49aed01456c9fe01d, type: 2}
+  mainUI: {fileID: 4163302350024094114, guid: fe7c53736b9ef254f9397fafffe2d984, type: 3}
   menuSceneIndex: 1
   firstLevelSceneIndex: 2
 --- !u!1660057539 &9223372036854775807

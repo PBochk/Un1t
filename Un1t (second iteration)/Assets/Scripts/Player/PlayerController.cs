@@ -57,6 +57,10 @@ public class PlayerController : MonoBehaviour
         playerModel.PlayerDeath += () => SetPlayerRestrained(true);
     }
 
+    public void OnEnable()
+    {
+    }
+
     private void OnDisable()
     {
         playerModel.PlayerDeath -= () => SetPlayerRestrained(true);

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hint text
+  m_text: "\u041E\u0431\u0443\u0447\u0435\u043D\u0438\u0435"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}
   m_sharedMaterial: {fileID: -9215100583527218992, guid: 24592d5b39dfb484a9d6206a531fdc57, type: 2}

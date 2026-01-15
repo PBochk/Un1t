@@ -10,14 +10,14 @@ public class PlayerRangeWeaponModel
     private int ammo;
 
     public float AttackCooldown => attackCooldown;
-    public event Action AmmoChanged;
+    public event Action<int> AmmoChanged;
     public int Ammo
     {
         get => ammo;
         private set
         {
             ammo = value;
-            AmmoChanged?.Invoke();
+            AmmoChanged?.Invoke(ammo);
         }
     }
 

@@ -2,21 +2,23 @@ using UnityEngine;
 
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] private PauseManager pauseManager;
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private PlayerUpgradeController upgradeController;
-    [SerializeField] private PlayerModelMB playerModelMB;
-    [SerializeField] private PlayerMeleeWeaponModelMB playerMeleeModelMB;
-    [SerializeField] private PlayerRangeWeaponModelMB playerRangeModelMB;
     [SerializeField] private UIAudio uiAudio;
+    [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private GameOverUI gameOverUI;
+    private PlayerModel playerModel;
+    private PlayerController playerController;
 
-    public PauseManager PauseManager => pauseManager;
-    public AudioMixer AudioMixer => audioMixer;
-    public PlayerController PlayerController => playerController;
-    public PlayerUpgradeController UpgradeController => upgradeController;
-    public PlayerModelMB PlayerModelMB => playerModelMB;
-    public PlayerMeleeWeaponModelMB PlayerMeleeModelMB => playerMeleeModelMB;
-    public PlayerRangeWeaponModelMB PlayerRangeModelMB => playerRangeModelMB;
     public UIAudio UIAudio => uiAudio;
+    public PlayerModel PlayerModel => playerModel;
+    public PlayerController PlayerController => playerController;
+
+    public void Initialize(PlayerModel playerModel, PlayerController playerController)
+    {
+        this.playerModel = playerModel;
+        this.playerController = playerController;
+        var statsInstance = Instantiate(playerUI);
+        statsInstance.BindEvents(playerModel);
+        var gameOverInstance = Instantiate(gameOverUI);
+        gameOverInstance.BindEvents(uiAudio, playerModel);
+    }
 }

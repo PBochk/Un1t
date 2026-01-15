@@ -14,37 +14,22 @@ public class PlayerUpgradeUI : MonoBehaviour
     [SerializeField] private TMP_Text[] upgradeDescriptions;
 
     private MainUI mainUI;
-    private PlayerModel playerModel;
     private PlayerController playerController;
     private PlayerUpgradeController upgradeController;
 
     private void Start()
     {
         mainUI = GetComponentInParent<MainUI>();
-        playerModel = mainUI.PlayerModelMB.PlayerModel;
         playerController = mainUI.PlayerController;
-        upgradeController = mainUI.UpgradeController;
+        upgradeController = PlayerUpgradeController.Instance;
         upgradeController.UpgradesChoiceSet.AddListener(OnLevelUp);
         canvas.gameObject.SetActive(false);
     }
 
-    // Experience model intialize later than OnEnable, so can't make it work rn
-    // TODO: move subscription in OnEnable after model initialization rework
-    //private void OnEnable()
-    //{
-    //    playerModel.NextLevel += OnLevelUp;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    playerModel.NextLevel -= OnLevelUp;
-    //}
-
     private void OnLevelUp(List<PlayerUpgrade> upgrades)
     {
-        Debug.Log("OnLevelUp");
         canvas.gameObject.SetActive(true);
-        playerController.SetPlayerRestrained(true);
+        //playerController.SetPlayerRestrained(true);
         for (var i = 0; i < 3; i++)
         {
             BindButton(buttons[i], upgrades[i]);
@@ -72,6 +57,6 @@ public class PlayerUpgradeUI : MonoBehaviour
             button.onClick.RemoveAllListeners();
         }
         canvas.gameObject.SetActive(false);
-        playerController.SetPlayerRestrained(false);
+        //playerController.SetPlayerRestrained(false);
     }
 }

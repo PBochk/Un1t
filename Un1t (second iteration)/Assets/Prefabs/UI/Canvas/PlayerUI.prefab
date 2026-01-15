@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 5201674528402504452}
   - component: {fileID: 8885450140116026211}
   - component: {fileID: 6194519881096534559}
-  - component: {fileID: 8528726885699141699}
-  - component: {fileID: 7586530148204744468}
+  - component: {fileID: 8875408134407992456}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -67,7 +66,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &8885450140116026211
 MonoBehaviour:
@@ -109,7 +108,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8528726885699141699
+--- !u!114 &8875408134407992456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,15 +117,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 248406444609519938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d875d97dcb29654e897bb8607585404, type: 3}
+  m_Script: {fileID: 11500000, guid: b9783c8d4f38ad443af3d7f04800cdd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hpText: {fileID: 3956642382733745496}
   xpText: {fileID: 2430635779013878994}
+  ammoText: {fileID: 4286981961703632351}
   hpBar: {fileID: 596804304597943798}
   xpBar: {fileID: 1691103263267286605}
   levelUpIcon: {fileID: 2957681881731164602}
-  levelUpIconAnimator: {fileID: 0}
+  levelUpIconAnimator: {fileID: 3721941299370510947}
   hpSprites:
   - {fileID: 6255413763022110828, guid: 4b471076c4a44b74c8d014e04887e1cd, type: 3}
   - {fileID: 3052294857720932668, guid: 4b471076c4a44b74c8d014e04887e1cd, type: 3}
@@ -171,19 +171,6 @@ MonoBehaviour:
   - {fileID: 7799575150420743718, guid: d8179c2afb76f8b428c61a8dabb36167, type: 3}
   - {fileID: -7775231244289944285, guid: d8179c2afb76f8b428c61a8dabb36167, type: 3}
   - {fileID: 5767794100543519748, guid: d8179c2afb76f8b428c61a8dabb36167, type: 3}
---- !u!114 &7586530148204744468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248406444609519938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3888e942c06ff05468ceda04c83b9512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoText: {fileID: 4286981961703632351}
 --- !u!1 &2953317008338075610
 GameObject:
   m_ObjectHideFlags: 0
