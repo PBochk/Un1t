@@ -17,17 +17,9 @@ public class GameOverUI : MonoBehaviour
 
     private void Awake()
     {
-        canvas.worldCamera = Camera.current;
         toMenu.onClick.AddListener(ToMenu);
         quit.onClick.AddListener(QuitGame);
         canvas.enabled = false;
-    }
-
-    private void Start()
-    {
-        // TODO: move subscription in OnEnable after model initialization rework
-        canvas.enabled = false;
-
     }
 
     //private void OnEnable()
