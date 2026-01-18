@@ -148,6 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1273f77f6650fc84696e3e8e66654473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnPlayerEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  nextSceneIndex: 0
 --- !u!114 &-8723963015945303236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +166,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSprite: {fileID: 66696601741235847, guid: 4b6ef103cbc29094293621739432b9ae, type: 3}
   darkSprite: {fileID: 5507571123592615676, guid: d05574e63501fd648af907b3f414afca, type: 3}
+  glitchSprite: {fileID: 3611863232301815665, guid: c1bd8c7f25879f3498661567cf1cc980, type: 3}
