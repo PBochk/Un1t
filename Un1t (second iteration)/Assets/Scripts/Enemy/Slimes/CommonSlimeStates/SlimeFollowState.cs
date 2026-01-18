@@ -1,51 +1,58 @@
-using System;
-using System.Collections;
-using System.Dynamic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class SlimeFollowState : EnemyState
 {
     public UnityEvent jumpStart;
-    
+
     [SerializeField] public float baseMoveTime { get; private set; } = 1f;
     public override float MotionTime => baseMoveTime / model.NativeModel.SpeedCoeff;
-    
-    private WaitForFixedUpdate physicsUpdate = new WaitForFixedUpdate();
-    private float moveTimer = 0;
+
+    private float moveTimer = 0f;
     private Vector2 startPosition;
     private Vector2 direction;
-    
+
     private Rigidbody2D enemyRb;
+
+    private bool isJumping = false;
+    private float currentMoveTime;
 
     protected override void Awake()
     {
         base.Awake();
-        enemyRb =  GetComponent<Rigidbody2D>();
+        enemyRb = GetComponent<Rigidbody2D>();
     }
-    
+
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
-        //var distance = Mathf.Min(Vector2.Distance(target.Position, enemyRb.position) - model.Config.AggroRange, model.Config.BaseMoveSpeed);
+
         var distance = model.Config.BaseMoveSpeed;
+
         startPosition = enemyRb.position;
         direction = (target.Position - enemyRb.position).normalized * distance;
-        //TODO: Fix Possible DivisionByZeroException 
-        StartCoroutine(Jump(MotionTime));
+
+        currentMoveTime = MotionTime;
+
+        moveTimer = 0f;
+        isJumping = true;
+
+        jumpStart?.Invoke();
     }
 
-    //TODO: Maybe make a windup animation
-    private IEnumerator Jump(float moveTime)
+    private void Update()
     {
-        while (moveTimer <= moveTime)
-        {
-            enemyRb.MovePosition(startPosition + direction * moveTimer /  moveTime);
-            moveTimer += Time.fixedDeltaTime;
-            yield return physicsUpdate;
-        }
+        if (!isJumping) return;
+
+        moveTimer += Time.deltaTime;
+
+        var t = Mathf.Clamp01(moveTimer / currentMoveTime);
+
+        var newPosition = startPosition + direction * t;
+        enemyRb.MovePosition(newPosition);
+
+        if (!(moveTimer >= currentMoveTime)) return;
+        isJumping = false;
         moveTimer = 0f;
         ExitState();
     }

@@ -63,6 +63,17 @@ public class SlimeAnimator : MonoBehaviour
         var newSpeed = JumpBaseTime / motionTime;
         animator.SetFloat("JumpSpeedMultiplier", newSpeed);
     }
+
+    public void ResetAllTriggers()
+    {
+        animator.ResetTrigger("SlimeAppearAnimation");
+        animator.ResetTrigger("SlimeDeathAnimation");
+        animator.ResetTrigger("SlimeJumpAnimation");
+        animator.ResetTrigger("SlimeIdleAnimation");
+        animator.ResetTrigger("SlimeRangedAnimation");
+        animator.ResetTrigger("SlimeMeleeAttackAnimation");
+    }
+    
     
     public void SetPlaybackSpeed(float speed)
     {

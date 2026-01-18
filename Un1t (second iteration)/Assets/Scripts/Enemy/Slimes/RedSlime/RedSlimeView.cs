@@ -30,7 +30,9 @@ public class RedSlimeView : EnemyView
             animator.PlayJumpAnimation();
         });
         
-        followCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        followState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        
+        //followCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
         
 
         runawayState.OnStateEnter.AddListener(() =>
@@ -38,16 +40,20 @@ public class RedSlimeView : EnemyView
             animator.AdjustJumpAnimationSpeed(runawayState.MotionTime);
             animator.PlayJumpAnimation();
         });
+        
+        runawayState.OnStateExit.AddListener(animator.PlayIdleAnimation);
 
-        runawayCooldownState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        //runawayCooldownState.OnStateExit.AddListener(animator.PlayIdleAnimation);
         
         meleeState.OnStateEnter.AddListener(() =>
         {
             animator.AdjustMeleeAttackSpeed(meleeState.MotionTime);
             animator.PlayMeleeAttackAnimation();
         });
+        
+        meleeState.OnStateExit.AddListener(animator.PlayIdleAnimation);
 
-        meleeCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        //meleeCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
         
         rangedAttackState.OnStateEnter.AddListener(() =>
         {
@@ -55,7 +61,9 @@ public class RedSlimeView : EnemyView
             animator.PlayRangedAttackAnimation();
         });
         
-        rangedCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
+        rangedAttackState.OnStateExit.AddListener(animator.PlayIdleAnimation);
+        
+        //rangedCooldownState.OnStateEnter.AddListener(animator.PlayIdleAnimation);
         
         deadState.OnStateEnter.AddListener(animator.PlayDeathAnimation);
     }
@@ -88,6 +96,7 @@ public class RedSlimeView : EnemyView
     public override void ResetAllAnimations()
     {
         animator.PlayIdleAnimation();
+        animator.ResetAllTriggers();
     }
 
     public void ShowDebugMeleeHitbox()

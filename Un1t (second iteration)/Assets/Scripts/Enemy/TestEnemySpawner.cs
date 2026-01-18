@@ -12,7 +12,6 @@ public class TestEnemySpawner : MonoBehaviour
     //TODO: Subscribe experience component on enemy death
     private void Awake()
     {
-        CreateEnemy();
     }
 
     public void SetTarget(EnemyTargetComponent targetComponent)
