@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3518750656680148392}
   - component: {fileID: 7483494206283350556}
-  - component: {fileID: -463130352400036934}
   - component: {fileID: 5838806298837610728}
   - component: {fileID: -8723963015945303236}
+  - component: {fileID: 8318990101107009312}
   m_Layer: 0
   m_Name: Descent
   m_TagString: Untagged
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 408425189
   m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 66696601741235847, guid: 4b6ef103cbc29094293621739432b9ae, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 8894913108884575794, guid: 4cb599c9d4a5c884aae466bcd87e1390, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -90,8 +90,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-463130352400036934
-BoxCollider2D:
+--- !u!114 &5838806298837610728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558636484064302916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1273f77f6650fc84696e3e8e66654473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPlayerEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  nextSceneIndex: 0
+--- !u!114 &-8723963015945303236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558636484064302916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e2ae2554014d44aa50401e09ebe0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSprite: {fileID: 8894913108884575794, guid: 4cb599c9d4a5c884aae466bcd87e1390, type: 3}
+  darkSprite: {fileID: 2137841795001396917, guid: 4cb599c9d4a5c884aae466bcd87e1390, type: 3}
+  glitchSprite: {fileID: 189259056870811011, guid: 4cb599c9d4a5c884aae466bcd87e1390, type: 3}
+--- !u!70 &8318990101107009312
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,46 +155,6 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &5838806298837610728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3558636484064302916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1273f77f6650fc84696e3e8e66654473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnPlayerEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  nextSceneIndex: 0
---- !u!114 &-8723963015945303236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3558636484064302916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e2ae2554014d44aa50401e09ebe0db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightSprite: {fileID: 66696601741235847, guid: 4b6ef103cbc29094293621739432b9ae, type: 3}
-  darkSprite: {fileID: 5507571123592615676, guid: d05574e63501fd648af907b3f414afca, type: 3}
-  glitchSprite: {fileID: 3611863232301815665, guid: c1bd8c7f25879f3498661567cf1cc980, type: 3}
+  m_Offset: {x: -0.011832237, y: 0.011837724}
+  m_Size: {x: 2.0473404, y: 1.4319991}
+  m_Direction: 1
