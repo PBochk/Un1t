@@ -8,7 +8,7 @@ public class EnemyModelMB : MonoBehaviour
     [SerializeField] private EnemyConfig config;
     
     //TODO: fix public field use
-    public EnemyModel NativeModel;
+    public EnemyModel NativeModel { get; private set; }
     public EnemyConfig Config => config;
 
     //TODO: Make an event for values changing for view/animator to update animation speed
