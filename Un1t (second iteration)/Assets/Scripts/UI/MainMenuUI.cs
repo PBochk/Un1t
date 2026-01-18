@@ -25,6 +25,11 @@ public class MainMenuUI : MonoBehaviour
         closeOptions.onClick.AddListener(OnOptionsClosed);
     }
 
+    private void Start()
+    {
+        PauseManager.Instance.UnpauseScene();
+    }
+
     private void OnNewGame()
     {
         EntryPoint.Instance.LoadNewGame();

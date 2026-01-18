@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static SpawnersManager;
 
 public class GameOverUI : MonoBehaviour
 {
@@ -14,23 +11,15 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private string loseText;
     [SerializeField] private Button toMenu;
     [SerializeField] private Button quit;
+    public static GameOverUI Instance;
 
     private void Awake()
     {
+        Instance = this;
         toMenu.onClick.AddListener(ToMenu);
         quit.onClick.AddListener(QuitGame);
         canvas.enabled = false;
     }
-
-    //private void OnEnable()
-    //{
-    //    playerModel.PlayerDeath += OnPlayerDeath;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    playerModel.PlayerDeath -= OnPlayerDeath;
-    //}
 
     public void BindEvents(UIAudio audio, PlayerModel playerModel)
     {
@@ -42,12 +31,8 @@ public class GameOverUI : MonoBehaviour
     private void OnPlayerDeath()
     {
         StartCoroutine(WaitForDeathAnimationEnd());
-        Debug.Log("OBT");
     }
 
-
-    // Temporary solution
-    // TODO: make a better one
     private IEnumerator WaitForDeathAnimationEnd()
     {
         yield return new WaitForSeconds(1f);
@@ -55,10 +40,13 @@ public class GameOverUI : MonoBehaviour
         gameoverText.text = loseText;
     }
 
-    private void OnGameCompleted()
+    public void OnBossDeath() => StartCoroutine(WaitForBossDeath());
+    private IEnumerator WaitForBossDeath()
     {
+        yield return new WaitForSeconds(2f);
         canvas.enabled = true;
         gameoverText.text = winText;
+        PauseManager.Instance.PauseScene();
     }
 
     private void ToMenu()
