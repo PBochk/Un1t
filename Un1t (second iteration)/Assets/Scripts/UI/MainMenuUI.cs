@@ -17,12 +17,24 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        newGame.onClick.AddListener(EntryPoint.Instance.LoadNewGame);
+        newGame.onClick.AddListener(OnNewGame);
         continueButton.interactable = EntryPoint.Instance.IsLoadAvailable();
-        continueButton.onClick.AddListener(() => EntryPoint.Instance.Load());
+        continueButton.onClick.AddListener(OnContinue);
         openOptions.onClick.AddListener(OnOptionsOpened);
         quit.onClick.AddListener(Application.Quit);
         closeOptions.onClick.AddListener(OnOptionsClosed);
+    }
+
+    private void OnNewGame()
+    {
+        EntryPoint.Instance.LoadNewGame();
+        newGame.interactable = false;
+    }
+
+    private void OnContinue()
+    {
+        EntryPoint.Instance.Load();
+        continueButton.interactable = false;
     }
 
     private void OnOptionsOpened()

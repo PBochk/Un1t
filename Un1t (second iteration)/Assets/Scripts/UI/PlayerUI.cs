@@ -67,7 +67,9 @@ public class PlayerUI : MonoBehaviour
 
     private void OnExperienceChanged()
     {
-        levelUpIcon.gameObject.SetActive(playerModel.IsLevelUpAvailable);
+        //levelUpIcon.gameObject.SetActive(playerModel.IsLevelUpAvailable);
+        levelUpIconAnimator.SetBool("IsLevelUpAvailable", playerModel.IsLevelUpAvailable);
+        Debug.Log($"Is lvl up: {playerModel.IsLevelUpAvailable}");
         xpText.text = playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
         var number = playerModel.CurrentXP >= playerModel.NextLevelXP ? 0 : Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpTilesCount);
         xpBar.sprite = xpSprites[number];
