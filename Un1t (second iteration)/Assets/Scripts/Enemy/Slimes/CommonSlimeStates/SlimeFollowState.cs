@@ -5,55 +5,66 @@ public class SlimeFollowState : EnemyState
 {
     public UnityEvent jumpStart;
 
-    [SerializeField] public float baseMoveTime { get; private set; } = 1f;
+    [SerializeField] public float baseMoveTime { get; protected set; } = 1f;
     public override float MotionTime => baseMoveTime / model.NativeModel.SpeedCoeff;
 
-    private float moveTimer = 0f;
     private Vector2 startPosition;
-    private Vector2 direction;
 
-    private Rigidbody2D enemyRb;
 
     private bool isJumping = false;
-    private float currentMoveTime;
+    
+    protected Rigidbody2D EnemyRb;
+    protected float MoveTimer = 0f;
+    protected float CurrentMoveTime;
+    protected float Distance;
+    protected Vector2 Direction;
 
     protected override void Awake()
     {
         base.Awake();
-        enemyRb = GetComponent<Rigidbody2D>();
+        EnemyRb = GetComponent<Rigidbody2D>();
+        PostAwake();
     }
 
     public override void EnterState(EnemyTargetComponent target)
     {
         base.EnterState(target);
 
-        var distance = model.Config.BaseMoveSpeed;
+        Distance = Mathf.Min((target.Position - EnemyRb.position).magnitude, model.Config.BaseMoveSpeed);
 
-        startPosition = enemyRb.position;
-        direction = (target.Position - enemyRb.position).normalized * distance;
+        startPosition = EnemyRb.position;
+        Direction = (target.Position - EnemyRb.position).normalized * Distance;
 
-        currentMoveTime = MotionTime;
+        CurrentMoveTime = MotionTime;
 
-        moveTimer = 0f;
+        MoveTimer = 0f;
         isJumping = true;
 
         jumpStart?.Invoke();
+        
+        PostEnterState();
     }
 
     private void Update()
     {
         if (!isJumping) return;
 
-        moveTimer += Time.deltaTime;
+        MoveTimer += Time.deltaTime;
 
-        var t = Mathf.Clamp01(moveTimer / currentMoveTime);
+        var t = Mathf.Clamp01(MoveTimer / CurrentMoveTime);
 
-        var newPosition = startPosition + direction * t;
-        enemyRb.MovePosition(newPosition);
+        var newPosition = startPosition + Direction * t;
+        EnemyRb.MovePosition(newPosition);
+        
+        PostUpdate();
 
-        if (!(moveTimer >= currentMoveTime)) return;
+        if (!(MoveTimer >= CurrentMoveTime)) return;
         isJumping = false;
-        moveTimer = 0f;
+        MoveTimer = 0f;
         ExitState();
     }
+    
+    protected virtual void PostUpdate() {}
+    protected virtual void PostAwake() {}
+    protected virtual void PostEnterState() {}
 }

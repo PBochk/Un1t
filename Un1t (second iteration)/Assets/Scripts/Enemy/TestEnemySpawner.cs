@@ -21,6 +21,7 @@ public class TestEnemySpawner : MonoBehaviour
 
     public void CreateEnemy()
     {
+        Debug.Log(enemyPrefab);
         var enemy = Instantiate(enemyPrefab);
         enemy.SetTarget(targetComponent);
         //var model = enemy.GetComponent<EnemyModelMB>();
