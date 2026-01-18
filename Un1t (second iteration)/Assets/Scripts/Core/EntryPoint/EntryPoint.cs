@@ -110,9 +110,9 @@ public class EntryPoint : MonoBehaviour
         if(!isMenuLoad)
         {
             var player = gameState.PlayerModel.CreateInstance() as PlayerController;
-
             if (gameState.NextSceneIndex != -1)
                 RestoreStateFromSave();
+            gameState.PlayerModel.PlayerDeath += OnPlayerDeath;
             Save(sceneIndex);
             var ui = Instantiate(mainUI);
             ui.Initialize(gameState.PlayerModel);
@@ -122,7 +122,6 @@ public class EntryPoint : MonoBehaviour
     private void InitializeState()
     {
         gameState = new GameState(new PlayerModel(playerConfig));
-        //gameState.PlayerModel.PlayerDeath += OnPlayerDeath;
     }
 
     private void RestoreStateFromSave()
@@ -147,7 +146,7 @@ public class EntryPoint : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-        gameState.PlayerModel.PlayerDeath -= OnPlayerDeath;
+        Debug.Log("Death");
         gameState.OnSaveDelete();
         Save();
     }

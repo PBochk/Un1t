@@ -18,7 +18,6 @@ public class GameState
     public GameState(PlayerModel playerModel)
     {
         PlayerModel = playerModel;
-        PlayerModel.PlayerDeath += EntryPoint.Instance.OnPlayerDeath;
     }
 
     public void OnLoadFromSave()

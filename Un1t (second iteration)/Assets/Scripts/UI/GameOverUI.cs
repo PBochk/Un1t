@@ -42,6 +42,7 @@ public class GameOverUI : MonoBehaviour
     private void OnPlayerDeath()
     {
         StartCoroutine(WaitForDeathAnimationEnd());
+        Debug.Log("OBT");
     }
 
 
