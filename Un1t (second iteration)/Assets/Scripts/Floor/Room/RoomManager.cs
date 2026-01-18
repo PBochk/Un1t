@@ -54,13 +54,6 @@ public class RoomManager : MonoBehaviour
         if (type == RoomType.Exit)
         {
             Instantiate(floorObjectsList.Descent, transform);
-            tileGrid[tileGrid.GetLength(0)/2, tileGrid.GetLength(1)/2] = Tile.ShurfableWall;
-            Vector2Int? tentCoordinates = FindSquareCenter(Tile.Ground, 6);
-
-            if (!tentCoordinates.HasValue) return;
-            Instantiate(floorObjectsList.Tent,
-              (Vector3Int)tentCoordinates.Value + transform.position - (Vector3Int)RoomInfo.Center + (Vector3)Vector2.one / 2,
-            Quaternion.identity, transform);
             return;
         }
         else if (type == RoomType.Entrance)
@@ -105,6 +98,12 @@ public class RoomManager : MonoBehaviour
                 }
                 tilesBuilders.Add(tilesBuilder);
             }
+            else if (child.TryGetComponent(out TentController _))
+            {
+                if (type != RoomType.Entrance)
+                    Destroy(child);
+            }
+
         }
 
         this.tilesBuilders = tilesBuilders;
@@ -183,45 +182,6 @@ public class RoomManager : MonoBehaviour
     public enum RoomType : sbyte{ Battle, Entrance, Exit }
 
     private enum RoomCompletionStage : sbyte { Uncleaned, Battle, Cleaned }
-
-    #region FindEmptySquare
-    private Vector2Int? FindSquareCenter(Tile tileType, int squareSize = 6)
-    {
-        int width = tileGrid.GetLength(0);
-        int height = tileGrid.GetLength(1);
-
-        for (int x = 0; x <= width - squareSize; x++)
-        {
-            for (int y = 0; y <= height - squareSize; y++)
-            {
-                if (IsSquareOfType(x, y, tileType, squareSize))
-                {
-                    int centerX = x + squareSize / 2;
-                    int centerY = y + squareSize / 2;
-                    return new Vector2Int(centerY, centerX);
-                }
-            }
-        }
-
-        return null;
-    }
-
-
-    private bool IsSquareOfType(int startX, int startY, Tile tileType, int size)
-    {
-        for (int x = startX; x < startX + size; x++)
-        {
-            for (int y = startY; y < startY + size; y++)
-            {
-                if (tileGrid[x, y] != tileType)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    #endregion
 
 }
 

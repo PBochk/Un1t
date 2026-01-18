@@ -13,7 +13,7 @@ public class TentController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Sprite chosenSprite;
 
-    private const string GROUND_DECORATIONS_LAYER = "GroundDecorations";
+    private const string GROUND_DECORATIONS_LAYER = "Tent";
     private const string DARKNESS_LAYER = "Darkness";
 
     private void Awake()
