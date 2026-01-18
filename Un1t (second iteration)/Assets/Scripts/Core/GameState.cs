@@ -18,6 +18,7 @@ public class GameState
     public GameState(PlayerModel playerModel)
     {
         PlayerModel = playerModel;
+        PlayerModel.PlayerDeath += EntryPoint.Instance.OnPlayerDeath;
     }
 
     public void OnLoadFromSave()
@@ -27,13 +28,15 @@ public class GameState
 
     public void OnSave(int nextSceneIndex = -1)
     {
-        PlayerSaveData = PlayerModel.ToSaveData();
         if(nextSceneIndex != -1)
             NextSceneIndex = nextSceneIndex;
+        if(NextSceneIndex != -1)
+            PlayerSaveData = PlayerModel.ToSaveData();
     }
 
     public void OnSaveDelete()
     {
         PlayerSaveData = null;
+        NextSceneIndex = -1;
     }
 }
