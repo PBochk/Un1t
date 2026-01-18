@@ -15,12 +15,7 @@ public class SummonWeapon : MonoBehaviour
         var projInstance = Instantiate(projectile, transform.position, rot);
         projInstance.GetComponent<Rigidbody2D>().AddForce(direction.normalized * ProjectileSpeed, ForceMode2D.Impulse);
         
-        projInstance.WallHit.AddListener(() =>
-        {
-            Summon(target, projInstance.transform.position);
-        });
-        
-        projInstance.EnemyHit.AddListener(() =>
+        projInstance.Destroyed.AddListener(() =>
         {
             Summon(target, projInstance.transform.position);
         });
