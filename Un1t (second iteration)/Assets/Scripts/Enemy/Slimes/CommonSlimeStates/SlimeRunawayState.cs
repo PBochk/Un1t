@@ -3,8 +3,6 @@ using UnityEngine.Events;
 
 public class SlimeRunawayState : EnemyState
 {
-    public UnityEvent jumpStart;
-
     [SerializeField] public float baseMoveTime { get; private set; } = 0.75f;
     public override float MotionTime => baseMoveTime / model.NativeModel.SpeedCoeff;
 
@@ -36,8 +34,6 @@ public class SlimeRunawayState : EnemyState
 
         moveTimer = 0f;
         isJumping = true;
-
-        jumpStart?.Invoke();
     }
 
     private void Update()

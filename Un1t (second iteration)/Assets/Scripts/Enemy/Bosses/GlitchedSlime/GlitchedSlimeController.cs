@@ -11,7 +11,7 @@ public class GlitchedSlimeController : EnemyController
     [Header("States")]
     [SerializeField] private IdleState idleState;
     [SerializeField] private TelegraphedJumpState followState;
-    [SerializeField] private SlimeRunawayState runawayState;
+    [SerializeField] private SmartRunawayState runawayState;
     [SerializeField] private SlimeRangedAttackState rangedAttackState;
     [SerializeField] private DecisionState phaseTransitionState;
     [SerializeField] private DecisionState isInRangeDecisionState;
@@ -36,6 +36,8 @@ public class GlitchedSlimeController : EnemyController
     [Tooltip("In units")] [SerializeField]
     private float tooCloseRange;
 
+    private int runawayCounter;
+
     public void Shot()
     {
         weapon.Shot(Target);
@@ -54,6 +56,8 @@ public class GlitchedSlimeController : EnemyController
             ResetState();
         });
         rangedAttackState.OnStateEnter.AddListener(Shot);
+        rangedAttackState.OnStateEnter.AddListener(() => runawayCounter = 0);
+        runawayState.OnStateEnter.AddListener(() => runawayCounter++);
     }
     
     private void ResetState()
@@ -111,7 +115,12 @@ public class GlitchedSlimeController : EnemyController
         // =========================
         // DECISION STATES
         // =========================
-        var idleTransition = new UnconditionalTransition(this, rangedAttackState);
+        var idleTransition = new ConditionalTransition(
+            this,
+            target => CheckTooClose(target) && runawayCounter < 2,
+            runawayState,       
+            rangedAttackState   
+        );
 
 
         // =========================
@@ -119,11 +128,15 @@ public class GlitchedSlimeController : EnemyController
         // =========================
         var attackTransition = new UnconditionalTransition(this, summonCooldownState);
 
+        var runawayTransition = new UnconditionalTransition(this, runawayCooldownState);
+
 
         // =========================
         // COOLDOWN STATES
         // =========================
-        var rangedCooldownTransition = new UnconditionalTransition(this, rangedAttackState);
+        var rangedCooldownTransition = new UnconditionalTransition(this, idleState);
+
+        var runawayCooldownTransition = new UnconditionalTransition(this, idleState);
 
 
         // =========================
@@ -132,9 +145,12 @@ public class GlitchedSlimeController : EnemyController
         idleState.MakeTransition(idleTransition);
 
         rangedAttackState.MakeTransition(attackTransition);
+        runawayState.MakeTransition(runawayTransition);
 
         summonCooldownState.MakeTransition(rangedCooldownTransition);
+        runawayCooldownState.MakeTransition(runawayCooldownTransition);
     }
+    
     
     
     protected override void TurnOffAllHitboxes()

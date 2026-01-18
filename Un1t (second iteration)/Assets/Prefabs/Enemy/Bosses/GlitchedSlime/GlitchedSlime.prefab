@@ -120,8 +120,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -363896877
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -271,9 +271,6 @@ PrefabInstance:
       addedObject: {fileID: 8433900975182882641}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9052235456995623214}
-    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6261890838762795035}
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
@@ -290,6 +287,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5847091618612373997}
+    - targetCorrespondingSourceObject: {fileID: 5997897879135468207, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5909603218157435459}
   m_SourcePrefab: {fileID: 100100000, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
 --- !u!61 &3166734727941659680 stripped
 BoxCollider2D:
@@ -355,7 +355,7 @@ MonoBehaviour:
       m_Calls: []
   idleState: {fileID: -4139564095301777536}
   followState: {fileID: 8433900975182882641}
-  runawayState: {fileID: 9052235456995623214}
+  runawayState: {fileID: 5909603218157435459}
   rangedAttackState: {fileID: -7299530986061789651}
   phaseTransitionState: {fileID: 6261890838762795035}
   isInRangeDecisionState: {fileID: 1815674550773319873}
@@ -367,7 +367,7 @@ MonoBehaviour:
   boxCollider2D: {fileID: 3166734727941659680}
   view: {fileID: 0}
   rangedRange: 50
-  tooCloseRange: 0
+  tooCloseRange: 5
 --- !u!114 &4110928362940269275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,9 +384,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateExit:
-    m_PersistentCalls:
-      m_Calls: []
-  jumpStart:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6471191336199706980
@@ -482,31 +479,7 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
-  jumpStart:
-    m_PersistentCalls:
-      m_Calls: []
   telegraphPrefab: {fileID: 3230557216219292215, guid: 51466f7e0fc8eea70bea476c277c96e3, type: 3}
---- !u!114 &9052235456995623214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5708961021399536112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e895ad333ce247f38d4b68c12c71c0bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStateExit:
-    m_PersistentCalls:
-      m_Calls: []
-  jumpStart:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6261890838762795035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,7 +576,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   label: Runaway
-  cooldown: 1
+  cooldown: 0.4
 --- !u!114 &5847091618612373997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,6 +597,34 @@ MonoBehaviour:
       m_Calls: []
   label: Summon
   cooldown: 1.5
+--- !u!114 &5909603218157435459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708961021399536112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dab1910e38d4ef0b79c840033c21739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  roomRadius: 10
+  runawayAngles:
+  - -30
+  - 0
+  - 30
+  - 90
+  - -90
+  jumpStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &8599858417259513562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7736700582719270277, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
