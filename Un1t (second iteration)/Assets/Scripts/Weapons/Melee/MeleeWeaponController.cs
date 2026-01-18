@@ -75,6 +75,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
                     if (!damagedTargets.Contains(target))
                     {
                         var hitable = target.GetComponent<Hitable>();
+                        if (hitable == null) continue;
                         hitable.TakeHit(model.AttackData);
                         damagedTargets.Add(target);
                         EntityHit.Invoke(hitable.EntityType);
