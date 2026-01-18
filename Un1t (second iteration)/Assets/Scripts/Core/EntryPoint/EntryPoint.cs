@@ -115,8 +115,8 @@ public class EntryPoint : MonoBehaviour
             if (gameState.NextSceneIndex != -1)
                 RestoreStateFromSave();
             Save(sceneIndex);
-            Instantiate(mainUI);
-            mainUI.Initialize(gameState.PlayerModel, player);
+            var ui = Instantiate(mainUI);
+            ui.Initialize(gameState.PlayerModel);
         }
     }
 

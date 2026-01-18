@@ -27,21 +27,6 @@ public class PlayerUI : MonoBehaviour
         canvas.worldCamera = Camera.main;
     }
 
-    //private void Start()
-    //{
-    //    mainUI = GetComponentInParent<MainUI>();
-    //    playerModel = mainUI.PlayerModel;
-    //    playerModel.HealthChanged += OnHealthChanged; //Should be in OnEnable
-    //    playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
-    //    Initialize();
-    //}
-
-    //private void OnDisable()
-    //{
-    //    playerModel.HealthChanged -= OnHealthChanged;
-    //    playerModel.ExperienceChanged -= OnExperienceChanged;
-    //}
-
     public void BindEvents(PlayerModel playerModel)
     {
         this.playerModel = playerModel;
@@ -49,6 +34,13 @@ public class PlayerUI : MonoBehaviour
         playerModel.ExperienceChanged += OnExperienceChanged; //Should be in OnEnable
         playerModel.RangeModel.AmmoChanged += OnAmmoChanged;
         Initialize();
+    }
+
+    private void OnDisable()
+    {
+        playerModel.HealthChanged -= OnHealthChanged;
+        playerModel.ExperienceChanged -= OnExperienceChanged;
+        playerModel.RangeModel.AmmoChanged -= OnAmmoChanged;
     }
 
     private void Initialize()
@@ -67,9 +59,7 @@ public class PlayerUI : MonoBehaviour
 
     private void OnExperienceChanged()
     {
-        //levelUpIcon.gameObject.SetActive(playerModel.IsLevelUpAvailable);
         levelUpIconAnimator.SetBool("IsLevelUpAvailable", playerModel.IsLevelUpAvailable);
-        Debug.Log($"Is lvl up: {playerModel.IsLevelUpAvailable}");
         xpText.text = playerModel.CurrentXP + " / " + playerModel.NextLevelXP;
         var number = playerModel.CurrentXP >= playerModel.NextLevelXP ? 0 : Mathf.FloorToInt((1 - ((float)playerModel.CurrentXP / playerModel.NextLevelXP)) * xpTilesCount);
         xpBar.sprite = xpSprites[number];
