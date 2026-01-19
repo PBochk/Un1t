@@ -16,7 +16,7 @@ public class SmartRunawayState : EnemyState
 
     private float moveTimer = 0f;
     private Vector2 startPosition;
-    private Vector2 direction;
+    public Vector2 direction { get; private set; }
 
     private Rigidbody2D enemyRb;
 
@@ -65,12 +65,12 @@ public class SmartRunawayState : EnemyState
     
     public override void EnterState(EnemyTargetComponent target)
     {
+        var runawayPoint = GetPreferredRunawayPoint(target);
+        direction = (runawayPoint - startPosition).normalized * model.Config.BaseMoveSpeed / 3;
         base.EnterState(target);
 
-        var runawayPoint = GetPreferredRunawayPoint(target);
 
         startPosition = enemyRb.position;
-        direction = (runawayPoint - startPosition).normalized * model.Config.BaseMoveSpeed / 3;
 
         currentMoveTime = MotionTime;
 

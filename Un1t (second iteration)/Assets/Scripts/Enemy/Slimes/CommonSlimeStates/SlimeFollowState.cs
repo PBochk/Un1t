@@ -15,7 +15,7 @@ public class SlimeFollowState : EnemyState
     protected float MoveTimer = 0f;
     protected float CurrentMoveTime;
     protected float Distance;
-    protected Vector2 Direction;
+    public Vector2 Direction { get; protected set; }
 
     protected override void Awake()
     {
@@ -26,12 +26,12 @@ public class SlimeFollowState : EnemyState
 
     public override void EnterState(EnemyTargetComponent target)
     {
+        Direction = (target.Position - EnemyRb.position).normalized * Distance;
         base.EnterState(target);
 
         Distance = Mathf.Min((target.Position - EnemyRb.position).magnitude, model.Config.BaseMoveSpeed);
 
         startPosition = EnemyRb.position;
-        Direction = (target.Position - EnemyRb.position).normalized * Distance;
 
         CurrentMoveTime = MotionTime;
 

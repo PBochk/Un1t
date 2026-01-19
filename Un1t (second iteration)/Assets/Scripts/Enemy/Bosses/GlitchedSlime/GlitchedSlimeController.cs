@@ -35,7 +35,6 @@ public class GlitchedSlimeController : EnemyController
     private float rangedRange;
     [Tooltip("In units")] [SerializeField]
     private float tooCloseRange;
-
     private int runawayCounter;
 
     public void Shot()
@@ -50,27 +49,15 @@ public class GlitchedSlimeController : EnemyController
         {
             Debug.Log($"Boss took damage. Hp ({ModelMB.NativeModel.Hp})/{ModelMB.Config.MaxHealth}");
         });
-        phaseTransitionState.OnStateEnter.AddListener(() =>
-        {
-            EnterPhase2();
-            ResetState();
-        });
+        phaseTransitionState.OnStateEnter.AddListener(EnterPhase2);
         rangedAttackState.OnStateEnter.AddListener(Shot);
         rangedAttackState.OnStateEnter.AddListener(() => runawayCounter = 0);
         runawayState.OnStateEnter.AddListener(() => runawayCounter++);
     }
-    
-    private void ResetState()
-    {
-        //Reset state
-        CurrentState.StopAllCoroutines();
-        //view.ResetAllAnimations();
-        //ChangeState(idleState);
-        ChangeState(isTooCloseDecisionState);
-    }
 
     protected override void BindView()
     {
+        view = GetComponent<GlitchedSlimeView>();
     }
 
     protected override void MakeTransitions()
@@ -137,9 +124,9 @@ public class GlitchedSlimeController : EnemyController
         // =========================
         // COOLDOWN STATES
         // =========================
-        var rangedCooldownTransition = new UnconditionalTransition(this, idleState);
+        var rangedCooldownTransition = new UnconditionalTransition(this, isTooCloseDecisionState);
 
-        var runawayCooldownTransition = new UnconditionalTransition(this, idleState);
+        var runawayCooldownTransition = new UnconditionalTransition(this, isTooCloseDecisionState);
 
 
         // =========================
@@ -153,6 +140,10 @@ public class GlitchedSlimeController : EnemyController
 
         summonCooldownState.MakeTransition(rangedCooldownTransition);
         runawayCooldownState.MakeTransition(runawayCooldownTransition);
+        
+        CurrentState.StopAllCoroutines();
+        view.ResetAllAnimations();
+        ChangeState(isTooCloseDecisionState);
     }
     
     
