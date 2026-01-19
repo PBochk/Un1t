@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
-  pushSpeed: 3
+  pushSpeed: 0
   xpDamage: 0
 --- !u!114 &-8285324665623566718
 MonoBehaviour:
