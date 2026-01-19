@@ -65,7 +65,8 @@ public class GlitchedSlimeController : EnemyController
         //Reset state
         CurrentState.StopAllCoroutines();
         //view.ResetAllAnimations();
-        ChangeState(idleState);
+        //ChangeState(idleState);
+        ChangeState(isTooCloseDecisionState);
     }
 
     protected override void BindView()
@@ -74,7 +75,7 @@ public class GlitchedSlimeController : EnemyController
 
     protected override void MakeTransitions()
     {
-        EnterPhase2();
+        EnterPhase1();
     }
 
     
@@ -115,7 +116,9 @@ public class GlitchedSlimeController : EnemyController
         // =========================
         // DECISION STATES
         // =========================
-        var idleTransition = new ConditionalTransition(
+        //var idleTransition = new UnconditionalTransition(this, isTooCloseDecisionState);
+        
+        var tooCloseTransition = new ConditionalTransition(
             this,
             target => CheckTooClose(target) && runawayCounter < 2,
             runawayState,       
@@ -142,7 +145,8 @@ public class GlitchedSlimeController : EnemyController
         // =========================
         // TRANSITION REGISTRATION
         // =========================
-        idleState.MakeTransition(idleTransition);
+        //idleState.MakeTransition(idleTransition);
+        isTooCloseDecisionState.MakeTransition(tooCloseTransition);
 
         rangedAttackState.MakeTransition(attackTransition);
         runawayState.MakeTransition(runawayTransition);

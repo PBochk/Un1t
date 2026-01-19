@@ -1,4 +1,6 @@
-public class GlitchedSlimeAnimator
+using UnityEngine;
+
+public class GlitchedSlimeAnimator : MonoBehaviour
 {
     
 }
