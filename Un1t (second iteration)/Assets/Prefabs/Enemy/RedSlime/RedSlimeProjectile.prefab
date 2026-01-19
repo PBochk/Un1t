@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5083682685185868751, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5083682685185868751, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: m_SortingOrder
@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7275677558613275339, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: damage
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8178732019974703613, guid: b8cf9cbc96eadd9889e649e6772bdb98, type: 3}
       propertyPath: m_LocalScale.x
