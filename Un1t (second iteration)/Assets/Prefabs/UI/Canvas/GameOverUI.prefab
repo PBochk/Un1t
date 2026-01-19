@@ -293,7 +293,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 672, y: 378}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 2
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 7986657827077945848}
   gameoverText: {fileID: 7646126263816530879}
-  winText: "\u0414\u0415\u041C\u041E \u041F\u0420\u041E\u0419\u0414\u0415\u041D\u041E!"
+  winText: "\u0418\u0413\u0420\u0410 \u041F\u0420\u041E\u0419\u0414\u0415\u041D\u0410!"
   loseText: "\u0412\u042B \u041F\u041E\u0413\u0418\u0411\u041B\u0418!"
   toMenu: {fileID: 4157677492725776628}
   quit: {fileID: 5671056067902648558}

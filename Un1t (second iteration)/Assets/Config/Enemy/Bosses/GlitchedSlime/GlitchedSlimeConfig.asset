@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e527596971c8f9679772c03ea78b016, type: 3}
   m_Name: GlitchedSlimeConfig
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 500
   initialSpeedCoefficient: 2
   xpGain: 0
   baseMoveSpeed: 10

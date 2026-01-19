@@ -16,7 +16,7 @@ MonoBehaviour:
   level: 1
   baseHealPerHit: 0
   baseHealCostCoefficient: 0.3
-  baseXPGainCoefficient: 1
+  baseXPGainCoefficient: 2
   baseResistCoefficient: 1
   baseDodgeChance: 0
   baseShieldCooldown: 0
