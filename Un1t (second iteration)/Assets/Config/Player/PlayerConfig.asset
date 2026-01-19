@@ -14,26 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMaxHealth: 100
   level: 1
-  xpToNextLevel:
-  - 0
-  - 10
-  - 10
-  - 20
-  - 30
-  - 50
-  - 80
-  - 130
-  - 210
-  - 440
-  - 650
-  - 1090
   baseHealPerHit: 0
-  baseHealCostCoefficient: 0.5
+  baseHealCostCoefficient: 0.3
   baseXPGainCoefficient: 1
   baseResistCoefficient: 1
   baseDodgeChance: 0
   baseShieldCooldown: 0
   baseMovingSpeed: 7
-  baseDashSpeed: 25
+  baseDashSpeed: 20
   baseDashDuration: 0.25
-  baseDashCooldown: 3
+  baseDashCooldown: 2

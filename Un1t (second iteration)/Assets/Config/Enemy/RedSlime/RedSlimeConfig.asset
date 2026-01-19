@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   initialSpeedCoefficient: 1
-  xpGain: 2
+  xpGain: 5
   baseMoveSpeed: 2.5
   aggroRange: 2

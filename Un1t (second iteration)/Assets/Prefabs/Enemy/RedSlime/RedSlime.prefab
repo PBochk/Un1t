@@ -190,7 +190,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -363896877
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1489232235, guid: c934bea1b3338aef6b34a0a9f81c55d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -319,7 +319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8856889224303810842, guid: 17f39b1c40f430b89b5931ef6ec3d747, type: 3}
       propertyPath: xp
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -582,9 +582,6 @@ MonoBehaviour:
   OnStateExit:
     m_PersistentCalls:
       m_Calls: []
-  jumpStart:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6156674411470786210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,9 +616,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateExit:
-    m_PersistentCalls:
-      m_Calls: []
-  jumpStart:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8888824053268705974
@@ -754,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab758e638fd4a56b9ba5ef314b68bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 20
   damageType: 0
 --- !u!114 &57271144412338712
 MonoBehaviour:
