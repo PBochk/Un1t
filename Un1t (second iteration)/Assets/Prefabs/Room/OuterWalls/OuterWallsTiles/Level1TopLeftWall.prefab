@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4269104565408447813}
   - component: {fileID: 794336688731676394}
   - component: {fileID: -1490974564488319492}
+  - component: {fileID: -7270418463758978910}
   m_Layer: 3
   m_Name: Level1TopLeftWall
   m_TagString: Untagged
@@ -134,3 +135,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7270418463758978910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252421113222450477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e2ae2554014d44aa50401e09ebe0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSprite: {fileID: -6167378160274451633, guid: 972485be228e9754eac2e15c6be119e1, type: 3}
+  darkSprite: {fileID: -1485119180249531630, guid: d05574e63501fd648af907b3f414afca, type: 3}
+  glitchSprite: {fileID: -3265808384595698858, guid: c1bd8c7f25879f3498661567cf1cc980, type: 3}

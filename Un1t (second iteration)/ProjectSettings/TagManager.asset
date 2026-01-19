@@ -51,6 +51,9 @@ TagManager:
   - name: Walls
     uniqueID: 2406407753
     locked: 0
+  - name: Tent
+    uniqueID: 3687695557
+    locked: 0
   - name: Player
     uniqueID: 3931070419
     locked: 0

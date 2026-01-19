@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 660903772585184193}
   - component: {fileID: 5787173895146122460}
   - component: {fileID: 1792376874662093916}
+  - component: {fileID: -456401851864474503}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -101,3 +102,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDecorationsTiles: {fileID: 11400000, guid: 4f9e12a4631fbad489f1ad3b54de75bf, type: 2}
+--- !u!114 &-456401851864474503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162733045345029453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e2ae2554014d44aa50401e09ebe0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSprite: {fileID: -4952179146898214801, guid: 576c0e8a36bac664aa8ec177a9a9298b, type: 3}
+  darkSprite: {fileID: 7999365676560241326, guid: d05574e63501fd648af907b3f414afca, type: 3}
+  glitchSprite: {fileID: 5055605433714120522, guid: 5e63f14a998161149bfe5f018acd3d58, type: 3}

@@ -263,7 +263,7 @@ Canvas:
   m_GameObject: {fileID: 7437356243473493341}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 672, y: 378}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 2
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -329,13 +329,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa83b3a8b39747f4a879775003e8b335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModelMB: {fileID: 0}
-  pauseManager: {fileID: 0}
   canvas: {fileID: 7986657827077945848}
   gameoverText: {fileID: 7646126263816530879}
-  winText: "\u0414\u0415\u041C\u041E \u041F\u0420\u041E\u0419\u0414\u0415\u041D\u041E!"
+  winText: "\u0418\u0413\u0420\u0410 \u041F\u0420\u041E\u0419\u0414\u0415\u041D\u0410!"
   loseText: "\u0412\u042B \u041F\u041E\u0413\u0418\u0411\u041B\u0418!"
-  reload: {fileID: 4157677492725776628}
+  toMenu: {fileID: 4157677492725776628}
   quit: {fileID: 5671056067902648558}
 --- !u!1001 &1444171788446713578
 PrefabInstance:
@@ -348,6 +346,14 @@ PrefabInstance:
     - target: {fileID: 33167838125955961, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
       propertyPath: m_text
       value: "\u0412\u044B\u0439\u0442\u0438"
+      objectReference: {fileID: 0}
+    - target: {fileID: 33167838125955961, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
+      propertyPath: m_fontSize
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 33167838125955961, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2635193030998855941, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
       propertyPath: m_Pivot.x
@@ -464,7 +470,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 33167838125955961, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
       propertyPath: m_text
-      value: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430?"
+      value: "\u0413\u043B\u0430\u0432\u043D\u043E\u0435 \u043C\u0435\u043D\u044E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 33167838125955961, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
+      propertyPath: m_fontSize
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 33167838125955961, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2635193030998855941, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
       propertyPath: m_Pivot.x
@@ -548,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6821964369264429121, guid: aa0ed83ffc96c2545b4bc51a8cc9e122, type: 3}
       propertyPath: m_Name
-      value: Reload
+      value: ToMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

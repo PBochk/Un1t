@@ -1,0 +1,1 @@
+public enum FloorTheme : sbyte { Light, Dark, Glitch }

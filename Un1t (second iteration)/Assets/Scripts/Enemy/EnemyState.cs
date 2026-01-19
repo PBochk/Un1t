@@ -10,8 +10,8 @@ public abstract class EnemyState : MonoBehaviour
     public UnityEvent OnStateEnter = new UnityEvent();
     public UnityEvent OnStateExit = new UnityEvent();
 
-    protected EnemyTargetComponent target;
-    protected EnemyModelMB model;
+    protected EnemyTargetComponent target { get; private set; }
+    protected EnemyModelMB model { get; private set; }
 
     private EnemyStateTransition transition;
 
@@ -44,9 +44,10 @@ public abstract class EnemyState : MonoBehaviour
     /// </summary>
     public virtual void EnterState(EnemyTargetComponent target)
     {
+        //Debug.Log($"{this}:  EnterState called");
         if (_isActive)
         {
-            Debug.LogWarning($"{this} — attempted to enter state twice!");
+            //Debug.LogWarning($"{this} — attempted to enter state twice!");
             return;
         }
 
@@ -65,7 +66,7 @@ public abstract class EnemyState : MonoBehaviour
     {
         if (!_isActive)
         {
-            Debug.LogWarning($"{this} — ExitState called while state is not active!");
+            Debug.LogWarning($"{this}:  ExitState called while state is not active!");
             return;
         }
 

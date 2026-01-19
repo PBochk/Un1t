@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66913ba7c18bd54aa1332eacba938b5, type: 3}
+  m_Name: FloorObjectsList
+  m_EditorClassIdentifier: 
+  roomTemplate: {fileID: 5287173037463610027, guid: 761509eb19082cb4299f34b4c25b94fc, type: 3}
+  horizontalHallway: {fileID: 2304853461992813493, guid: b8868f478deacbe439a935e42ab463ba, type: 3}
+  verticalHallway: {fileID: 449473305715974270, guid: 2cb4c9903d53611409c6d1c535ee83d3, type: 3}
+  topOuterWall: {fileID: 2219194514067704102, guid: 8d00cb1859acb574f8af8e8aa28868e8, type: 3}
+  bottomOuterWall: {fileID: 718568134208821154, guid: 6433715f63432204083991f17439317a, type: 3}
+  leftOuterWall: {fileID: 769235998188001086, guid: fbb987720555729498e66222d0a9e3f2, type: 3}
+  rightOuterWall: {fileID: 7543573792874096438, guid: a2c82c55342ec3546a24fd6f5bad356f, type: 3}
+  rock: {fileID: 6904496536194747905, guid: e33b0bdc5bc09464196908222d570a57, type: 3}
+  descent: {fileID: 3558636484064302916, guid: 0b1a1432607b0e34d8d5c327f4aceed5, type: 3}
+  horizontalDoor: {fileID: 5278097429403438141, guid: 02fac3d1220dd7a49b42016f642b5b99, type: 3}
+  verticalDoor: {fileID: 1912218870932658207, guid: 8797f5f024018da4b888108155669340, type: 3}
+  tent: {fileID: 1478781126609644790, guid: 9f20dca2ca5475a4b9da8362bfeaea43, type: 3}

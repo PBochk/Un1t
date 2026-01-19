@@ -31,7 +31,7 @@ public class PlayerModel : IInstanceModel
     private float dashCooldown;
     
     //not sufficient for saving and loading
-    [XmlIgnore] private readonly List<float> XPToNextLevel;
+    [XmlIgnore] public List<float> XPToNextLevel { get; private set; }
 
     public PlayerMeleeWeaponModel MeleeModel => meleeModel;
     public PlayerRangeWeaponModel RangeModel => rangeModel;
@@ -101,7 +101,6 @@ public class PlayerModel : IInstanceModel
         maxHealth = config.BaseMaxHealth;
         currentHealth = maxHealth;
         level = config.Level;
-        XPToNextLevel = config.XPToNextLevel;
         healPerHit = config.BaseHealPerHit;
         healCostCoefficient = config.BaseHealCostCoefficient;
         xpGainCoefficient = config.BaseXPGainCoefficient;
@@ -112,6 +111,7 @@ public class PlayerModel : IInstanceModel
         dashSpeed = config.BaseDashSpeed;
         dashDuration = config.BaseDashDuration;
         dashCooldown = config.BaseDashCooldown;
+        XPToNextLevel = Resources.Load<XPConfig>("XPConfig").XPToNextLevel;
     }
     
     public void BindModels(PlayerMeleeWeaponModel meleeModel, PlayerRangeWeaponModel rangeModel, PlayerUpgradeModel upgradeModel)
@@ -161,6 +161,7 @@ public class PlayerModel : IInstanceModel
 
     public void DecreaseXP(float decrement)
     {
+        if (CurrentXP <= 0) return;
         CurrentXP -= decrement;
     }
 
@@ -216,6 +217,7 @@ public class PlayerModel : IInstanceModel
         var data = new PlayerSaveData();
         var rangedData = rangeModel.ToSaveData();
         var meleeData = meleeModel.ToSaveData();
+        var upgradeData = upgradeModel.ToSaveData();
         data.currentHealth =  currentHealth;
         data.maxHealth = maxHealth;
         data.regenPerSecond = regenPerSecond;
@@ -231,15 +233,14 @@ public class PlayerModel : IInstanceModel
         data.dashSpeed = dashSpeed;
         data.dashDuration = dashDuration;
         data.dashCooldown  = dashCooldown;
-        data.ranged = rangedData;
-        data.melee = meleeData;
-
+        data.meleeData = meleeData;
+        data.rangedData = rangedData;
+        data.upgradeData = upgradeData;
         return data;
     }
 
     public void FromSaveData(PlayerSaveData data)
     {
-        
         currentHealth = data.currentHealth;
         maxHealth = data.maxHealth;
         regenPerSecond = data.regenPerSecond;
@@ -255,8 +256,8 @@ public class PlayerModel : IInstanceModel
         dashSpeed = data.dashSpeed;
         dashDuration = data.dashDuration;
         dashCooldown  = data.dashCooldown;
-        
-        rangeModel.FromSaveData(data.ranged);
-        meleeModel.FromSaveData(data.melee);
+        meleeModel.FromSaveData(data.meleeData);
+        rangeModel.FromSaveData(data.rangedData);
+        XPToNextLevel = Resources.Load<XPConfig>("XPConfig").XPToNextLevel;
     }
 }

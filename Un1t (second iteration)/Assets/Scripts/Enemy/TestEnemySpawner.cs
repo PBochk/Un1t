@@ -12,7 +12,6 @@ public class TestEnemySpawner : MonoBehaviour
     //TODO: Subscribe experience component on enemy death
     private void Awake()
     {
-        CreateEnemy();
     }
 
     public void SetTarget(EnemyTargetComponent targetComponent)
@@ -22,6 +21,7 @@ public class TestEnemySpawner : MonoBehaviour
 
     public void CreateEnemy()
     {
+        Debug.Log(enemyPrefab);
         var enemy = Instantiate(enemyPrefab);
         enemy.SetTarget(targetComponent);
         //var model = enemy.GetComponent<EnemyModelMB>();

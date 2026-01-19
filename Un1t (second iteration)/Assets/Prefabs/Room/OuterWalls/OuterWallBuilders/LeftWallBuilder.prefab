@@ -106,4 +106,5 @@ MonoBehaviour:
   ground: {fileID: 1792376874662093916, guid: 230fe3ed227c91d43b8f34accdf2ba61, type: 3}
   direction: 0
   shurfsSpawnDirection: 3
+  directionForBigWalls: 2
   shurfDarkness: {fileID: 8252421113222450477, guid: e176d38dd7f5701438b13fddab7421ef, type: 3}
